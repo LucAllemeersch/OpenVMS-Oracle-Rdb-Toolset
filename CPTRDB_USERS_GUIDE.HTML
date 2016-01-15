@@ -15,11 +15,12 @@ Users Guide
 </font> 
 </h2>
 </center>
+<br>
 
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 29-dec-2015, Luc Allemeersch<br>
+Modified: 15-jan-2016, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -129,6 +130,15 @@ single statement POKE/AGENT[/SOLUTION]. The toolset is available to loyal and
 active members of the Rdb community.
 </p>
 
+The kit can be downloaded from<br>
+<a href="https://github.com/LucAllemeersch/OpenVMS-Oracle-Rdb-Toolset">
+https://github.com/LucAllemeersch/OpenVMS-Oracle-Rdb-Toolset</a><br>
+
+<p>
+<b>CPTRDB_COCKPITMGR_DATA_SHEET.PDF</b><br>
+  Provides a condensed introduction to the CockpitMgr For OpenVMS product.
+</p>
+
 For feedback and remarks on the toolset, contact 
 <a href="mailto:luc.allemeersch@infrabel.be">luc.allemeersch@infrabel.be</a><br>
 For more information on CockpitMgr For OpenVMS, contact 
@@ -185,7 +195,7 @@ Catholic University Of Leuven (KUL), Belgium.
 </font>
 </h3>
 
-Copyright (C) 2013 - 2015 Luc Allemeersch<br>
+Copyright (C) 2013 - 2016 Luc Allemeersch<br>
 
 <p>
 This program is free software: you can redistribute it and/or modify
@@ -199,13 +209,15 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program. If not, see http://www.gnu.org/licenses/
+along with this program. If not, see 
+<a href="http://www.gnu.org/licenses">http://www.gnu.org/licenses</a>
 </p>
 
+<p>
 <b>CPTRDB_GNU_GENERAL_PUBLIC_LICENSE.TXT</b><br>
-
   Contains a copy of the GNU GENERAL PUBLIC LICENSE that defines the terms
-  and conditions for all use of the toolset.<br><br>
+  and conditions for all use of the toolset.
+</p>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -249,6 +261,7 @@ HP OpenVMS IA64 V8.4<br>
 Info-ZIP Zip V3.0<br>
 Info-ZIP UnZip V6.0<br>
 TlViz V2.1-0<br>
+Mozilla Firefox V-Latest<br>
 
 <p>
 <hr>
@@ -285,6 +298,7 @@ starting with "LML_", "JCC_RUN_", "DTL_".
 </p>
 
 Usage:<br>
+
 <pre>
 $ UNZIP CPTRDB_KIT_YYYYMMDD_DDMMMHHMMSS.ZIP
 $ CREATE/DIR/OWNER={toolset user} {dev}:[CPT$RDB]
@@ -307,6 +321,7 @@ directory CPT$RDB.
 </p>
  
 Usage:<br>
+
 <pre>
 $ UNZIP CPTRDB_CHANGES_YYYYMMDD_DDMMMHHMMSS.ZIP
 $ BACKUP CPTRDB_CHANGES_YYYYMMDD_DDMMMHHMMSS.A/SAVE CPT$RDB_CHANGES:
@@ -325,13 +340,17 @@ guide (this file).
 </font>
 </h3>
 
+<p>
 <b>CPTRDB_KIT_20151023_23OCT152902.A</b><br>
 Full kit<br>
-External Field Test<br><br>
+External Field Test
+</p>
 
+<p>
 <b>CPTRDB_KIT_20151229_29DEC153524.A</b><br>
 Full kit<br>
-First Public Release<br><br>
+First Public Release
+</p>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -381,7 +400,7 @@ configuration file.
 
 The template configuration file CPTRDB_CONFIGURATION_TEMPLATE.REF can also
 be used as a starting point. Refer to the chapter 
-<a href="#Chapter 15">Getting Started</a> for more details.
+<a href="#Chapter 15">-- § 15 -- Getting Started</a> for more details.
 </p>
 
 Configuration file entry sample:<br>
@@ -717,7 +736,7 @@ below. Note that exception conditions are always signalled twice using
 CockpitMgr events displayed in the event console and mail messages. 
 </p>
 
-Toolset procedures using POKE/AGENT:
+Toolset procedures using POKE/AGENT:<br>
 
 <pre>
   CPTRDB_BACKUP_AIJ.COM
@@ -831,7 +850,7 @@ Procedures Usage
 </p>
 
 <pre>
-  $ POKE/AGENT/INIT/CLASS=[{class_name}|"OracleRdb"]
+$ POKE/AGENT/INIT/CLASS=[{class_name}|"OracleRdb"]
 </pre>
 
 <p>
@@ -869,10 +888,10 @@ Procedures Usage
 Usage:<br>
 
 <pre>
-  $ SQL := $SQL$
-  $ @CPTRDB_ATTACH {dbid}
-  $ SQL
-  SQL> select rdb$file_name from rdb$database;
+$ SQL := $SQL$
+$ @CPTRDB_ATTACH {dbid}
+$ SQL
+SQL> select rdb$file_name from rdb$database;
 </pre>
    
 <a href="#Chapter 1">To Top</a><br>
@@ -930,26 +949,26 @@ proof of concept environment for all operations included in the toolset.
 </p>
 
 <pre>
-  $!------------------------------------------------------
-  $! -- Toolset user
-  $ userid          = "RDBMON"
-  $! -- Toolset home
-  $ root_dir        = "DISK$USERS:[ALLEMEERSCH.CPT$RDB"
-  $ def_dir         = "''root_dir']"
-  $ logs_dir        = "''root_dir'.LOGS]"
-  $ lists_dir       = "''root_dir'.LISTS]"
-  $ tmp_dir         = "''root_dir'.TMP]"
-  $ data_dir        = "''root_dir'.DATA]"
-  $ lml_logs_dir    = "''root_dir'.LML_LOGS]"
-  $ changes_dir     = "''root_dir'.CHANGES]"
-  $! -- Output files device
-  $ outdev          = "DISK$DATA_29:"
-  $! -- Adapt to existing jdbc environment
-  $ jdbc_logdir     = "SYS$COMMON:[RDB$JDBC.LOGS]"
-  $ jdbc_trcdir     = "''outdev'[JDBC_TRACE_FILES]"
-  $ jdbc_trcdirdone = "''outdev'[JDBC_TRACE_FILES.DONE]"
-  $ jdbc_thindir    = "DISK$USERS:[ORACLE.RDB$PROCS.THIN]"
-  $!------------------------------------------------------
+$!------------------------------------------------------
+$! -- Toolset user
+$ userid          = "RDBMON"
+$! -- Toolset home
+$ root_dir        = "DISK$USERS:[ALLEMEERSCH.CPT$RDB"
+$ def_dir         = "''root_dir']"
+$ logs_dir        = "''root_dir'.LOGS]"
+$ lists_dir       = "''root_dir'.LISTS]"
+$ tmp_dir         = "''root_dir'.TMP]"
+$ data_dir        = "''root_dir'.DATA]"
+$ lml_logs_dir    = "''root_dir'.LML_LOGS]"
+$ changes_dir     = "''root_dir'.CHANGES]"
+$! -- Output files device
+$ outdev          = "DISK$DATA_29:"
+$! -- Adapt to existing jdbc environment
+$ jdbc_logdir     = "SYS$COMMON:[RDB$JDBC.LOGS]"
+$ jdbc_trcdir     = "''outdev'[JDBC_TRACE_FILES]"
+$ jdbc_trcdirdone = "''outdev'[JDBC_TRACE_FILES.DONE]"
+$ jdbc_thindir    = "DISK$USERS:[ORACLE.RDB$PROCS.THIN]"
+$!------------------------------------------------------
 </pre>
 
 <p>
@@ -959,20 +978,20 @@ proof of concept environment for all operations included in the toolset.
 </p>
 
 <pre>
-  $!------------------------------------------------------
-  $! -- Toolset home
-  $ home_dir = "DISK$USERS:[ALLEMEERSCH.CPT$RDB]"
-  $ root_dir = "DSA30:[USERS.ALLEMEERSCH.CPT$RDB.]"
-  $! -- Output files device
-  $ outdev   = "DISK$DATA_29:"
-  $! -- Live aij files device
-  $ aijdev   = "DSA29:"
-  $! -- Adapt to existing jdbc environment
-  $ jdbc_logdir     = "SYS$COMMON:[RDB$JDBC.LOGS]"
-  $ jdbc_trcdir     = "''outdev'[JDBC_TRACE_FILES]"
-  $ jdbc_trcdirdone = "''outdev'[JDBC_TRACE_FILES.DONE]"
-  $ jdbc_thindir    = "DISK$USERS:[ORACLE.RDB$PROCS.THIN]"
-  $!------------------------------------------------------
+$!------------------------------------------------------
+$! -- Toolset home
+$ home_dir = "DISK$USERS:[ALLEMEERSCH.CPT$RDB]"
+$ root_dir = "DSA30:[USERS.ALLEMEERSCH.CPT$RDB.]"
+$! -- Output files device
+$ outdev   = "DISK$DATA_29:"
+$! -- Live aij files device
+$ aijdev   = "DSA29:"
+$! -- Adapt to existing jdbc environment
+$ jdbc_logdir     = "SYS$COMMON:[RDB$JDBC.LOGS]"
+$ jdbc_trcdir     = "''outdev'[JDBC_TRACE_FILES]"
+$ jdbc_trcdirdone = "''outdev'[JDBC_TRACE_FILES.DONE]"
+$ jdbc_thindir    = "DISK$USERS:[ORACLE.RDB$PROCS.THIN]"
+$!------------------------------------------------------
 </pre>
 
   The toolset logicals are:<br>
@@ -1023,7 +1042,7 @@ proof of concept environment for all operations included in the toolset.
 Usage:<br>
 
 <pre>
-  $ @CPTRDB_INITIALIZE_QUEUE {node}
+$ @CPTRDB_INITIALIZE_QUEUE {node}
 </pre>
 
 <p>
@@ -1040,8 +1059,8 @@ Usage:<br>
 </p>
 
 <pre>
-  Parameters: P1, nodename, P1 to procedure,     char(6)
-              P2, filename, cptrdb_{name}[.COM], char(39)
+Parameters: P1, nodename, P1 to procedure,     char(6)
+            P2, filename, cptrdb_{name}[.COM], char(39)
 </pre>
 
 <p>
@@ -1052,7 +1071,7 @@ Usage:<br>
 Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} [{name}|CPTRDB_CREATE_DB]
+$ @CPTRDB_SUBMIT {node} [{name}|CPTRDB_CREATE_DB]
 </pre>
 
 <p>
@@ -1078,8 +1097,9 @@ Usage:<br>
   starting with "LML_", "JCC_RUN_", "DTL_". Refer to the JCC Logminer Loader
   chapters for more details.
 
-  Refer to the chapter 'Database And Output Files Formats' for a complete list
-  of all files handled by the toolset on a specific day.
+  Refer to the chapter 
+  <a href="#Chapter 64">-- § 64 -- Database And Output Files Formats</a>  
+  for a complete list of all files handled by the toolset on a specific day.
 
   Note that these filespecs are unique, so the use of the catchall cleaning 
   procedure CPTRDB_CLEANUP_LOGS_DAILY.COM is required to contain the volume of
@@ -1097,16 +1117,16 @@ Usage:<br>
 </p>
 
 <pre>
-  $!----------------------
-  $ dev  = "DISK$DATA_29:"
-  $ dbid = "CPTRDB_DB_1"
-  $!----------------------
+$!----------------------
+$ dev  = "DISK$DATA_29:"
+$ dbid = "CPTRDB_DB_1"
+$!----------------------
 </pre>
 
 Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_CREATE_DB
+$ @CPTRDB_SUBMIT {node} CPTRDB_CREATE_DB
 </pre>
 
 <p>
@@ -1129,12 +1149,12 @@ Usage:<br>
 </p>
 
 <pre>
-  $ SQL := $SQL$
-  $ @CPT$RDB:CPTRDB_ATTACH {dbid}
-  $ SQL
-  SQL>@CPT$RDB:CPTRDB_GET_DCL_DATA 
-      @CPT$RDB:CPTRDB_LIB_TIMER
-      @CPT$RDB:CPTRDB_SHOW_DBKEY
+$ SQL := $SQL$
+$ @CPT$RDB:CPTRDB_ATTACH {dbid}
+$ SQL
+SQL>@CPT$RDB:CPTRDB_GET_DCL_DATA 
+    @CPT$RDB:CPTRDB_LIB_TIMER
+    @CPT$RDB:CPTRDB_SHOW_DBKEY
 </pre>
 
 <p>
@@ -1143,12 +1163,12 @@ Usage:<br>
 </p>
 
 <pre>
-  $ SQL := $SQL$
-  $ @CPT$RDB:CPTRDB_ATTACH {dbid}
-  $ SQL
-  SQL> @SQL$SAMPLE:INFO_TABLES
-       @SYS$SHARE:SQL_FUNCTIONS[72|73]
-       COMMIT;
+$ SQL := $SQL$
+$ @CPT$RDB:CPTRDB_ATTACH {dbid}
+$ SQL
+SQL> @SQL$SAMPLE:INFO_TABLES
+     @SYS$SHARE:SQL_FUNCTIONS[72|73]
+     COMMIT;
 </pre>
 
   The test database is created with all requirements satisfied.<br>
@@ -1164,15 +1184,15 @@ Usage:<br>
 </p>
 
 <pre>
-  $!-------------------------------
-  $ define sql$database cptrdb_db_1
-  $!-------------------------------
+$!-------------------------------
+$ define sql$database cptrdb_db_1
+$!-------------------------------
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_CREATE_DB_TABLES
+$ @CPTRDB_SUBMIT {node} CPTRDB_CREATE_DB_TABLES
 </pre>
 
 <p>
@@ -1184,15 +1204,15 @@ Usage:<br>
 </p>
 
 <pre>
-  $!-------------------------------
-  $ define sql$database cptrdb_db_1
-  $!-------------------------------
+$!-------------------------------
+$ define sql$database cptrdb_db_1
+$!-------------------------------
 </pre>
 
   Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_ALL_DATATYPES_INSERT
+$ @CPTRDB_SUBMIT {node} CPTRDB_ALL_DATATYPES_INSERT
 </pre>
 
 <p>
@@ -1205,10 +1225,10 @@ Usage:<br>
 </p>
 
 <pre>
-  $!--------------------------
-  $ dbid =       "CPTRDB_DB_1"
-  $ define dbroot cptrdb_db_1
-  $!--------------------------
+$!--------------------------
+$ dbid =       "CPTRDB_DB_1"
+$ define dbroot cptrdb_db_1
+$!--------------------------
 </pre>
 
 <p>
@@ -1219,7 +1239,7 @@ Usage:<br>
   Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_CREATE_DB_AIJ
+$ @CPTRDB_SUBMIT {node} CPTRDB_CREATE_DB_AIJ
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -1319,15 +1339,15 @@ Procedures Usage
   Functions<br>
   Information tables<br><br>
 
-  To create these on a existing database use:
+  To create these on a existing database use:<br>
 
 <pre>
-  SQL>@CPT$RDB:CPTRDB_GET_DCL_DATA
-      @CPT$RDB:CPTRDB_SHOW_DBKEY
+SQL>@CPT$RDB:CPTRDB_GET_DCL_DATA
+    @CPT$RDB:CPTRDB_SHOW_DBKEY
 
-  SQL> @SQL$SAMPLE:INFO_TABLES
-       @SYS$SHARE:SQL_FUNCTIONS[72|73]
-       COMMIT;
+SQL> @SQL$SAMPLE:INFO_TABLES
+     @SYS$SHARE:SQL_FUNCTIONS[72|73]
+     COMMIT;
 </pre>
 
 <p>
@@ -1352,9 +1372,11 @@ Procedures Usage
   CPT$RDB_BATCH_{node}
 </pre>
 
+<p>
 <b>CPTRDB_CONFIGURATION_TEMPLATE.REF</b><br>
   The template configuration file contains the minimum required entries to run
   the procedures:
+</p>
   
 <pre>
   CPTRDB_SHOW_AIJ_LIVE[_DAILY].COM
@@ -1362,10 +1384,10 @@ Procedures Usage
   CPTRDB_BATCH_ENTRIES[_DAILY].COM
 </pre>
   
-  Rename and save the configuration file shipped with the kit using
+  Rename and save the configuration file shipped with the kit using:<br>
 
 <pre>
-  $ @CPTRDB_RENAME_CDT CPTRDB_CONFIGURATION.REF
+$ @CPTRDB_RENAME_CDT CPTRDB_CONFIGURATION.REF
 </pre>
   
 <p>
@@ -1375,30 +1397,30 @@ Procedures Usage
 </p>
 
 <pre>
-  $ COPY CPTRDB_CONFIGURATION_TEMPLATE.REF CPTRDB_CONFIGURATION.REF
-  $ EDIT CPTRDB_CONFIGURATION.REF
+$ COPY CPTRDB_CONFIGURATION_TEMPLATE.REF CPTRDB_CONFIGURATION.REF
+$ EDIT CPTRDB_CONFIGURATION.REF
 </pre>
 
-  Interactive usage:
+  Interactive usage:<br>
 
 <pre>
-  $! -- Not using the configuration file --
-  $ @CPTRDB_SHOW_AIJ_LIVE_ONE  {dbid}
-  $ @CPTRDB_SHOW_AIJ_LIVE_DUMP {dbid}
+$! -- Not using the configuration file --
+$ @CPTRDB_SHOW_AIJ_LIVE_ONE  {dbid}
+$ @CPTRDB_SHOW_AIJ_LIVE_DUMP {dbid}
 
-  $! -- Using the configuration file --
-  $ @CPTRDB_SHOW_AIJ_LIVE
-  $ @CPTRDB_SHOW_DBS_OPEN
-  $ @CPTRDB_BATCH_ENTRIES
+$! -- Using the configuration file --
+$ @CPTRDB_SHOW_AIJ_LIVE
+$ @CPTRDB_SHOW_DBS_OPEN
+$ @CPTRDB_BATCH_ENTRIES
 </pre>
 
-  Start the recurring automated 'DAILY' procedures via:
+  Start the recurring automated 'DAILY' procedures via:<br>
 
 <pre>
-  $! -- Using the configuration file --
-  $ @CPTRDB_SUBMIT {node} CPTRDB_SHOW_AIJ_LIVE_DAILY
-  $ @CPTRDB_SUBMIT {node} CPTRDB_SHOW_DBS_OPEN_DAILY
-  $ @CPTRDB_SUBMIT {node} CPTRDB_BATCH_ENTRIES_DAILY
+$! -- Using the configuration file --
+$ @CPTRDB_SUBMIT {node} CPTRDB_SHOW_AIJ_LIVE_DAILY
+$ @CPTRDB_SUBMIT {node} CPTRDB_SHOW_DBS_OPEN_DAILY
+$ @CPTRDB_SUBMIT {node} CPTRDB_BATCH_ENTRIES_DAILY
 </pre>
 
   Refer to the individual chapters below for more information on the procedures
@@ -1464,7 +1486,7 @@ CPT$RDB_JOB|CPTRDB_BACKUP_DB_ALL|L15S29|TOMORROW + 00:35|
   Logfile format is<br>
 
 <pre>
-  BACKUP_DB_ALL_{node}_yyyymmdd.LOG_ddmmmhhmmss
+BACKUP_DB_ALL_{node}_yyyymmdd.LOG_ddmmmhhmmss
 </pre>
 
   Logfiles older than 8 days are cleaned.<br><br>
@@ -1489,16 +1511,18 @@ CPT$RDB_PARAM|CPTRDB_BACKUP_DB|00|0|30|L15S36::ALLEMEERSCH|
 ! 5 Exception mail address
 </pre>
 
-  Logfile format is
+  Logfile format is<br>
+
 <pre>
-  BACKUP_DB_{dbid}_{node}_yyyymmdd.LOG_ddmmmhhmmss
+BACKUP_DB_{dbid}_{node}_yyyymmdd.LOG_ddmmmhhmmss
 </pre>
 
   Logfiles older than 8 days are cleaned.<br>
 
-  Backup file format is
+  Backup file format is<br>
+
 <pre>
-  cpt$rdb_db_bck:{dbid}_{node}_yyyymmdd_hhmm.rbf
+cpt$rdb_db_bck:{dbid}_{node}_yyyymmdd_hhmm.rbf
 </pre>
 
 <p>
@@ -1508,16 +1532,17 @@ CPT$RDB_PARAM|CPTRDB_BACKUP_DB|00|0|30|L15S36::ALLEMEERSCH|
 </p>
 
 <pre>
-  123456789012345678901234567890123456789
-  123456789012345678_123456_yyyymmdd_hhmm.rbf
-  backup_db_1234567890123_123456_yyyymmdd.[log|lis|diff|mime]_ddmmmhhmmss
+123456789012345678901234567890123456789
+123456789012345678_123456_yyyymmdd_hhmm.rbf
+backup_db_1234567890123_123456_yyyymmdd.[log|lis|diff|mime]_ddmmmhhmmss
 </pre>
 
-  A database backup is executed if 
+  A database backup is executed if<br>
+
 <pre>
-      None exists for the current day
-   Or The current hour is in the list of scheduled hours
-      And none exists for the current hour (based on the .rbf filename)
+   None exists for the current day
+Or The current hour is in the list of scheduled hours
+   And none exists for the current hour (based on the .rbf filename)
 </pre>
 
 <p>
@@ -1528,38 +1553,41 @@ CPT$RDB_PARAM|CPTRDB_BACKUP_DB|00|0|30|L15S36::ALLEMEERSCH|
 </p>
 
 <pre>
-  $ @CPTRDB_POKE_CLEAR_DB_BACKUP_STARTED
-  $ @CPTRDB_POKE_CLEAR_DB_BACKUP_FAILED
-  or
-  $ POKE/AGENT/INIT/CLASS="OracleRdb"
+$ @CPTRDB_POKE_CLEAR_DB_BACKUP_STARTED
+$ @CPTRDB_POKE_CLEAR_DB_BACKUP_FAILED
+or
+$ POKE/AGENT/INIT/CLASS="OracleRdb"
 
-  $ SET ENTRY/RELEASE CPTRDB_BACKUP_DB_ALL
+$ SET ENTRY/RELEASE CPTRDB_BACKUP_DB_ALL
 </pre>
 
+<p>
   The other backups will exit with "Nothing to do",
-  assuming the current hour is not a scheduled hour.<br><br>
+  assuming the current hour is not a scheduled hour.
+</p>
 
-  Toolset cockpit events:
+  Toolset cockpit events:<br>
 
 <pre>
-  CPTRDB_DB_BackupStarted 
-  "CPTRDB - Database {root} - DB Backup Started - ddmmmhhmmss"
+CPTRDB_DB_BackupStarted 
+"CPTRDB - Database {root} - DB Backup Started - ddmmmhhmmss"
 
-  CPTRDB_DB_BackupFailed
-  "CPTRDB - Database {root} - DB Backup Failed - ddmmmhhmmss"
+CPTRDB_DB_BackupFailed
+"CPTRDB - Database {root} - DB Backup Failed - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - DB Backup Failed {dbid} {node} yyyymmdd"
+"CPTRDB - DB Backup Failed {dbid} {node} yyyymmdd"
 </pre>
 
-  Database backup files are cleaned if
+  Database backup files are cleaned if<br>
+
 <pre>
-      The current run is successful
-  And they are created before the current day
-  And their expiration date is set to a date before the current day
+    The current run is successful
+And they are created before the current day
+And their expiration date is set to a date before the current day
 </pre>
 
 <p>
@@ -1589,8 +1617,10 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_BACKUP_AIJ_ALL.COM</b><br>
-  Calls per database CPTRDB_BACKUP_AIJ.COM<br>
+  Calls per database CPTRDB_BACKUP_AIJ.COM
+</p>
 
 <p>
   This procedure performs a regular repeating quiet point aij backup 
@@ -1626,16 +1656,18 @@ CPT$RDB_JOB|CPTRDB_BACKUP_AIJ_ALL|L15S29|+00:30|
 ! 3 Reschedule time
 </pre>
 
-  Logfile format is
+  Logfile format is<br>
 
 <pre>
-  BACKUP_AIJ_ALL_{node}_yyyymmdd.LOG_ddmmmhhmm
+BACKUP_AIJ_ALL_{node}_yyyymmdd.LOG_ddmmmhhmm
 </pre>
 
-  Logfiles older than 24 hours are cleaned.<br><br>
+  Logfiles older than 24 hours are cleaned.<br>
 
+<p>
 <b>CPTRDB_BACKUP_AIJ.COM</b><br>
-  Called per database from CPTRDB_BACKUP_AIJ_ALL.COM<br>
+  Called per database from CPTRDB_BACKUP_AIJ_ALL.COM
+</p>
 
 <p>
   Execute a quiet point aij journal backup to disk for one database.
@@ -1654,18 +1686,18 @@ CPT$RDB_PARAM|CPTRDB_BACKUP_AIJ|00;06;08;10;12;14;16;18;20;22|9|30|L15S36::ALLEM
 ! 5 Exception mail address
 </pre>
 
-  Logfile format is
+  Logfile format is<br>
 
 <pre>
-  BACKUP_AIJ_{dbid}_{node}_yyyymmdd.LOG_ddmmmhhmmss
+BACKUP_AIJ_{dbid}_{node}_yyyymmdd.LOG_ddmmmhhmmss
 </pre>
 
   Logfiles older than 24 hours are cleaned.<br>
 
-  Backup file format is
+  Backup file format is<br>
 
 <pre>
-  cpt$rdb_aij_bck:{dbid}_{node}_yyyymmdd_hhmm_{seqnbr}.aij_bck
+cpt$rdb_aij_bck:{dbid}_{node}_yyyymmdd_hhmm_{seqnbr}.aij_bck
 </pre>
 
 <p>
@@ -1675,27 +1707,27 @@ CPT$RDB_PARAM|CPTRDB_BACKUP_AIJ|00;06;08;10;12;14;16;18;20;22|9|30|L15S36::ALLEM
 </p>
 
 <pre>
-  123456789012345678901234567890123456789
-  123456789012_123456_yyyymmdd_hhmm_nnnnn.aij_bck
-  backup_aij_123456789012_123456_yyyymmdd.[log|lis|diff|mime]_ddmmmhhmmss
+123456789012345678901234567890123456789
+123456789012_123456_yyyymmdd_hhmm_nnnnn.aij_bck
+backup_aij_123456789012_123456_yyyymmdd.[log|lis|diff|mime]_ddmmmhhmmss
 </pre>
 
-  The default database journal backup edit string is
+  The default database journal backup edit string is<br>
 
 <pre>
-  $ rmu/set after -
-    /backups=(manual, -
-    edit_filename=(YEAR,MONTH,DAY_OF_MONTH,"_",HOUR,MINUTE,"_",SEQUENCE) ) -
-    {dbid}
+$ rmu/set after -
+  /backups=(manual, -
+  edit_filename=(YEAR,MONTH,DAY_OF_MONTH,"_",HOUR,MINUTE,"_",SEQUENCE) ) -
+  {dbid}
 </pre>
 
-  A aij backup is executed if 
+  A aij backup is executed if<br>
 
 <pre>
-       None exists for the current day
-    Or the current hour is in the list of scheduled hours
-       And none exists for the current hour (based on the .aij_bck filename)
-    Or a live aij file (is full and) has the status "*Backup Needed*"
+   None exists for the current day
+Or the current hour is in the list of scheduled hours
+   And none exists for the current hour (based on the .aij_bck filename)
+Or a live aij file (is full and) has the status "*Backup Needed*"
 </pre>
 
 <p>
@@ -1705,18 +1737,18 @@ CPT$RDB_PARAM|CPTRDB_BACKUP_AIJ|00;06;08;10;12;14;16;18;20;22|9|30|L15S36::ALLEM
 </p>
 
 <pre>
-  $ @CPTRDB_POKE_CLEAR_AIJ_BACKUP_FAILED
-  or
-  $ POKE/AGENT/INIT/CLASS="OracleRdb"
+$ @CPTRDB_POKE_CLEAR_AIJ_BACKUP_FAILED
+or
+$ POKE/AGENT/INIT/CLASS="OracleRdb"
 </pre>
 
 <p>
   The cockpit captures, matches, displays and clears all standard AIJ related 
   opcom messages issued by Rdb. The database should have the setting 
-  'NOTIFY ENABLED'.<br><br>
-
-  CockpitMgr events on standard Rdb opcom messages:
+  'NOTIFY ENABLED'.
 </p>
+
+  CockpitMgr events on standard Rdb opcom messages:<br>
 
 <pre>
   RDB_AIJ_BackupStarted        "AIJ backup operation started*"
@@ -1730,26 +1762,26 @@ CPT$RDB_PARAM|CPTRDB_BACKUP_AIJ|00;06;08;10;12;14;16;18;20;22|9|30|L15S36::ALLEM
   RDB_AIJ_MANUAL_BACKUP_FAILED "AIJ manual backup operation failed"
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_AIJ_BackupFailed
-  "CPTRDB - Database {root} - AIJ Backup Failed - ddmmmhhmmss"
+CPTRDB_AIJ_BackupFailed
+"CPTRDB - Database {root} - AIJ Backup Failed - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - AIJ Backup Failed {dbid} {nodeid} yyyymmdd"
+"CPTRDB - AIJ Backup Failed {dbid} {nodeid} yyyymmdd"
 </pre>
 
-  AIJ backup files are cleaned if
+  AIJ backup files are cleaned if:<br>
 
 <pre>
-      The current run is successful
-  And they are created more than 24 hours before the current date and time
-  And their expiration date is set to a timestamp older than 8 days before 
-      the current date and time 
+    The current run is successful
+And they are created more than 24 hours before the current date and time
+And their expiration date is set to a timestamp older than 8 days before 
+    the current date and time 
 </pre>
 
 <p>
@@ -1785,8 +1817,10 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_SHOW_DB_BCK_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_DB_BCK[_DAILY].COM<br>
+  Called from CPTRDB_SHOW_DB_BCK[_DAILY].COM
+</p>
 
 <p>
   List database backup files in CPT$RDB_DB_BCK: on one node for a series of 
@@ -1805,8 +1839,10 @@ CPT$RDB_NODE|CPTRDB_SHOW_DB_BCK|L15S29|CPTRDB_MASTR_DB|
 ! 3 Database id truncated to char(18)
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_DB_BCK.COM</b><br>
-  Calls CPTRDB_SHOW_DB_BCK_BATCH.COM<br>
+  Calls CPTRDB_SHOW_DB_BCK_BATCH.COM
+</p>
 
 <p>
   Interactive list today's database backup files for a series of nodes and
@@ -1814,13 +1850,13 @@ CPT$RDB_NODE|CPTRDB_SHOW_DB_BCK|L15S29|CPTRDB_MASTR_DB|
   the keywords CPT$RDB_NODE|CPTRDB_SHOW_DB_BCK
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_DB_BCK
+$ @CPTRDB_SHOW_DB_BCK
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
  3-APR-2015 12:51:41.63 CPTRDB Database Backup Files From Node L15S29
@@ -1848,8 +1884,10 @@ CPTRDB_MASTR_DB_L15S29_20150403_0036.RBF;1
 Total of 1 file, 2079 blocks.
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_DB_BCK_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_DB_BCK_BATCH.COM<br>
+  Calls CPTRDB_SHOW_DB_BCK_BATCH.COM
+</p>
 
 <p>
   Daily list today's database backup files for a series of nodes and databases,
@@ -1874,17 +1912,17 @@ CPT$RDB_JOB|CPTRDB_SHOW_DB_BCK_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERSCH
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_DB_BackupsDifferences
-  "CPTRDB - Database Backups Differences {node} - ddmmmhhmmss"
+CPTRDB_DB_BackupsDifferences
+"CPTRDB - Database Backups Differences {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - DB Backups Diff {node} yyyymmdd"
+"CPTRDB - DB Backups Diff {node} yyyymmdd"
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -1919,13 +1957,13 @@ Procedures Usage
   the aij backup filespecs.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_AIJ_BCK_ONE {dbid}
+$ @CPTRDB_SHOW_AIJ_BCK_ONE {dbid}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 CPTRDB - AIJ Backup Files
@@ -1946,8 +1984,10 @@ DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20150403_1008_5274.AIJ_BCK;1
 DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20150403_1208_5275.AIJ_BCK;1
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_AIJ_BCK_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_AIJ_BCK[_DAILY].COM<br>
+  Called from CPTRDB_SHOW_AIJ_BCK[_DAILY].COM
+</p>
 
 <p>
   List today's AIJ backup files in CPT$RDB_AIJ_BCK: on one node, group by 
@@ -1966,10 +2006,14 @@ CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK|L15S29|CPTRDB_MASTR|
 ! 3 Database id truncated to char(12)
 </pre>
 
-  The dates listed are creation, expiration and backup date.<br><br>
+<p>
+  The dates listed are creation, expiration and backup date.
+</p>
 
+<p>
 <b>CPTRDB_SHOW_AIJ_BCK.COM</b><br>
-  Calls CPTRDB_SHOW_AIJ_BCK_BATCH.COM<br>
+  Calls CPTRDB_SHOW_AIJ_BCK_BATCH.COM
+</p>
 
 <p>
   Interactive list today's AIJ backup files for a number of databases on a 
@@ -1979,13 +2023,13 @@ CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK|L15S29|CPTRDB_MASTR|
   database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_AIJ_BCK
+$ @CPTRDB_SHOW_AIJ_BCK
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
  3-APR-2015 12:55:04.72 CPTRDB - AIJ Backup Files From Node L15S29
@@ -2029,8 +2073,10 @@ CPTRDB_MASTR_L15S29_20150403_1208_791.AIJ_BCK;1
 Total of 5 files, 1290 blocks.
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_AIJ_BCK_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_AIJ_BCK_BATCH.COM<br>
+  Calls CPTRDB_SHOW_AIJ_BCK_BATCH.COM
+</p>
 
 <p>
   Daily list today's aij backup files for a number of databases on a series 
@@ -2061,17 +2107,17 @@ CPT$RDB_JOB|CPTRDB_SHOW_AIJ_BCK_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERSC
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_AIJ_BackupsDifferences
-  "CPTRDB - AIJ Backups Differences {node} - ddmmmhhmmss"
+CPTRDB_AIJ_BackupsDifferences
+"CPTRDB - AIJ Backups Differences {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - AIJ Backups Diff {node} yyyymmdd"
+"CPTRDB - AIJ Backups Diff {node} yyyymmdd"
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -2114,13 +2160,13 @@ CPT$RDB_NODE|CPTRDB_BATCH_ENTRIES|L15S29|[USERS.ALLEMEERSCH.CPT$RDB]|
 </pre>
 
   Usage:<br>
-  (As user of the submitted jobs)
+  (As user of the submitted jobs)<br>
 
 <pre>
-  $ @CPTRDB_BATCH_ENTRIES
+$ @CPTRDB_BATCH_ENTRIES
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
  3-APR-2015 13:04:56.02 CPTRDB - Batch Entries Differences From Node L15S29
@@ -2143,13 +2189,15 @@ Output CPT$RDB_LISTS:BATCH_ENTRIES_L15S29_20150403.LIS_03APR130456
   are created in CPT$RDB and not in CPT$RDB_LISTS which is an exception.
 </p>
 
+<p>
   If batch entries have changed, such as a new version of command file, use
+</p>
 
 <pre>
-  $ @CPTRDB_RENAME_CDT CPTRDB_BATCH_ENTRIES.REF
-  $ copy BATCH_ENTRIES.TMP_REF CPTRDB_BATCH_ENTRIES.REF
-  or
-  $ edit CPTRDB_BATCH_ENTRIES.REF
+$ @CPTRDB_RENAME_CDT CPTRDB_BATCH_ENTRIES.REF
+$ copy BATCH_ENTRIES.TMP_REF CPTRDB_BATCH_ENTRIES.REF
+or
+$ edit CPTRDB_BATCH_ENTRIES.REF
 </pre>
 
   to confirm the new version(s) as reference.<br>
@@ -2186,17 +2234,17 @@ CPT$RDB_JOB|CPTRDB_BATCH_ENTRIES_DAILY|L15S29|TOMORROW + 08:15|L15S36::ALLEMEERS
   are created in CPT$RDB and not in CPT$RDB_LISTS which is an exception.
 </p>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_BatchEntriesDifferences
-  "CPTRDB - Batch Entries Differences {node} - ddmmmhhmmss"
+CPTRDB_BatchEntriesDifferences
+"CPTRDB - Batch Entries Differences {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - Batch Entries Diff {node} yyyymmdd"
+"CPTRDB - Batch Entries Diff {node} yyyymmdd"
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -2221,15 +2269,17 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_SHOW_AIJ_LIVE_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_AIJ_LIVE[_[ONE|DAILY]].COM<br>
+  Called from CPTRDB_SHOW_AIJ_LIVE[_[ONE|DAILY]].COM
+</p>
 
 <p>
   List the status of the live aij files for one database.
   Requires the information table RDB$JOURNALS.
 </p>
 
-  Per aij slot the procedure lists:
+  Per aij slot the procedure lists:<br>
 
 <pre>
   rdb$journal_name
@@ -2249,7 +2299,7 @@ Procedures Usage
   flags
 </pre>
 
-  Output sample for one database:
+  Output sample for one database:<br>
 
 <pre>
 -- 1 CPTRDB_DB_1 --
@@ -2272,17 +2322,20 @@ AIJ3|AIJ file block has been assigned|
 ------------------------------------------------------------------------------------------------------------------------------------
 </pre> 
 
+<p>
 <b>CPTRDB_SHOW_AIJ_LIVE_ONE.COM</b><br>
-  Calls CPTRDB_SHOW_AIJ_LIVE_BATCH.COM<br>
+  Calls CPTRDB_SHOW_AIJ_LIVE_BATCH.COM
+</p>
 
 <p>
   Interactive list the live aij files for one database on the executor node,
   using the current Rdb version.
 </p>
 
-  Usage:
+  Usage:<br>
+
 <pre>
-  $ @CPTRDB_SHOW_AIJ_LIVE_ONE {dbid}
+$ @CPTRDB_SHOW_AIJ_LIVE_ONE {dbid}
 </pre>
 
 <p>
@@ -2291,12 +2344,13 @@ AIJ3|AIJ file block has been assigned|
   by dumping the header blocks, using RMU/Dump/After of the current Rdb version.
 </p>
 
-  Usage:
+  Usage:<br>
+
 <pre>
   $ @CPTRDB_SHOW_AIJ_LIVE_DUMP {dbid}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 --  9-JUL-2015 11:16:44.92 Handle CPTRDB_MASTR_DB V7.3 --
@@ -2312,7 +2366,7 @@ For Database DISK$DATA_29:[CPTRDB_MASTR_DB]CPTRDB_MASTR_DB.RDB
 Output CPT$RDB_LISTS:AIJ_LIVE_CPTRDB_MASTR_DB_L15S29_2015070.LIS_09JUL111644
 </pre>
 
-  The output file contains the full dump of the header blocks:
+  The output file contains the full dump of the header blocks:<br>
 
 <pre>
 Live AIJ Files Dump
@@ -2354,8 +2408,10 @@ Display terminated at user request after AIJ record 1
 ...
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_AIJ_LIVE.COM</b><br>
-  Calls CPTRDB_SHOW_AIJ_LIVE_BATCH.COM<br>
+  Calls CPTRDB_SHOW_AIJ_LIVE_BATCH.COM
+</p>
 
 <p>
   Interactive list the live aij files for a series of databases
@@ -2374,13 +2430,13 @@ CPT$RDB_DATABASE|CPTRDB_SHOW_AIJ_LIVE|CPTRDB_MASTR_DB|7.3|L15S29|
 ! 4 Execution node
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_AIJ_LIVE
+$ @CPTRDB_SHOW_AIJ_LIVE
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
  3-APR-2015 13:13:00.56 CPTRDB Live AIJ Files From Node L15S29
@@ -2424,8 +2480,10 @@ AIJ3|AIJ file has been modified|AIJ file block has been assigned|
 ------------------------------------------------------------------------------------------------------------------------------------
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_AIJ_LIVE_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_AIJ_LIVE_BATCH.COM<br>
+  Calls CPTRDB_SHOW_AIJ_LIVE_BATCH.COM
+</p>
 
 <p>
   Daily list live aij's status for a series of databases enumerated in the
@@ -2438,7 +2496,7 @@ AIJ3|AIJ file has been modified|AIJ file block has been assigned|
   Exceptions are flagged with "*{exception}*" in the output file.
 </p>
 
-  Exception flags are:
+  Exception flags are:<br>
 
 <pre>
   *Inaccessible*
@@ -2457,7 +2515,7 @@ AIJ3|AIJ file has been modified|AIJ file block has been assigned|
   *Backup denied* is not handled as this status is not documented (?).
 </pre>
 
-  Normal flags are:
+  Normal flags are:<br>
 
 <pre>
   AIJ file block has been assigned
@@ -2480,20 +2538,22 @@ CPT$RDB_JOB|CPTRDB_SHOW_AIJ_LIVE_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERS
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_AIJ_LiveExceptions
-  "CPTRDB - AIJ Live Exceptions {node} - ddmmmhhmmss"
+CPTRDB_AIJ_LiveExceptions
+"CPTRDB - AIJ Live Exceptions {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - AIJ Live Exceptions {node} yyyymmdd"
+"CPTRDB - AIJ Live Exceptions {node} yyyymmdd"
 </pre>
 
-If an exception is reported, search the output file for "*" or "emergency".<br><br>
+<p>
+If an exception is reported, search the output file for "*" or "emergency".
+</p>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -2553,19 +2613,19 @@ CPT$RDB_JOB|CPTRDB_CLEANUP_LOGS_DAILY|L15S29|TOMORROW + 08:30|
   No output file is created.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_DAILY [{vms_date}]
+$ @CPTRDB_DAILY [{vms_date}]
 </pre>
 
-  A typical quick check would consist of:
+  A typical quick check would consist of:<br>
 
 <pre>
-  $ SET DEF CPT$RDB:
-  $ @CPTRDB_BATCH_ENTRIES
-  $ [PIPE] @CPTRDB_DAILY [{vms_date}] [> x.x]
-  $ [EDIT x.x]
+$ SET DEF CPT$RDB:
+$ @CPTRDB_BATCH_ENTRIES
+$ [PIPE] @CPTRDB_DAILY [{vms_date}] [> x.x]
+$ [EDIT x.x]
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -2590,8 +2650,10 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_SHOW_STAT_LOGS_ALL.COM</b><br>
-  Calls CPTRDB_SHOW_STAT_LOGS_GO.COM<br>
+  Calls CPTRDB_SHOW_STAT_LOGS_GO.COM
+</p>
 
 <p>
   Start all RMU/Show Statistics stall logging sessions on all nodes.
@@ -2610,17 +2672,19 @@ CPT$RDB_DATABASE|CPTRDB_SHOW_STAT_LOGS|CPTRDB_DB_1|7.3|L15S29|
 ! 4 Execution node
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_STAT_LOGS_GO.COM</b><br>
-  Calls CPTRDB_SHOW_STAT_LOGS.COM<br>
+  Calls CPTRDB_SHOW_STAT_LOGS.COM
+</p>
 
 <p>
   Start one RMU/Show Statistics stall logging session in batch.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_STAT_LOGS_GO {node} {dbid} {rdb_vrsn}
+$ @CPTRDB_SHOW_STAT_LOGS_GO {node} {dbid} {rdb_vrsn}
 </pre>
 
 <p>
@@ -2644,7 +2708,7 @@ CPT$RDB_DATABASE|CPTRDB_SHOW_STAT_LOGS|CPTRDB_DB_1|7.3|L15S29|
   generated by this procedure.
 </p>
 
-  Unique output filespecs are created on each restart, such as:
+  Unique output filespecs are created on each restart, such as:<br>
 
 <pre>
 Directory DISK$DATA_29:[CPT$RDB_STALL]
@@ -2667,18 +2731,18 @@ CPTRDB_DB_1_TIMEOUT_L15S29_20150403.LOG_03APR000202;1
 </p>
 
 <pre>
-  Parameters: P1,   wildcard dbid,      varchar(255)
-              P2,   wildcard node name, char(6)
-              P3,   /since  date,       date vms
-              [P4], /before date,       date vms
+Parameters: P1,   wildcard dbid,      varchar(255)
+            P2,   wildcard node name, char(6)
+            P3,   /since  date,       date vms
+            [P4], /before date,       date vms
 </pre>
   
 <p>
   The procedure expects the stall log format
   'stalldir'*'dbid'*STALL*'nodeid'*.LOG*;*.
-
-  Additional search strings can be specified using /MATCH=AND
 </p>
+
+  Additional search strings can be specified using /MATCH=AND<br>
 
 <pre>
 $!---------------------------------------------------
@@ -2692,13 +2756,13 @@ $   search -
 $!---------------------------------------------------
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SEARCH_WAITING_FOR {dbid} {node} {since date} [{before date}]
+$ @CPTRDB_SEARCH_WAITING_FOR {dbid} {node} {since date} [{before date}]
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>  
 ******************************
@@ -2709,15 +2773,15 @@ DISK$DATA_29:[CPT$RDB_STALL]CPTRDB_DB_1_STALL_L15S29_20150403.LOG_03APR000202;1
 </pre>
 
 <p>
-  The procedures 
-  CPTRDB_STALL_CNTS_ALL.COM
-  CPTRDB_DDLCK_CNTS_ALL.COM
+  The procedures<br>
+  CPTRDB_STALL_CNTS_ALL.COM<br>
+  CPTRDB_DDLCK_CNTS_ALL.COM<br>
   provide daily automated reporting of descending stall or deadlock counts 
-  group by waiting message and hour of the day. 
+  group by waiting message and hour of the day.<br>
 
-  The procedure
-  CPTRDB_STALL_TIMES_ALL.COM
-  provides daily automated reporting of excessive stall times.
+  The procedure<br>
+  CPTRDB_STALL_TIMES_ALL.COM<br>
+  provides daily automated reporting of excessive stall times.<br>
 
   Refer to the individual chapters for more information on this type of
   analysis of the stall and deadlock logfiles.
@@ -2744,8 +2808,10 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_SHOW_STAT_DATA_ALL.COM</b><br>
-  Calls CPTRDB_SHOW_STAT_DATA_GO.COM<br>
+  Calls CPTRDB_SHOW_STAT_DATA_GO.COM
+</p>
 
 <p>
   Start all RMU/Show Statistics binary data collection sessions on all nodes.
@@ -2765,17 +2831,19 @@ CPT$RDB_DATABASE|CPTRDB_SHOW_STAT_DATA|CPTRDB_DB_1|7.3|L15S29|
 ! 4 Execution node
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_STAT_DATA_GO.COM</b><br>
-  Calls CPTRDB_SHOW_STAT_DATA.COM<br>
+  Calls CPTRDB_SHOW_STAT_DATA.COM
+</p>
 
 <p>
   Start one RMU/Show Statistics binary data collection session in batch.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_STAT_DATA_GO {node} {dbid} {rdb_vrsn}
+$ @CPTRDB_SHOW_STAT_DATA_GO {node} {dbid} {rdb_vrsn}
 </pre>
 
 <p>
@@ -2790,7 +2858,7 @@ CPT$RDB_DATABASE|CPTRDB_SHOW_STAT_DATA|CPTRDB_DB_1|7.3|L15S29|
   sizes.
 </p>
 
-  Unique output filespecs are created on each restart, such as:
+  Unique output filespecs are created on each restart, such as:<br>
 
 <pre>
 Directory DISK$DATA_29:[CPT$RDB_PERFT4]
@@ -2818,7 +2886,7 @@ CPTRDB_DB_1_DATA_L15S29_20150403.UNL_03APR000202;1
 </p>
 
 <img src="CPTRDB_TRANS_SBN_DB_L15S53_20151216.JPG"
-     alt="Image CPTRDB_TRANS_SBN_DB_L15S53_20151216.JPG"><br><br>
+     alt="[Image CPTRDB_TRANS_SBN_DB_L15S53_20151216.JPG]"><br><br>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -2840,8 +2908,10 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_SHOW_STATS_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_STATS[_DAILY].COM<br>
+  Called from CPTRDB_SHOW_STATS[_DAILY].COM
+</p>
 
 <p>
   List the RMU/Show Statistics batch processes on one cluster node in sorted 
@@ -2860,8 +2930,10 @@ CPT$RDB_NODE|CPTRDB_SHOW_STATS|L15S29|STATD_CPTRDB|
 ! 3 Process name (sub)string
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_STATS.COM</b><br>
-  Calls CPTRDB_SHOW_STATS_BATCH.COM<br>
+  Calls CPTRDB_SHOW_STATS_BATCH.COM
+</p>
 
 <p>
   Interactive list all RMU/Show Statistics processes and log/output files
@@ -2869,13 +2941,13 @@ CPT$RDB_NODE|CPTRDB_SHOW_STATS|L15S29|STATD_CPTRDB|
   identified by the keywords CPT$RDB_NODE|CPTRDB_SHOW_STATS.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_STATS
+$ @CPTRDB_SHOW_STATS
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
  3-APR-2015 14:58:00.81 CPTRDB - Statistics Processes From Node L15S29
@@ -2902,8 +2974,10 @@ DISK$DATA_29:[CPT$RDB_PERFT4]CPTRDB_DB_1_DATA_L15S29_20150402.CSV_02APR235800;1
 Total of 1 file.
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_STATS_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_STATS_BATCH.COM<br>
+  Calls CPTRDB_SHOW_STATS_BATCH.COM
+</p>
 
 <p>
   Daily list RMU/Show Statistics processes and log/output files on a series of 
@@ -2931,17 +3005,17 @@ CPT$RDB_JOB|CPTRDB_SHOW_STATS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERSCH|
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_StatisticsDifferences
-  "CPTRDB - Statistics Differences {node} - ddmmmhhmmss"
+CPTRDB_StatisticsDifferences
+"CPTRDB - Statistics Differences {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - Statistics Diff {node} yyyymmdd"
+"CPTRDB - Statistics Diff {node} yyyymmdd"
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -2964,8 +3038,10 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_SHOW_DBS_OPEN_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_DBS_OPEN[_DAILY].COM<br>
+  Called from CPTRDB_SHOW_DBS_OPEN[_DAILY].COM
+</p>
 
 <p>
   List open databases, their RMU/OPEN timestamp and elapsed time, on one node
@@ -2986,8 +3062,10 @@ CPT$RDB_PARAM|CPTRDB_SHOW_DBS_OPEN_BATCH|8|11|38|
 ! 4 RMU/Open timestamp alignment column position
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_DBS_OPEN.COM</b><br>
-  Calls CPTRDB_SHOW_DBS_OPEN_BATCH.COM<br>
+  Calls CPTRDB_SHOW_DBS_OPEN_BATCH.COM
+</p>
 
 <p>
   Interactive list open databases for a series of nodes listed in the
@@ -3010,13 +3088,13 @@ CPT$RDB_NODE|CPTRDB_SHOW_DBS_OPEN|L15S29|7.3|
 ! 3 Rdb version
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_DBS_OPEN
+$ @CPTRDB_SHOW_DBS_OPEN
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre> 
 15-JAN-2015 08:00:01.28 CPTRDB Open Databases From Node L15S29
@@ -3072,8 +3150,10 @@ DSA29:[JCCLML_FILTER_DIR]JCCLML_FILTER_DB.RDB;1 25-NOV-2014 12:47:16.13 (elapsed
 Number of open databases: 5
 </pre> 
 
+<p>
 <b>CPTRDB_SHOW_DBS_OPEN_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_DBS_OPEN_BATCH.COM<br>
+  Calls CPTRDB_SHOW_DBS_OPEN_BATCH.COM
+</p>
 
 <p>
   Daily list open databases on a series of nodes listed in the configuration 
@@ -3097,17 +3177,17 @@ CPT$RDB_JOB|CPTRDB_SHOW_DBS_OPEN_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERS
 ! 4 Exception mail address
 </pre>
   
-  Toolkit cockpit event:
+  Toolkit cockpit event:<br>
 
 <pre>
-  CPTRDB_OpenDatabasesDifferences
-  "CPTRDB - Open Databases Differences {node} - ddmmmhhmmss"
+CPTRDB_OpenDatabasesDifferences
+"CPTRDB - Open Databases Differences {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - Open Databases Diff {node} yyyymmdd"
+"CPTRDB - Open Databases Diff {node} yyyymmdd"
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -3142,13 +3222,13 @@ Procedures usage
   based on RMU/Dump/Header, using the current Rdb version on the executor node.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_DB_SIZE {dbid} [sys$output|{output file}]
+$ @CPTRDB_DB_SIZE {dbid} [sys$output|{output file}]
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 File sizes at  3-APR-2015 15:05:12.36 on node L15S29
@@ -3192,8 +3272,10 @@ File sizes at  3-APR-2015 15:05:12.36 on node L15S29
     387360 <- Total Size
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_EXTENTS_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_EXTENTS[_DAILY].COM<br>
+  Called from CPTRDB_SHOW_EXTENTS[_DAILY].COM
+</p>
 
 <p>
   List extents for one database on one node in CPT$RDB_SIZE.
@@ -3203,7 +3285,7 @@ File sizes at  3-APR-2015 15:05:12.36 on node L15S29
 </p>
 
 <pre>
-  $ @CPT$RDB:CPTRDB_DB_SIZE {dbid} cpt$rdb_size:{dbid}.size
+$ @CPT$RDB:CPTRDB_DB_SIZE {dbid} cpt$rdb_size:{dbid}.size
 </pre>
 
 <hr>
@@ -3227,8 +3309,10 @@ File sizes at  3-APR-2015 15:05:12.36 on node L15S29
   with a retention interval of 22 days.
 </p>
 
+<p>
 <b>CPTRDB_SHOW_EXTENTS.COM</b><br>
-  Calls CPTRDB_SHOW_EXTENTS_BATCH.COM<br>
+  Calls CPTRDB_SHOW_EXTENTS_BATCH.COM
+</p>
 
 <p>
   Interactive list extents for a series of databases, enumerated in the
@@ -3246,13 +3330,13 @@ CPT$RDB_DATABASE|CPTRDB_SHOW_EXTENTS|CPTRDB_DB_1|7.3|L15S29|
 ! 4 Execution node
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_EXTENTS
+$ @CPTRDB_SHOW_EXTENTS
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Rdb extents on node L15S55 at 19-MAR-2015 07:45:00.33
@@ -3290,8 +3374,10 @@ ACC_DB_G01S09
 ...
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_EXTENTS_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_EXTENTS_BATCH.COM<br>
+  Calls CPTRDB_SHOW_EXTENTS_BATCH.COM
+</p>
 
 <p>
   Daily list storage area extents for a series of databases, enumerated in the
@@ -3316,7 +3402,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_EXTENTS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERSC
 ! 4 Exception mail address
 </pre>
 
-  Output files sample:
+  Output files sample:<br>
 
 <pre>
 Directory DISK$DATA_29:[CPT$RDB_SIZE]
@@ -3331,17 +3417,17 @@ CPTRDB_DB_1_20150403.SIZE_03APR080003;1
                       3-APR-2015 08:00:03.09
 </pre>
 
-  Toolkit cockpit event:
+  Toolkit cockpit event:<br>
 
 <pre>
-  CPTRDB_ExtentsFound
-  "CPTRDB - Extents Found {node} - ddmmmhhmmss"
+CPTRDB_ExtentsFound
+"CPTRDB - Extents Found {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - Extents Found {node} yyyymmdd"
+"CPTRDB - Extents Found {node} yyyymmdd"
 </pre>
 
 <p>
@@ -3350,14 +3436,15 @@ CPTRDB_DB_1_20150403.SIZE_03APR080003;1
   storage areas of a given database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_STORAGE_AREAS {dbid}
+$ @CPTRDB_SHOW_STORAGE_AREAS {dbid}
 </pre>
 
 <p>
-  Refer to the chapter <a href="#Chapter 37">List Database Objects</a> 
+  Refer to the chapter 
+  <a href="#Chapter 37">§ -- 37 -- List Database Objects</a> 
   for more information on this procedure.
 </p>
 
@@ -3390,11 +3477,11 @@ $ snp_percent_extent_ref    = "20"
 $!---------------------------------------
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ALTER_EXTENTS_GEN {dbid} ! (Generates)
-  $ @EXTENTS_{dbid}_{node}_yyyyddmm.COM_ddmmmhhmmss
+$ @CPTRDB_ALTER_EXTENTS_GEN {dbid} ! (Generates)
+$ @EXTENTS_{dbid}_{node}_yyyyddmm.COM_ddmmmhhmmss
 </pre>
 
 <p>
@@ -3402,7 +3489,7 @@ $!---------------------------------------
   database.
 </p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 $! Alter extents for database
@@ -3528,7 +3615,7 @@ $ exit
   Requires the {dbid}.size file(s) in the cpt$rdb_size directory. 
 </p>
 
-  Parameters: Adapt the database list.
+  Parameters: Adapt the database list.<br>
 
 <pre>
 $!-----------------------
@@ -3540,11 +3627,11 @@ $ gosub append_one_file
 $!-----------------------
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_DATA_AREAS
-  $ @CPTRDB_SHOW_SNAPSHOT_AREAS
+$ @CPTRDB_SHOW_DATA_AREAS
+$ @CPTRDB_SHOW_SNAPSHOT_AREAS
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -3576,10 +3663,10 @@ Procedures Usage
   of all storage areas for a database to a given size in blocks.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_TRNC_SNAPS_GEN {dbid} {.SNP size blocks}
+$ @CPTRDB_TRNC_SNAPS_GEN {dbid} {.SNP size blocks}
 </pre>
 
 <p>
@@ -3707,24 +3794,28 @@ $ say " "
 $ exit
 </pre>
 
+<p>
 <b>CPTRDB_TRNC_SNAPS_GEN_ALL.COM</b><br>
-  Calls CPTRDB_TRNC_SNAPS_GEN.COM per database<br>
+  Calls CPTRDB_TRNC_SNAPS_GEN.COM per database
+</p>
 
 <p>
   Interactive generate a snapshot truncation command file for a 
   series of databases.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_TRNC_SNAPS_GEN_ALL
+$ @CPTRDB_TRNC_SNAPS_GEN_ALL
 </pre>
 
+<p>
 <b>CPTRDB_TRNC_SNAPS_ALL.COM</b><br>
   Calls per database<br>
       TRNC_{dbid}_{node}_yyyymmdd.COM<br>
-  and CPTRDB_TRNC_SNAPS_STOP.COM in parallel<br>
+  and CPTRDB_TRNC_SNAPS_STOP.COM in parallel
+</p>
 
 <p>
   Weekly trunc the snapshot files for a series of databases.
@@ -3775,9 +3866,9 @@ CPT$RDB_JOB|CPTRDB_TRNC_SNAPS_ALL|L15S29|TOMORROW +6-03:30|
 </p>
 
 <pre>
-  Input parameters: P1, entry number, integer
-                    P2, job name,     char(39)
-                    P3, db logical,   varchar(255)
+Input parameters: P1, entry number, integer
+                  P2, job name,     char(39)
+                  P3, db logical,   varchar(255)
 </pre>
 
 <p>
@@ -3794,17 +3885,17 @@ CPT$RDB_PARAM|CPTRDB_TRNC_SNAPS_STOP|00:00:30|L15S36::ALLEMEERSCH|
 ! 3 Exception mail address
 </pre>
 
-  Toolkit cockpit event:
+  Toolkit cockpit event:<br>
 
 <pre>
-  CPTRDB_TruncSnapsStopped
-  "CPTRDB - Database {root} - Trunc Snaps Stopped - ddmmmhhmmss"
+CPTRDB_TruncSnapsStopped
+"CPTRDB - Database {root} - Trunc Snaps Stopped - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - Trunc Snaps Stopped {dbid} {node} yyyymmdd"
+"CPTRDB - Trunc Snaps Stopped {dbid} {node} yyyymmdd"
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -3841,15 +3932,19 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_SHOW_BUGCHECK_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_BUGCHECK[_DAILY].COM<br>
+  Called from CPTRDB_SHOW_BUGCHECK[_DAILY].COM
+</p>
 
 <p>
   List (bugcheck) *.DMP*;* dump files in RDM$BUGCHECK_DIR on one node.
 </p>
 
+<p>
 <b>CPTRDB_SHOW_BUGCHECK.COM</b><br>
-  Calls CPTRDB_SHOW_BUGCHECK_BATCH.COM<br>
+  Calls CPTRDB_SHOW_BUGCHECK_BATCH.COM
+</p>
 
 <p>
   Interactive list bugcheck dump files in RDM$BUGCHECK_DIR on a series of nodes.
@@ -3867,13 +3962,13 @@ CPT$RDB_NODE|CPTRDB_SHOW_BUGCHECK|L15S29|
 ! 2 Execution node
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_BUGCHECK
+$ @CPTRDB_SHOW_BUGCHECK
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
  3-APR-2015 15:45:04.66 CPTRDB - Bugcheck Dump Files From Node L15S29
@@ -3890,8 +3985,10 @@ RDSBUGCHK_20150115_ILLPAGCNT.DMP_15JAN100647;1
 Total of 1 file, 1/96 blocks.
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_BUGCHECK_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_BUGCHECK_BATCH.COM<br>
+  Calls CPTRDB_SHOW_BUGCHECK_BATCH.COM
+</p>
 
 <p>
   Daily list (bugcheck) dump files *.dmp*;* in RDM$BUGCHECK_DIR on a series of 
@@ -3915,17 +4012,17 @@ CPT$RDB_JOB|CPTRDB_SHOW_BUGCHECK_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERS
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_BugcheckDumpsFound
-  "CPTRDB - Bugcheck Dumps Found {node} - ddmmmhhmmss"
+CPTRDB_BugcheckDumpsFound
+"CPTRDB - Bugcheck Dumps Found {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - Bugcheck Dumps Found {node} yyyymmdd"
+"CPTRDB - Bugcheck Dumps Found {node} yyyymmdd"
 </pre>
 
 <p>
@@ -3934,13 +4031,13 @@ CPT$RDB_JOB|CPTRDB_SHOW_BUGCHECK_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERS
   creation date and time to prevent unintended purge or delete.
 </p>
 
-  Usage:  
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_RENAME_CDT {filespec}
+$ @CPTRDB_RENAME_CDT {filespec}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 $ @CPTRDB_RENAME_CDT BOEM.TXT
@@ -3953,7 +4050,7 @@ Renamed To DISK$USERS:[ALLEMEERSCH.CPT$RDB]BOEM_L15S29_20150423.TXT_23APR150243
   on exception, node, database, user and application.
 </p>
 
-  Parameters: Adapt the dump file(s) filespec and reply username
+  Parameters: Adapt the dump file(s) filespec and reply username<br>
 
 <pre>
 $!-----------------------------------------------
@@ -3966,13 +4063,13 @@ $!-----------------------------------------------
   Submit the job as user system with the logfile in RDM$BUGCHECK_DIR:
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT_SYSTEM {node} CPTRDB_SEARCH_DUMP 
+$ @CPTRDB_SUBMIT_SYSTEM {node} CPTRDB_SEARCH_DUMP 
 </pre>
 
-  The search items are:
+  The search items are:<br>
 
 <pre>
 $!-----------------------
@@ -4005,25 +4102,25 @@ $!-----------------------
   Document Id 165466.1
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_DUMP_SUMMARIZER_20150907
-  Bugcheck dump summarizer, version 07 September 2015
+$ @CPTRDB_DUMP_SUMMARIZER_20150907
+Bugcheck dump summarizer, version 07 September 2015
 
-  Parameters:
-  P1 - Name of dump file
-  P2 - Options - separate by commas
-       NOTSN   - forces off TSN checking which can improve performance.
-       TSN     - forces on TSN checking.
-       BLR     - extract the BLR of the current query.
-       INDEX   - try to extract index information
-       LOG     - record information about running the summarizer
-       LOGICAL - list the logical names
-       PROCESS - list the processes on the system
-       STACK   - write the full stack dump to a file
-       MORE    - report extra information
-       OUTPUT  - output goes to files with unique names
+Parameters:
+P1 - Name of dump file
+P2 - Options - separate by commas
+     NOTSN   - forces off TSN checking which can improve performance.
+     TSN     - forces on TSN checking.
+     BLR     - extract the BLR of the current query.
+     INDEX   - try to extract index information
+     LOG     - record information about running the summarizer
+     LOGICAL - list the logical names
+     PROCESS - list the processes on the system
+     STACK   - write the full stack dump to a file
+     MORE    - report extra information
+     OUTPUT  - output goes to files with unique names
 </pre>
   
 <p>
@@ -4033,7 +4130,7 @@ $!-----------------------
   Document Id 165466.1
 </p>
 
-  Parameters: Adapt the dump file filespec and reply username
+  Parameters: Adapt the dump file filespec and reply username<br>
 
 <pre>
 $!-------------------------------------------------------------------
@@ -4046,13 +4143,13 @@ $!-------------------------------------------------------------------
   Submit the job as user system with the logfile in RDM$BUGCHECK_DIR:
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT_SYSTEM {node} CPTRDB_SUMMARIZE_DUMP
+$ @CPTRDB_SUBMIT_SYSTEM {node} CPTRDB_SUMMARIZE_DUMP
 </pre>
 
-  Output samples: 
+  Output samples:<br>
 
 <pre>
 A corrupt ranked index, with tons of duplicates:
@@ -4117,7 +4214,7 @@ Dump created: 18-FEB-2015 05:16:37.89
 Dump created on node L15S59
 </pre>
 
-  Monitor logfile extract:
+  Monitor logfile extract:<br>
 
 <pre>
 18-FEB-2015 05:16:37.80 - lock granted to cluster watcher
@@ -4142,27 +4239,29 @@ Dump created on node L15S59
 </p>
 
 <pre>
-  Oracle Rdb7 Guide to Database Performance and Tuning
+Oracle Rdb7 Guide to Database Performance and Tuning
 
-  Possible values, any combination of
-  C client
-  G global buffers
-  H header
-  L locking
-  P pages
+Possible values, any combination of
+C client
+G global buffers
+H header
+L locking
+P pages
 </pre>
 
+<p>
 <b>CPTRDB_INFOZIP_ZIP_30.EXE</b><br>
 <b>CPTRDB_INFOZIP_UNZIP_60.EXE</b><br>
-  Itanium Infozip executables.<br><br>
+  Itanium Infozip executables.
+</p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ ZIP   := $CPT$RDB:CPTRDB_INFOZIP_ZIP_30
-  $ UNZIP := $CPT$RDB:CPTRDB_INFOZIP_UNZIP_60
-  $ ZIP -h2
-  $ UNZIP -hh
+$ ZIP   := $CPT$RDB:CPTRDB_INFOZIP_ZIP_30
+$ UNZIP := $CPT$RDB:CPTRDB_INFOZIP_UNZIP_60
+$ ZIP -h2
+$ UNZIP -hh
 </pre>
 
 <p>
@@ -4170,7 +4269,7 @@ Dump created on node L15S59
   Zip a series of hardcoded (bugcheckdump) files located in RDM$BUGCHECK_DIR:
 </p>
 
-  Parameters: Adapt the parameter block
+  Parameters: Adapt the parameter block<br>
 
 <pre>
 $!------------------------------------------------------------------------------
@@ -4187,10 +4286,10 @@ $!------------------------------------------------------------------------------
   Submit the job as user system with the logfile in RDM$BUGCHECK_DIR: 
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  @CPTRDB_SUBMIT_SYSTEM {node} CPTRDB_ZIP_DUMP
+@CPTRDB_SUBMIT_SYSTEM {node} CPTRDB_ZIP_DUMP
 </pre>
 
 <p>
@@ -4198,7 +4297,7 @@ $!------------------------------------------------------------------------------
   Unzip one hardcoded (bugcheckdump) zip archive located in RDM$BUGCHECK_DIR.
 </p>
 
-  Parameters: Adapt the parameter block
+  Parameters: Adapt the parameter block<br>
 
 <pre>
 !------------------------------------------------------------------------------
@@ -4214,10 +4313,10 @@ $!------------------------------------------------------------------------------
   Submit the job as user system with the logfile in RDM$BUGCHECK_DIR:
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  @CPTRDB_SUBMIT_SYSTEM {node} CPTRDB_UNZIP_DUMP
+@CPTRDB_SUBMIT_SYSTEM {node} CPTRDB_UNZIP_DUMP
 </pre>
 
 <p>
@@ -4227,7 +4326,7 @@ $!------------------------------------------------------------------------------
   such as RDM$BUGCHECK_DIR.
 </p>
   
-  Adapt the parameter block:
+  Adapt the parameter block:<br>
 
 <pre>
 $!----------------------------
@@ -4235,19 +4334,19 @@ $ defdir = "CPT$RDB:"
 $ logdir = "RDM$BUGCHECK_DIR:"
 $!----------------------------
 
-  Parameters: P1,   nodename, P1 to procedure,     char(6)
-              P2,   filename, cptrdb_{name}[.COM], char(39)
+Parameters: P1,   nodename, P1 to procedure,     char(6)
+            P2,   filename, cptrdb_{name}[.COM], char(39)
   
-  P2 is the filename only without the extension ".COM"
+P2 is the filename only without the extension ".COM"
 
-  The prefix "CPTRDB_" is stripped off from logfile filename
-  The logfile format is {name}_{node}_yyyymmdd.log_ddmmmhhmmss
+The prefix "CPTRDB_" is stripped off from logfile filename
+The logfile format is {name}_{node}_yyyymmdd.log_ddmmmhhmmss
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT_SYSTEM {node} [{name}|CPTRDB_SEARCH_DUMP]
+$ @CPTRDB_SUBMIT_SYSTEM {node} [{name}|CPTRDB_SEARCH_DUMP]
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -4282,7 +4381,7 @@ bottlenecks within a database, by (daily) analyzing the stall log files.
   used in the 'stall counts per hour' reporting.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!----------------------
@@ -4291,8 +4390,10 @@ $ dbid = "CPTRDB_DB_1"
 $!----------------------
 </pre>
 
+<p>
 <b>CPTRDB_STALL_CNTS.COM</b><br>
-  Called per stall log file from CPTRDB_STALL_CNTS_[GO|ALL].COM<br>
+  Called per stall log file from CPTRDB_STALL_CNTS_[GO|ALL].COM
+</p>
 
 <p>
   List 'waiting for' messages counts, desc per hour, from the stall logfile(s)
@@ -4302,24 +4403,24 @@ $!----------------------
 </p>
   
 <pre>
-  Parameters: P1, database logical,       varchar(255)
-              P2, stall node,             char(6)
-              P3, /since  date,           date vms
-              P4, /before date,           date vms
-              P5, stall counts alarm,     integer
-              P6, Rdb version,            char(3), [7.2|7.3]
-              P7, exception mail address, varchar(255)
+Parameters: P1, database logical,       varchar(255)
+            P2, stall node,             char(6)
+            P3, /since  date,           date vms
+            P4, /before date,           date vms
+            P5, stall counts alarm,     integer
+            P6, Rdb version,            char(3), [7.2|7.3]
+            P7, exception mail address, varchar(255)
 </pre>
 
-  The prodedure requires:
+  The procedure requires:<br>
 
 <pre>
-  . The P1 database contains the storage area
-    STALL_CNTS_AREA
-    that can be created using CPT$RDB:CPTRDB_STALL_CNTS_ADD_SAREA.COM
+. The P1 database contains the storage area
+  STALL_CNTS_AREA
+  that can be created using CPT$RDB:CPTRDB_STALL_CNTS_ADD_SAREA.COM
   
-  . A stall logs format of
-    {stall_dir}:{dbid}*STALL*{node}*.LOG*
+. A stall logs format of
+  {stall_dir}:{dbid}*STALL*{node}*.LOG*
 </pre>
 
 <p>
@@ -4333,21 +4434,21 @@ $!----------------------
   as '*Exceeded*' and visible using the CPTRDB_DAILY.COM procedure. 
 </p>
 
-  Source extract:
+  Source extract:<br>
 
 <pre>
-  -- Do not send mail/cockpit when only seqblk/tsn block stalls
-  -- Do not send mail/cockpit before 02:00
-  -- Add additional conditions here
+-- Do not send mail/cockpit when only seqblk/tsn block stalls
+-- Do not send mail/cockpit before 02:00
+-- Add additional conditions here
 
-  if    :t1.stall_cnt >= :stall_cnts_limit
-    and :t1.stall_reason not starting with 'SEQBLK'
-    and :t1.stall_reason not starting with 'TSN block'
-    and cast(:t1.stall_time as integer) >= 2
-  then
-    set :cnt_status = '*Exceeded Send*';
-    call lib$set_symbol('STALL_CNTS_SEND','YES');
-  end if;
+if    :t1.stall_cnt >= :stall_cnts_limit
+  and :t1.stall_reason not starting with 'SEQBLK'
+  and :t1.stall_reason not starting with 'TSN block'
+  and cast(:t1.stall_time as integer) >= 2
+then
+  set :cnt_status = '*Exceeded Send*';
+  call lib$set_symbol('STALL_CNTS_SEND','YES');
+end if;
 </pre>
 
 <p>
@@ -4361,20 +4462,20 @@ $!$ define sql$database "ANA_''dbid'"
 $!-----------------------------------
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_StallCntsExceeded
-  "CPTRDB - Stall Cnts Exceeded {db} {node} yyyymmdd - ddmmmhhmmss"
+CPTRDB_StallCntsExceeded
+"CPTRDB - Stall Cnts Exceeded {db} {node} yyyymmdd - ddmmmhhmmss"
 </pre>
 
-  Toolset mail subject:
+  Toolset mail subject:<br>
 
 <pre>
-  "CPTRDB - Stall Cnts Exceeded {db} {node} yyyymmdd"
+"CPTRDB - Stall Cnts Exceeded {db} {node} yyyymmdd"
 </pre>
 
-  Output sample without notification:
+  Output sample without notification:<br>
 
 <pre>
 CPTRDB - Stall Counts Per Hour From Node L15S50
@@ -4451,14 +4552,16 @@ Total number of stall groups:     47
 Total number of stall lines:     188
 </pre>
 
+<p>
 <b>CPTRDB_STALL_CNTS_GO.COM</b><br>
-  Calls CPTRDB_STALL_CNTS.COM<br>
+  Calls CPTRDB_STALL_CNTS.COM
+</p>
 
 <p>
   Start one stall counts analyze session in batch with hardcoded parameters.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!----------------------------------------
@@ -4473,8 +4576,10 @@ $ exec_node        = "L15S29"
 $!----------------------------------------
 </pre>
 
+<p>
 <b>CPTRDB_STALL_CNTS_ALL.COM</b><br>
-  Calls CPTRDB_STALL_CNTS.COM per stall log file.<br>
+  Calls CPTRDB_STALL_CNTS.COM per stall log file.
+</p>
 
 <p>
   List 'waiting for' messages counts, desc per hour, from the stall logfiles
@@ -4560,7 +4665,7 @@ bottlenecks within a database, by (daily) analyzing the deadlock logfiles.
   used in the 'deadlock counts per hour' reporting.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!----------------------
@@ -4569,8 +4674,10 @@ $ dbid = "CPTRDB_DB_1"
 $!----------------------
 </pre>
 
+<p>
 <b>CPTRDB_DDLCK_CNTS.COM</b><br>
-  Called per deadlock log file from CPTRDB_DDLCK_CNTS_[GO|ALL].COM<br>
+  Called per deadlock log file from CPTRDB_DDLCK_CNTS_[GO|ALL].COM
+</p>
 
 <p>
   List 'waiting for' messages counts, desc per hour, from the deadlock 
@@ -4580,24 +4687,24 @@ $!----------------------
 </p>
   
 <pre>
-  Parameters: P1, database logical,       varchar(255)
-              P2, ddlck node,             char(6)
-              P3, /since  date,           date vms 
-              P4, /before date,           date vms 
-              P5, ddlck counts alarm,     integer
-              P6, Rdb version,            char(3), [7.2|7.3]
-              P7, exception mail address, varchar(255)
+Parameters: P1, database logical,       varchar(255)
+            P2, ddlck node,             char(6)
+            P3, /since  date,           date vms 
+            P4, /before date,           date vms 
+            P5, ddlck counts alarm,     integer
+            P6, Rdb version,            char(3), [7.2|7.3]
+            P7, exception mail address, varchar(255)
 </pre>
   
-  The procedure requires:
+  The procedure requires:<br>
   
 <pre>
-  . The P1 database contains the storage area
-    STALL_CNTS_AREA
-    that can be created using CPT$RDB:CPTRDB_STALL_CNTS_ADD_SAREA.COM
+. The P1 database contains the storage area
+  STALL_CNTS_AREA
+  that can be created using CPT$RDB:CPTRDB_STALL_CNTS_ADD_SAREA.COM
   
-  . A deadlock logs format of
-    {stall_dir}:{dbid}*DEADLOCK*{node}*.LOG*
+. A deadlock logs format of
+  {stall_dir}:{dbid}*DEADLOCK*{node}*.LOG*
 </pre>
   
 <p>
@@ -4610,16 +4717,16 @@ $!----------------------
   is reached.
 </p>
 
-  Source extract:
+  Source extract:<br>
 
 <pre>
-  -- Always send mail/cockpit
-  -- Add additional conditons here
+-- Always send mail/cockpit
+-- Add additional conditons here
 
-  if :t1.stall_cnt >= :ddlck_cnts_limit then
-    set :cnt_status = '*Exceeded Send*';
-    call lib$set_symbol('DDLCK_CNTS_SEND','YES');
-  end if;
+if :t1.stall_cnt >= :ddlck_cnts_limit then
+  set :cnt_status = '*Exceeded Send*';
+  call lib$set_symbol('DDLCK_CNTS_SEND','YES');
+end if;
 </pre>
 
 <p>
@@ -4633,20 +4740,20 @@ $!$ define sql$database "ANA_''dbid'"
 $!-----------------------------------
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_DeadlockCntsExceeded
-  "CPTRDB - Deadlock Cnts Exceeded {db} {node} yyyymmdd - ddmmmhhmmss"
+CPTRDB_DeadlockCntsExceeded
+"CPTRDB - Deadlock Cnts Exceeded {db} {node} yyyymmdd - ddmmmhhmmss"
 </pre>
 
-  Toolset mail subject:
+  Toolset mail subject:<br>
 
 <pre>
-  "CPTRDB - Deadlock Cnts Exceeded {db} {node} yyyymmdd"
+"CPTRDB - Deadlock Cnts Exceeded {db} {node} yyyymmdd"
 </pre>
 
-  Output sample without notification:
+  Output sample without notification:<br>
 
 <pre>
 CPTRDB - Deadlock Counts Per Hour From Node L15S50
@@ -4665,14 +4772,16 @@ Total number of ddlck groups:      2
 Total number of ddlck lines:       2
 </pre>
 
+<p>
 <b>CPTRDB_DDLCK_CNTS_GO.COM</b><br>
-  Calls CPTRDB_DDLCK_CNTS.COM<br>
+  Calls CPTRDB_DDLCK_CNTS.COM
+</p>
 
 <p>
   Start one deadlock counts analyze session in batch with hardcoded parameters.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!----------------------------------------
@@ -4687,9 +4796,10 @@ $ exec_node        = "L15S29"
 $!----------------------------------------
 </pre>
 
-
+<p>
 <b>CPTRDB_DDLCK_CNTS_ALL.COM</b><br>
-  Calls CPTRDB_DDLCK_CNTS.COM per deadlock log file.<br>
+  Calls CPTRDB_DDLCK_CNTS.COM per deadlock log file.
+</p>
 
 <p>
   List 'waiting for' messages counts, desc per hour, from the deadlock logfiles
@@ -4761,7 +4871,7 @@ bottlenecks within a database, by (daily) analyzing the stall logfiles.
   used in the 'stall times' reporting.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!----------------------
@@ -4770,8 +4880,10 @@ $ dbid = "CPTRDB_DB_1"
 $!----------------------
 </pre>
 
+<p>
 <b>CPTRDB_STALL_TIMES.COM</b><br>
-  Called per stall log file from CPTRDB_STALL_TIMES_[GO|ALL].COM<br>
+  Called per stall log file from CPTRDB_STALL_TIMES_[GO|ALL].COM
+</p>
 
 <p>
   List 'waiting for' messages stall times from the stall logfile(s)
@@ -4781,24 +4893,24 @@ $!----------------------
 </p>
   
 <pre>
-  Parameters: P1, database logical,       varchar(255)
-              P2, stall node,             char(6)
-              P3, /since  date,           date vms
-              P4, /before date,           date vms
-              P5, stall times alarm,      integer seconds
-              P6, Rdb version,            char(3), [7.2|7.3]
-              P7, exception mail address, varchar(255)
+Parameters: P1, database logical,       varchar(255)
+            P2, stall node,             char(6)
+            P3, /since  date,           date vms
+            P4, /before date,           date vms
+            P5, stall times alarm,      integer seconds
+            P6, Rdb version,            char(3), [7.2|7.3]
+            P7, exception mail address, varchar(255)
 </pre>
 
-  The prodedure requires:
+  The prodedure requires:<br>
 
 <pre>
-  . The P1 database contains the storage area
-    STALL_CNTS_AREA
-    that can be created using CPT$RDB:CPTRDB_STALL_CNTS_ADD_SAREA.COM
+. The P1 database contains the storage area
+  STALL_CNTS_AREA
+  that can be created using CPT$RDB:CPTRDB_STALL_CNTS_ADD_SAREA.COM
   
-  . A stall logs format of
-    {stall_dir}:{dbid}*STALL*{node}*.LOG*
+. A stall logs format of
+  {stall_dir}:{dbid}*STALL*{node}*.LOG*
 </pre>
 
 <p>
@@ -4808,7 +4920,7 @@ $!----------------------
   stalled database object.
 </p>
 
-  Input stall logfile extract:
+  Input stall logfile extract:<br>
 
 <pre>
 ...
@@ -4839,21 +4951,21 @@ $!----------------------
   as '*Exceeded*' and visible using the CPTRDB_DAILY.COM procedure. 
 </p>
 
-  Source extract:
+  Source extract:<br>
 
 <pre>
-  -- Do not send mail/cockpit when only seqblk/tsn block stalls
-  -- Do not send mail/cockpit before 02:00
-  -- Add additional conditions here
+-- Do not send mail/cockpit when only seqblk/tsn block stalls
+-- Do not send mail/cockpit before 02:00
+-- Add additional conditions here
 
-  if    :t1.stall_seconds >= :stall_times_limit
-    and :t1.stall_reason not starting with 'SEQBLK'
-    and :t1.stall_reason not starting with 'TSN block'
-    and cast(substring(:t1.stall_time from 1 for 2) as integer) >= 2
-  then
-    set :times_status = '*Exceeded Send*';
-    call lib$set_symbol('STALL_TIMES_SEND','YES');
-  end if;
+if    :t1.stall_seconds >= :stall_times_limit
+  and :t1.stall_reason not starting with 'SEQBLK'
+  and :t1.stall_reason not starting with 'TSN block'
+  and cast(substring(:t1.stall_time from 1 for 2) as integer) >= 2
+then
+  set :times_status = '*Exceeded Send*';
+  call lib$set_symbol('STALL_TIMES_SEND','YES');
+end if;
 </pre>
 
 <p>
@@ -4867,20 +4979,20 @@ $!$ define sql$database "ANA_''dbid'"
 $!-----------------------------------
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_StallTimesExceeded
-  "CPTRDB - Stall Times Exceeded {db} {node} yyyymmdd - ddmmmhhmmss"
+CPTRDB_StallTimesExceeded
+"CPTRDB - Stall Times Exceeded {db} {node} yyyymmdd - ddmmmhhmmss"
 </pre>
 
-  Toolset mail subject:
+  Toolset mail subject:<br>
 
 <pre>
-  "CPTRDB - Stall Times Exceeded {db} {node} yyyymmdd"
+"CPTRDB - Stall Times Exceeded {db} {node} yyyymmdd"
 </pre>
 
-  Output sample with notification:
+  Output sample with notification:<br>
 
 <pre>
 CPTRDB - Stall Times Greater Than One Second From Node L15S50
@@ -4915,14 +5027,16 @@ Total number of stall seconds:     63
 17-JUN-2015 05:00:15.73 *Stall times send     C170_DB L15S58 20150616*
 </pre>
 
+<p>
 <b>CPTRDB_STALL_TIMES_GO.COM</b><br>
-  Calls CPTRDB_STALL_TIMES.COM<br>
+  Calls CPTRDB_STALL_TIMES.COM
+</p>
 
 <p>
   Start one stall times session in batch with hardcoded parameters.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-----------------------------------------
@@ -4937,8 +5051,10 @@ $ exec_node         = "L15S29"
 $!-----------------------------------------
 </pre>
 
+<p>
 <b>CPTRDB_STALL_TIMES_ALL.COM</b><br>
-  Calls CPTRDB_STALL_TIMES.COM per stall log file.<br>
+  Calls CPTRDB_STALL_TIMES.COM per stall log file.
+</p>
 
 <p>
   List 'waiting for' stall times from the stall logfiles
@@ -5003,7 +5119,7 @@ Procedures Usage
   row_number/column_number for the storage areas names.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!----------------------
@@ -5012,21 +5128,21 @@ $ dbid = "CPTRDB_DB_1"
 $!----------------------
 </pre>
 
-  The storage areas added are:
+  The storage areas added are:<br>
 
 <pre>
-  DATA_AREA_11
-  DATA_AREA_12
-  DATA_AREA_21
-  DATA_AREA_22
-  DATA_AREA_31
-  DATA_AREA_32
-  INDEX_AREA_1
-  INDEX_AREA_2
-  INDEX_AREA_3
-  MIXED_AREA_1
-  MIXED_AREA_2
-  MIXED_AREA_3
+DATA_AREA_11
+DATA_AREA_12
+DATA_AREA_21
+DATA_AREA_22
+DATA_AREA_31
+DATA_AREA_32
+INDEX_AREA_1
+INDEX_AREA_2
+INDEX_AREA_3
+MIXED_AREA_1
+MIXED_AREA_2
+MIXED_AREA_3
 </pre>
 
 <p>
@@ -5035,7 +5151,7 @@ $!----------------------
   placement via hashed index and vertical/horizontal partitioning.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-------------------------------
@@ -5043,11 +5159,11 @@ $ define sql$database cptrdb_db_1
 $!-------------------------------
 </pre>
 
-  The tables added are:
+  The tables added are:<br>
 
 <pre>
-  TABLE_PARTI, partitioned across DATA_AREA_nn
-  TABLE_PLACE, placement via hashed index across MIXED_AREA_n
+TABLE_PARTI, partitioned across DATA_AREA_nn
+TABLE_PLACE, placement via hashed index across MIXED_AREA_n
 </pre>
 
 <p>
@@ -5060,7 +5176,7 @@ $!-------------------------------
   for a single database and hardcoded table. 
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!----------------------------------------
@@ -5078,9 +5194,10 @@ $!----------------------------------------
   Individual pages can be dumped using CPTRDB_SHOW_ONE_PAGE.COM.
 </p>
 
-  Usage batch:
+  Usage batch:<br>
+
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_DBKEYS_GROUPBY_PAGE
+$ @CPTRDB_SUBMIT {node} CPTRDB_DBKEYS_GROUPBY_PAGE
 </pre>
 
 <p>
@@ -5090,7 +5207,7 @@ $!----------------------------------------
   Adapt the table name in the sql FROM clause !!! 
 </p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Row Dbkeys Counts Group By Page
@@ -5155,7 +5272,7 @@ Avg rows/page  :        38.49
   hashed index and database.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-------------------------
@@ -5164,12 +5281,12 @@ $ hdxid = "TABLE_PLACE_HDX"
 $!-------------------------
 </pre>
 
-  /PARTITIONS - ! Is Rdb v7.3 only<br><br>
+/PARTITIONS - ! Is Rdb v7.3 only<br><br>
 
-  Usage batch:
+  Usage batch:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_ANALYZE_PLACEMENT
+$ @CPTRDB_SUBMIT {node} CPTRDB_ANALYZE_PLACEMENT
 </pre>
 
 <p>
@@ -5178,9 +5295,9 @@ storage areas, with buildup of recent data and physical cleanup of aging data:
 </p>
 
 <pre>
-  .Specify the storage map as PARTITIONING IS NOT UPDATABLE
-  .If a sorted index has the same partitioning condition, store
-   the index with the data.
+.Specify the storage map as PARTITIONING IS NOT UPDATABLE
+.If a sorted index has the same partitioning condition, store
+ the index with the data.
 </pre>
 
 <p>
@@ -5191,6 +5308,81 @@ storage areas, with buildup of recent data and physical cleanup of aging data:
   Rdb will do the right thing and adapt the data and index storage maps
   accordingly in one single step.
 </p>
+
+<p>
+The module RDB$STORAGE_MAPS contains the {map name} functions that allow to
+test if a data item fits within the partitioning bounderies of a storage map.
+</p>
+
+Consider:<br>
+
+<pre>
+----
+SQL> show module rdb$storage_maps
+Information for module RDB$STORAGE_MAPS
+ 
+ Header:
+ RDB$STORAGE_MAPS
+ Comment:	Contains storage map routines
+ Module ID is: -70
+ 
+Routines in module RDB$STORAGE_MAPS:
+     LISTTAB_MAP
+     TABLE_PARTI_MAP
+     TABLE_PARTI_MAP__2
+     TABLE_PLACE_MAP
+     TABLE_TRACE_MAP
+     WAITING_FOR_CNTS_MAP
+     WAITING_FOR_DDLCKS_MAP
+     WAITING_FOR_TIMES_MAP
+ 
+SQL> show function TABLE_PARTI_MAP
+Information for function TABLE_PARTI_MAP
+ 
+ Function ID is: -72
+ Source:
+return 
+    case 
+	when (:COL1 <= 500) then 1
+	when (:COL1 <= 1000) then 2
+	when (:COL1 <= 1500) then 3
+	else -1
+    end;
+ Comment:	Return value for select partition - range 1 .. 3 - return -1 if
+		 out of range
+ Module name is: RDB$STORAGE_MAPS
+ Module ID is: -70
+ Number of parameters is: 1
+ 
+Parameter Name			Data Type	 Domain or Type
+--------------			---------	 --------------
+                                INTEGER		 
+	Function result datatype
+	Return value is passed by value
+ 
+COL1                            INTEGER		 
+	Parameter position is 1
+	Parameter is IN (read)
+	Parameter is passed by reference
+ 
+SQL> show function listtab_map
+Information for function LISTTAB_MAP
+
+ Function ID is: -77
+ Source:
+return 1;
+ Comment:       Mapped to just one area - always return 1
+ Module name is: RDB$STORAGE_MAPS
+ Module ID is: -70
+ Number of parameters is: 0
+
+Parameter Name                  Data Type        Domain or Type
+--------------                  ---------        --------------
+                                INTEGER
+        Function result datatype
+        Return value is passed by value
+----
+</pre>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -5222,11 +5414,11 @@ Procedures Usage
 </p>
 
 <pre>
-number of cluster nodes 1
-open AUTOMATIC (wait 60 minutes for close)
+Number of cluster nodes 1
+Open AUTOMATIC (wait 60 minutes for close)
 </pre>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------
@@ -5244,13 +5436,13 @@ $!------------------------
   This is a requirement for all analyze reporting procedures.
 </p>
 
-  Rdb v7.3 provides 4 extra columns, only filled if using /PARTITIONS
+  Rdb v7.3 provides 4 extra columns, only filled if using /PARTITIONS<br>
 
 <pre>
-  RMU$TABLE_NAME     char(32),     -- v7.3 Set if using /partitions,
-  RMU$INDEX_NAME     char(32),     -- v7.3 conflicts if using /areas,
-  RMU$PARTITION_NAME char(32),     -- v7.3 only partitioned areas listed.
-  RMU$ST_AREA_NAME   char(32),     -- v7.3
+RMU$TABLE_NAME     char(32),     -- v7.3 Set if using /partitions,
+RMU$INDEX_NAME     char(32),     -- v7.3 conflicts if using /areas,
+RMU$PARTITION_NAME char(32),     -- v7.3 only partitioned areas listed.
+RMU$ST_AREA_NAME   char(32),     -- v7.3
 </pre>
 
 <p>
@@ -5259,8 +5451,10 @@ $!------------------------
   during the load of the analyze data, depending on the Rdb version running.
 </p>
 
+<p>
 <b>CPTRDB_ANA_DBS_WEEKLY.COM</b><br>
-  Calls CPTRDB_ANA_DBS_BATCH.COM per database<br>
+  Calls CPTRDB_ANA_DBS_BATCH.COM per database
+</p>
 
 <p>
   Weekly RMU/Analyze a series of databases and store the binary output
@@ -5296,27 +5490,29 @@ CPT$RDB_JOB|CPTRDB_ANA_DBS_WEEKLY|L15S29|TOMORROW +6-04:00|
 ! 3 Reschedule time
 </pre>
 
+<p>
 <b>CPTRDB_ANA_DBS_BATCH.COM</b><br>
-  Called per database from CPTRDB_ANA_DBS_WEEKLY.COM<br>
+  Called per database from CPTRDB_ANA_DBS_WEEKLY.COM
+</p>
 
 <p>
   The procedure performs three execution steps:
 </p>
 
 <pre>
-  1) RMU/Analyze one database and store the binary output
-  in it's individual reporting database named ANA_{dbid},
-  created using CPTRDB_CREATE_ANA_DB.COM .
+1) RMU/Analyze one database and store the binary output
+   in it's individual reporting database named ANA_{dbid},
+   created using CPTRDB_CREATE_ANA_DB.COM .
 
-  Both Rdb V7.2 and V7.3 are handled. The procedure assumes the
-  RMU$ANALYZE_AREA table has a V7.3 format, with 4 extra columns.
-  In Rdb V7.2 the correct /FIELDS qualifier is applied to RMU/Load the analyze
-  data.
+   Both Rdb V7.2 and V7.3 are handled. The procedure assumes the
+   RMU$ANALYZE_AREA table has a V7.3 format, with 4 extra columns.
+   In Rdb V7.2 the correct /FIELDS qualifier is applied to RMU/Load the analyze
+   data.
 
-  2) Dump the database header, and create/save the restore and aij options files 
-  in CPT$RDB_ANA: for later reference (in case of disaster recovery).
+2) Dump the database header, and create/save the restore and aij options files 
+   in CPT$RDB_ANA: for later reference (in case of disaster recovery).
 
-  3) Create a database backup of the reporting database in CPT$RDB_ANA_DB_BCK:
+3) Create a database backup of the reporting database in CPT$RDB_ANA_DB_BCK:
 </pre>
 
 <p>
@@ -5324,7 +5520,7 @@ CPT$RDB_JOB|CPTRDB_ANA_DBS_WEEKLY|L15S29|TOMORROW +6-04:00|
   areas. 
 </p>
 
-  Output files sample:
+  Output files sample:<br>
 
 <pre>
 Directory DISK$DATA_29:[CPT$RDB_ANA]
@@ -5350,25 +5546,27 @@ retention interval of 8 days. The log and output files .log and .lis are
 cleaned with a retention interval of 22 days.
 </p>
 
+<p>
 <b>CPTRDB_RMU$ANALYZE_AREA_72.RRD</b><br>
 <b>CPTRDB_RMU$ANALYZE_AREA_73.RRD</b><br>
   Used in CPTRDB_ANA_DBS_BATCH.COM<br>
-  Rdb v7.2 and v7.3 record structures to load the analyze data.<br>
+  Rdb v7.2 and v7.3 record structures to load the analyze data.
+</p>
 
 <p>
   Rdb v7.3 provides 4 extra columns, only filled if using /PARTITIONS
 </p>
 
 <pre>
-  DEFINE FIELD RMU$TABLE_NAME     DATATYPE IS TEXT SIZE IS 32.
-  DEFINE FIELD RMU$INDEX_NAME     DATATYPE IS TEXT SIZE IS 32.
-  DEFINE FIELD RMU$PARTITION_NAME DATATYPE IS TEXT SIZE IS 32.
-  DEFINE FIELD RMU$ST_AREA_NAME   DATATYPE IS TEXT SIZE IS 32.
+DEFINE FIELD RMU$TABLE_NAME     DATATYPE IS TEXT SIZE IS 32.
+DEFINE FIELD RMU$INDEX_NAME     DATATYPE IS TEXT SIZE IS 32.
+DEFINE FIELD RMU$PARTITION_NAME DATATYPE IS TEXT SIZE IS 32.
+DEFINE FIELD RMU$ST_AREA_NAME   DATATYPE IS TEXT SIZE IS 32.
 
-  RMU$TABLE_NAME.
-  RMU$INDEX_NAME.
-  RMU$PARTITION_NAME.
-  RMU$ST_AREA_NAME.
+RMU$TABLE_NAME.
+RMU$INDEX_NAME.
+RMU$PARTITION_NAME.
+RMU$ST_AREA_NAME.
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -5424,13 +5622,13 @@ Procedures Usage
   enforced by a unique index, to allow for exact match queries.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_AVAILABLE_DATES {dbid} {start date}
+$ @CPTRDB_ANA_AVAILABLE_DATES {dbid} {start date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -5459,15 +5657,15 @@ Total number of analysis dates: 6
   from the RMU/Analyze reporting database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_FRAGMENTS {dbid} {min % fragm} {min n rows} {ana date} 
+$ @CPTRDB_ANA_FRAGMENTS {dbid} {min % fragm} {min n rows} {ana date} 
 
-  Specify P2=0.00, P3=0 to list all fragmented logical areas.
+Specify P2=0.00, P3=0 to list all fragmented logical areas.
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database: DISK$DATA_23:[SBN_DB]SABIN_TT.RDB
@@ -5501,21 +5699,56 @@ Total number of alarms: 4
 </pre>
 
 <p>
+The My Oracle Support Document Id. 283203.1 illustrates how to identify
+fragmented rows of a table using the function RDB$$IS_ROW_FRAGMENTED,
+that can/must be declared in interactive or dynamic SQL only.
+</p>
+
+<pre>
+SQL> attach 'filename mf_personnel';
+     declare function RDB$$IS_ROW_FRAGMENTED
+     (in :dbk char(8) character set unspecified)
+     returns integer;
+
+SQL> select college_code, RDB$$IS_ROW_FRAGMENTED (dbkey) from colleges
+     where RDB$$IS_ROW_FRAGMENTED (dbkey) = 1;
+COLLEGE_CODE
+DREW 1
+QUIN 1
+2 rows selected
+</pre>
+
+RDB$$IS_ROW_FRAGMENTED Usage Notes:<br>
+
+<pre>
+.A function result of zero (0) indicates a non-fragmented row and a value of 
+ one (1) indicates a fragmented row.
+
+.This routine may only be used from Interactive and Dynamic SQL.
+
+.Only valid DBKEY values should be passed to the function.
+
+.If the DBKEY is for a vertically partitioned table then only the fragmented 
+ state of the primary segment is reported. There is currently no programatic 
+ method to determine fragmented secondary segments.
+</pre>
+
+<p>
 <b>CPTRDB_ANA_FRAGMENTS_DIFF.COM</b><br>
   List fragmentation and delta's per logical area on two specific days,
   from the RMU/Analyze reporting database.
   The procedure requires that fragmented rows exist on day1 and day2.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_FRAGMENTS_DIFF {dbid} {min % fragm} {min n rows} {ana date1} {ana date2}
+$ @CPTRDB_ANA_FRAGMENTS_DIFF {dbid} {min % fragm} {min n rows} {ana date1} {ana date2}
 
-  Specify P2=0.00, P3=0 to list all fragmented logical areas.
+Specify P2=0.00, P3=0 to list all fragmented logical areas.
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -5554,15 +5787,15 @@ Fragmented logical areas added or removed:
   from the RMU/Analyze reporting database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_FREE_SPACE {dbid} {max % free} {min blocks} {ana date}
+$ @CPTRDB_ANA_FREE_SPACE {dbid} {max % free} {min blocks} {ana date}
 
-  Specify P2=100, P3=0 to list all areas
+Specify P2=100, P3=0 to list all areas
 </pre>
 
-  Two output samples:
+  Two output samples:<br>
 
 <pre>
 Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -5646,15 +5879,15 @@ Total number of mixed areas: 4
   from the RMU/Analyze reporting database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_FREE_SPACE_DIFF {dbid} {max % free} {min blocks} {ana date1} {ana date2}
+$ @CPTRDB_ANA_FREE_SPACE_DIFF {dbid} {max % free} {min blocks} {ana date1} {ana date2}
 
-  Specify P2=100, P3=0 to list all areas
+Specify P2=100, P3=0 to list all areas
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database: DISK$DATA_25:[CLIO_DB]CLIO_DB.RDB
@@ -5706,13 +5939,13 @@ Storage areas added or removed:
   since a start date.
 </p>
  
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_FREE_SPACE_DYN {dbid} {sarea name} {start date}
+$ @CPTRDB_ANA_FREE_SPACE_DYN {dbid} {sarea name} {start date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database:      DISK$DATA_25:[CLIO_DB]CLIO_DB.RDB
@@ -5751,13 +5984,13 @@ Date       Size       Free DiffSize   DiFr TotDifSize Said
   since a start date.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_FREE_SPACE_DYN_LAREA {dbid} {sarea name} {larea name} {start date}
+$ @CPTRDB_ANA_FREE_SPACE_DYN_LAREA {dbid} {sarea name} {larea name} {start date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database:      DISK$DATA_25:[CLIO_DB]CLIO_DB.RDB
@@ -5794,13 +6027,13 @@ Date           Size DiffSize Free DiFr LareSize LareDiff Lar% La%D SaId LaId
   area name, on one analysis day from the RMU/Analyze reporting db.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_LAREA_COUNTS_ALL {dbid} {ana date}
+$ @CPTRDB_ANA_LAREA_COUNTS_ALL {dbid} {ana date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database:         DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -5871,10 +6104,10 @@ LareaId Larea                               Count SareaId Sarea
   on one analysis day from the RMU/Analyze reporting db.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_LAREA_COUNTS_CONTAINING {dbid} {larea name cont} {ana date}
+$ @CPTRDB_ANA_LAREA_COUNTS_CONTAINING {dbid} {larea name cont} {ana date}
 </pre>
 
 <p>
@@ -5884,13 +6117,13 @@ LareaId Larea                               Count SareaId Sarea
   reporting database, since a start date.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_LAREA_COUNTS_DYN {dbid} {larea name} {start date}
+$ @CPTRDB_ANA_LAREA_COUNTS_DYN {dbid} {larea name} {start date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database:          DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -5937,13 +6170,13 @@ Totals:         1502     -1500         0         0
   from the RMU/Analyze reporting db.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_LAREA_COUNTS_ONE {dbid} {larea name} {ana date}
+$ @CPTRDB_ANA_LAREA_COUNTS_ONE {dbid} {larea name} {ana date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database:          DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -5972,10 +6205,10 @@ LareaId     Count SareaId Sarea
   on one analysis day from the RMU/Analyze reporting db.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_LAREA_COUNTS_RDB$ {dbid} {ana date}
+$ @CPTRDB_ANA_LAREA_COUNTS_RDB$ {dbid} {ana date}
 </pre>
 
 <p>
@@ -5984,10 +6217,10 @@ LareaId     Count SareaId Sarea
   on one analysis day from the RMU/Analyze reporting db.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_LAREA_COUNTS_STARTING {dbid} {larea name start} {ana date}
+$ @CPTRDB_ANA_LAREA_COUNTS_STARTING {dbid} {larea name start} {ana date}
 </pre>
 
 <p>
@@ -5997,13 +6230,13 @@ LareaId     Count SareaId Sarea
   reporting database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_LAREA_ID {dbid} {larea id} {ana date}
+$ @CPTRDB_ANA_LAREA_ID {dbid} {larea id} {ana date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -6032,13 +6265,13 @@ At: 2015-04-01 15:05:33
   from the RMU/Analyze reporting database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_PAGE_SIZE_ALL {dbid} {ana date}
+$ @CPTRDB_ANA_PAGE_SIZE_ALL {dbid} {ana date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -6078,10 +6311,10 @@ Total number of storage areas: 16
   on one analysis day from the RMU/Analyze reporting database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_PAGE_SIZE_CONT {dbid} {sarea name cont} {ana date}
+$ @CPTRDB_ANA_PAGE_SIZE_CONT {dbid} {sarea name cont} {ana date}
 </pre>
 
 <p>
@@ -6090,10 +6323,10 @@ Total number of storage areas: 16
   on one analysis day from the RMU/Analyze reporting database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_PAGE_SIZE_START {dbid} {sarea name start} {ana date}
+$ @CPTRDB_ANA_PAGE_SIZE_START {dbid} {sarea name start} {ana date}
 </pre>
 
 <p>
@@ -6102,13 +6335,13 @@ Total number of storage areas: 16
   on one analysis day from the RMU/Analyze reporting database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_SAREA_ID {dbid} {sarea id} {ana date}
+$ @CPTRDB_ANA_SAREA_ID {dbid} {sarea id} {ana date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -6138,13 +6371,13 @@ At: 2015-04-02 15:08:29
   on one analysis day from the RMU/Analyze reporting database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_SAREA_NAME {dbid} {sarea name} {ana date}
+$ @CPTRDB_ANA_SAREA_NAME {dbid} {sarea name} {ana date}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
@@ -6175,13 +6408,13 @@ At: 2015-04-01 15:10:42
   ordered by logical area size descending.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_ANA_SAREA_NAME_SIZES {dbid} {sarea name} {ana date}
+$ @CPTRDB_ANA_SAREA_NAME_SIZES {dbid} {sarea name} {ana date}
 </pre>
 
-  Output sample for a mixed page format storage area:
+  Output sample for a mixed page format storage area:<br>
 
 <pre>
 Database: DISK$DATA_23:[SBN_DB]SABIN_TT.RDB
@@ -6278,13 +6511,13 @@ $ DIFFERENCES {output1} {output2}
   of a single database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_STORAGE_AREAS {dbid}
+$ @CPTRDB_SHOW_STORAGE_AREAS {dbid}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Storage areas sizes for database
@@ -6366,13 +6599,13 @@ STALL_CNTS_AREA| 4| 1988| | 3000| 6000|20| | 3000| 3000|20| | 12000| 24000| | 12
   List all tables, their columns and datatypes for a single database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_TABLES {dbid}
+$ @CPTRDB_SHOW_TABLES {dbid}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Tables And Their Columns/Datatypes For Database:
@@ -6550,13 +6783,13 @@ WAITING_FOR_TIMES              ,4  ,STALL_REASON                   ,VARCHAR(132)
   List all indices and their ASC/DESC segments for a single database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_INDICES {dbid}
+$ @CPTRDB_SHOW_INDICES {dbid}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 All Indices And Their Segments For Database:
@@ -6593,7 +6826,7 @@ WAITING_FOR_TIMES              ,WAITING_FOR_TIMES_IDX          ,4 ,    ,STALL_RE
   that causes the snapshot files to grow.
 </p>
 
-  The procedure lists per user on multiple lines:
+  The procedure lists per user on multiple lines:<br>
 
 <pre>
   (Repeating on each line to allow search)
@@ -6614,13 +6847,13 @@ WAITING_FOR_TIMES              ,WAITING_FOR_TIMES_IDX          ,4 ,    ,STALL_RE
   Blank separator
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_USERS {dbid} [Y|N]
+$ @CPTRDB_SHOW_USERS {dbid} [Y|N]
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 0:692851031|L15S52|285FB22F|4|1|Read/Only||
@@ -6687,21 +6920,23 @@ z|L15S50|27E0046A|1|5|
 </pre>
 
 
+<p>
 <b>CPTRDB_SHOW_THIN_CLIENTS.COM</b><br>
-  Calls CPTRDB_SHOW_THIN_CLIENTS_BATCH.COM<br>
+  Calls CPTRDB_SHOW_THIN_CLIENTS_BATCH.COM
+</p>
 
 <p>
   Interactive list all current clients for one thin server on one cluster node.
   The sql statements are split in char(132) lines.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_THIN_CLIENTS {node} {server}
+$ @CPTRDB_SHOW_THIN_CLIENTS {node} {server}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
  2-APR-2015 15:29:02.87 - Rdb JDBC Thin Server TS1703 Clients From Node L15S58
@@ -6746,8 +6981,10 @@ RDB$PID_AT_DB                 :
 rdbthincontrol> 
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_THIN_CLIENTS_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_THIN_CLIENTS.COM<br>
+  Called from CPTRDB_SHOW_THIN_CLIENTS.COM
+</p>
 
 <p>
   Requires the configuration file CPTRDB_CONFIGURATION.REF
@@ -6781,22 +7018,22 @@ CPT$RDB_PARAM|CPTRDB_RESTART_JDBC|L15S28|DISK$DATA_24:[JAVA$150.COM]JAVA$150_SET
   one tsn block per node. 
 
   This information is also available using
-  RMU/Show Statistics Database Parameter Info|TSNBLK Allocation
+  RMU/Show Statistics Database Parameter Info|TSNBLK Allocation.
 
   Note that, when a database is open on more than one node, at the start 
   of every read only transaction, all tsn blocks are scanned to apply the 
   visibility rules, serialized using the SEQBLK lock, at the cost of 2
   writes to the root file. This can result in 'waiting for TSNBLK/SEQBLK'
   stalls.
-</pre>
+</p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_TSN_BLKS {dbid}
+$ @CPTRDB_SHOW_TSN_BLKS {dbid}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Number Of Database Users And TSN Blocks Per Cluster Node
@@ -6825,13 +7062,13 @@ L15S59      6     25      1     28      3
   for a single database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_AREAS_IDS {dbid}
+$ @CPTRDB_SHOW_AREAS_IDS {dbid}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 All Storage Areas / Logical Areas Ids
@@ -7039,13 +7276,13 @@ Sarea Larea   AIP Recrd Index  Hash Systm Segme
   List and dump one data or snapshot page for a database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_ONE_PAGE {dbid} {s_area_nbr} {page_nbr} [DATA|SNAP]
+$ @CPTRDB_SHOW_ONE_PAGE {dbid} {s_area_nbr} {page_nbr} [DATA|SNAP]
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 *     On Node L15S29
@@ -7087,13 +7324,13 @@ Output CPT$RDB_LISTS:PAGE_5_3002_CPTRDB_DB_1_L15S29_20151019.LIS_19OCT154613
   List one logical area id for a database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_ONE_LOGICAL_AREA {dbid} {logical_area_id}
+$ @CPTRDB_SHOW_ONE_LOGICAL_AREA {dbid} {logical_area_id}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Logical Area Id 77
@@ -7124,13 +7361,13 @@ RDB$LOGICAL_AREAS
   List one storage area id for a database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_ONE_STORAGE_AREA {dbid} {storage_area_id}
+$ @CPTRDB_SHOW_ONE_STORAGE_AREA {dbid} {storage_area_id}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Storage Area Id 10
@@ -7180,13 +7417,13 @@ DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_22.RDA;1|
   List one record type id for a database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_ONE_RECORD_TYPE {dbid} {record_type_id} 
+$ @CPTRDB_SHOW_ONE_RECORD_TYPE {dbid} {record_type_id} 
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Record Type Id 43
@@ -7246,13 +7483,13 @@ TABLE_PARTI_MAP|DATA_AREA_32|SYS_P00078|3|78|0|0|2|
   List one index set id for a database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_ONE_INDEX_SET {dbid} {index_set_id}
+$ @CPTRDB_SHOW_ONE_INDEX_SET {dbid} {index_set_id}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Index Set Id 79
@@ -7308,13 +7545,13 @@ TABLE_PARTI_IDX|INDEX_AREA_3|SYS_P00081|3|0|81|0|0|
   List one hashed index id for a database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_ONE_HASH_INDEX {dbid} {system_record_id} {hash_index_id}
+$ @CPTRDB_SHOW_ONE_HASH_INDEX {dbid} {system_record_id} {hash_index_id}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 System Record Id 63
@@ -7371,13 +7608,13 @@ TABLE_PLACE_HDX|MIXED_AREA_3|SYS_P00069|3|64|69|0|0|
   List all logical areas for a given table or index name of a database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_ONE_STORAGE_MAP {dbid} [TABLE|INDEX] {object name}
+$ @CPTRDB_SHOW_ONE_STORAGE_MAP {dbid} [TABLE|INDEX] {object name}
 </pre>
 
-  Output samples:
+  Output samples:<br>
 
 <pre>
 Storage Map For
@@ -7544,14 +7781,14 @@ TABLE_PLACE_HDX|64|SYS_P00069|MIXED_AREA_3|3|0|69|0|-1:-1:-1|6|
   RMU/Extract one wildcard object from a database.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_EXTRACT_ONE_OBJECT {dbid} {item} {wildcard object}
+$ @CPTRDB_EXTRACT_ONE_OBJECT {dbid} {item} {wildcard object}
 </pre>
 
   Output sample:<br> 
-  (All indices containing 'TABLE')
+  (All indices containing 'TABLE')<br>
 
 <pre>
 set verify;
@@ -7605,13 +7842,13 @@ commit work;
   List all metadata objects related to one table.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_TABLE_METADATA {dbid} {table name}
+$ @CPTRDB_SHOW_TABLE_METADATA {dbid} {table name}
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 All Related Metadata For Table
@@ -7703,14 +7940,16 @@ Identify Potential Problem Areas
   return to the previous index definitions.
 </p>
 
-  Start the 'observation' business day using
+  Start the 'observation' business day using<br>
 
 <pre>
-  $ RMU/Show Statistics/time=1[/reset] {db}
+$ RMU/Show Statistics/time=1[/reset] {db}
 </pre>
 
+<p>
   and write the sorted logical area overview screens at the end of the day
   for later reference.
+</p>
 
 <pre>
 Node: L15S50 (1/6/6)   Oracle Rdb V7.2-500 Perf. Monitor  3-NOV-2015 15:34:51.18
@@ -7738,18 +7977,18 @@ FDLTY_SLS_IDX.FDLTY_        54841         6828            0            0
 --------------------------------------------------------------------------------
 </pre>
 
-  Monitor individual indices/tables using the tools menu.
+  Monitor individual indices/tables using the tools menu.<br>
   
 <pre>
-  Press key "!" for the tools menu
-  Toggle "Display all logical areas"
-      to "Display application logical areas"
-  Press "!"
-  "Logical Area menu filter"
-  Enter *{NAME}* in uppercase
-  "Logical Area Overview (Tables)"
-  "Logical Area Statistics"
-  "Select Logical Area"
+Press key "!" for the tools menu
+Toggle "Display all logical areas"
+    to "Display application logical areas"
+Press "!"
+"Logical Area menu filter"
+Enter *{NAME}* in uppercase
+"Logical Area Overview (Tables)"
+"Logical Area Statistics"
+"Select Logical Area"
 </pre>
 
 <pre>
@@ -7788,7 +8027,7 @@ node creations                 0        0        0.0          248           0.0
 </p>
 
 <pre>
-  $ @CPTRDB_PREFIX_CARDINALITY {dbid} {table_name}
+$ @CPTRDB_PREFIX_CARDINALITY {dbid} {table_name}
 </pre>
 
 <pre>
@@ -7827,7 +8066,7 @@ Table Cardinality: 3501478
 ------------------------------------------------------------------------------
 </pre>
 
-  The index uses key suffix compression.
+  The index uses key suffix compression.<br>
 
 <pre>
 STKT_PRSN_LAST_NAME_IDX         with column LAST_NAME
@@ -7842,7 +8081,7 @@ STKT_PRSN_LAST_NAME_IDX         with column LAST_NAME
 
   The prefix cardinalities are not correct.<br>
 
-  After a RMU/Collect:
+  After a RMU/Collect:<br>
 
 <pre>
 Optimizer Statistics collected for table : SEASN_TKT_PRSN
@@ -7991,7 +8230,7 @@ Index Cardinality: 4
 --------------------------------------------------------------------------------
 </pre>
 
-  The index contains only four distinct values.
+  The index contains only four distinct values.<br>
 
 <pre>
 ------------------------------------------------------------------------------
@@ -8007,7 +8246,7 @@ Index Cardinality: 4
 ------------------------------------------------------------------------------
 </pre>
 
-  The physical index structure has only five nodes.
+  The physical index structure has only five nodes.<br>
 
 <pre>
 Node: L15S58 (1/6/6)   Oracle Rdb V7.2-500 Perf. Monitor 10-NOV-2015 11:23:23.49
@@ -8137,7 +8376,7 @@ during the execution of a query), a number of best practice rules apply.
   RMU/Unload one or more tables of a database in delimited text format.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------------
@@ -8159,7 +8398,7 @@ $!------------------------------
   RMU/Load one or more 'non placement via' tables of a database.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------------------------------------------------------------
@@ -8183,7 +8422,7 @@ $!------------------------------------------------------------------------------
   RMU/Load one or more 'placement via hashed index' tables of a database.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------------------------------------------------------------
@@ -8209,7 +8448,7 @@ $!------------------------------------------------------------------------------
   RMU/Collect optimizer statistics for a hardcoded database, table and/or index.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------------
@@ -8225,10 +8464,10 @@ $!------------------------------
   Interactive list the optimizer statistics for one database and table.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_OPTIMIZER_STAT {dbid} {table name}
+$ @CPTRDB_SHOW_OPTIMIZER_STAT {dbid} {table name}
 </pre>
 
 <p>
@@ -8243,13 +8482,13 @@ $!------------------------------
   This is a measure for the selectivity of the segment order.
 </p>
 
-  Interactive usage:
+  Interactive usage:<br>
 
 <pre>
-  $ @CPTRDB_PREFIX_CARDINALITY {dbid} {table name}
+$ @CPTRDB_PREFIX_CARDINALITY {dbid} {table name}
 </pre>
 
-  The procedure lists also per partition:
+  The procedure lists also per partition:<br>
 
 <pre>
   Logical area id
@@ -8263,7 +8502,7 @@ $!------------------------------
   Max segment length
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Prefix Cardinalities For Index CLIO_LNK_KEYS_HDX
@@ -8302,7 +8541,7 @@ Index Cardinality: 6664328
   The /PARTITIONS qualifier is a new feature in Rdb v7.3
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------------
@@ -8318,7 +8557,7 @@ $!------------------------------
   RMU/Analyze one or more storage areas for a single database.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-----------------------
@@ -8338,7 +8577,7 @@ $!-----------------------
   The /PARTITIONS qualifier is a new feature in Rdb v7.3 .
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-------------------------
@@ -8353,7 +8592,7 @@ $!-------------------------
   page for a single database and hardcoded table.
 
   Refer to the chapter
-  <a href="#Chapter 34">Placement Via Hashed Index And Vertical/Horizontal Partitioning</a> 
+  <a href="#Chapter 34">-- § 34 -- Placement Via Hashed Index And Vertical/Horizontal Partitioning</a> 
   for more details on this procedure.
 </p>
 
@@ -8363,29 +8602,29 @@ $!-------------------------
   for a given database of one table and up to 4 of it's columns.
 
   The generated procedure can be submitted in batch, unchanged with no editing
-  required, using CPTRDB_SUBMIT.COM
+  required, using CPTRDB_SUBMIT.COM.
 
   The goal is to provide data distribution information on the number
   of unique values, when investigating (the order of) index segments.
 </p>
 
-  Usage interactive:
+  Usage interactive:<br>
 
 <pre>
-  Parameters: P1  dbid
-              P2  table name
-              P3  column name 1
-              P4  [NONE | column name 2]
-              P5  [NONE | column name 3]
-              P6  [NONE | column name 4]
+Parameters: P1  dbid
+            P2  table name
+            P3  column name 1
+            P4  [NONE | column name 2]
+            P5  [NONE | column name 3]
+            P6  [NONE | column name 4]
 
-  All six parameters are required.
+All six parameters are required.
 </pre>
 
-  Usage for one column:
+  Usage for one column:<br>
 
 <pre>
-  $ @CPTRDB_SELECT_GRPBY_GEN {dbid} {table} {col1}  none none none
+$ @CPTRDB_SELECT_GRPBY_GEN {dbid} {table} {col1}  none none none
 </pre>
 
 <p>
@@ -8396,10 +8635,10 @@ $!-------------------------
   The char(7) prefix "GRPBY6_" is stripped off by CPTRDB_SUBMIT.COM 
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} GRPBY6_GRPBY_{table_name}
+$ @CPTRDB_SUBMIT {node} GRPBY6_GRPBY_{table_name}
 </pre>
 
   The log and output filenames adhere to the toolset naming conventions:<br>
@@ -8427,7 +8666,7 @@ $!-------------------------
   output file FLAGS_{dbid}_{node}_yyyymmdd.LIS_ddmmmhhmmss.
 </p>
 
-  The activated debug flags are:
+  The activated debug flags are:<br>
 
 <pre>
   -- Always
@@ -8545,7 +8784,7 @@ compliance mandatory;
   on the countries table.
 </p>
 
-  The strategy is:
+  The strategy is:<br>
 
 <pre>
  ATTACH #1,  7-AUG-2014 12:23:08.37
@@ -8623,7 +8862,7 @@ Leaf#01 BgrOnly 0:CLIO_CLNTS Card=2640406
 ~T Commit_transaction (4) on db: 1
 </pre>
 
-  The job performance results on the nth run with data in the buffers:
+  The job performance results on the nth run with data in the buffers:<br>
 
 <pre>
   RDBMON       job terminated at  7-AUG-2014 12:23:08.87
@@ -8634,7 +8873,9 @@ Leaf#01 BgrOnly 0:CLIO_CLNTS Card=2640406
   Charged CPU time:        0 00:00:00.32      Elapsed time:       0 00:00:01.01
 </pre>
 
-  Well done Rdb !<br><br>
+<p>
+  Well done Rdb !
+</p>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -8662,17 +8903,17 @@ Procedures Usage
   Interactive generate database and journal restore options files.
 </p>
 
-  Creates in CPT$RDB_DATA:
+  Creates in CPT$RDB_DATA:<br>
 
 <pre>
-  [RESTORE_]{dbid_restore}_{node}_yyyymmdd.OPT
-  [RESTORE_]{dbid_restore}_{node}_yyyymmdd.AIJ_OPT
+[RESTORE_]{dbid_restore}_{node}_yyyymmdd.OPT
+[RESTORE_]{dbid_restore}_{node}_yyyymmdd.AIJ_OPT
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_RESTORE_OPTIONS {dbid_backup} {dbid_restore}
+$ @CPTRDB_RESTORE_OPTIONS {dbid_backup} {dbid_restore}
 </pre>
 
 <p>
@@ -8680,16 +8921,16 @@ Procedures Usage
   RMU/Restore one database
 </p>
 
-  Requires the database and journal options files in CPT$RDB_DATA:
+  Requires the database and journal options files in CPT$RDB_DATA:<br>
 
 <pre>
-  [RESTORE_]{dbid_restore}_{node}_yyyymmdd.OPT
-  [RESTORE_]{dbid_restore}_{node}_yyyymmdd.AIJ_OPT
+[RESTORE_]{dbid_restore}_{node}_yyyymmdd.OPT
+[RESTORE_]{dbid_restore}_{node}_yyyymmdd.AIJ_OPT
 </pre>
 
 <p>
   They specify the new locations and aij settings of the restored database,
-  and can be created using CPTRDB_RESTORE_OPTIONS.COM
+  and can be created using CPTRDB_RESTORE_OPTIONS.COM.
 
   Note that the RMU/Analyze (weekly) job saves the restore options files 
   for later reference (in case of disaster recovery) in CPT$RDB_ANA.
@@ -8697,7 +8938,7 @@ Procedures Usage
   The (daily) show extents job saves the database sizes in CPT$RDB_SIZE.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------------------------------------------------------------
@@ -8718,7 +8959,7 @@ $!------------------------------------------------------------------------------
   has to be executed right away after the restore.
 </p>
 
-  Normal exit of a successful restore:
+  Normal exit of a successful restore:<br>
 
 <pre>
 %RMU-I-AIJWASON, AIJ journaling was active when the database was backed up
@@ -8729,7 +8970,7 @@ $!------------------------------------------------------------------------------
 %RMU-I-COMPLETED, RESTORE operation completed at  6-JUL-2015 15:23:55.19
 </pre>
 
-  Live AIJ status after a successful restore (database closed):
+  Live AIJ status after a successful restore (database closed):<br>
 
 <pre>
 Node: L15S29 (1/1/1)   Oracle Rdb V7.3-120 Perf. Monitor  6-JUL-2015 15:31:14.51
@@ -8755,20 +8996,20 @@ AIJ3                            Unused    100000     Empty Latent  Accessible
   CPTRDB_ALTER_DATABASE.COM as a template, before the actual RMU/Open.
 </p>
 
-  Toolset cockpit events:
+  Toolset cockpit events:<br>
 
 <pre>
-  CPTRDB_DB_RestoreStarted
-  "CPTRDB - Database {root} - Restore Started - ddmmmhhmmss"
+CPTRDB_DB_RestoreStarted
+"CPTRDB - Database {root} - Restore Started - ddmmmhhmmss"
 
-  CPTRDB_DB_RestoreFailed
-  "CPTRDB - Database {root} - Restore Failed - ddmmmhhmmss"
+CPTRDB_DB_RestoreFailed
+"CPTRDB - Database {root} - Restore Failed - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - DB Restore Failed {dbid} {node} yyyymmdd"
+"CPTRDB - DB Restore Failed {dbid} {node} yyyymmdd"
 </pre>
 
 <p>
@@ -8782,7 +9023,7 @@ AIJ3                            Unused    100000     Empty Latent  Accessible
   This list can be used as input file to RMU/Recover.
 </p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20150706_0025_6211.AIJ_BCK;1
@@ -8795,21 +9036,21 @@ DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20150706_1426_6216.AIJ_BCK;1
 
 <p>
 <b>CPTRDB_RECOVER_DATABASE.COM</b><br>
-  RMU/Recover AIJ rollforward of one database.
+  RMU/Recover AIJ rollforward one database.
 </p>
 
-  Requires the 'list of aij backup files' option file:
+  Requires the 'list of aij backup files' option file:<br>
 
 <pre>
-  AIJ_BCK_{dbid_backup}_{node}_yyyymmdd.LIS_ddmmmhhmmss
-  in CPT$RDB_DATA.
+AIJ_BCK_{dbid_backup}_{node}_yyyymmdd.LIS_ddmmmhhmmss
+in CPT$RDB_DATA.
 </pre>
 
-  This list can be created using
+  This list can be created using<br>
 
 <pre>
-  $ @CPTRDB_SHOW_AIJ_BCK_ONE {dbid_backup}
-  Remove the header lines from the output file before the recover.
+$ @CPTRDB_SHOW_AIJ_BCK_ONE {dbid_backup}
+Remove the header lines from the output file before the recover.
 </pre>
 
 <p>
@@ -8826,15 +9067,15 @@ DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20150706_1426_6216.AIJ_BCK;1
   backups to keep the database recoverable. 
 </p>
 
-  Check the restore logfile for the messages:
+  Check the restore logfile for the messages:<br>
 
 <pre>
-  %RMU-I-AIJWASON, AIJ journaling was active when the database was backed up
-  %RMU-I-AIJRECFUL,
-  Recovery of the entire database starts with AIJ file sequence {n}
+%RMU-I-AIJWASON, AIJ journaling was active when the database was backed up
+%RMU-I-AIJRECFUL,
+Recovery of the entire database starts with AIJ file sequence {n}
 </pre>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------------------------------------------------------------
@@ -8867,7 +9108,7 @@ $SEVERITY: 1
 %RMU-I-AIJNXTSEQ, to continue this AIJ file recovery, the sequence number needed will be !SL
 </pre>
 
-  Live AIJ status after a successful recover (database open):
+  Live AIJ status after a successful recover (database open):<br>
 
 <pre>
 Node: L15S29 (1/1/1)   Oracle Rdb V7.3-120 Perf. Monitor  6-JUL-2015 15:37:15.44
@@ -8883,14 +9124,16 @@ AIJ2                            Unused    100000     Empty Latent  Accessible
 AIJ3                              6217    100000         2 Current Accessible
 </pre>
 
+<p>
   To free up the as *BACKUP NEEDED* marked AIJ slot, execute a by sequence
   number AIJ backup:
+</p>
 
 <pre>
-  $ RMU/BACKUP/AFTER/SEQ=6212 boem_db cpt$rdb_aij_bck:boem_db_{node}_.aij_bck
+$ RMU/BACKUP/AFTER/SEQ=6212 boem_db cpt$rdb_aij_bck:boem_db_{node}_.aij_bck
 </pre>
 
-  Live AIJ status now:
+  Live AIJ status now:<br>
 
 <pre>
 Node: L15S29 (1/1/1)   Oracle Rdb V7.3-120 Perf. Monitor  6-JUL-2015 15:40:01.69
@@ -8924,20 +9167,20 @@ AIJ3                              6217    100000         2 Current Accessible
   Run the job CPTRDB_BACKUP_DB_ALL and start normal processing.
 </p>
 
-  Toolset cockpit events:
+  Toolset cockpit events:<br>
 
 <pre>
-  CPTRDB_DB_RecoverStarted
-  "CPTRDB - Database {root} - Recover Started - ddmmmhhmmss"
+CPTRDB_DB_RecoverStarted
+"CPTRDB - Database {root} - Recover Started - ddmmmhhmmss"
 
-  CPTRDB_DB_RecoverFailed
-  "CPTRDB - Database {root} - Recover Failed - ddmmmhhmmss"
+CPTRDB_DB_RecoverFailed
+"CPTRDB - Database {root} - Recover Failed - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - DB Recover Failed {dbid} {node} yyyymmdd"
+"CPTRDB - DB Recover Failed {dbid} {node} yyyymmdd"
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -8962,7 +9205,7 @@ Procedures Usage
   RMU/Verify one or more indices for a single database.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------------
@@ -8980,7 +9223,7 @@ $!------------------------------
   RMU/Verify one or more storage areas for a single database.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!---------------------------
@@ -8997,7 +9240,7 @@ $!---------------------------
   RMU/Verify one or more constraints for a single database.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!----------------------------------------
@@ -9102,7 +9345,7 @@ Procedures Usage
   Run file for CPTRDB_READ_LIST_C.EXE
 </p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 -- 1 --
@@ -9157,7 +9400,7 @@ for a database with (continuous) logminer enabled.
   RMU/Unload/After_Journal data from a series of hardcoded AIJ journal files.
 </p>
 
-  Parameters: Adapt the list of AIJ backup files in the parameter block.
+  Parameters: Adapt the list of AIJ backup files in the parameter block.<br>
 
 <pre>
 $!---------------------------------------------------------------------------
@@ -9173,14 +9416,14 @@ $!---------------------------------------------------------------------------
   readable format {larea}:{page}:{line}.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_CVT_ODBKEY 18295873505984512
-    Char:    18295873505984512
-    Hex:     410000012e0000
-    Hex:     41:12e:0
-    Decimal: 65:302:0
+$ @JCCLML_CVT_ODBKEY 18295873505984512
+  Char:    18295873505984512
+  Hex:     410000012e0000
+  Hex:     41:12e:0
+  Decimal: 65:302:0
 </pre>
 
 <p>
@@ -9201,10 +9444,10 @@ $!---------------------------------------------------------------------------
   in a continuous way.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_UNLOAD_AFTER_CONT
+$ @CPTRDB_SUBMIT {node} CPTRDB_UNLOAD_AFTER_CONT
 </pre>
 
 <p>
@@ -9236,16 +9479,16 @@ Procedures Usage
 </p>
   
 <pre>
-  Parameters: P1, hostname, varchar(255)
-              P2, dbid,     varchar(255)
-              P3, username, varchar(12)
-              P4, password, varchar(32)
+Parameters: P1, hostname, varchar(255)
+            P2, dbid,     varchar(255)
+            P3, username, varchar(12)
+            P4, password, varchar(32)
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_REMOTE_ACCESS_TCPIP {hostname} {dbid} {username} {password}
+$ @CPTRDB_REMOTE_ACCESS_TCPIP {hostname} {dbid} {username} {password}
 </pre>
 
 <p>
@@ -9260,19 +9503,19 @@ Procedures Usage
   RDB$DATABASE_CREATOR of table RDB$DATABASE for the remote database.
 </p>
 
-  Observe the database protection using
+  Observe the database protection using<br>
 
 <pre>
-  SQL> show protection on database rdb$dbhandle;
+SQL> show protection on database rdb$dbhandle;
 </pre>
 
-  Check the tcp/ip log in 
+  Check the tcp/ip log in<br>
 
 <pre>
-  {hostname}::sys$common:[rdb$remote7%]RDBSERVER_TCPIP.LOG
+{hostname}::sys$common:[rdb$remote7%]RDBSERVER_TCPIP.LOG
 </pre>
 
-Output sample:
+Output sample:<br>
 
 <pre>
    RDB$FILE_NAME
@@ -9378,48 +9621,48 @@ The HP Bliss compiler is available from the OpenVMS Freeware distribution kit.
 <b>CPTRDB_ENCRYPT_C.EXE</b><br>
 
 <pre>
-  Standalone main C program to test the encryption procedures
-  ENCRYPT_CCN_B32
-  DECRYPT_CCN_B32
-  ENCRYPT_CCN_C
-  DECRYPT_CCN_C
+Standalone main C program to test the encryption procedures
+ENCRYPT_CCN_B32
+DECRYPT_CCN_B32
+ENCRYPT_CCN_C
+DECRYPT_CCN_C
 
-  Parameters: P1, input string, varchar(24)
+Parameters: P1, input string, varchar(24)
 
-  Calls CPT$RDB:CPTRDB_ENCRYPT_SHR_B32.EXE
-        CPT$RDB:CPTRDB_ENCRYPT_SHR_C.EXE
+Calls CPT$RDB:CPTRDB_ENCRYPT_SHR_B32.EXE
+      CPT$RDB:CPTRDB_ENCRYPT_SHR_C.EXE
 
-  The program exports two DCL symbols
-  ENCRYPT_SYMB_B32
-  ENCRYPT_SYMB_C
-  that contain the encrypted value of the input string, created using
-  the Bliss procedure ENCRYPT_CCN_B32 or the C procedure ENCRYPT_CCN_C.
+The program exports two DCL symbols
+ENCRYPT_SYMB_B32
+ENCRYPT_SYMB_C
+that contain the encrypted value of the input string, created using
+the Bliss procedure ENCRYPT_CCN_B32 or the C procedure ENCRYPT_CCN_C.
 </pre>
 
 <b>CPTRDB_ENCRYPT_C_RUN.COM</b><br>
 
 <pre>
-  Run command file to test the Bliss and C encryption/decryption routines
-  ENCRYPT_CCN_B32
-  DECRYPT_CCN_B32
-  ENCRYPT_CCN_C
-  DECRYPT_CCN_C
-  from the standalone C main program CPTRDB_ENCRYPT_C.EXE
+Run command file to test the Bliss and C encryption/decryption routines
+ENCRYPT_CCN_B32
+DECRYPT_CCN_B32
+ENCRYPT_CCN_C
+DECRYPT_CCN_C
+from the standalone C main program CPTRDB_ENCRYPT_C.EXE
 
-  Parameters: P1, plain text string, varchar(24)
+Parameters: P1, plain text string, varchar(24)
 
-  Runs:  CPT$RDB:CPTRDB_ENCRYPT_C.EXE
-  Calls: CPT$RDB:CPTRDB_ENCRYPT_SHR_B32.EXE
-         CPT$RDB:CPTRDB_ENCRYPT_SHR_C.EXE
+Runs:  CPT$RDB:CPTRDB_ENCRYPT_C.EXE
+Calls: CPT$RDB:CPTRDB_ENCRYPT_SHR_B32.EXE
+       CPT$RDB:CPTRDB_ENCRYPT_SHR_C.EXE
 
-  The encrypted values are imported in to a SQL session to list their
-  length and hexadecimal value using the SQL function RAWTOHEX.
+The encrypted values are imported in to a SQL session to list their
+length and hexadecimal value using the SQL function RAWTOHEX.
 
-  Usage:
-  $ @CPTRDB_ENCRYPT_C_RUN {plain text string}
+Usage:
+$ @CPTRDB_ENCRYPT_C_RUN {plain text string}
 </pre>
 
-  Examples:
+  Examples:<br>
 
 <pre>
 $ @CPTRDB_ENCRYPT_C_RUN "boem"
@@ -9454,29 +9697,29 @@ C   Cipher Hex:    {D6AFBFC3B65FFB686F9B01520DE44154}
 <b>CPTRDB_ENCRYPT_SQL.COM</b><br>
 
 <pre>
-  Create the encryption sql external procedures
-  ENCRYPT_CCN_B32_PROC
-  DECRYPT_CCN_B32_PROC
-  ENCRYPT_CCN_C_PROC
-  DECRYPT_CCN_C_PROC
-  in database CPTRDB_DB_1
+Create the encryption sql external procedures
+ENCRYPT_CCN_B32_PROC
+DECRYPT_CCN_B32_PROC
+ENCRYPT_CCN_C_PROC
+DECRYPT_CCN_C_PROC
+in database CPTRDB_DB_1
   
-  Calls CPT$RDB:CPTRDB_ENCRYPT_SHR_B32.EXE
-        CPT$RDB:CPTRDB_ENCRYPT_SHR_C.EXE
+Calls CPT$RDB:CPTRDB_ENCRYPT_SHR_B32.EXE
+      CPT$RDB:CPTRDB_ENCRYPT_SHR_C.EXE
 </pre>
 
 <b>CPTRDB_ENCRYPT_SQL_B32_RUN.COM</b><br>
 
 <pre>
-  Run command file for the encryption/decryption sql external procedures
-  ENCRYPT_CCN_B32_PROC
-  DECRYPT_CCN_B32_PROC
-  called from within a sql session.
+Run command file for the encryption/decryption sql external procedures
+ENCRYPT_CCN_B32_PROC
+DECRYPT_CCN_B32_PROC
+called from within a sql session.
 
-  Usage:
-  $ @CPTRDB_ENCRYPT_SQL_B32_RUN {plain text}
+Usage:
+$ @CPTRDB_ENCRYPT_SQL_B32_RUN {plain text}
 
-  Example:
+Example:
 
 $ @CPTRDB_ENCRYPT_SQL_B32_RUN "boem"
 In Length: 4
@@ -9494,15 +9737,15 @@ Out B32: {boem}
 <b>CPTRDB_ENCRYPT_SQL_C_RUN.COM</b><br>
 
 <pre>
-  Run command file for the encryption/decryption sql external procedures
-  ENCRYPT_CCN_C_PROC
-  DECRYPT_CCN_C_PROC
-  called from within a sql session.
+Run command file for the encryption/decryption sql external procedures
+ENCRYPT_CCN_C_PROC
+DECRYPT_CCN_C_PROC
+called from within a sql session.
 
-  Usage:
-  $ @CPTRDB_ENCRYPT_SQL_C_RUN }plain text{
+Usage:
+$ @CPTRDB_ENCRYPT_SQL_C_RUN }plain text{
 
-  Examples:
+Examples:
 
 $ @CPTRDB_ENCRYPT_SQL_C_RUN "123456789"
 In Length: 9
@@ -9599,21 +9842,23 @@ CPT$RDB_JOB|CPTRDB_RESTART_JDBC_ALL|L15S29|TOMORROW + 00:16|
 ! 3 Reschedule time
 </pre>
 
+<p>
 <b>CPTRDB_RESTART_JDBC_GO.COM</b><br>
-  Calls CPTRDB_RESTART_JDBC.COM<br>
+  Calls CPTRDB_RESTART_JDBC.COM
+</p>
 
 <p>
   Interactive submit the restart of the JDBC thin servers on one node,
   with hardcoded jdbc user and logfile directory.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_RESTART_JDBC_GO {node}
+$ @CPTRDB_RESTART_JDBC_GO {node}
 </pre>
 
-  Adapt the parameter block.
+  Adapt the parameter block.<br>
 
 <pre>
 $!----------------------------------
@@ -9623,9 +9868,11 @@ $ logdir    = "DISK$USERS:[JDBCMON]"
 $!----------------------------------
 </pre>
 
+<p>
 <b>CPTRDB_RESTART_JDBC.COM </b><br>
   Called from CPTRDB_RESTART_JDBC_[GO|ALL].COM<br>
-  Calls CPTRDB_THINSRV$STARTUP.COM<br>
+  Calls CPTRDB_THINSRV$STARTUP.COM
+</p>
 
 <p>
   Restart the JDBC thin servers on one cluster node.
@@ -9664,15 +9911,17 @@ CPT$RDB_NODE|CPTRDB_SHOW_JDBC_PROCESS|L15S29|TS170|
 ! 3 Process name(s) (sub)string
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_JDBC_RestartStarted
-  "CPTRDB - JDBC Restart Started {node} - ddmmmhhmmss"
+CPTRDB_JDBC_RestartStarted
+"CPTRDB - JDBC Restart Started {node} - ddmmmhhmmss"
 </pre>
 
+<p>
 <b>CPTRDB_THINSRV$STARTUP.COM</b><br>
-  Called from CPTRDB_RESTART_JDBC.COM<br>
+  Called from CPTRDB_RESTART_JDBC.COM
+</p>
 
 <p>
   Start the JDBC thin pool server process with meaningful logfile names.
@@ -9701,7 +9950,7 @@ CPT$RDB_PARAM|CPTRDB_RESTART_JDBC|L15S29|DISK$DATA_24:[JAVA$60.COM]JAVA$60_SETUP
   and debug flags output if needed, using the default java version.
 </p>
 
-  The modified code sections are:
+  The modified code sections are:<br>
 
 <pre>
 $!------------------------------------------------------------------------------
@@ -9857,8 +10106,10 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_SHOW_JDBC_PROCESS_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_JDBC_PROCESS[_DAILY].COM<br>
+  Called from CPTRDB_SHOW_JDBC_PROCESS[_DAILY].COM
+</p>
 
 <p>
   List the JDBC processes on one node sorted by process name.
@@ -9881,8 +10132,10 @@ CPT$RDB_NODE|CPTRDB_SHOW_JDBC_PROCESS|L15S29|TS170|
 ! 3 Process name (sub)string
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_JDBC_PROCESS.COM</b><br>
-  Calls CPTRDB_SHOW_JDBC_PROCESS_BATCH.COM<br>
+  Calls CPTRDB_SHOW_JDBC_PROCESS_BATCH.COM
+</p>
 
 <p>
   Interactive list the JDBC processes on a series of nodes. The list of
@@ -9891,7 +10144,7 @@ CPT$RDB_NODE|CPTRDB_SHOW_JDBC_PROCESS|L15S29|TS170|
   CPT$RDB_NODE|CPTRDB_SHOW_JDBC_PROCESS.
 </p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 23-APR-2015 15:42:17.21 CPTRDB - JDBC Processes From Node L15S29
@@ -9921,8 +10174,10 @@ OpenVMS V8.4  on node L15S29   23-APR-2015 15:42:20.01   Uptime  2 03:02:23
 Number of JDBC processes: 5
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_JDBC_PROCESS_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_JDBC_PROCESS_BATCH.COM<br>
+  Calls CPTRDB_SHOW_JDBC_PROCESS_BATCH.COM
+</p>
 
 <p>
   Daily list JDBC processes on a series of cluster nodes, enumerated
@@ -9934,7 +10189,7 @@ Number of JDBC processes: 5
 
   The reschedule node, time and exception mail address are retrieved from
   the configuration file, identified by the keywords
-  CPT$RDB_JOB|CPTRDB_SHOW_JDBC_PROCESS_DAILY
+  CPT$RDB_JOB|CPTRDB_SHOW_JDBC_PROCESS_DAILY.
 </p>
 
 <pre>
@@ -9947,17 +10202,17 @@ CPT$RDB_JOB|CPTRDB_SHOW_JDBC_PROCESS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEM
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_JDBC_ProcessDifferences
-  "CPTRDB - JDBC Process Differences {node} - ddmmmhhmmss"
+CPTRDB_JDBC_ProcessDifferences
+"CPTRDB - JDBC Process Differences {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - JDBC Processes Diff {node} yyyymmdd"
+"CPTRDB - JDBC Processes Diff {node} yyyymmdd"
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -9980,15 +10235,17 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_SHOW_JDBC_LOGS_BATCH.COM </b><br>
-  Called from CPTRDB_SHOW_JDBC_LOGS[_DAILY].COM<br>
+  Called from CPTRDB_SHOW_JDBC_LOGS[_DAILY].COM
+</p>
 
 <p>
   List the JDBC log and trace files for one node.
 
   The directories to be listed are retrieved from the configuration file
   CPTRDB_CONFIGURATION.REF, identified by the keywords 
-  CPT$RDB_NODE|CPTRDB_SHOW_JDBC_LOGS
+  CPT$RDB_NODE|CPTRDB_SHOW_JDBC_LOGS.
 </p>
 
 <pre>
@@ -10003,8 +10260,10 @@ CPT$RDB_NODE|CPTRDB_SHOW_JDBC_LOGS|L15S29|CPT$RDB_JDBC_LOGDIR|CPT$RDB_JDBC_TRCDI
 ! 6 JDBC clients data directory
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_JDBC_LOGS.COM</b><br>
-  Calls CPTRDB_SHOW_JDBC_LOGS_BATCH.COM<br>
+  Calls CPTRDB_SHOW_JDBC_LOGS_BATCH.COM
+</p>
 
 <p>
   Interactive list the JDBC log and trace files on a series of nodes.
@@ -10013,7 +10272,7 @@ CPT$RDB_NODE|CPTRDB_SHOW_JDBC_LOGS|L15S29|CPT$RDB_JDBC_LOGDIR|CPT$RDB_JDBC_TRCDI
   by the keywords CPT$RDB_NODE|CPTRDB_SHOW_JDBC_LOGS.
 </p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 23-APR-2015 15:46:24.10 CPTRDB - JDBC Logfiles From Node L15S29
@@ -10172,8 +10431,10 @@ Total of 4 files, 198/384 blocks.
  
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_JDBC_LOGS_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_JDBC_LOGS_BATCH.COM<br>
+  Calls CPTRDB_SHOW_JDBC_LOGS_BATCH.COM
+</p>
 
 <p>
   Daily list JDBC log and trace files on a series of nodes, enumerated
@@ -10201,17 +10462,17 @@ CPT$RDB_JOB|CPTRDB_SHOW_JDBC_LOGS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEER
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_JDBC_LogfilesDifferences
-  "CPTRDB - JDBC Logfiles Differences {node} - ddmmmhhmmss"
+CPTRDB_JDBC_LogfilesDifferences
+"CPTRDB - JDBC Logfiles Differences {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - JDBC Logfiles Diff {node} yyyymmdd"
+"CPTRDB - JDBC Logfiles Diff {node} yyyymmdd"
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -10236,7 +10497,7 @@ Procedures Usage
 </font>
 </h4>
 
-The procedures in this chapter assume: 
+The procedures in this chapter assume:<br>
 
 <pre>
 . The pooled thin servers are restarted daily
@@ -10248,7 +10509,7 @@ The procedures in this chapter assume:
 </pre>
  
 <p>
-Refer to the chapter <a href="#Chapter 45">Restart JDBC Thin Servers</a> on 
+Refer to the chapter <a href="#Chapter 45">-- § 45 -- Restart JDBC Thin Servers</a> on 
 how to modify RDB$JDBC_COM:RDBJDBC_STARTSRV.COM to obtain meaningful output 
 filenames for the thin server processes.
 </p>
@@ -10291,10 +10552,12 @@ CPT$RDB_JOB|CPTRDB_SRVTRC_CLIENTS_ALL|L15S29|TOMORROW + 04:00|
 ! 3 Reschedule time
 </pre>
 
+<p>
 <b>CPTRDB_SRVTRC_CLIENTS_73202.COM</b><br>
 <b>CPTRDB_SRVTRC_CLIENTS_7302.COM</b><br>
 <b>CPTRDB_SRVTRC_CLIENTS_7310.COM</b><br>
-  Called from CPTRDB_SRVTRC_CLIENTS_ALL.COM<br>
+  Called from CPTRDB_SRVTRC_CLIENTS_ALL.COM
+</p>
 
 <p>
   Parse one daily Rdb JDBC thin server/node trace file level 0x40000400
@@ -10323,7 +10586,7 @@ CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73202|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_T
 ! 5 Exception mail address
 </pre>
 
-   Input trace file extract:
+   Input trace file extract:<br>
 
 <pre>
 >> RDB$CLIENT_ID_00000002 C00000000*T 2015-04-09 0:18:44.965 : srv.DBActionHandler@377653ae( "client info", "
@@ -10336,7 +10599,7 @@ CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73202|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_T
 >> RDB$CLIENT_ID_00000002 C00000000*T 2015-04-09 0:18:45.174 : [RdbProcessId] .doAction msg : 2D8678A5:1
 </pre>
 
-  The client info listed per new client and sorted by timestamp is:
+  The client info listed per new client and sorted by timestamp is:<br>
 
 <pre>
   Timestamp
@@ -10355,7 +10618,7 @@ CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73202|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_T
   displayed in stall logs, monitor logs and RMU/Show Statistics screens.
 </p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 2015-01-14 10:47:47.060|10.3.130.173|clio_db|JDBCMON|2D7B8C72:1|61390|RDB$CLIENT_ID_000000F4|73310:20140826|2D7B8C72:122
@@ -10366,17 +10629,17 @@ CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73202|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_T
 2015-01-14 11:14:04.691|10.3.130.173|clio_db|JDBCMON|2D7B8C72:1|61470|RDB$CLIENT_ID_000000FE|73310:20140826|2D7B8C72:127
 </pre>
 
-   Toolset cockpit event:
+   Toolset cockpit event:<br>
 
 <pre>
-   "CPTRDB_SRVTRC_NoClients"
-   "CPTRDB - SRVTRC No Clients {node} {server} {refdate} - ddmmmhhmmss"
+"CPTRDB_SRVTRC_NoClients"
+"CPTRDB - SRVTRC No Clients {node} {server} {refdate} - ddmmmhhmmss"
 </pre>
 
-   Mail subject:
+   Mail subject:<br>
 
 <pre>
-   "CPTRDB - SRVTRC No Clients {node} {server} {refdate}"
+"CPTRDB - SRVTRC No Clients {node} {server} {refdate}"
 </pre>
 
 <p>
@@ -10385,7 +10648,7 @@ CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73202|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_T
   for ip address and client info, running JDBC v73202.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-------------------------
@@ -10402,10 +10665,10 @@ $!-------------------------
   The procedure is compatible with v73310, v73323 and v73402.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_SRVTRC_CLIENTS_73202_ONE
+$ @CPTRDB_SUBMIT {node} CPTRDB_SRVTRC_CLIENTS_73202_ONE
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -10426,8 +10689,10 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_CLEANUP_JDBC_LOGS.COM</b><br>
-  Called from CPTRDB_CLEANUP_JDBC_LOGS_ALL.COM<br>
+  Called from CPTRDB_CLEANUP_JDBC_LOGS_ALL.COM
+</p>
 
 <p>
   Cleanup JDBC log and trace files on one cluster node.
@@ -10456,8 +10721,10 @@ CPT$RDB_NODE|CPTRDB_CLEANUP_JDBC_LOGS|L15S29|RDB$JDBC_LOGS|CPT$RDB_JDBC_TRCDIR|C
   system disk.
 </p>
  
+<p>
 <b>CPTRDB_CLEANUP_JDBC_LOGS_ALL.COM</b><br>
-  Calls CPTRDB_CLEANUP_JDBC_LOGS.COM<br>
+  Calls CPTRDB_CLEANUP_JDBC_LOGS.COM
+</p>
 
 <p>
   Daily cleanup JDBC log and trace files on a series of nodes.
@@ -10498,27 +10765,31 @@ Procedures Usage
 </font>
 </h4>
 
+<p>
 <b>CPTRDB_JAVA_JDBC.JAVA</b><br>
   Built using CPTRDB_JAVA_JDBC_BUILD.COM<br>
-  Called from CPTRDB_JAVA_JDBC_RUN.COM<br>
+  Called from CPTRDB_JAVA_JDBC_RUN.COM
+</p>
 
 <p>
   Realy simple Java JDBC program, that allows to test JDBC thin servers.
 </p>
 
 <pre>
-  Returns "Hello World / <rdb$database.rdb$file_name>"
+Returns "Hello World / {rdb$database.rdb$file_name>}
 
-  Comment out the code below to observe the running thin server.
+Comment out the code below to observe the running thin server.
 
-     /* -- Sleep 900 sec to observe the running thin server
-     Thread.currentThread().sleep(900000);
-     */
+   /* -- Sleep 900 sec to observe the running thin server
+   Thread.currentThread().sleep(900000);
+   */
 </pre>
 
+<p>
 <b>CPTRDB_JAVA_JDBC_CLIO.JAVA</b><br>
   Built using CPTRDB_JAVA_JDBC_BUILD.COM<br>
-  Called from CPTRDB_JAVA_JDBC_RUN.COM<br>
+  Called from CPTRDB_JAVA_JDBC_RUN.COM
+</p>
 
 <p>
   A more elaborated simple Java JDBC program, that executes a query generated
@@ -10527,19 +10798,20 @@ Procedures Usage
 </p>
 
 <pre>
-  Returns address data from the CLIO database.
+Returns address data from the CLIO database.
 
-  Comment out the code below to observe the running thin server.
+Comment out the code below to observe the running thin server.
 
-     /* -- Sleep 900 sec to observe the running thin server
-     Thread.currentThread().sleep(900000);
-     */
-
+   /* -- Sleep 900 sec to observe the running thin server
+   Thread.currentThread().sleep(900000);
+   */
 </pre>
 
+<p>
 <b>CPTRDB_JAVA_JDBC_BUILD.COM</b><br>
   Build file for CPTRDB_JAVA_JDBC.JAVA and
-                 CPTRDB_JAVA_JDBC_CLIO.JAVA<br>
+                 CPTRDB_JAVA_JDBC_CLIO.JAVA
+</p>
 
 <p>
 <b>CPTRDB_JAVA_JDBC.CLASS</b><br>
@@ -10555,21 +10827,21 @@ Procedures Usage
                        CPTRDB_JAVA_JDBC_CLIO.JAVA
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_JAVA_JDBC_RUN {dbid}
+$ @CPTRDB_JAVA_JDBC_RUN {dbid}
 </pre>
 
 <p>
   The database CLIO_DB is hardcoded for CPTRDB_JAVA_JDBC_CLIO.JAVA
 </p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
-  $ @CPTRDB_JAVA_JDBC_RUN clio_db
-  Hello World / DSA25:[CLIO_DB]CLIO_DB.RDB;1
+$ @CPTRDB_JAVA_JDBC_RUN clio_db
+Hello World / DSA25:[CLIO_DB]CLIO_DB.RDB;1
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -10635,7 +10907,7 @@ Procedures Usage
 </p>
 
 <pre>
-  $ @JCC_TOOL_COM:JCC_LML_CREATE_CONTROL_FILE {sourcedb} ALL
+$ @JCC_TOOL_COM:JCC_LML_CREATE_CONTROL_FILE {sourcedb} ALL
 </pre>
 
 <p>
@@ -10644,21 +10916,21 @@ Procedures Usage
 </p>
 
 <pre>
-  The file name format is
-  JCCLML_JCC_RUN_CTL-{loader name}.COM
+The file name format is
+JCCLML_JCC_RUN_CTL-{loader name}.COM
 
-  The loader name is "CPTRDB_LML". The name must be unique in the first 11
-  characters as it is used in process names with format "123 12345678901".
+The loader name is "CPTRDB_LML". The name must be unique in the first 11
+characters as it is used in process names with format "123 12345678901".
 
-  The logical JCC_CLML_PROCESS_NAME_SEPARATOR allows to define a alternate
-  separator character, other than blank, in the CTL/CLM/LML process names.
+The logical JCC_CLML_PROCESS_NAME_SEPARATOR allows to define a alternate
+separator character, other than blank, in the CTL/CLM/LML process names.
 
-  Submitted using JCCLML_SUBMIT.COM
-  Usage:
-  $ @JCCLML_SUBMIT {node} JCCLML_JCC_RUN_CTL-{loader name}
+Submitted using JCCLML_SUBMIT.COM
+Usage:
+$ @JCCLML_SUBMIT {node} JCCLML_JCC_RUN_CTL-{loader name}
 
-  The (current) logfile is:
-  CPT$RDB_JCCLML_MGR:JCC_RUN_CTL-{loader name}.LOG
+The (current) logfile is:
+CPT$RDB_JCCLML_MGR:JCC_RUN_CTL-{loader name}.LOG
 </pre>
 
 <p>
@@ -10668,7 +10940,7 @@ Procedures Usage
   LIST OF BYTE VARYING columns cannot be replicated.
 </p>
 
-  The replicated table is TABLE_PLACE:
+  The replicated table is TABLE_PLACE:<br>
 
 <pre>
 table=TABLE_PLACE,output=rdb_logminer_output_file
@@ -10688,15 +10960,15 @@ table=TABLE_PLACE,output=rdb_logminer_output_file
   Description of the source table TABLE_PLACE.
 </p>
 
-  Virtual columns are added.
+  Virtual columns are added.<br>
 
 <pre>
-  VirtualColumn~TABLE_PLACE~transaction_start_time
-  VirtualColumn~TABLE_PLACE~transaction_commit_time
-  VirtualColumn~TABLE_PLACE~transmission_date_time
-  VirtualColumn~TABLE_PLACE~originating_dbkey
-  VirtualColumn~TABLE_PLACE~jcclml_constant,origin='CPTRDB_DB_1|TABLE_PLACE'
-  VirtualColumn~TABLE_PLACE~action
+VirtualColumn~TABLE_PLACE~transaction_start_time
+VirtualColumn~TABLE_PLACE~transaction_commit_time
+VirtualColumn~TABLE_PLACE~transmission_date_time
+VirtualColumn~TABLE_PLACE~originating_dbkey
+VirtualColumn~TABLE_PLACE~jcclml_constant,origin='CPTRDB_DB_1|TABLE_PLACE'
+VirtualColumn~TABLE_PLACE~action
 </pre>
 
 <p>
@@ -10704,32 +10976,32 @@ table=TABLE_PLACE,output=rdb_logminer_output_file
   Description of the mapping for all columns of source table TABLE_PLACE.
 </p>
 
-  The default transmission action is REPLICATE
+  The default transmission action is REPLICATE<br>
 
 <pre>
-  MapTable~TABLE_PLACE~TABLE_PLACE_MAP1,TABLE_PLACE~Replicate
+MapTable~TABLE_PLACE~TABLE_PLACE_MAP1,TABLE_PLACE~Replicate
 </pre>
 
-  The "MapTable~" semantics are:
+  The "MapTable~" semantics are:<br>
 
 <pre>
-  MapTable~{source table}~{map name},{target table}~Replicate
+MapTable~{source table}~{map name},{target table}~Replicate
 </pre>
 
-  The virtual columns are also mapped.
+  The virtual columns are also mapped.<br>
 
 <pre>
-  MapColumn~TABLE_PLACE_MAP1~transaction_start_time
-  MapColumn~TABLE_PLACE_MAP1~transaction_commit_time
-  MapColumn~TABLE_PLACE_MAP1~transmission_date_time
-  MapColumn~TABLE_PLACE_MAP1~originating_dbkey
-  MapColumn~TABLE_PLACE_MAP1~jcclml_constant,origin
+MapColumn~TABLE_PLACE_MAP1~transaction_start_time
+MapColumn~TABLE_PLACE_MAP1~transaction_commit_time
+MapColumn~TABLE_PLACE_MAP1~transmission_date_time
+MapColumn~TABLE_PLACE_MAP1~originating_dbkey
+MapColumn~TABLE_PLACE_MAP1~jcclml_constant,origin
 </pre>
 
-  Column COL1 is chosen as primary key.
+  Column COL1 is chosen as primary key.<br>
 
 <pre>
-  MapKey~TABLE_PLACE_MAP1~COL1
+MapKey~TABLE_PLACE_MAP1~COL1
 </pre>
 
 <p>
@@ -10739,8 +11011,8 @@ table=TABLE_PLACE,output=rdb_logminer_output_file
 </p>
 
 <pre>
-  MapTable~TABLE_PLACE~TABLE_PLACE_MAP2,TABLE_PLACE_AUDIT~Audit
-  MapColumn~TABLE_PLACE_MAP2~action
+MapTable~TABLE_PLACE~TABLE_PLACE_MAP2,TABLE_PLACE_AUDIT~Audit
+MapColumn~TABLE_PLACE_MAP2~action
 </pre>
 
 <p>
@@ -10749,8 +11021,8 @@ table=TABLE_PLACE,output=rdb_logminer_output_file
 </p>
 
 <pre>
-  "M" for INSERT or UPDATE
-  "D" for DELETE
+"M" for INSERT or UPDATE
+"D" for DELETE
 </pre>
 
 <p>
@@ -10773,11 +11045,11 @@ table=TABLE_PLACE,output=rdb_logminer_output_file
 </p>
 
 <pre>
-  Table~TABLE_PLACE~1~~NoMapTable
-                    |-> record version
+Table~TABLE_PLACE~1~~NoMapTable
+                  |-> record version
 
-  Usage:
-  $ @JCCLML_RDB$MAX_VERSION {sourcedb}
+Usage:
+$ @JCCLML_RDB$MAX_VERSION {sourcedb}
 </pre>
 
 <p>
@@ -10831,32 +11103,33 @@ table=TABLE_PLACE,output=rdb_logminer_output_file
 </p>
   
 <pre>
-  Parameters: P1, nodename,                      char(6)
-              P2, filename, JCCLML_{name}[.COM], char(39)
+Parameters: P1, nodename,                      char(6)
+            P2, filename, JCCLML_{name}[.COM], char(39)
   
-  The prefix "JCCLML_" is stripped off from logfile filename.
-  The logfile format is {name}_{node}_yyyymmdd.log_ddmmmhhmmss
-                     or jcc_run_ctl-{loader_name}.log
+The prefix "JCCLML_" is stripped off from logfile filename.
+The logfile format is {name}_{node}_yyyymmdd.log_ddmmmhhmmss
+                   or jcc_run_ctl-{loader_name}.log
 
-  Start the loader session using:
-  $ @JCCLML_SUBMIT {node} JCCLML_JCC_RUN_CTL-{loader_name} 
+Start the loader session using:
+$ @JCCLML_SUBMIT {node} JCCLML_JCC_RUN_CTL-{loader_name} 
 
-  The CTL logfile is created in CPT$RDB_JCCLML_MGR, one per session.
-  The CLM and LML logiles are created in CPT$RDB_JCCLML_LOGS, reopened daily.
+The CTL logfile is created in CPT$RDB_JCCLML_MGR, one per session.
+The CLM and LML logiles are created in CPT$RDB_JCCLML_LOGS, reopened daily.
 
-  By convention within the toolset for each loader session,
+By convention within the toolset for each loader session,
 
-  The current logfiles format is:
-  JCC_RUN_CTL-{loader_name}.LOG (defined by the toolset via JCCLML_SUBMIT.COM)
-  JCC_RUN_CLM-{loader_name}.LOG (defined by the JCC LML product)
-  JCC_RUN_LML-{loader_name}.LOG (defined by the JCC LML product)
+The current logfiles format is:
+JCC_RUN_CTL-{loader_name}.LOG (defined by the toolset via JCCLML_SUBMIT.COM)
+JCC_RUN_CLM-{loader_name}.LOG (defined by the JCC LML product)
+JCC_RUN_LML-{loader_name}.LOG (defined by the JCC LML product)
 
-  The previous logfiles formats are:
-  JCC_RUN_CTL-{loader_name}_{node}_yyyymmdd.LOG_ddmmmhhmm
-  JCC_RUN_CLM-{loader_name}_{node}_yyyymmdd.LOG_ddmmmhhmm
-  JCC_RUN_LML-{loader_name}_{node}_yyyymmdd.LOG_ddmmmhhmm
-  based on creation date and time and
-  defined by the toolset via JCCLML_RENAME_LOGFILES.COM
+The previous logfiles formats are:
+JCC_RUN_CTL-{loader_name}_{node}_yyyymmdd.LOG_ddmmmhhmmss
+JCC_RUN_CLM-{loader_name}_{node}_yyyymmdd.LOG_ddmmmhhmmss
+JCC_RUN_LML-{loader_name}_{node}_yyyymmdd.LOG_ddmmmhhmmss
+based on creation date and time and
+defined by the toolset via JCCLML_RENAME_LOGFILES.COM 
+                       and JCCLML_LML_REOPEN_LOGS.COM
 </pre>
   
 <p>
@@ -10944,8 +11217,10 @@ files starting with "LML_".
 </font>
 </h4>
 
+<p>
 <b>JCCLML_LML_REOPEN_LOGS.COM </b><br>
-  Called from JCCLML_LML_REOPEN_LOGS_ALL.COM<br>
+  Called from JCCLML_LML_REOPEN_LOGS_ALL.COM
+</p>
 
 <p>
   Reopen/rename the CLM/LML logfiles in CPT$RDB_JCCLML_LOGS: 
@@ -10953,21 +11228,23 @@ files starting with "LML_".
 </p>
 
 <pre>
-  Parameters: P1, loader_name, char(11)
+Parameters: P1, loader_name, char(11)
 
-  Clean the logfiles
-  CPT$RDB_JCCLML_LOGS:JCC_RUN_CLM-{loader_name}*.LOG*;*
-  CPT$RDB_JCCLML_LOGS:JCC_RUN_LML-{loader_name}*.LOG*;*
-  CPT$RDB_JCCLML_LOGS:DTL*{loader_name}*.LOG*;*
-  older than 22 days
+Clean the logfiles
+CPT$RDB_JCCLML_LOGS:JCC_RUN_CLM-{loader_name}*.LOG*;*
+CPT$RDB_JCCLML_LOGS:JCC_RUN_LML-{loader_name}*.LOG*;*
+CPT$RDB_JCCLML_LOGS:DTL*{loader_name}*.LOG*;*
+older than 22 days
 
-  Clean the logfiles
-  CPT$RDB_JCCLML_MGR:LML_REOPEN_{loader_name}*.LOG*;*
-  older than 8 days
+Clean the logfiles
+CPT$RDB_JCCLML_MGR:LML_REOPEN_{loader_name}*.LOG*;*
+older than 8 days
 </pre>
 
+<p>
 <b>JCCLML_LML_REOPEN_LOGS_ALL.COM</b><br>
-  Calls JCCLML_LML_REOPEN_LOGS.COM<br>
+  Calls JCCLML_LML_REOPEN_LOGS.COM
+</p>
 
 <p>
   Reopen the logfiles for a series of JCC Logminer Loader sessions on a 
@@ -10996,7 +11273,7 @@ CPT$RDB_DATABASE|JCCLML_REOPEN_LOGS|CPTRDB_LML|L15S29|
 <p>
   The reschedule node and time are retrieved from the configuration file
   CPTRDB_CONFIGURATION.REF identified by the keywords
-  CPT$RDB_JOB|JCCLML_LML_REOPEN_LOGS_ALL, by default at 00:02
+  CPT$RDB_JOB|JCCLML_LML_REOPEN_LOGS_ALL, by default at 00:02.
 </p>
 
 <pre>
@@ -11013,8 +11290,10 @@ CPT$RDB_JOB|JCCLML_LML_REOPEN_LOGS_ALL|L15S29|TOMORROW + 00:02|
 </font>
 </h4>
 
+<p>
 <b>JCCLML_RENAME_LOGFILES.COM</b><br>
-  Called from JCCLML_RENAME_LOGFILES_ALL.COM<br>
+  Called from JCCLML_RENAME_LOGFILES_ALL.COM
+</p>
 
 <p>
   Interactive rename all logfiles of one stopped loader session to their 
@@ -11029,23 +11308,25 @@ CPT$RDB_JOB|JCCLML_LML_REOPEN_LOGS_ALL|L15S29|TOMORROW + 00:02|
 <hr>
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_RENAME_LOGFILES {loader_name}
+$ @JCCLML_RENAME_LOGFILES {loader_name}
 </pre>
 
+<p>
 <b>JCCLML_RENAME_LOGFILES_ALL.COM</b><br>
-  Calls JCCLML_RENAME_LOGFILES.COM<br>
+  Calls JCCLML_RENAME_LOGFILES.COM
+</p>
 
 <p>
   Interactive rename the logfiles for a series of stopped loaders sessions.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_RENAME_LOGFILES_ALL
+$ @JCCLML_RENAME_LOGFILES_ALL
 </pre>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
@@ -11053,43 +11334,51 @@ CPT$RDB_JOB|JCCLML_LML_REOPEN_LOGS_ALL|L15S29|TOMORROW + 00:02|
 </font>
 </h4>
 
+<p>
 <b>JCCLML_SHUTDOWN.COM</b><br>
   Calls       JCCLML_RENAME_LOGFILES.COM<br>
-  Called from JCCLML_SHUTDOWN_ALL.COM<br>
+  Called from JCCLML_SHUTDOWN_ALL.COM
+</p>
 
 <p>
   Controlled shutdown of one loader session and rename of the logfiles to their 
   creation date and time.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_SHUTDOWN {loader_name} 
+$ @JCCLML_SHUTDOWN {loader_name} 
 </pre>
 
+<p>
 <b>JCCLML_SHUTDOWN_ALL.COM</b><br>
-  Calls JCCLML_SHUTDOWN.COM<br>
+  Calls JCCLML_SHUTDOWN.COM
+</p>
 
 <p>
   Controlled shutdown of a series of loaders.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_SHUTDOWN_ALL
+$ @JCCLML_SHUTDOWN_ALL
 </pre>
 
-  This procedure can be run from the system shutdown.<br>
+<p>
+  This procedure can be run from the system shutdown.
+</p>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 -- Run Statistics Sessions --
 </font>
 </h4>
 
+<p>
 <b>JCCLML_LML_RUN_STATS.COM</b><br>
-  Called from JCCLML_LML_RUN_STATS_[GO|ALL].COM<br>
+  Called from JCCLML_LML_RUN_STATS_[GO|ALL].COM
+</p>
 
 <p>
   Run JCC Logminer Loader statistics for one loader session.
@@ -11101,19 +11390,19 @@ CPT$RDB_JOB|JCCLML_LML_REOPEN_LOGS_ALL|L15S29|TOMORROW + 00:02|
   (defined by the JCC Logminer Loader product).
 </p>
 
-  The default parameters are:
+  The default parameters are:<br>
 
 <pre>
-  $ define jcc_logminer_loader_stat_tardy_field "TrailOutput"
-  $ define jcc_logminer_loader_stat_file_seconds 900
-  $ define jcc_logminer_loader_stat_options     "nointeractive,file,reopen"
+$ define jcc_logminer_loader_stat_tardy_field "TrailOutput"
+$ define jcc_logminer_loader_stat_file_seconds 900
+$ define jcc_logminer_loader_stat_options     "nointeractive,file,reopen"
 
-  $ jcc_lml_statistics -
-    "''loaderid'" -
-    180 -          ! refresh rate
-    detail -       ! report type
-    180 -          ! tardiness threshold
-    central        ! operator class
+$ jcc_lml_statistics -
+  "''loaderid'" -
+  180 -          ! refresh rate
+  detail -       ! report type
+  180 -          ! tardiness threshold
+  central        ! operator class
 </pre>
 
 <p>
@@ -11126,14 +11415,14 @@ CPT$RDB_JOB|JCCLML_LML_REOPEN_LOGS_ALL|L15S29|TOMORROW + 00:02|
 18-JUN-2015 05:44:51.14 JCCSTAT: JCC Loader 'PTNOVASBNP' is below tardy interval of 180.00 seconds; output trailing realtime by 94.37 seconds
 </pre>
 
-  To realtime monitor a running loader use:
+  To realtime monitor a running loader use:<br>
 
 <pre>
-  $ @JCC_TOOL_COM:JCC_LML_USER
-  $ JCC_LML_STATISTICS {loader_name} {refresh_rate} DETAIL
+$ @JCC_TOOL_COM:JCC_LML_USER
+$ JCC_LML_STATISTICS {loader_name} {refresh_rate} DETAIL
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Rate:  30.00                       CPTRDB_LML            19-JUN-2015 12:29:52.00
@@ -11187,33 +11476,37 @@ Available AIJ slot 2
 Available AIJ slot 3
 </pre>
 
+<p>
 <b>JCCLML_LML_RUN_STATS_GO.COM</b><br>
-  Calls JCCLML_LML_RUN_STATS.COM<br>
+  Calls JCCLML_LML_RUN_STATS.COM
+</p>
 
 <p>
   Start one JCC Logminer Loader statistics process in batch.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_LML_RUN_STATS_GO {node} {loader_name}
+$ @JCCLML_LML_RUN_STATS_GO {node} {loader_name}
 
-  The log file format, created in CPT$RDB_JCCLML_MGR: is
-  JCC_RUN_DTL-{loader name}_{node}_yyyymmdd.LOG_ddmmmhhmmss
+The current log file format, created in CPT$RDB_JCCLML_MGR: is
+JCC_RUN_DTL-{loader name}_{node}_yyyymmdd.LOG_ddmmmhhmmss
 </pre>
 
+<p>
 <b>JCCLML_LML_RUN_STATS_ALL.COM</b><br>
-  Calls JCCLML_LML_RUN_STATS_GO.COM<br>
+  Calls JCCLML_LML_RUN_STATS_GO.COM
+</p>
 
 <p>
   Start a series of JCC Logminer Loader statistics processes.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_LML_RUN_STATS_ALL
+$ @JCCLML_LML_RUN_STATS_ALL
 </pre>
 
   This procedure can be run from the system startup.<br>
@@ -11223,25 +11516,29 @@ Available AIJ slot 3
 </font>
 </h4>
 
+<p>
 <b>JCCLML_SHOW_PROCESS_BATCH.COM</b><br>
   Called from<br>
   JCCLML_SHOW_PROCESS.COM<br>
   JCCLML_LML_SHOW_PROCESS_DAILY.COM<br>
   JCCLML_SHOW_STATS.COM<br>
-  JCCLML_LML_SHOW_STATS_DAILY.COM<br>
+  JCCLML_LML_SHOW_STATS_DAILY.COM
+</p>
 
 <p>
-  List the JCC Logminer Loader CTL, CLM, LML, DTL processes on one node
+  List the JCC Logminer Loader CTL, CLM, LML, DTL processes on one node.
 </p>
 
 <pre>
-  Parameters: P1, process name prefix, varchar(15), 
-                                       "[CTL|CLM|LML|DTL] {loader_name}"
-              P2, output file,         LML_SHOW_PROCESS.TMP_{filecnt}
+Parameters: P1, process name prefix, varchar(15), 
+                                     "[CTL|CLM|LML|DTL] {loader_name}"
+            P2, output file,         LML_SHOW_PROCESS.TMP_{filecnt}
 </pre>
 
+<p>
 <b>JCCLML_SHOW_PROCESS.COM</b><br>
-  Calls JCCLML_SHOW_PROCESS_BATCH.COM<br>
+  Calls JCCLML_SHOW_PROCESS_BATCH.COM
+</p>
 
 <p>
   Interactive list the JCC Logminer Loader CTL, CLM, LML current processes 
@@ -11263,13 +11560,13 @@ CPT$RDB_NODE|JCCLML_SHOW_PROCESS|L15S29|LML CPTRDB|
 ! 3 JCCLML process name (sub)string
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_SHOW_PROCESS
+$ @JCCLML_SHOW_PROCESS
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 CPTRDB - JCC Logminer Loader Processes And Logfiles
@@ -11315,10 +11612,12 @@ JCC_RUN_LML-CPTRDB_LML.LOG;66
 Total of 1 file, 67/1056 blocks.
 </pre>
 
+<p>
 <b>JCCLML_LML_SHOW_PROCESS_DAILY.COM</b><br>
   Calls<br> 
 JCCLML_SHOW_PROCESS_BATCH.COM<br>
-JCCLML_SHOW_PROCESS.REF<br>
+JCCLML_SHOW_PROCESS.REF
+</p>
 
 <p>
   Daily list the JCC Logminer Loader processes and logfiles on a series of 
@@ -11343,17 +11642,17 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_PROCESS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEME
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_JCCLML_ProcessDiff
-  "CPTRDB - JCCLML Process Diff {node} - ddmmmhhmmss"
+CPTRDB_JCCLML_ProcessDiff
+"CPTRDB - JCCLML Process Diff {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - JCCLML Process Diff {node} yyyymmdd"
+"CPTRDB - JCCLML Process Diff {node} yyyymmdd"
 </pre>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
@@ -11361,8 +11660,10 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_PROCESS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEME
 </font>
 </h4>
 
+<p>
 <b>JCCLML_SHOW_STATS.COM</b><br>
-  Calls JCCLML_SHOW_PROCESS_BATCH.COM<br>
+  Calls JCCLML_SHOW_PROCESS_BATCH.COM
+</p>
 
 <p>
   Interactive list the JCC Logminer Loader statistics processes and logfiles
@@ -11382,13 +11683,13 @@ CPT$RDB_NODE|JCCLML_SHOW_STATS|L15S29|DTL |
 ! 3 Statistics process name (sub)string
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_SHOW_STATS
+$ @JCCLML_SHOW_STATS
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 CPTRDB - JCCLML Statistics Processes And Logfiles
@@ -11418,10 +11719,12 @@ DTL_L15S29_CPTRDB_LML_20150417_0000.LOG;1
 Total of 1 file, 909/1056 blocks.
 </pre>
 
+<p>
 <b>JCCLML_LML_SHOW_STATS_DAILY.COM</b><br>
   Calls<br>
   JCCLML_SHOW_PROCESS_BATCH.COM<br>
-  JCCLML_SHOW_STATS.REF<br>
+  JCCLML_SHOW_STATS.REF
+</p>
 
 <p>
   Daily list JCC Logminer Loader statistics processes and logfiles on a
@@ -11446,17 +11749,17 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_STATS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEER
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_JCCLML_StatsDiff
-  "CPTRDB - JCCLML Stats Diff {node} - ddmmmhhmmss"
+CPTRDB_JCCLML_StatsDiff
+"CPTRDB - JCCLML Stats Diff {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - JCCLML Stats Diff {node} yyyymmdd"
+"CPTRDB - JCCLML Stats Diff {node} yyyymmdd"
 </pre>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
@@ -11464,10 +11767,12 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_STATS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEER
 </font>
 </h4>
 
+<p>
 <b>JCCLML_SHOW_HEARTBEAT_BATCH.COM</b><br>
   Called from<br>
   JCCLML_SHOW_HEARTBEAT.COM<br>
-  JCCLML_LML_SHOW_HEARTBEAT_CONT.COM<br>
+  JCCLML_LML_SHOW_HEARTBEAT_CONT.COM
+</p>
 
 <p>
   List the most recent heartbeat timestamps from the CTL logfiles and their 
@@ -11490,8 +11795,10 @@ CPT$RDB_PARAM|JCCLML_SHOW_HEARTBEAT_BATCH|0-00:05:00.00|10|-4:00:00|
 ! 4 Continuous 'clean before' delay
 </pre>
 
+<p>
 <b>JCCLML_SHOW_HEARTBEAT.COM</b><br>
-  Calls JCCLML_SHOW_HEARTBEAT_BATCH.COM<br>
+  Calls JCCLML_SHOW_HEARTBEAT_BATCH.COM
+</p>
 
 <p>
   Interactive list the most recent heartbeat timestamps and their realtime delay
@@ -11511,7 +11818,7 @@ CPT$RDB_NODE|JCCLML_SHOW_HEARTBEAT|L15S29|
 ! 2 Execution node
 </pre>
 
-  Output samples:
+  Output samples:<br>
 
 <pre>
 CPTRDB - JCC Logminer Loader Most Recent Heartbeat Timestamps
@@ -11557,10 +11864,12 @@ Total number of loader sessions 14
 10-APR-2015 09:37:31.71 *Show JCCLML heartbeats check failed*
 </pre>
 
+<p>
 <b>JCCLML_LML_SHOW_HEARTBEAT_CONT.COM</b><br>
   Calls <br>
   JCCLML_SHOW_HEARTBEAT_BATCH.COM<br>
-  JCCLML_SHOW_HEARTBEAT.REF (Reference file)<br>
+  JCCLML_SHOW_HEARTBEAT.REF (Reference file)
+</p>
 
 <p>
   List the most recent heartbeat timestamps and their realtime delay
@@ -11597,17 +11906,17 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_HEARTBEAT_CONT|L15S29|+00:30|L15S36::ALLEMEERSCH|
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  "CPTRDB_JCCLML_HeartbeatDiff {node} yyyymmdd"
-  "CPTRDB - JCCLML Heartbeat Diff {node} - ddmmmhhmmss"
+"CPTRDB_JCCLML_HeartbeatDiff {node} yyyymmdd"
+"CPTRDB - JCCLML Heartbeat Diff {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - JCCLML Heartbeat Diff {node} yyyymmdd"
+"CPTRDB - JCCLML Heartbeat Diff {node} yyyymmdd"
 </pre>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
@@ -11615,10 +11924,12 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_HEARTBEAT_CONT|L15S29|+00:30|L15S36::ALLEMEERSCH|
 </font>
 </h4>
 
+<p>
 <b>JCCLML_SHOW_AERCP_BATCH.COM</b><br>
   Called from<br>
   JCCLML_SHOW_AERCP.COM<br>
-  JCCLML_LML_SHOW_AERCP_CONT.COM<br>
+  JCCLML_LML_SHOW_AERCP_CONT.COM
+</p>
 
 <p>
   List the most recent heartbeat AERCP checkpoints and their realtime delay
@@ -11644,8 +11955,10 @@ CPT$RDB_PARAM|JCCLML_SHOW_AERCP_BATCH|0-00:06:00.00|6|-4:00:00|
   "*DLYD*".
 </p>
 
+<p>
 <b>JCCLML_SHOW_AERCP.COM</b><br>
-  Calls JCCLML_SHOW_AERCP_BATCH.COM<br>
+  Calls JCCLML_SHOW_AERCP_BATCH.COM
+</p>
 
 <p>
   Interactive list the most recent heartbeat AERCP checkpoints and their 
@@ -11666,7 +11979,7 @@ CPT$RDB_DATABASE|JCCLML_SHOW_AERCP|CPTRDB_LML|L15S29|
 ! 3 Execution node
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 CPTRDB - JCC Logminer Loader Heartbeat AERCP Checkpoints
@@ -11688,10 +12001,12 @@ CPTRDB_LML|8-OCT-2014 08:39:54.24|   0 00:41:02.79|DLYD  |1-28-3506-11-1094732-1
 CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1094734
 </pre>
 
+<p>
 <b>JCCLML_LML_SHOW_AERCP_CONT.COM</b><br>
   Calls<br>
   JCCLML_SHOW_AERCP_BATCH.COM<br>
-  JCCLML_SHOW_AERCP.REF (Reference file)<br>
+  JCCLML_SHOW_AERCP.REF (Reference file)
+</p>
 
 <p>
   List the most recent heartbeat AERCP checkpoints and their realtime delay
@@ -11722,23 +12037,25 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_AERCP_CONT|L15S29|+00:30|L15S36::ALLEMEERSCH|
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  "CPTRDB_JCCLML_AercpDiff {node} yyyymmdd"
-  "CPTRDB - JCCLML Aercp Diff {node} - ddmmmhhmmss"
+"CPTRDB_JCCLML_AercpDiff {node} yyyymmdd"
+"CPTRDB - JCCLML Aercp Diff {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - JCCLML AERCP Diff {node} yyyymmdd"
+"CPTRDB - JCCLML AERCP Diff {node} yyyymmdd"
 </pre>
 
+<p>
   The purpose of this procedure is to track the presence and normal progress
   of the loader sessions. The positions within the live aij journal files
   allow to evaluate eventual delays at a glance for a series of loaders 
   without starting an interactive statistics session for each loader.  
+</p>
 
 <pre>
 CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1094734
@@ -11767,10 +12084,10 @@ CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1
   Run file for a data pump session to be submitted in batch.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @jcclml_submit {node} JCCLML_LML_DATA_PUMP_CPTRDB_LML
+$ @jcclml_submit {node} JCCLML_LML_DATA_PUMP_CPTRDB_LML
 </pre>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
@@ -11796,7 +12113,7 @@ CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1
 
 <p>
 <b>JCCLML_CVT_ODBKEY.EXE</b><br>
-  Image file JCCLML_CVT_ODBKEY.C
+  Image file of JCCLML_CVT_ODBKEY.C
 </p>
 
 <p>
@@ -11805,16 +12122,16 @@ CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1
 </p>
 
 <pre>
-  Calls CPT$RDB:JCCLML_CVT_ODBKEY.EXE as foreign command
+Calls CPT$RDB:JCCLML_CVT_ODBKEY.EXE as foreign command
 
-  Parameters: P1, originating dbkey, varchar(20), 20266201719963661
+Parameters: P1, originating dbkey, varchar(20), 20266201719963661
 
-  Usage:
-  $ @JCCLML_CVT_ODBKEY 18295873505984512
-    Char:    18295873505984512
-    Hex:     410000012e0000
-    Hex:     41:12e:0
-    Decimal: 65:302:0
+Usage:
+$ @JCCLML_CVT_ODBKEY 18295873505984512
+  Char:    18295873505984512
+  Hex:     410000012e0000
+  Hex:     41:12e:0
+  Decimal: 65:302:0
 </pre>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
@@ -11829,13 +12146,13 @@ CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1
   To be submitted in batch.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_SUBMIT {node} JCCLML_LML_DUMP_CHECKPOINT_RDB
+$ @JCCLML_SUBMIT {node} JCCLML_LML_DUMP_CHECKPOINT_RDB
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
  -- Checkpoint restart information --
@@ -11861,13 +12178,13 @@ Last Transaction:
   To be submitted in batch.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @JCCLML_SUBMIT {node} JCCLML_LML_DUMP_CHECKPOINT_OCI
+$ @JCCLML_SUBMIT {node} JCCLML_LML_DUMP_CHECKPOINT_OCI
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 username:
@@ -11951,14 +12268,14 @@ $ @{dev}:[{dir}]INSORACLE.COM {dev}:[{dir}]
   Oracle OpenVMS client.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_OCI_CONNECT_TARGET_P
-  $ ctrgt
-  SQL> select sys_context('userenv','db_name') from dual; 
-       describe logminer_highwater;
-       select trans_name from logminer_highwater;
+$ @CPTRDB_OCI_CONNECT_TARGET_P
+$ ctrgt
+SQL> select sys_context('userenv','db_name') from dual; 
+     describe logminer_highwater;
+     select trans_name from logminer_highwater;
 </pre>
 
 <p>
@@ -11991,23 +12308,27 @@ $ @{dev}:[{dir}]INSORACLE.COM {dev}:[{dir}]
   Parameters: Adapt the Oracle OpenVMS client environment
 </p>
 
+<p>
 <b>CPTRDB_OCI_DETAILS_CENTRAL_GO.COM</b><br>
-  Calls CPTRDB_OCI_DETAILS_CENTRAL.COM<br>
+  Calls CPTRDB_OCI_DETAILS_CENTRAL.COM
+</p>
 
 <p>
   Submit CPT$RDB:CPTRDB_OCI_DETAILS_CENTRAL.COM in batch with hardcoded
   parameters.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_OCI_DETAILS_CENTRAL_GO.COM
+$ @CPTRDB_OCI_DETAILS_CENTRAL_GO.COM
 </pre>
 
+<p>
 <b>CPTRDB_OCI_DETAILS_CENTRAL.COM</b><br>
   Called from CPTRDB_OCI_DETAILS_CENTRAL_GO.COM<br>
-  Calls stored procedure S304_P_JCCLML_DETAILS_CENTRAL<br>
+  Calls stored procedure S304_P_JCCLML_DETAILS_CENTRAL
+</p>
 
 <p>
   This template code illustrates the call of a stored procedure with
@@ -12020,19 +12341,21 @@ $ @{dev}:[{dir}]INSORACLE.COM {dev}:[{dir}]
 </p>
   
 <pre>
-  Parameters: P1, acct_unit_id,   char(5),   14001
-              P2, table_name,     char(31),  cash_sess
-              P3, column_name,    char(31),  enc_aut_bos
-              P4, reference_date, date ansi, 2009-05-12
+Parameters: P1, acct_unit_id,   char(5),   14001
+            P2, table_name,     char(31),  cash_sess
+            P3, column_name,    char(31),  enc_aut_bos
+            P4, reference_date, date ansi, 2009-05-12
   
-  P4 is the TRANSACTION_START_TIME day of the transmitted row.
+P4 is the TRANSACTION_START_TIME day of the transmitted row.
 </pre>
 
+<p>
 <b>CPTRDB_OCI_DETAILS_CENTRAL.SQL</b><br>
-  Called from CPTRDB_OCI_DETAILS_CENTRAL.COM<br>
+  Called from CPTRDB_OCI_DETAILS_CENTRAL.COM
+</p>
 
 <p>
-  PL/SQL source of stored procedure S304_P_JCCLML_DETAILS_CENTRAL
+  PL/SQL source of stored procedure S304_P_JCCLML_DETAILS_CENTRAL.
 </p>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -12084,7 +12407,7 @@ Procedures Usage
   Oracle RDBMS database.
 </p>
   
-  Parameters: Adapt the parameter block
+  Parameters: Adapt the parameter block<br>
 
 <pre>
 $!------------------------
@@ -12094,20 +12417,22 @@ $ password = "{password}"
 $!------------------------
 </pre>
 
-  OCI protocol services require:
+  OCI protocol services require:<br>
 
 <pre>
-  .Prepare of the database,    ** Requires exclusive access **
-  .Create additional functions
-  .Create additional users
+.Prepare of the database,    ** Requires exclusive access **
+.Create additional functions
+.Create additional users
 </pre>
 
 <p>
   The procedure provides these three execution steps.
 </p>
 
+<p>
 <b>CPTRDB_SHOW_SQLSRV_SUMMARY.COM</b><br>
-  Calls CPTRDB_SHOW_SQLSRV_SUMMARY_BATCH.COM per node<br>
+  Calls CPTRDB_SHOW_SQLSRV_SUMMARY_BATCH.COM per node
+</p>
 
 <p>
   Interactive list all SQL/Services services on a series of nodes,
@@ -12129,7 +12454,7 @@ CPT$RDB_NODE|CPTRDB_SHOW_SQLSRV_SUMMARY|L15S29|73|
   The intermediate log and output files are cleaned by both SUMMARY procedures.
 </p>
   
-  Output sample:
+  Output sample:<br>
 
 <pre>
 CPTRDB - SQL/Services Services
@@ -12168,20 +12493,24 @@ SQLSRV_MANAGE                   RUNNING     100     0      1     0     0      0
 Total number of services: 7
 </pre> 
 
+<p>
 <b>CPTRDB_SHOW_SQLSRV_SUMMARY_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_SQLSRV_SUMMARY.COM per node<br>
+  Called from CPTRDB_SHOW_SQLSRV_SUMMARY.COM per node
+</p>
 
 <p> 
 List all SQL/Services services on one node sorted by name.
 </p>
 
 <pre>
-  Parameters: P1, output file, SHOW_SQLSRV_SUMMARY.TMP_{filecnt}
-              P2, sqlsrv version, char(2), [72|73]
+Parameters: P1, output file, SHOW_SQLSRV_SUMMARY.TMP_{filecnt}
+            P2, sqlsrv version, char(2), [72|73]
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_SQLSRV_FULL.COM</b><br>
-  Calls CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM per service/node<br>
+  Calls CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM per service/node
+</p>
 
 <p>
   List SQL/Services services on a series of nodes in full detail,
@@ -12204,7 +12533,7 @@ CPT$RDB_NODE|CPTRDB_SHOW_SQLSRV_FULL|CPTRDB_OCI_SERVICE|L15S29|73|
   The intermediate log and output files are cleaned by both FULL procedures.
 </p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 CPTRDB - SQL/Services Services In Full Detail
@@ -12289,21 +12618,25 @@ Access to service CPTRDB_OCI_SERVICE
 	PUBLIC	PRIVILEGED_USER	'rdbmon'
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_SQLSRV_FULL.COM per service/node<br>
+  Called from CPTRDB_SHOW_SQLSRV_FULL.COM per service/node
+</p>
 
 <p>
   Show one SQL/Services service on one node in full detail.
 </p>
   
 <pre>
-  Parameters: P1, service name,   char(31)
-              P2, sqlsrv version, char(2), [72|73]
-              P3, output file,    show_sqlsrv_full.tmp_{filecnt}
+Parameters: P1, service name,   char(31)
+            P2, sqlsrv version, char(2), [72|73]
+            P3, output file,    show_sqlsrv_full.tmp_{filecnt}
 </pre>
 
+<p>
 <b>CPTRDB_CREATE_SQLSRV.COM</b><br>
-  Calls CPTRDB_CREATE_SQLSRV_BATCH.COM per service/node<br>
+  Calls CPTRDB_CREATE_SQLSRV_BATCH.COM per service/node
+</p>
 
 <p>
   Create SQL/Services services on a series of nodes,
@@ -12330,20 +12663,24 @@ CPT$RDB_NODE|CPTRDB_CREATE_SQLSRV|CPT$RDB:CPTRDB_OCI_SERVICE.SQS|L15S29|73|
   after eight days.
 </p>
 
+<p>
 <b>CPTRDB_CREATE_SQLSRV_BATCH.COM</b><br>
-  Called from CPTRDB_CREATE_SQLSRV.COM per service/node<br>
+  Called from CPTRDB_CREATE_SQLSRV.COM per service/node
+</p>
 
 <p>
   Create one SQL/Services service on one node.
 </p>
 
 <pre>
-  Parameters: P1, create script filespec,  dev:[dir]name.ext
-              P2, sqlsrv version, char(2), [72|73]
+Parameters: P1, create script filespec,  dev:[dir]name.ext
+            P2, sqlsrv version, char(2), [72|73]
 </pre>
 
+<p>
 <b>CPTRDB_START_SQLSRV.COM</b><br>
-  Calls CPTRDB_START_SQLSRV_BATCH.COM per service/node<br>
+  Calls CPTRDB_START_SQLSRV_BATCH.COM per service/node
+</p>
 
 <p>
   Start all SQL/Services services on a series of nodes,
@@ -12370,20 +12707,24 @@ CPT$RDB_NODE|CPTRDB_START_SQLSRV|CPTRDB_OCI_SERVICE|L15S29|73|
   after eight days.
 </p>
 
+<p>
 <b>CPTRDB_START_SQLSRV_BATCH.COM</b><br>
-  Called from CPTRDB_START_SQLSRV.COM per service/node<br>
+  Called from CPTRDB_START_SQLSRV.COM per service/node
+</p>
 
 <p>
   Start one SQL/Services service on one node.
 </p>
 
 <pre>
-  Parameters: P1, service name,   char(31)
-              P2, sqlsrv version, char(2), [72|73]
+Parameters: P1, service name,   char(31)
+            P2, sqlsrv version, char(2), [72|73]
 </pre>
 
+<p>
 <b>CPTRDB_SHUTDOWN_SQLSRV.COM</b><br>
-  Calls CPTRDB_SHUTDOWN_SQLSRV_BATCH.COM per service/node<br>
+  Calls CPTRDB_SHUTDOWN_SQLSRV_BATCH.COM per service/node
+</p>
 
 <p>
   Shutdown all SQL/Services services on a series of nodes,
@@ -12410,20 +12751,24 @@ CPT$RDB_NODE|CPTRDB_SHUTDOWN_SQLSRV|CPTRDB_OCI_SERVICE|L15S29|73|
   after eight days.
 </p>
 
+<p>
 <b>CPTRDB_SHUTDOWN_SQLSRV_BATCH.COM</b><br>
-  Called from CPTRDB_SHUTDOWN_SQLSRV.COM per service/node<br>
+  Called from CPTRDB_SHUTDOWN_SQLSRV.COM per service/node
+</p>
 
 <p>
   Shutdown one SQL/Services service on one node.
 </p>
   
 <pre>
-  Parameters: P1, service name,   char(31)
-              P2, sqlsrv version, char(2), [72|73]
+Parameters: P1, service name,   char(31)
+            P2, sqlsrv version, char(2), [72|73]
 </pre>
   
+<p>
 <b>CPTRDB_ALTER_SQLSRV.COM</b><br>
-  Calls CPTRDB_ALTER_SQLSRV_BATCH.COM per service/node<br>
+  Calls CPTRDB_ALTER_SQLSRV_BATCH.COM per service/node
+</p>
 
 <p>
   Alter SQL/Services services on a series of nodes,
@@ -12451,21 +12796,25 @@ CPT$RDB_NODE|CPTRDB_ALTER_SQLSRV|CPTRDB_OCI_SERVICE|L15S29|73|AUTOSTART ON|
   after eight days.
 </p>
 
+<p>
 <b>CPTRDB_ALTER_SQLSRV_BATCH.COM</b><br>
-  Called from CPTRDB_ALTER_SQLSRV.COM per service/node<br>
+  Called from CPTRDB_ALTER_SQLSRV.COM per service/node
+</p>
 
 <p>
   Alter one SQL/Services service on one node.
 </p>
   
 <pre>
-  Parameters: P1, service name,   char(31)
-              P2, sqlsrv version, char(2), [72|73]
-              P3, alter clause,   varchar(255)
+Parameters: P1, service name,   char(31)
+            P2, sqlsrv version, char(2), [72|73]
+            P3, alter clause,   varchar(255)
 </pre>
 
+<p>
 <b>CPTRDB_DROP_SQLSRV.COM</b><br>
-  Calls CPTRDB_DROP_SQLSRV_BATCH.COM per service/node<br>
+  Calls CPTRDB_DROP_SQLSRV_BATCH.COM per service/node
+</p>
 
 <p>
   Drop SQL/Services services on a series of nodes,
@@ -12492,23 +12841,29 @@ CPT$RDB_NODE|CPTRDB_DROP_SQLSRV|CPTRDB_OCI_SERVICE|L15S29|73|
   after eight days.
 </p>
 
+<p>
 <b>CPTRDB_DROP_SQLSRV_BATCH.COM</b><br>
-  Called from CPTRDB_DROP_SQLSRV.COM per service/node<br>
+  Called from CPTRDB_DROP_SQLSRV.COM per service/node
+</p>
 
 <p>
   Drop one SQL/Services service on one node.
 </p>
   
 <pre>
-  Parameters: P1, service name,   char(31)
-              P2, sqlsrv version, char(2), [72|73]
+Parameters: P1, service name,   char(31)
+            P2, sqlsrv version, char(2), [72|73]
 </pre>
 
+<p>
 <b>CPTRDB_OCI_SERVICE.SQS</b><br>
-  Create the OCI protocol service CPTRDB_OCI_SERVICE<br><br>
+  Create the OCI protocol service CPTRDB_OCI_SERVICE
+</p>
 
+<p>
 <b>CPTRDB_SQLSRV_SERVICE.SQS</b><br>
-  Create the SQL/Services protocol service CPTRDB_SQLSRV_SERVICE<br>
+  Create the SQL/Services protocol service CPTRDB_SQLSRV_SERVICE
+</p>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 OCI Protocol Services Configuration Files
@@ -12520,7 +12875,9 @@ The configuration files for OCI protocol services must contain the following
 code snippets.
 </p>
 
+<p>
 -- On the server side --
+</p>
 
 <pre>
 SYS$COMMON:[SQLSRV73.SQLNET.NETWORK.ADMIN]LISTENER.ORA
@@ -12557,12 +12914,16 @@ Dispatcher OCI_DISP
 </pre>
 
 
+<p>
 -- On the client side --<br><br>
 
-Using the OpenVMS Oracle client.<br><br>
+Using the OpenVMS Oracle client.
+</p>
 
+<p>
 <b>CPTRDB_CONNECT_OCI_L15S29.COM</b><br>
-  Create a DCL symbol to connect to the OCI service<br>
+  Create a DCL symbol to connect to the OCI service
+</p>
 
 <pre>
 ----
@@ -12591,7 +12952,7 @@ CPTRDB_OCI_SERVICE.WORLD =
 The SID is the server service name.
 </pre>
 
-Test run:
+Test run:<br>
 
 <pre>
 $ @CONNECT_OCI_L15S29
@@ -12614,6 +12975,15 @@ RDB$FILE_NAME
 DSA29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1
 </pre>
 
+<p>
+The command file RDB$NATCONN_CHECK_SETUP73.COM in SYS$COMMON:[SYSTEST.SQLSRV73]
+provides a test for the OCI service setup on the executor node. The
+procedure requires valid LISTENER.ORA and TNSNAMES.ORA files in the
+(sub)directories specified by SYS$COMMON:[SYSMGR]SQLSRV_SQLNET73.DAT,
+for the OCI service being tested. The default directory is
+SYS$COMMON:[SQLSRV73.SQLNET.NETWORK.ADMIN].
+</p>
+
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Test A SQL/Services Protocol Service From A C Program
 </font>
@@ -12633,10 +13003,10 @@ Test A SQL/Services Protocol Service From A C Program
 </p>
 
 <pre>
-   Table:     sqlsrv_employees
-   Table:     sqlsrv_insert_table
-   Module:    sqlsrv_insert_module
-   Procedure: sqlsrv_insert
+ Table:     sqlsrv_employees
+ Table:     sqlsrv_insert_table
+ Module:    sqlsrv_insert_module
+ Procedure: sqlsrv_insert
 </pre>
 
 <p>
@@ -12658,7 +13028,7 @@ Test A SQL/Services Protocol Service From A C Program
   Object and image file of CPT$RDB:CPTRDB_SQLSRV_C.C 
 </p>
 
-Test run:
+Test run:<br>
 
 <pre>
 $ run CPTRDB_SQLSRV_C.EXE
@@ -12712,8 +13082,10 @@ Procedures Usage
   The services states are aligned on the longest service name. 
 </p>
 
+<p>
 <b>CPTRDB_SHOW_SQLSRV_DAILY.COM</b><br>
-  Calls CPTRDB_SHOW_SQLSRV_DAILY_BATCH.COM per node<br>
+  Calls CPTRDB_SHOW_SQLSRV_DAILY_BATCH.COM per node
+</p>
 
 <p>
   Daily list the SQL/Services services summary on a series of nodes, 
@@ -12768,29 +13140,31 @@ CPT$RDB_PARAM|CPTRDB_SHOW_SQLSRV_DAILY|21|
 ! 2 All nodes longest service name length, to align state in tmp reference file
 </pre>
 
-  Toolset cockpit event:
+  Toolset cockpit event:<br>
 
 <pre>
-  CPTRDB_SQLSRV_Differences
-  CPTRDB - SQLSRV Differences {node} - ddmmmhhmmss"
+CPTRDB_SQLSRV_Differences
+CPTRDB - SQLSRV Differences {node} - ddmmmhhmmss"
 </pre>
 
-  Mail subject:
+  Mail subject:<br>
 
 <pre>
-  "CPTRDB - SQLSRV Diff {node} yyyymmdd"
+"CPTRDB - SQLSRV Diff {node} yyyymmdd"
 </pre>
 
+<p>
 <b>CPTRDB_SHOW_SQLSRV_DAILY_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_SQLSRV_DAILY.COM per node<br>
+  Called from CPTRDB_SHOW_SQLSRV_DAILY.COM per node
+</p>
 
 <p>
   List all SQL/Services services on one node sorted by name.
 </p>
   
 <pre>
-  Parameters: P1, output file, SHOW_SQLSRV_DAILY.TMP_{filecnt}
-              P2, sqlsrv version, char(2), [72|73]
+Parameters: P1, output file, SHOW_SQLSRV_DAILY.TMP_{filecnt}
+            P2, sqlsrv version, char(2), [72|73]
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -12815,7 +13189,7 @@ environment. A row cache is created for each sorted index storage area
 of the test database.
 </p>
 
-Row caching requires the database settings:
+Row caching requires the database settings:<br>
 
 <pre>
 NUMBER OF CLUSTER NODES 1
@@ -12897,7 +13271,7 @@ Sequential scans never load data into a cache.
 The actual settings for the template caches created here are listed below. 
 </p>
 
-From RMU/Dump/Header :
+From RMU/Dump/Header:<br>
 
 <pre>
 - Row Cache RUJ buffers section size is 14,708,736 bytes (15MB)
@@ -12945,7 +13319,7 @@ Row cache "CACHE_INDEX_AREA_1"
       - Shared memory section requirement is 1,318,912 bytes (2MB)
 </pre>  
 
-From SQL> SHOW CACHE :
+From SQL> SHOW CACHE:<br>
 
 <pre>
 -- Logical area / Storage area cache
@@ -12981,12 +13355,12 @@ CACHE_INDEX_AREA_1
   The database must be closed to run this procedure.
 </p>
 
-  The procedure can be executed in 3 seperate steps:
+  The procedure can be executed in 3 seperate steps:<br>
 
 <pre>
-  . Adapt the database parameters
-  . Create/Alter the row caches 
-  . Assign the caches to the storage areas
+. Adapt the database parameters
+. Create/Alter the row caches 
+. Assign the caches to the storage areas
 </pre>
 
 <p>
@@ -13032,7 +13406,7 @@ provide a tutorial demonstration and test hot standby environment.
   Create the physical hot standby master database.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------
@@ -13047,7 +13421,7 @@ $!------------------------
   to test hot standby replication.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-----------------------------------
@@ -13061,7 +13435,7 @@ $!-----------------------------------
   Perform a initial offline database backup.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!------------------------------
@@ -13080,7 +13454,7 @@ CPT$RDB_DATABASE|CPTRDB_BACKUP_DB|CPTRDB_MASTR_DB|7.3|L15S29|
 CPT$RDB_DATABASE|CPTRDB_BACKUP_AIJ|CPTRDB_MASTR_DB|7.3|L15S29|
 </pre>
 
-Run normal operations on the master database.
+Run normal operations on the master database.<br>
 
 <p>
 <b>CPTRDB_MASTR_DB_INSERT.COM</b><br>
@@ -13089,15 +13463,15 @@ Run normal operations on the master database.
 </p>
 
 <pre>
-  Parameters: P1, start count, integer
-              P2, end   count, integer
-              P3, string,    , char(10)
+Parameters: P1, start count, integer
+            P2, end   count, integer
+            P3, string,    , char(10)
 
-  Usage:
-  $ @CPTRDB_MASTR_DB_INSERT {integer} {integer} {string varchar(10)}
+Usage:
+$ @CPTRDB_MASTR_DB_INSERT {integer} {integer} {string varchar(10)}
 </pre>
 
-The procedure for an existing master database starts from here.
+The procedure for an existing master database starts from here.<br>
 
 <p>
 <b>CPTRDB_RESTORE_OPTIONS.COM</b><br>
@@ -13106,15 +13480,15 @@ The procedure for an existing master database starts from here.
 </p>
 
 <pre>
-  Usage:
-  $ @CPTRDB_RESTORE_OPTIONS [{dbid_backup}|CPTRDB_MASTR_DB] -
-                            [{dbid_restore}|CPTRDB_STDBY_DB]
+Usage:
+$ @CPTRDB_RESTORE_OPTIONS [{dbid_backup}|CPTRDB_MASTR_DB] -
+                          [{dbid_restore}|CPTRDB_STDBY_DB]
 
-  The kit contains the template options files:
-  CPTRDB_STDBY_DB_L15S29_20150113.AIJ_OPT
-  CPTRDB_STDBY_DB_L15S29_20150113.OPT
+The kit contains the template options files:
+CPTRDB_STDBY_DB_L15S29_20150113.AIJ_OPT
+CPTRDB_STDBY_DB_L15S29_20150113.OPT
 
-  Adapt the filespecs and copy them to CPT$RDB_DATA:
+Adapt the filespecs and copy them to CPT$RDB_DATA:
 </pre>
 
 <p>
@@ -13143,7 +13517,7 @@ The procedure for an existing master database starts from here.
   Restore the master database backup as standby database. 
 </p>
 
-  Parameters: Adapt the parameter block:
+  Parameters: Adapt the parameter block:<br>
 
 <pre>
 $! -- Restore the standby database
@@ -13156,20 +13530,20 @@ $!$ rbf_file     = "CPT$RDB_DB_BCK:CPTRDB_MASTR_DB_L15S29_20150622_1305.RBF;1"
 $!------------------------------------------------------------------------------
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_RESTORE_DATABASE
+$ @CPTRDB_SUBMIT {node} CPTRDB_RESTORE_DATABASE
 </pre>
 
 <p>
 Open the standby database with row cache disabled, do not touch it.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ RMU/OPEN/ROW_CACHE=DISABLED <cptrdb_stdby_db>
+$ RMU/OPEN/ROW_CACHE=DISABLED <cptrdb_stdby_db>
 </pre>
 
 <p>
@@ -13177,7 +13551,7 @@ Open the standby database with row cache disabled, do not touch it.
   Configure the master and standby database.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-----------------------------------------------------------------
@@ -13191,7 +13565,7 @@ $!-----------------------------------------------------------------
   Start the replication between master and stanby, always first on the standby.
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-----------------------------------------------------------------
@@ -13218,25 +13592,25 @@ CPT$RDB_DATABASE|CPTRDB_BACKUP_AIJ|CPTRDB_MASTR_DB|7.3|L15S29|
  Do some updates on the master database to test the running replication.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_MASTR_DB_INSERT {integer} {integer} {string varchar(10)}
+$ @CPTRDB_MASTR_DB_INSERT {integer} {integer} {string varchar(10)}
 </pre>
 
 <p>
 Check the replicated data on the standby database in read only.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @SYS$SHARE:RDB$SETVER [7.3|7.2]
-  $ @CPTRDB_ATTACH cptrdb_stdby_db
-  $ SQL := $SQL$
-  $ SQL
-  $ SQL> select * from mastr_table;
-         commit;
+$ @SYS$SHARE:RDB$SETVER [7.3|7.2]
+$ @CPTRDB_ATTACH cptrdb_stdby_db
+$ SQL := $SQL$
+$ SQL
+$ SQL> select * from mastr_table;
+       commit;
 </pre>
 
 <p>
@@ -13244,7 +13618,7 @@ Check the replicated data on the standby database in read only.
   Stop the replication, always first on the master. 
 </p>
 
-  Parameters: Adapt the parameter block.
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-----------------------------------------------------------------
@@ -13260,7 +13634,7 @@ $!-----------------------------------------------------------------
   different database settings.
 </p>
 
-  Parameters: Adapt the parameter block and database settings.
+  Parameters: Adapt the parameter block and database settings.<br>
 
 <pre>
 $!-----------------------------------------------------------------
@@ -13346,8 +13720,8 @@ Unexpected Failure             0        0        0.0            0           0.0
 
 <b>CPTRDB_LOCK_MANAGER.TXT</b><br>
 <b>CPTRDB_LCK_SHOW_ACTIVE.COM</b><br>
-<b>MONITOR DLOCK</b><br>
-<b>MASTERLOCK/DATABASE</b><br><br>
+<b>$ MONITOR DLOCK</b><br>
+<b>$ MASTERLOCK/DATABASE</b><br><br>
 
 <b>SYSGEN </b><br>
 <b>.LOCKDIRWT </b><br>
@@ -13390,21 +13764,21 @@ are directed towards specific storage areas and specific nodes).
 </p>
 
 <pre>
-  $ ANALYZE/SYSTEM
-  SDA> LCK SHOW ACTIVE
+$ ANALYZE/SYSTEM
+SDA> LCK SHOW ACTIVE
 </pre>
 
 <p>
   The procedure filters the output for Rdb database resource names. 
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_LCK_SHOW_ACTIVE
+$ @CPTRDB_LCK_SHOW_ACTIVE
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
                        Total     Local
@@ -13432,7 +13806,7 @@ FFFFFFFE.33D8FD40        151       151      120       1   L15S58   Ý...D....DATA
 </pre>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
-MONITOR DLOCK
+$ MONITOR DLOCK
 </font>
 </h4>
 
@@ -13442,7 +13816,7 @@ MONITOR DLOCK
 </p>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
-  MASTERLOCK/DATABASE
+$ MASTERLOCK/DATABASE
 </font>
 </h4>
 
@@ -13457,15 +13831,15 @@ MONITOR DLOCK
   very substantial.  
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ set command cpt$system:masterlock
-  $ masterlock/database=cptrdb_db_1
-  DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1 - Master on L15S29
-  $ show symbol cpt$masterlock*
-    CPT$MASTERLOCK_FILE = "DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1"
-    CPT$MASTERLOCK_NODE = "L15S29"
+$ set command cpt$system:masterlock
+$ masterlock/database=cptrdb_db_1
+DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1 - Master on L15S29
+$ show symbol cpt$masterlock*
+  CPT$MASTERLOCK_FILE = "DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1"
+  CPT$MASTERLOCK_NODE = "L15S29"
 </pre>
 
 <p>
@@ -13501,7 +13875,7 @@ MONITOR DLOCK
 </h4>
 
 <p>
-  (Courtesy Keith Parris, HP, 'The Lock Manager And Performance', presentation 
+  (Courtesy Keith Parris, HP Corp., 'The Lock Manager And Performance', presentation 
    at the OpenVMS Boot Camp, september 2011)
 </p>
 
@@ -13612,7 +13986,7 @@ MONITOR DLOCK
 </pre>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
-  PE1
+PE1
 </font>
 </h4>
 
@@ -13626,7 +14000,7 @@ MONITOR DLOCK
 </p>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
-  DEADLOCK_WAIT
+DEADLOCK_WAIT
 </font>
 </h4>
 
@@ -13647,11 +14021,11 @@ MONITOR DLOCK
 </p>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
-  Rdb DATABASE LOCK RESOURCE NAME
+Rdb DATABASE LOCK RESOURCE NAME
 </font>
 </h4>
 
-  The Rdb database lock resource name is constructed as follows.
+  The Rdb database lock resource name is constructed as follows.<br>
 
 <pre>
 Consider:
@@ -13778,9 +14152,11 @@ conditions, and boils down to a private data pump function.
   upfront, and provides two formats for vms dates.
 </p>
 
-  The tracing of the LIST OF BYTE VARYING columns dbkeys is incorrect.<br><br>
+<p>
+  The tracing of the LIST OF BYTE VARYING columns dbkeys is incorrect.
+</p>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
  00 [**USER\**SYSTEM]#
@@ -13915,23 +14291,23 @@ conditions, and boils down to a private data pump function.
   The commit step can be easily modified to assure proper performance.
 </p>
 
-  The two generated procedures in CPT$RDB: are named
+  The two generated procedures in CPT$RDB: are named<br>
 
 <pre>
-  GEN456_INS_UPD_DEL_{dbid}.COM[_ddmmmhhmmss]
+GEN456_INS_UPD_DEL_{dbid}.COM[_ddmmmhhmmss]
 </pre>
 
-  To run use:
+  To run use:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} GEN456_INS_UPD_DEL_{dbid}
+$ @CPTRDB_SUBMIT {node} GEN456_INS_UPD_DEL_{dbid}
 
-  The char(7) prefix 'GEN456_' is stripped from the logfile name.
+The char(7) prefix 'GEN456_' is stripped from the logfile name.
 
-  Enjoy the single quotes.
+Enjoy the single quotes.
 </pre>
 
-  Generated procedure sample:
+  Generated procedure sample:<br>
 
 <pre>
 $ set nover
@@ -14096,10 +14472,10 @@ Object and C prototypes files
 Main program image and run files
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_EXTERN_PROC_MAIN_RUN [INSERT|SELECT|UPDATE|DELETE] {col1} [{col2}|{col3}]
+$ @CPTRDB_EXTERN_PROC_MAIN_RUN [INSERT|SELECT|UPDATE|DELETE] {col1} [{col2}|{col3}]
 </pre>
 
 <p>
@@ -14109,13 +14485,13 @@ Main program image and run files
 External procedure shareable image, sql create procedure and run files
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_EXTERN_PROC_SQL_RUN [INSERT|SELECT|UPDATE|DELETE] {col1} [{col2}|{col3}]
+$ @CPTRDB_EXTERN_PROC_SQL_RUN [INSERT|SELECT|UPDATE|DELETE] {col1} [{col2}|{col3}]
 </pre>
 
-Output sample:
+Output sample:<br>
 
 <pre>
 $ @CPTRDB_EXTERN_PROC_SQL_RUN insert 101 bimbam -101
@@ -14195,10 +14571,10 @@ have to be modified.
   hardcoded parameters.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_BULK_DELETE_GO.COM
+$ @CPTRDB_BULK_DELETE_GO.COM
 </pre>
 
 <p>
@@ -14213,16 +14589,16 @@ have to be modified.
   Called from CPT$RDB:CPTRDB_BULK_DELETE_GO.COM
 </p>
   
-  Parameters:
+  Parameters:<br>
 
 <pre>
-  P1, from_col1,    integer,   min col1 value of table_parti
-  P2, to_col1,      integer,   max col1 value of table_parti
-  P3, indic_simul,  char(1),   Y/N, run without delete
-  P4, indic_trace,  char(1),   Y/N, trace candidate/deleted rows
-  P5, max_rows,     integer,   max number of table_parti rows to be deleted
-  P6, display_step, integer,   display timestamp every n business transactions
-  P7, dummy,        date ansi, dummy parameter to test check_date_ansi()
+P1, from_col1,    integer,   min col1 value of table_parti
+P2, to_col1,      integer,   max col1 value of table_parti
+P3, indic_simul,  char(1),   Y/N, run without delete
+P4, indic_trace,  char(1),   Y/N, trace candidate/deleted rows
+P5, max_rows,     integer,   max number of table_parti rows to be deleted
+P6, display_step, integer,   display timestamp every n business transactions
+P7, dummy,        date ansi, dummy parameter to test check_date_ansi()
 </pre>
   
 <p>
@@ -14232,11 +14608,11 @@ have to be modified.
   delete phase.
 </p>
   
-  Creates two files in CPT$RDB_DATA:
+  Creates two files in CPT$RDB_DATA:<br>
 
 <pre>
-  BULK_DELETE_{dbid}_{node}_yyyymmdd.TODO_ddmmmhhmmss
-  BULK_DELETE_{dbid}_{node}_yyyymmdd.UNL_ddmmmhhmmss
+BULK_DELETE_{dbid}_{node}_yyyymmdd.TODO_ddmmmhhmmss
+BULK_DELETE_{dbid}_{node}_yyyymmdd.UNL_ddmmmhhmmss
 </pre>
 
 <p>
@@ -14386,7 +14762,7 @@ Procedures Usage
   Image file
 </p>
 
-Run output sample (blank lines removed):
+Run output sample (blank lines removed):<br>
 
 <pre>
 $ @cptrdb_attach cptrdb_db_1
@@ -14493,7 +14869,7 @@ No records found.
   Image file
 </p>
 
-Run output sample (blank lines removed):
+Run output sample (blank lines removed):<br>
 
 <pre>
 $ @cptrdb_attach cptrdb_db_1
@@ -14581,9 +14957,9 @@ Procedures Usage
 </p>
   
 <pre>
-  Parameters: P1, (wildcard) filename(s)
-              P2, remote username, rdbmon
-              P3, remote password, secret
+Parameters: P1, (wildcard) filename(s)
+            P2, remote username, rdbmon
+            P3, remote password, secret
 </pre>
 
 <p>
@@ -14591,10 +14967,10 @@ Procedures Usage
   other nodes.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_COPY_FILES_NODES {filespec} {username} {password}
+$ @CPTRDB_COPY_FILES_NODES {filespec} {username} {password}
 </pre>
 
 <p>
@@ -14603,11 +14979,11 @@ Procedures Usage
   Creates no output file.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ FIND :== @CPT$RDB:CPTRDB_FIND
-  $ FIND {string}
+$ FIND :== @CPT$RDB:CPTRDB_FIND
+$ FIND {string}
 </pre>
 
 <b>CPTRDB_FIND_CLUSTER.COM</b> (Calls per node)<br>
@@ -14618,10 +14994,10 @@ Procedures Usage
   Creates an output file in CPT$RDB_LISTS:
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_FIND_CLUSTER <string>
+$ @CPTRDB_FIND_CLUSTER <string>
 </pre>
 
 <p>
@@ -14630,13 +15006,13 @@ Procedures Usage
   row timestamps.
 </p>
   
-  Usage mode batch
+  Usage mode batch<br>
 
 <pre>
-  Parameters: P1, timestamp1, timestamp, '2009-12-21 08:45:00'"
-              P2, timestamp2, timestamp, '2009-12-21 09:15:00'"
+Parameters: P1, timestamp1, timestamp, '2009-12-21 08:45:00'"
+            P2, timestamp2, timestamp, '2009-12-21 09:15:00'"
   
-  The parameters are hardcoded.
+The parameters are hardcoded.
 </pre>
 
 <p>
@@ -14645,13 +15021,13 @@ Procedures Usage
   available on the executor node.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SEARCH_STATUS_CODE [integer|%Xnnnnnnnn]
+$ @CPTRDB_SEARCH_STATUS_CODE [integer|%Xnnnnnnnn]
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 $ @CPTRDB_SEARCH_STATUS_CODE %X12C89918
@@ -14673,23 +15049,25 @@ Output CPT$RDB_LISTS:STATUS_X12C89918_L15S29_20150730.LIS_30JUL151910
 </p>
 
 <pre>
-  Executes:
-  $ SHOW CLUSTER/CONTINUOUS/INTERVAL=1
+Executes:
+$ SHOW CLUSTER/CONTINUOUS/INTERVAL=1
 
-  For the items in CPTRDB_SHOW_CLUSTER_CR_WAIT.INI
-  add loc_proc
-  add cr_wait
-  set cr_wait/width=10
+For the items in CPTRDB_SHOW_CLUSTER_CR_WAIT.INI
+add loc_proc
+add cr_wait
+set cr_wait/width=10
 </pre>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SHOW_CLUSTER_CR_WAIT
+$ @CPTRDB_SHOW_CLUSTER_CR_WAIT
 </pre>
 
+<p>
 <b>CPTRDB_X11_KEEP_ALIVE_BATCH.COM</b><br>
-  Called from CPTRDB_X11_KEEP_ALIVE[_ALL].COM<br>
+  Called from CPTRDB_X11_KEEP_ALIVE[_ALL].COM
+</p>
 
 <p>
   Send a reply to Rdb monitor users on one node, to prevent firewall timeout
@@ -14699,8 +15077,10 @@ Output CPT$RDB_LISTS:STATUS_X12C89918_L15S29_20150730.LIS_30JUL151910
   (RDBMON,JDBCMON,SRVMON,JCCMON)
 </p>
 
+<p>
 <b>CPTRDB_X11_KEEP_ALIVE.COM</b><br>
-  Calls CPTRDB_X11_KEEP_ALIVE_BATCH.COM<br>
+  Calls CPTRDB_X11_KEEP_ALIVE_BATCH.COM
+</p>
 
 <p>
   Interactive (test) send a reply to Rdb monitor users on a series of hardcoded 
@@ -14708,14 +15088,16 @@ Output CPT$RDB_LISTS:STATUS_X12C89918_L15S29_20150730.LIS_30JUL151910
   sessions.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_X11_KEEP_ALIVE
+$ @CPTRDB_X11_KEEP_ALIVE
 </pre>
 
+<p>
 <b>CPTRDB_X11_KEEP_ALIVE_ALL.COM</b><br>
-  Calls CPTRDB_X11_KEEP_ALIVE_BATCH.COM<br>
+  Calls CPTRDB_X11_KEEP_ALIVE_BATCH.COM
+</p>
 
 <p>
   Automated send of a reply to Rdb monitor users on a series of hardcoded 
@@ -14723,15 +15105,15 @@ Output CPT$RDB_LISTS:STATUS_X12C89918_L15S29_20150730.LIS_30JUL151910
   sessions, in a continuous way every 30 minutes.
 </p>
 
-  Usage:
+  Usage:<br>
 
 <pre>
-  $ @CPTRDB_SUBMIT {node} CPTRDB_X11_KEEP_ALIVE_ALL
+$ @CPTRDB_SUBMIT {node} CPTRDB_X11_KEEP_ALIVE_ALL
 
-  Logfiles older than two hours are cleaned.
+Logfiles older than two hours are cleaned.
 </pre>
 
-  Output sample:
+  Output sample:<br>
 
 <pre>
 Reply received on L15S29 from user RDBMON at L15S29 Batch   15:42:12
