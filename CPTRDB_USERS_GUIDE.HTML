@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 15-jan-2016, Luc Allemeersch<br>
+Modified: 21-jan-2016, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -351,6 +351,20 @@ External Field Test
 Full kit<br>
 First Public Release
 </p>
+
+<p>
+<b>CPTRDB_CHANGES_20160121_21JAN114623.A</b><br>
+Partial update kit
+</p>
+
+New documentation and procedures:<br>
+
+<pre>
+CPTRDB_AFTER_JOURNAL_ADD.COM
+CPTRDB_AFTER_JOURNAL_DROP.COM
+CPTRDB_COCKPITMGR_DATA_SHEET.PDF
+CPTRDB_INDEX_NODE_SIZES.COM
+</pre>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -2262,7 +2276,10 @@ CPTRDB_BatchEntriesDifferences
 
 <b>CPTRDB_SHOW_AIJ_LIVE_DUMP.COM</b><br><br>
 
-<b>CPTRDB_CONFIGURATION.REF</b> (Configuration file)<br>     
+<b>CPTRDB_CONFIGURATION.REF</b> (Configuration file)<br><br>
+
+<b>CPTRDB_AFTER_JOURNAL_ADD.COM</b><br>
+<b>CPTRDB_AFTER_JOURNAL_DROP.COM</b><br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures Usage
@@ -2553,6 +2570,69 @@ CPTRDB_AIJ_LiveExceptions
 
 <p>
 If an exception is reported, search the output file for "*" or "emergency".
+</p>
+
+<p>
+<b>CPTRDB_AFTER_JOURNAL_ADD.COM</b><br>
+  Add one live AIJ journal file to a database.
+</p>
+  
+<p>
+  Requires a free AIJ slot in the root file. AIJ slots can only be added to
+  a closed database using: 
+</p>
+
+<pre>
+SQL> alter database filename {dbid} reserve {n} journals;
+</pre>
+  
+<p>
+  Use CPTRDB_SHOW_AIJ_LIVE_ONE.COM to check the live AIJ files status.
+  Use RMU/Show Statistics "Journaling Information|AIJ Journal Information"
+  to check for free AIJ slots.
+</p>
+
+  Parameters: Adapt the parameter block<br>
+
+<pre>
+$!---------------------------------------------
+$ dbid      = "CPTRDB_DB_1"
+$ define dbroot cptrdb_db_1
+$!
+$ aij_live_dir  = "CPT$RDB_AIJ:[''dbid']"
+$ aij_bck_dir   = "CPT$RDB_AIJ_BCK:"
+$ aij_name      = "AIJ4"
+$ aij_nbr       = "4"
+$ aij_live_file = "''dbid'_JRNL_''aij_nbr'.AIJ"
+$ aij_bck_file  = "''dbid'_.AIJ_BCK"
+$ aij_alloc     = "500000"
+$!---------------------------------------------
+</pre>
+
+<p>
+<b>CPTRDB_AFTER_JOURNAL_DROP.COM</b><br>
+  Drop one live AIJ journal file from a database.
+</p>
+
+<p>
+  Requires the state 'Latent' for the to be deleted live AIJ journal file.
+  Use CPTRDB_SHOW_AIJ_LIVE_ONE.COM to check the live AIJ files state.
+</p>
+
+  Parameters: Adapt the parameter block<br>
+
+<pre>
+$!-----------------------------------------
+$ define dbroot cptrdb_db_1
+$ aij_name = "AIJ4"
+$!$ aij_name = "EMERGENCY_00AFF255EAE4041E"
+$!-----------------------------------------
+</pre>
+
+<p>
+ To force a AIJ journal switch and free up a 'Current' or 'Written' AIJ slot 
+ to the state 'Latent', rename today's AIJ backup files in CPT$RDB_AIJ_BCK: to
+ a [.RENAME] subdirectory, and run the job CPTRDB_BACKUP_AIJ_ALL.
 </p>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -7890,6 +7970,7 @@ Outlines:
 </font>
 </h3>
 
+<b>CPTRDB_INDEX_NODE_SIZES.COM</b><br>
 <b>CPTRDB_UNLOAD.COM</b><br>
 <b>CPTRDB_LOAD.COM</b><br>
 <b>CPTRDB_LOAD_PLACE.COM</b><br>
@@ -8334,7 +8415,7 @@ during the execution of a query), a number of best practice rules apply.
   size 1988 for a 4 blocks page size is a good default to start with. 
   Take also into account the buffer size and disk cluster size.
 
-. Avoid placement via hashed indices unless really required for performance.
+. Avoid placement via hashed indices unless realy required for performance.
   Consider 'non placement via' hashed indices in separate mixed areas,
   in parallel to uniform data areas. They provide more flexibility
   to recreate in case mixed areas become too full, and page collisions  
@@ -8369,6 +8450,176 @@ during the execution of a query), a number of best practice rules apply.
   of column groups. Experiment several column orders within the third group,
   as they can have a big impact on the physical structure and size
   of the index.
+</pre>
+
+<h4><font face="helvetica, arial, sans-serif" color="#330099">
+Index Node Sizes
+</font>
+</h4>
+
+<p>
+<b>CPTRDB_INDEX_NODE_SIZES.COM</b><br>
+  Calculate all index node sizes upto a maximum page size and a maximum target
+  number of index nodes per page.
+</p>
+  
+<pre>
+Parameters: P1, integer, max page size blocks
+            P2, integer, max target number of index nodes per page
+</pre>
+
+Usage:<br>
+
+<pre>
+$ @CPTRDB_INDEX_NODE_SIZES 12 4
+</pre>
+
+Output sample:<br>
+
+<pre>
+CPTRDB - Index Node Sizes
+On Node L15S29
+At 2016-01-19 13:03:04
+
+   Page
+   Size            Node
+ Blocks   Bytes    Size
+                      1       2       3       4 Number Of Nodes Per Page
+--------------------------------------------------------------------------------
+      1     512     452     221     144     105
+      2    1024     964     477     314     233
+      3    1536    1476     733     485     361
+      4    2048    1988     989     656     489
+      5    2560    2500    1245     826     617
+      6    3072    3012    1501     997     745
+      7    3584    3524    1757    1168     873
+      8    4096    4036    2013    1338    1001
+      9    4608    4548    2269    1509    1129
+     10    5120    5060    2525    1680    1257
+     11    5632    5572    2781    1850    1385
+     12    6144    6084    3037    2021    1513
+--------------------------------------------------------------------------------
+</pre>
+
+<p>
+This table lists the index node sizes in function of the page size
+and the target number of nodes per page, in a uniform page format storage 
+area. For one node per page the index node size is the max segment size for 
+this page size. 
+</p>
+
+<p>
+The max segment size for a given page size is determined by the snaphot
+page structure layout, as a snapshot page has a larger footer region (live page
+pointer + 4 bytes, max tsn + 4 bytes) and a larger line index (live line 
+pointer + 2 bytes) than a data page. So a data page with a max segment size
+index node will always have 10 free bytes.
+</p>
+
+<p>
+Data and snapshot page header, line index and footer layout structures for
+a max segment size node size (1988 in a 4 blocks page):
+</p>
+
+Data page:<br>
+
+<pre>
+                   000D 0000000A  0000  page 10, physical area 13
+                        26DE8637  0006  checksum = 26DE8637
+               00B0205B D8B0C3CD  000A  time stamp = 22-DEC-2015 16:11:15.06
+                       0000 000A  0012  10 free bytes, 0 locked
+                            0001  0016  1 line
+                       07C4 002A  0018  line 0: offset 002A, 1988 bytes
+
+                        0025F3B5  001C  line 0: TSN 2487221
+
+            00000000000000000000  0020  free space '..........'
+
+                                  ....  total B-tree node size: 1988
+                       001D 200D  002A  line 0 (13:10:0) index: set 29
+........
+                        0000002A  07EE  snap page pointer 42
+                        0025F4D0  07F2  snap pointer TSN 2487504
+                            001D  07F6  logical area 29
+                        00000001  07F8  page sequence number 1
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+</pre>
+
+Snap page:<br>
+
+<pre>
+                   400D 0000002A  0000  page 42, physical area 16397
+                        D877C64D  0006  checksum = D877C64D
+               00B0205B D8B075AD  000A  time stamp = 22-DEC-2015 16:11:15.06
+                       0000 0000  0012  0 free bytes, 0 locked
+                            0001  0016  1 line
+                       07C4 0022  0018  line 0: offset 0022, 1988 bytes
+
+                        0025F3B5  001C  line 0: TSN 2487221
+
+                            0000  0020  line 0 -> live line: 0
+
+                                  ....  total B-tree node size: 1988
+                       001D 200D  0022  line 0 (13:10:0) index: set 29
+.......
+                        0000000A  07E6  live page pointer 10
+                        0025F4D0  07EA  max TSN 2487504
+                        FFFFFFFF  07EE  snap page pointer -1
+                        00000000  07F2  snap pointer TSN 0
+                            0000  07F6  MBZ '..'
+                        00000000  07F8  page sequence number 0
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+</pre> 
+
+The overhead within a snapshot page consists of (in bytes):<br>
+
+<pre>
+. Fixed header: 24
+. Fixed footer: 26
+. Per line    : 10
+
+For a 4 blocks page the max segment size is:
+(512 * 4) - 24 - 26 - 10 = 1988
+
+For a 6 blocks page the max segment size is:
+(512 * 6) - 24 - 26 - 10 = 3012
+
+For 2 nodes per page on a 4 blocks page, the node size is:
+( (512 * 4) - 24 - 26 - (2 * 10) ) / 2 = 989
+
+For 2 nodes per page on a 6 blocks page, the node size is:
+( (512 * 6) - 24 - 26 - (2 * 10) ) / 2 = 1501
+
+For 4 nodes per page on a 12 blocks page, the node size is:
+( (512 * 12) - 24 - 26 - (4 * 10) ) / 4 = 1513.5 (trunced to 1513)
+</pre>
+
+<p>
+Below the page header of a 4 blocks snapshot page with 2 index nodes of
+988 bytes each. 
+</p>
+
+<pre>
+                   4003 00000A6A  0000  page 2666, physical area 16387
+                        8F8106E6  0006  checksum = 8F8106E6
+               00B03305 670E6B98  000A  time stamp = 15-JAN-2016 10:10:19.79
+                       0000 0002  0012  2 free bytes, 0 locked
+                            0002  0016  2 lines
+                       03DC 040A  0018  line 0: offset 040A, 988 bytes
+                       03DC 002E  001C  line 1: offset 002E, 988 bytes
+
+                        02246953  0020  line 0: TSN 35940691
+                        02245086  0024  line 1: TSN 35934342
+
+                            0000  0028  line 0 -> live line: 0
+                            0001  002A  line 1 -> live line: 1
+
+                            0000  002C  free space '..'
+
+                                  ....  total B-tree node size: 988
+                       005B 200D  002E  line 1 (3:823115:1) index: set 91
 </pre>
 
 <p>
