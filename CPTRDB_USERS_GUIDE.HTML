@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 21-jan-2016, Luc Allemeersch<br>
+Modified: 15-feb-2016, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -146,6 +146,7 @@ For more information on CockpitMgr For OpenVMS, contact
 
 For more information on Oracle Rdb, visit <a href="http://www.oracle.com/rdb">www.oracle.com/rdb</a><br>
 For more information on JCC Logminer Loader, visit <a href="http://www.jcc.com">www.jcc.com</a><br>
+For more information on the Oracle Rdb List Server, visit <a href="http://www.jcc.com">www.jcc.com</a><br>
 For more information on OpenVMS, visit <a href="http://www.vmssoftware.com">www.vmssoftware.com</a> and
 <a href="http://www.hp.com/go/openvms">www.hp.com/go/openvms</a><br>
 For more information on T4 and TlViz visit 
@@ -248,6 +249,7 @@ Oracle Rdb JDBC V7.3-323:20141224<br>
 Oracle Rdb JDBC V7.3-402:20150626<br>
 Oracle SQL/Services, OCI Services for Rdb V7.3-110<br>
 Oracle SQL/Services, OCI Services for Rdb V7.3-200<br>
+Oracle SQL/Services, OCI Services for Rdb V7.3-210<br>
 CockpitMgr For OpenVMS V7.8-020<br>
 CockpitMgr For OpenVMS V7.8-040<br>
 HP C V7.2-001<br>
@@ -357,13 +359,34 @@ First Public Release
 Partial update kit
 </p>
 
-New documentation and procedures:<br>
+<pre>
+CPTRDB_AFTER_JOURNAL_ADD.COM (new)
+CPTRDB_AFTER_JOURNAL_DROP.COM (new)
+CPTRDB_COCKPITMGR_DATA_SHEET.PDF (new)
+CPTRDB_INDEX_NODE_SIZES.COM (new)
+CPTRDB_USERS_GUIDE.HTML
+CPTRDB_USERS_GUIDE.TXT
+</pre>
+
+<p>
+<b>CPTRDB_CHANGES_20160215_15FEB153602.A</b><br>
+Cumulative Partial update kit
+</p>
 
 <pre>
 CPTRDB_AFTER_JOURNAL_ADD.COM
+CPTRDB_AFTER_JOURNAL_ALLOCATION.COM (new)
 CPTRDB_AFTER_JOURNAL_DROP.COM
+CPTRDB_AFTER_JOURNAL_EDIT_FILENAME.COM (new)
+CPTRDB_AFTER_JOURNAL_RESERVE.COM (new)
+CPTRDB_AFTER_JOURNAL_SHUTDOWN_TIMEOUT.COM (new)
 CPTRDB_COCKPITMGR_DATA_SHEET.PDF
+CPTRDB_DAILY.COM
 CPTRDB_INDEX_NODE_SIZES.COM
+CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM
+CPTRDB_SHOW_SQLSRV_FULL_ONE.COM (new)
+CPTRDB_USERS_GUIDE.HTML
+CPTRDB_USERS_GUIDE.TXT
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -2279,7 +2302,11 @@ CPTRDB_BatchEntriesDifferences
 <b>CPTRDB_CONFIGURATION.REF</b> (Configuration file)<br><br>
 
 <b>CPTRDB_AFTER_JOURNAL_ADD.COM</b><br>
+<b>CPTRDB_AFTER_JOURNAL_ALLOCATION.COM</b><br>
 <b>CPTRDB_AFTER_JOURNAL_DROP.COM</b><br>
+<b>CPTRDB_AFTER_JOURNAL_EDIT_FILENAME.COM</b><br>
+<b>CPTRDB_AFTER_JOURNAL_RESERVE.COM</b><br>
+<b>CPTRDB_AFTER_JOURNAL_SHUTDOWN_TIMEOUT.COM</b><br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures Usage
@@ -2574,7 +2601,7 @@ If an exception is reported, search the output file for "*" or "emergency".
 
 <p>
 <b>CPTRDB_AFTER_JOURNAL_ADD.COM</b><br>
-  Add one live AIJ journal file to a database.
+  Add online one live AIJ journal file to a database.
 </p>
   
 <p>
@@ -2584,6 +2611,8 @@ If an exception is reported, search the output file for "*" or "emergency".
 
 <pre>
 SQL> alter database filename {dbid} reserve {n} journals;
+or
+$ @CPTRDB_AFTER_JOURNAL_RESERVE.COM
 </pre>
   
 <p>
@@ -2596,9 +2625,7 @@ SQL> alter database filename {dbid} reserve {n} journals;
 
 <pre>
 $!---------------------------------------------
-$ dbid      = "CPTRDB_DB_1"
-$ define dbroot cptrdb_db_1
-$!
+$ dbid          = "CPTRDB_DB_1"
 $ aij_live_dir  = "CPT$RDB_AIJ:[''dbid']"
 $ aij_bck_dir   = "CPT$RDB_AIJ_BCK:"
 $ aij_name      = "AIJ4"
@@ -2610,8 +2637,26 @@ $!---------------------------------------------
 </pre>
 
 <p>
+<b>CPTRDB_AFTER_JOURNAL_ALLOCATION.COM</b><br>
+  Alter online the allocation for a (series of) live AIJ file(s) of a database.
+  The new value will be applied at the next initialization of the live AIJ file.
+</p>
+
+  Parameters: Adapt the parameter block.<br>
+
+<pre>
+$!-------------------------------
+$ dbid        = "CPTRDB_DB_1"
+$ aij_name1   = "AIJ1"
+$ aij_name2   = "AIJ2"
+$ aij_name3   = "AIJ3"
+$ alloc_value = "500000" ! blocks
+$!-------------------------------
+</pre>
+
+<p>
 <b>CPTRDB_AFTER_JOURNAL_DROP.COM</b><br>
-  Drop one live AIJ journal file from a database.
+  Drop online one live AIJ journal file from a database.
 </p>
 
 <p>
@@ -2619,11 +2664,11 @@ $!---------------------------------------------
   Use CPTRDB_SHOW_AIJ_LIVE_ONE.COM to check the live AIJ files state.
 </p>
 
-  Parameters: Adapt the parameter block<br>
+  Parameters: Adapt the parameter block.<br>
 
 <pre>
 $!-----------------------------------------
-$ define dbroot cptrdb_db_1
+$ dbid     = "CPTRDB_DB_1"
 $ aij_name = "AIJ4"
 $!$ aij_name = "EMERGENCY_00AFF255EAE4041E"
 $!-----------------------------------------
@@ -2633,6 +2678,70 @@ $!-----------------------------------------
  To force a AIJ journal switch and free up a 'Current' or 'Written' AIJ slot 
  to the state 'Latent', rename today's AIJ backup files in CPT$RDB_AIJ_BCK: to
  a [.RENAME] subdirectory, and run the job CPTRDB_BACKUP_AIJ_ALL.
+</p>
+
+<p>
+<b>CPTRDB_AFTER_JOURNAL_EDIT_FILENAME.COM</b><br>
+  Set online the AIJ backup file filespec edit string for a database.
+</p>
+
+  Parameters: Adapt the parameter block.<br>
+
+<pre>
+$!--------------------------------------------------------------------------
+$ dbid        = "CPTRDB_DB_1"
+$ file_suffix = "(YEAR,MONTH,DAY_OF_MONTH,""_"",HOUR,MINUTE,""_"",SEQUENCE)"
+$!--------------------------------------------------------------------------
+</pre>
+
+<p>
+<b>CPTRDB_AFTER_JOURNAL_RESERVE.COM</b><br>
+  Offline add AIJ slots to the root file of a database.
+</p>
+
+  Parameters: Adapt the parameter block.<br>
+
+<pre>
+$!-------------------------------
+$ dbid            = "CPTRDB_DB_1"
+$ nbr_aij_slots   = "1"
+$!-------------------------------
+</pre>
+
+<p>
+  The database must be closed to execute this procedure, as the root file is 
+  being changed physically. Otherwise the messages below are issued.
+</p>
+
+<pre>
+%RMU-I-WAITOFF, Waiting for offline access to DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
+%RMU-I-WAITOFF, Waiting for offline access to DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
+%RMU-I-WAITOFF, Waiting for offline access to DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
+%RMU-I-WAITOFF, Waiting for offline access to DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
+%RMU-I-WAITOFF, Waiting for offline access to DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
+%RMU-F-FILACCERR, error opening database root file DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1
+-COSI-E-FLK, file currently locked by another user
+%RMU-F-FTL_SET, Fatal error for SET operation at  4-FEB-2016 16:32:24.02
+</pre>
+
+<p>
+<b>CPTRDB_AFTER_JOURNAL_SHUTDOWN_TIMEOUT.COM</b><br>
+  Set online the AIJ shutdown timeout value for a database, which is applied
+  when no more AIJ journals are available (all live AIJ files full and
+  all AIJ slots used).
+</p>
+
+  Parameters: Adapt the parameter block.<br>
+
+<pre>
+$!-----------------------------------------
+$ dbid          = "CPTRDB_DB_1"
+$ timeout_value = "4320" ! minutes = 3 days
+$!-----------------------------------------
+</pre>
+
+<p>
+  This value should allow to survive a weekend and avoid a database shutdown.
 </p>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -12622,6 +12731,7 @@ P4 is the TRANSACTION_START_TIME day of the transmitted row.
 <b>CPTRDB_SHOW_SQLSRV_SUMMARY.COM</b><br>
 <b>CPTRDB_SHOW_SQLSRV_SUMMARY_BATCH.COM</b><br>
 <b>CPTRDB_SHOW_SQLSRV_FULL.COM</b><br>
+<b>CPTRDB_SHOW_SQLSRV_FULL_ONE.COM</b><br>
 <b>CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM</b><br><br>
 
 <b>CPTRDB_CREATE_SQLSRV.COM</b><br>
@@ -12870,8 +12980,28 @@ Access to service CPTRDB_OCI_SERVICE
 </pre>
 
 <p>
+<b>CPTRDB_SHOW_SQLSRV_FULL_ONE.COM</b><br>
+  Calls CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM
+</p>
+
+<p>
+  List one SQL/Services service in full detail on the executor node
+  using a hardcoded SQL/Services version, default V7.3
+</p>
+
+<pre>
+Parameters: P1, service name, char(31)
+</pre>
+
+  Usage:<br>
+
+<pre>
+$ @CPTRDB_SHOW_SQLSRV_FULL_ONE {service name}
+</pre>
+
+<p>
 <b>CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM</b><br>
-  Called from CPTRDB_SHOW_SQLSRV_FULL.COM per service/node
+  Called from CPTRDB_SHOW_SQLSRV_FULL[_ONE].COM per service/node
 </p>
 
 <p>
