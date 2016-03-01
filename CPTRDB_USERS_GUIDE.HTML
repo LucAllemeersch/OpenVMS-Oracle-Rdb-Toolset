@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 15-feb-2016, Luc Allemeersch<br>
+Modified: 01-mar-2016, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -92,7 +92,7 @@ Modified: 15-feb-2016, Luc Allemeersch<br>
 <a href="#Chapter 62">§ -- 62 -- Using Dynamic SQL</a><br>
 <a href="#Chapter 63">§ -- 63 -- Miscellaneous Utilities</a><br>
 <a href="#Chapter 64">§ -- 64 -- Database And Output Files Formats</a><br>
-<a href="#Chapter 65">§ -- 65 -- End CPTRDB USERS GUIDE</a><br><br>
+<a href="#Chapter 65">§ -- 65 -- End CPTRDB Users Guide</a><br><br>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -330,8 +330,9 @@ $ BACKUP CPTRDB_CHANGES_YYYYMMDD_DDMMMHHMMSS.A/SAVE CPT$RDB_CHANGES:
 </pre>
 
 <p>
-The changes are documented in the chapter 'Kit Updates Log' of the users
-guide (this file).
+The changes are documented in the chapter 
+<a href="#Chapter 7">§ -- 7 -- Kit Updates Log</a> of the users guide 
+(this file).
 </p>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -1122,22 +1123,36 @@ $ @CPTRDB_SUBMIT {node} [{name}|CPTRDB_CREATE_DB]
   The {node} string is for .log logfiles the execution node of the procedure.
   For output files (.lis, .mime, .diff) the {node} string is the reference 
   node (execution or other) depending on the semantics of the procedure.
+</p>
 
+<p>
   The {yyyymmdd} string is for .log logfiles the execution date of the 
   procedure. For output files (.lis, .mime, .diff) the {yyyymmdd} string is 
   the reference date (execution or other) depending on the semantics of the 
   procedure.
+</p>
 
+<p>
   The {ddmmmhhmmss} string is always the file creation timestamp.
+</p>
 
+<p>
   JCC Logminer Loader log and output files have specific conventions,
   starting with "LML_", "JCC_RUN_", "DTL_". Refer to the JCC Logminer Loader
-  chapters for more details.
+  chapters 
+  <a href="#Chapter 51">§ -- 51 -- Replicate Data Using The JCC Logminer Loader</a>
+  and
+  <a href="#Chapter 52">§ -- 52 -- Manage JCC Logminer Loader Sessions</a>
+  for more details.
+</p>
 
+<p>
   Refer to the chapter 
   <a href="#Chapter 64">-- § 64 -- Database And Output Files Formats</a>  
   for a complete list of all files handled by the toolset on a specific day.
+</p>
 
+<p>
   Note that these filespecs are unique, so the use of the catchall cleaning 
   procedure CPTRDB_CLEANUP_LOGS_DAILY.COM is required to contain the volume of
   the output data. Many procedures, but not all, assure their own cleanup 
@@ -1148,8 +1163,16 @@ $ @CPTRDB_SUBMIT {node} [{name}|CPTRDB_CREATE_DB]
 <b>CPTRDB_CREATE_DB.COM</b><br>
   Create and RMU/Open the physical test database named CPTRDB_DB_1.
   The database settings chosen correspond to today's best practice
-  and reflect the attributes of a modern Rdb database.<br><br>
+  and reflect the attributes of a modern Rdb database.
+</p>
 
+<p>
+  Note that as of Rdb V7.2, the maximum buffer size is 128 blocks,
+  the maximum page size is 63 blocks and the maximum number of global
+  buffers is 1,048,576 (= POWER(2,20)).
+</p>
+
+<p>
   Parameters: adapt the dcl symbols DEV and DBID, device name and db logical
 </p>
 
@@ -2726,22 +2749,51 @@ $!-------------------------------
 
 <p>
 <b>CPTRDB_AFTER_JOURNAL_SHUTDOWN_TIMEOUT.COM</b><br>
-  Set online the AIJ shutdown timeout value for a database, which is applied
-  when no more AIJ journals are available (all live AIJ files full and
-  all AIJ slots used).
+  Set online the database shutdown timeout value, which is applied
+  when no more AIJ journal files are available: all live AIJ files full and/or
+  inaccessible, and all AIJ slots used.
 </p>
 
   Parameters: Adapt the parameter block.<br>
 
 <pre>
-$!-----------------------------------------
+$!----------------------------------------------------
 $ dbid          = "CPTRDB_DB_1"
-$ timeout_value = "4320" ! minutes = 3 days
-$!-----------------------------------------
+$ timeout_value = "4320" ! minutes = 3 days, max value
+$!----------------------------------------------------
 </pre>
 
 <p>
   This value should allow to survive a weekend and avoid a database shutdown.
+</p>
+
+<p>
+  Note that if
+  all live AIJ files are full,
+  and the AIJ Log Server ALS process is running,
+  and the logical RDM$BIND_ALS_CREATE_AIJ is defined as "1",
+  Rdb will create emergency live AIJ files named EMERGENCY_{timestamp in hex}
+  with the same allocation and in the same or RDM$BIND_AIJ_EMERGENCY_DIR
+  directory as the AIJ file being switched from.
+</p>
+
+<p>
+  Rdb will continue to do so until all AIJ slots in the root file are used
+  (or device full) in which case the shutdown timeout timer starts running.
+  If no AIJ space is freed within the timeout delay the database will shut
+  down.
+</p>
+
+<p>
+  Always make up a detailed diagnosis of why the database was shut down
+  and first attempt a noquiet point AIJ backup, before deciding on a AIJ
+  disable, drop, recreate, reenable and full database backup.
+</p>
+
+<p>
+  Refer to My Oracle Support Document Id 62665.1 'AIJ Journaling Switch-Over
+  Recovery & Failure Prevention' for a in depth discussion of database
+  suspend state and shutdown.
 </p>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -2880,18 +2932,18 @@ $ @CPTRDB_SHOW_STAT_LOGS_GO {node} {dbid} {rdb_vrsn}
 <b>CPTRDB_SHOW_STAT_LOGS.COM</b><br>
   Run RMU/Show Statistics in batch and collect stall, deadlock,
   timeout and opcom messages in the cpt$rdb_stall directory
-  for one database and node.
+  for one database and node.<br>
 
-  Scheduled daily between 00:02 and 23:58.
+  Scheduled daily between 00:02 and 23:58.<br>
 
-  The default refresh rate is 1 second.
+  The default refresh rate is 1 second.<br>
 
   The default stall alarm is 5 seconds, reported by the cockpit event
-  RDB_StallExceeded.
+  RDB_StallExceeded.<br>
 
   The default long transaction alarm, as specified in the configuration
   file CPTRDB_SHOW_STAT_LOGS.CONFIG "LONG_TX_SECONDS = 300;" is 5 minutes,
-  reported by the cockpit event RDB_LONG_LASTING_TRANSACTION.
+  reported by the cockpit event RDB_LONG_LASTING_TRANSACTION.<br>
 
   The CockpitMgr event console displays all standard Rdb alarm messages 
   generated by this procedure.
@@ -2962,17 +3014,21 @@ DISK$DATA_29:[CPT$RDB_STALL]CPTRDB_DB_1_STALL_L15S29_20150403.LOG_03APR000202;1
 </pre>
 
 <p>
-  The procedures<br>
-  CPTRDB_STALL_CNTS_ALL.COM<br>
-  CPTRDB_DDLCK_CNTS_ALL.COM<br>
+  The chapters<br>
+  <a href="#Chapter 31">§ -- 31 -- List And Detect Excessive Stall Counts Per Hour</a><br>
+  <a href="#Chapter 32">§ -- 32 -- List And Detect Excessive Deadlock Counts Per Hour</a><br>
   provide daily automated reporting of descending stall or deadlock counts 
-  group by waiting message and hour of the day.<br>
+  group by waiting message and hour of the day.
+</p>
 
-  The procedure<br>
-  CPTRDB_STALL_TIMES_ALL.COM<br>
-  provides daily automated reporting of excessive stall times.<br>
+<p>
+  The chapter<br>
+  <a href="#Chapter 33">§ -- 33 -- List And Detect Excessive Stall Times</a><br>
+  provides daily automated reporting of excessive stall times.
+</p>
 
-  Refer to the individual chapters for more information on this type of
+<p>
+  Refer to these individual chapters for more information on this type of
   analysis of the stall and deadlock logfiles.
 </p>
 
@@ -3038,13 +3094,16 @@ $ @CPTRDB_SHOW_STAT_DATA_GO {node} {dbid} {rdb_vrsn}
 <p>
 <b>CPTRDB_SHOW_STAT_DATA.COM</b><br>
   Collect RMU/Show Statistics .UNL binary output data in CPT$RDB_PERFT4,
-  and format to .CSV by sql$sample:PERFT4_RDB72.exe, used as input to TlViz,
-  the T4 timeline visualizer, for one database and node.
+  and format to .CSV by SQL$SAMPLE:PERFT4_RDB[72|73].EXE, used as input to TlViz,
+  the T4 timeline visualizer, for one database and node.<br>
 
-  Scheduled daily between 00:02 and 23:58.
+  Scheduled daily between 00:02 and 23:58.<br>
 
   The default refresh rate is 30 seconds, which determines the output files 
-  sizes.
+  sizes.<br>
+
+  The SQL$SAMPLE:PERFT4_RDB[72|73].EXE code determines the refresh interval from the
+  .UNL input file and calculates each statistic as a rate per second.
 </p>
 
   Unique output filespecs are created on each restart, such as:<br>
@@ -5378,8 +5437,9 @@ $!----------------------------------------
 <p>
   The procedure allows to evaluate in detail the hashing effectiveness
   and data distribution. The results (on a subset of data) can also
-  be usefull in sizing (new) storage areas. 
-
+  be usefull in sizing (new) storage areas.<br> 
+  Note that the dbkey always refers to the first vertical partition
+  which is always read in a access by dbkey.<br>
   Individual pages can be dumped using CPTRDB_SHOW_ONE_PAGE.COM.
 </p>
 
@@ -5391,7 +5451,7 @@ $ @CPTRDB_SUBMIT {node} CPTRDB_DBKEYS_GROUPBY_PAGE
 
 <p>
   Requires the CPT$RDB:CPTRDB_SHOW_DBKEY.SQL external functions
-  and information tables.
+  and information tables.<br>
 
   Adapt the table name in the sql FROM clause !!! 
 </p>
@@ -8577,6 +8637,12 @@ Parameters: P1, integer, max page size blocks
             P2, integer, max target number of index nodes per page
 </pre>
 
+<p>
+  Note that as of Rdb V7.2, the maximum buffer size is 128 blocks,
+  the maximum page size is 63 blocks and the maximum number of global
+  buffers is 1,048,576 (= POWER(2,20)).
+</p>
+
 Usage:<br>
 
 <pre>
@@ -11743,7 +11809,7 @@ $ @JCCLML_SHUTDOWN_ALL
 <p>
   Run JCC Logminer Loader statistics for one loader session.
 
-  The process name is set to "DTL <loadername>".
+  The process name is set to "DTL {loadername}".
 
   The output file format created in CPT$RDB_JCCLML_LOGS: is
   DTL_{node}_{loader name}_yyyymmdd_hhmm.LOG
@@ -14362,9 +14428,11 @@ $ show symbol cpt$masterlock*
         LOCKDIRWT: 1
 
   Never remaster to a pre-8.3 node if an interested node has a higher LOCKDIRWT
-
-  (End courtesy Keith Parris)
 </pre>
+
+<p>
+  (End courtesy Keith Parris)
+</p>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 PE1
@@ -15513,8 +15581,9 @@ Reply received on L15S29 from user RDBMON at L15S29 Batch   15:42:12
 This chapter lists the database, daily and weekly log and output files handled
 in a full featured toolset environment, for reference purposes 
 (on april 7th 2015).
-Refer to the procedure CPTRDB_SUBMIT.COM for more information on the 
-filespecs naming conventions.
+Refer to the procedure CPTRDB_SUBMIT.COM in 
+<a href="#Chapter 14">§ -- 14 -- Create A Demonstration And Test Environment</a>
+for more information on the filespecs naming conventions.
 </p>
 
 -- In CPT$RDB Daily --
@@ -15986,7 +16055,7 @@ CACHE_INDEX_AREA_3_3_1.RDC_E9I859K8NO0000D80VU
 
 <a name="Chapter 65"></a>
 <h3><font face="helvetica, arial, sans-serif" color="#330099">
-§ -- 65 -- End CPTRDB USERS GUIDE
+§ -- 65 -- End CPTRDB Users Guide
 </font>
 </h3>
 
