@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 01-mar-2016, Luc Allemeersch<br>
+Modified: 29-mar-2016, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -90,9 +90,10 @@ Modified: 01-mar-2016, Luc Allemeersch<br>
 <a href="#Chapter 60">§ -- 60 -- Basic SQL Functionality From A External Procedure Or Subprogram</a><br>
 <a href="#Chapter 61">§ -- 61 -- Bulk Delete From A C Program</a><br>
 <a href="#Chapter 62">§ -- 62 -- Using Dynamic SQL</a><br>
-<a href="#Chapter 63">§ -- 63 -- Miscellaneous Utilities</a><br>
-<a href="#Chapter 64">§ -- 64 -- Database And Output Files Formats</a><br>
-<a href="#Chapter 65">§ -- 65 -- End CPTRDB Users Guide</a><br><br>
+<a href="#Chapter 63">§ -- 63 -- Using Oracle Trace For Rdb</a><br>
+<a href="#Chapter 64">§ -- 64 -- Miscellaneous Utilities</a><br>
+<a href="#Chapter 65">§ -- 65 -- Database And Output Files Formats</a><br>
+<a href="#Chapter 66">§ -- 66 -- End CPTRDB Users Guide</a><br><br>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -250,6 +251,7 @@ Oracle Rdb JDBC V7.3-402:20150626<br>
 Oracle SQL/Services, OCI Services for Rdb V7.3-110<br>
 Oracle SQL/Services, OCI Services for Rdb V7.3-200<br>
 Oracle SQL/Services, OCI Services for Rdb V7.3-210<br>
+Oracle Trace for Rdb V7.2-03<br>
 CockpitMgr For OpenVMS V7.8-020<br>
 CockpitMgr For OpenVMS V7.8-040<br>
 HP C V7.2-001<br>
@@ -388,6 +390,35 @@ CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM
 CPTRDB_SHOW_SQLSRV_FULL_ONE.COM (new)
 CPTRDB_USERS_GUIDE.HTML
 CPTRDB_USERS_GUIDE.TXT
+</pre>
+
+<p>
+<b>CPTRDB_CHANGES_20160329_29MAR161659.A</b><br>
+Cumulative Partial update kit
+</p>
+
+<pre>
+CPTRDB_AFTER_JOURNAL_ADD.COM
+CPTRDB_AFTER_JOURNAL_ALLOCATION.COM
+CPTRDB_AFTER_JOURNAL_DROP.COM
+CPTRDB_AFTER_JOURNAL_EDIT_FILENAME.COM
+CPTRDB_AFTER_JOURNAL_RESERVE.COM
+CPTRDB_AFTER_JOURNAL_SHUTDOWN_TIMEOUT.COM
+CPTRDB_BLR_TO_SQL_CONVERT.COM (new)
+CPTRDB_BLR_TO_SQL_LIST.COM (new)
+CPTRDB_BLR_TO_SQL_PARAMS.TXT (new)
+CPTRDB_COCKPITMGR_DATA_SHEET.PDF
+CPTRDB_DAILY.COM
+CPTRDB_EPC_BLR_CONVERTER.EXE (new)
+CPTRDB_EPC_DEMO.COM (new)
+CPTRDB_EPC_DEMO_SELECTION.OPT (new)
+CPTRDB_INDEX_NODE_SIZES.COM
+CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM
+CPTRDB_SHOW_SQLSRV_FULL_ONE.COM
+CPTRDB_USERS_GUIDE.HTML
+CPTRDB_USERS_GUIDE.TXT
+RDBX_GLOBALS.CUSTOM (new)
+RDBX_VMS_GLOBALS.INI (new)
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -1148,7 +1179,7 @@ $ @CPTRDB_SUBMIT {node} [{name}|CPTRDB_CREATE_DB]
 
 <p>
   Refer to the chapter 
-  <a href="#Chapter 64">-- § 64 -- Database And Output Files Formats</a>  
+  <a href="#Chapter 65">§ -- 65 -- Database And Output Files Formats</a>  
   for a complete list of all files handled by the toolset on a specific day.
 </p>
 
@@ -2089,7 +2120,7 @@ CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK|L15S29|CPTRDB_MASTR|
 $ @CPTRDB_SHOW_AIJ_BCK
 </pre>
 
-  Output sample:<br>
+  Output samples:<br>
 
 <pre>
  3-APR-2015 12:55:04.72 CPTRDB - AIJ Backup Files From Node L15S29
@@ -2131,6 +2162,27 @@ CPTRDB_MASTR_L15S29_20150403_1208_791.AIJ_BCK;1
                             258   3-APR-2015 12:08:36.31   {None specified}   {No backup recorded}
 
 Total of 5 files, 1290 blocks.
+
+...
+
+ 3-MAR-2016 10:45:27.06 CPTRDB - AIJ Backup Files From Node L15S29
+
+--------------
+On Node L15S29
+--------------
+
+-- 1 CPTRDB_DB_1 --
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160303_0006_8623.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160303_0606_8624.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160303_0807_8625.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160303_1007_8626.AIJ_BCK;1
+
+-- 2 CPTRDB_MASTR --
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20160303_0006_4143.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20160303_0607_4144.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20160303_0807_4145.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20160303_1007_4146.AIJ_BCK;1
+
 </pre>
 
 <p>
@@ -11807,13 +11859,16 @@ $ @JCCLML_SHUTDOWN_ALL
 </p>
 
 <p>
-  Run JCC Logminer Loader statistics for one loader session.
+  Run JCC Logminer Loader statistics for one loader session.<br>
 
-  The process name is set to "DTL {loadername}".
+  The process name is set to "DTL {loadername}".<br>
 
   The output file format created in CPT$RDB_JCCLML_LOGS: is
   DTL_{node}_{loader name}_yyyymmdd_hhmm.LOG
-  (defined by the JCC Logminer Loader product).
+  (defined by the JCC Logminer Loader product).<br>
+
+  The REOPEN option assures that the output file is reopened daily at
+  midnight with the actual timestamp yyyymmdd_hhmm in the output filespec.
 </p>
 
   The default parameters are:<br>
@@ -11909,6 +11964,8 @@ Available AIJ slot 3
 
 <p>
   Start one JCC Logminer Loader statistics process in batch.
+  This procedure is only executed once, right away after the start of a
+  loader session.
 </p>
 
   Usage:<br>
@@ -15373,7 +15430,192 @@ Enter value for parameter: COL1
 
 <a name="Chapter 63"></a>
 <h3><font face="helvetica, arial, sans-serif" color="#330099">
-§ -- 63 -- Miscellaneous Utilities
+§ -- 63 -- Using Oracle Trace For Rdb
+</font>
+</h3>
+
+<b>CPTRDB_EPC_DEMO.COM</b><br>
+<b>CPTRDB_EPC_DEMO_SELECTION.OPT</b><br><br>
+
+<b>CPTRDB_BLR_TO_SQL_CONVERT.COM</b><br>
+<b>CPTRDB_BLR_TO_SQL_PARAMS.TXT</b><br>
+<b>CPTRDB_EPC_BLR_CONVERTER.EXE</b><br>
+<b>RDBX_GLOBALS.CUSTOM</b><br>
+<b>RDBX_VMS_GLOBALS.INI</b><br><br>
+
+<b>CPTRDB_BLR_TO_SQL_LIST.COM</b><br>
+
+<h4><font face="helvetica, arial, sans-serif" color="#330099">
+Procedures Usage
+</font>
+</h4>
+
+<p>
+<b>CPTRDB_EPC_DEMO.COM</b><br>
+  Proof of concept procedure for basic operations of Oracle Trace For Rdb,
+  based on My Oracle Support Document Id 368373.1
+</p>
+
+<p>
+  The procedure (re)creates the database EPC_DEMO_DB.RDB, the selection 
+  EPC_DEMO_SELECTION, the collection EPC_DEMO_COLLECTION, the data file
+  EPC_DEMO.DAT, and the formatted database EPC_DEMO_FORMAT_DB.RDB
+</p>
+
+  Usage:<br>
+
+<pre>
+$ @CPTRDB_EPC_DEMO
+</pre>
+
+  All output files are (re)created in CPT$RDB_DATA:<br>
+
+<pre>
+EPC_DEMO.DAT;1
+EPC_DEMO_DB.RDB;1
+EPC_DEMO_DB.SNP;1
+EPC_DEMO_FORMAT_DB.RDB;1
+EPC_DEMO_FORMAT_DB.SNP;1
+</pre>
+
+<p>
+<b>CPTRDB_EPC_DEMO_SELECTION.OPT</b><br>
+  Options file for the selection EPC_DEMO_SELECTION, (re)created in 
+  CPTRDB_EPC_DEMO.COM
+</p>
+
+<p>
+<b>CPTRDB_BLR_TO_SQL_CONVERT.COM</b><br>
+  Standalone convert BLR source into SQL statements within a formatted database
+  of Oracle Trace For Rdb.
+</p>
+  
+  Based on EPC$EXAMPLES:EPC_BLR_TO_SQL_CONVERTER.COM<br>
+
+<p>
+  All required files are included in the toolset kit. The Oracle Trace For Rdb
+  product does not need to be installed on the executor node. Only a
+  formatted database is expected.
+</p>
+  
+  Parameters: Adapt the formatted database name EPC$FORMAT_DB<br>
+
+<pre>
+$!---------------------------------------------------
+$ define epc$format_db 'datdir'epc_demo_format_db.rdb
+$!---------------------------------------------------
+</pre>
+  
+<p>
+  The conversion runtime parameters are documented in
+  CPT$RDB:CPTRDB_BLR_TO_SQL_PARAMS.TXT
+</p>
+
+<p>
+<b>CPTRDB_BLR_TO_SQL_PARAMS.TXT</b><br>
+  Documents the runtime parameters of CPT$RDB:CPTRDB_EPC_BLR_CONVERTER.EXE
+</p>
+
+<p>
+<b>RDBX_GLOBALS.CUSTOM</b><br>
+<b>RDBX_VMS_GLOBALS.INI</b><br>
+  Required parameter files to run CPT$RDB:CPTRDB_EPC_BLR_CONVERTER.EXE
+</p>
+
+<p>
+  These two files do not adhere to the toolset naming standard of source
+  files names starting with 'CPTRDB_' or 'JCCLML_'.
+</p>
+
+<p>
+<b>CPTRDB_EPC_BLR_CONVERTER.EXE</b><br>
+  Copy of EPC_BLR_CONVERTER.EXE from the Oracle Trace For Rdb kit.
+</p>
+
+<p>
+<b>CPTRDB_BLR_TO_SQL_LIST.COM</b><br>
+  List the SQL statements converted from their BLR source within a formatted
+  database of Oracle Trace for Rdb.
+</p>
+  
+<p>
+  Split the SQL statements in max char(132) lines.<br>
+  Remove the linefeed LF X'0A' characters from the SQL statements, due to the 
+  edit string T(60) in the formatted database.
+</p>
+  
+  Parameters: Adapt the formatted database name EPC$FORMAT_DB<br>
+
+<pre>
+$!---------------------------------------------------
+$ define epc$format_db 'datdir'epc_demo_format_db.rdb
+$!---------------------------------------------------
+</pre>
+
+  Usage:<br>
+
+<pre>
+$ @CPTRDB_SUBMIT {node} CPTRDB_BLR_TO_SQL_LIST
+</pre>
+
+  Each output SQL statement is preceded by a header line containing:<br>
+
+<pre>
+sql_id
+timestamp_start
+node_name
+username
+process_name
+image_name
+</pre>
+
+<p>
+  The sql_id is repeated as prefix to each SQL statement line.
+</p>
+
+  Output sample:<br>
+
+<pre>
+  1|2016-03-11 14:30:48.89|L15S28|RDBMON|FTA274:|DSA1:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+  1|SELECT C1.RDB$DBKEY_LENGTH, C1.RDB$RELATION_ID, C1.RDB$VIEW_BLR,  C1.RDB$SYSTEM_FLAG, C1.RDB$FLAGS FROM RDB$RELATIONS C1 WHERE (
+  1|C1.RDB$RELATION_NAME = :PARAMETER)
+
+  2|2016-03-11 14:30:48.89|L15S28|RDBMON|FTA274:|DSA1:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+  2|BEGIN FOR :VARIABLE AS EACH ROW OF CURSOR CURS_01 FOR SELECT C1.RDB$FIELD_NAME, C1.RDB$FIELD_POSITION, C1.RDB$FIELD_ID,  C1.RDB$
+  2|QUERY_HEADER, C1.RDB$EDIT_STRING, C1.RDB$QUERY_NAME,  C1.RDB$DEFAULT_VALUE FROM RDB$RELATION_FIELDS C1 WHERE (C1.RDB$RELATION_NA
+  2|ME = :PARAMETER) ORDER BY C1.RDB$FIELD_POSITION ASC DO SELECT C1.RDB$FIELD_SOURCE, C1.RDB$FIELD_SOURCE FROM RDB$RELATION_FIELDS
+  2|C1 WHERE CURRENT OF CURS_01; END FOR; END
+
+  3|2016-03-11 14:30:48.90|L15S28|RDBMON|FTA274:|DSA1:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+  3|SELECT C1.RDB$QUERY_HEADER, C1.RDB$EDIT_STRING, C1.RDB$FIELD_TYPE,  C1.RDB$FIELD_LENGTH, C1.RDB$FIELD_SCALE, C1.RDB$COMPUTED_BLR
+  3|,  C1.RDB$SEGMENT_LENGTH, C1.RDB$FIELD_SUB_TYPE, C1.RDB$QUERY_NAME,  C1.RDB$DEFAULT_VALUE FROM RDB$FIELDS C1 WHERE (C1.RDB$FIELD
+  3|_NAME = :PARAMETER)
+
+  4|2016-03-11 14:30:48.90|L15S28|RDBMON|FTA274:|DSA1:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+  4|SELECT C1.RDB$QUERY_HEADER, C1.RDB$EDIT_STRING, C1.RDB$FIELD_TYPE,  C1.RDB$FIELD_LENGTH, C1.RDB$FIELD_SCALE, C1.RDB$COMPUTED_BLR
+  4|,  C1.RDB$SEGMENT_LENGTH, C1.RDB$FIELD_SUB_TYPE, C1.RDB$QUERY_NAME,  C1.RDB$DEFAULT_VALUE FROM RDB$FIELDS C1 WHERE (C1.RDB$FIELD
+  4|_NAME = :PARAMETER)
+
+  5|2016-03-11 14:30:48.90|L15S28|RDBMON|FTA274:|DSA1:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+  5|SELECT C1.RDB$QUERY_HEADER, C1.RDB$EDIT_STRING, C1.RDB$FIELD_TYPE,  C1.RDB$FIELD_LENGTH, C1.RDB$FIELD_SCALE, C1.RDB$COMPUTED_BLR
+  5|,  C1.RDB$SEGMENT_LENGTH, C1.RDB$FIELD_SUB_TYPE, C1.RDB$QUERY_NAME,  C1.RDB$DEFAULT_VALUE FROM RDB$FIELDS C1 WHERE (C1.RDB$FIELD
+  5|_NAME = :PARAMETER)
+
+  6|2016-03-11 14:30:48.91|L15S28|RDBMON|FTA274:|DSA1:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+  6|INSERT INTO T (V1, V2, V3) VALUES (:PARAMETER, :PARAMETER, :PARAMETER)
+
+  7|2016-03-11 14:30:48.92|L15S28|RDBMON|FTA274:|DSA1:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+  7|INSERT INTO T (V1, V2, V3) VALUES (:PARAMETER, :PARAMETER, :PARAMETER)
+
+  8|2016-03-11 14:30:48.93|L15S28|RDBMON|FTA274:|DSA1:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+  8|SELECT C1.V1, C1.V2, C1.V3 FROM T C1 WHERE (C1.V1 <= :PARAMETER)
+</pre>
+
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 64"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 64 -- Miscellaneous Utilities
 </font>
 </h3>
 
@@ -15571,9 +15813,9 @@ Reply received on L15S29 from user RDBMON at L15S29 Batch   15:42:12
 
 <a href="#Chapter 1">To Top</a><br>
 
-<a name="Chapter 64"></a>
+<a name="Chapter 65"></a>
 <h3><font face="helvetica, arial, sans-serif" color="#330099">
-§ -- 64 -- Database And Output Files Formats
+§ -- 65 -- Database And Output Files Formats
 </font>
 </h3>
 
@@ -16053,9 +16295,9 @@ CACHE_INDEX_AREA_3_3_1.RDC_E9I859K8NO0000D80VU
 
 <a href="#Chapter 1">To Top</a><br>
 
-<a name="Chapter 65"></a>
+<a name="Chapter 66"></a>
 <h3><font face="helvetica, arial, sans-serif" color="#330099">
-§ -- 65 -- End CPTRDB Users Guide
+§ -- 66 -- End CPTRDB Users Guide
 </font>
 </h3>
 
