@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 29-mar-2016, Luc Allemeersch<br>
+Modified: 25-apr-2016, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -64,8 +64,16 @@ Modified: 29-mar-2016, Luc Allemeersch<br>
 <a href="#Chapter 34">§ -- 34 -- Placement Via Hashed Index And Vertical/Horizontal Partitioning</a><br>
 <a href="#Chapter 35">§ -- 35 -- Collect And Store RMU/Analyze Data</a><br>
 <a href="#Chapter 36">§ -- 36 -- List RMU/Analyze Data</a><br>
-<a href="#Chapter 37">§ -- 37 -- List Database Objects</a><br>
+<a href="#Chapter 37">§ -- 37 -- List Database Objects</a><br><br>
+
 <a href="#Chapter 38">§ -- 38 -- Tune Indices To Queries</a><br>
+<a href="#Chapter 38.1">§ -- 38.1 -- Identify Potential Problem Areas</a><br>
+<a href="#Chapter 38.2">§ -- 38.2 -- Index Design Guidelines</a><br>
+<a href="#Chapter 38.3">§ -- 38.3 -- Index Node Sizes</a><br>
+<a href="#Chapter 38.4">§ -- 38.4 -- Logical Area Thresholds</a><br>
+<a href="#Chapter 38.5">§ -- 38.5 -- Scanning Space Management SPAM Pages</a><br>
+<a href="#Chapter 38.6">§ -- 38.6 -- Procedures Usage</a><br><br>
+
 <a href="#Chapter 39">§ -- 39 -- Database Restore And Recover</a><br>
 <a href="#Chapter 40">§ -- 40 -- Verify Indices, Storage Areas And Constraints</a><br>
 <a href="#Chapter 41">§ -- 41 -- Handle List Of Byte Varying Datatypes</a><br>
@@ -78,14 +86,45 @@ Modified: 29-mar-2016, Luc Allemeersch<br>
 <a href="#Chapter 48">§ -- 48 -- Extract And List JDBC Thin Server Clients</a><br>
 <a href="#Chapter 49">§ -- 49 -- Cleanup JDBC Thin Server Log, Output, Trace And Restart Log Files</a><br>
 <a href="#Chapter 50">§ -- 50 -- Realy Simple Java JDBC Programs</a><br>
-<a href="#Chapter 51">§ -- 51 -- Replicate Data Using The JCC Logminer Loader</a><br>
+<a href="#Chapter 51">§ -- 51 -- Replicate Data Using The JCC Logminer Loader</a><br><br>
+
 <a href="#Chapter 52">§ -- 52 -- Manage JCC Logminer Loader Sessions</a><br>
-<a href="#Chapter 53">§ -- 53 -- List Data From A Oracle RDBMS Database</a><br>
+<a href="#Chapter 52.1">§ -- 52.1 -- Reopen Logfiles Daily</a><br>
+<a href="#Chapter 52.2">§ -- 52.2 -- Rename Logfiles</a><br>
+<a href="#Chapter 52.3">§ -- 52.3 -- Shutdown Loader Sessions</a><br>
+<a href="#Chapter 52.4">§ -- 52.4 -- Run Statistics Sessions</a><br>
+<a href="#Chapter 52.5">§ -- 52.5 -- List And Check Processes And Logfiles</a><br>
+<a href="#Chapter 52.6">§ -- 52.6 -- List And Check Statistics Sessions And Logfiles</a><br>
+<a href="#Chapter 52.7">§ -- 52.7 -- List And Check Heartbeat Timestamps From CTL Logfiles</a><br>
+<a href="#Chapter 52.8">§ -- 52.8 -- List And Check Heartbeat AERCP Checkpoints From LML Logfiles</a><br>
+<a href="#Chapter 52.9">§ -- 52.9 -- Replicate Data Using The Data Pump Mechanism</a><br>
+<a href="#Chapter 52.10">§ -- 52.10 -- Format Char(20) Originating Dbkeys</a><br>
+<a href="#Chapter 52.11">§ -- 52.11 -- Dump Target Checkpoints</a><br>
+<a href="#Chapter 52.12">§ -- 52.12 -- How To Exclude Deletes From Replication</a><br><br>
+
+<a href="#Chapter 53">§ -- 53 -- List Data From A Oracle RDBMS Database</a><br><br>
+
 <a href="#Chapter 54">§ -- 54 -- Create, Manage And Test OCI And SQL/Services Protocol Services</a><br>
+<a href="#Chapter 54.1">§ -- 54.1 -- Show Services Summary</a><br>
+<a href="#Chapter 54.2">§ -- 54.2 -- Show Services Full</a><br>
+<a href="#Chapter 54.3">§ -- 54.3 -- Create/Start/Shutdown/Alter/Drop Services</a><br>
+<a href="#Chapter 54.4">§ -- 54.4 -- OCI Protocol Services Configuration Files</a><br>
+<a href="#Chapter 54.5">§ -- 54.5 -- Test A SQL/Services Protocol Service From A C Program</a><br><br>
+
 <a href="#Chapter 55">§ -- 55 -- List And Check OCI And SQL/Services Protocol Services</a><br>
 <a href="#Chapter 56">§ -- 56 -- Implement Row Cache</a><br>
-<a href="#Chapter 57">§ -- 57 -- Implement Hot Standby</a><br>
+<a href="#Chapter 57">§ -- 57 -- Implement Hot Standby</a><br><br>
+
 <a href="#Chapter 58">§ -- 58 -- Database Lock Trees</a><br>
+<a href="#Chapter 58.1">§ -- 58.1 -- $ MONITOR [D]LOCK</a><br>
+<a href="#Chapter 58.2">§ -- 58.2 -- $ MASTERLOCK/DATABASE</a><br>
+<a href="#Chapter 58.3">§ -- 58.3 -- LOCKDIRWT</a><br>
+<a href="#Chapter 58.4">§ -- 58.4 -- LOCKRMWT</a><br>
+<a href="#Chapter 58.5">§ -- 58.5 -- PE1</a><br>
+<a href="#Chapter 58.6">§ -- 58.6 -- DEADLOCK_WAIT</a><br>
+<a href="#Chapter 58.7">§ -- 58.7 -- RDMS$BIND_DEADLOCK_WAIT</a><br>
+<a href="#Chapter 58.8">§ -- 58.8 -- Rdb Database Lock Resource Name</a><br><br>
+
 <a href="#Chapter 59">§ -- 59 -- Apply Complex Logic To Generate SQL Or Data</a><br>
 <a href="#Chapter 60">§ -- 60 -- Basic SQL Functionality From A External Procedure Or Subprogram</a><br>
 <a href="#Chapter 61">§ -- 61 -- Bulk Delete From A C Program</a><br>
@@ -244,14 +283,17 @@ Oracle Rdb V7.3-120 (Update 1)<br>
 Oracle Rdb V7.3-120 (Update 2)<br>
 Oracle Rdb V7.3-130<br>
 Oracle Rdb V7.3-130 (Update 1)<br>
+Oracle Rdb V7.3-200<br>
 Oracle Rdb JDBC V7.3-202:20130501<br>
 Oracle Rdb JDBC V7.3-310:20140826<br>
 Oracle Rdb JDBC V7.3-323:20141224<br>
 Oracle Rdb JDBC V7.3-402:20150626<br>
-Oracle SQL/Services, OCI Services for Rdb V7.3-110<br>
-Oracle SQL/Services, OCI Services for Rdb V7.3-200<br>
-Oracle SQL/Services, OCI Services for Rdb V7.3-210<br>
-Oracle Trace for Rdb V7.2-03<br>
+Oracle Rdb JDBC V7.3-410:20160222<br>
+Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-110<br>
+Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-200<br>
+Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-210<br>
+Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-220<br>
+Oracle Trace For Rdb V7.2-03<br>
 CockpitMgr For OpenVMS V7.8-020<br>
 CockpitMgr For OpenVMS V7.8-040<br>
 HP C V7.2-001<br>
@@ -469,7 +511,7 @@ configuration file.
 
 The template configuration file CPTRDB_CONFIGURATION_TEMPLATE.REF can also
 be used as a starting point. Refer to the chapter 
-<a href="#Chapter 15">-- § 15 -- Getting Started</a> for more details.
+<a href="#Chapter 15">§ -- 15 -- Getting Started</a> for more details.
 </p>
 
 Configuration file entry sample:<br>
@@ -537,6 +579,7 @@ To date this feature has been implemented within:<br>
   CPTRDB_SHOW_THIN_CLIENTS_BATCH.COM
   CPTRDB_SHUTDOWN_SQLSRV.COM
   CPTRDB_SRVTRC_CLIENTS_73202.COM
+  CPTRDB_SRVTRC_CLIENTS_73402.COM
   CPTRDB_SRVTRC_CLIENTS_ALL.COM
   CPTRDB_STALL_CNTS_ALL.COM
   CPTRDB_STALL_TIMES_ALL.COM
@@ -854,6 +897,7 @@ Toolset procedures using POKE/AGENT:<br>
   CPTRDB_SHOW_SQLSRV_DAILY.COM
   CPTRDB_SHOW_STATS_DAILY.COM
   CPTRDB_SRVTRC_CLIENTS_73202.COM
+  CPTRDB_SRVTRC_CLIENTS_73402.COM
   CPTRDB_STALL_CNTS.COM
   CPTRDB_STALL_TIMES.COM
   CPTRDB_TRNC_SNAPS_STOP.COM
@@ -1103,6 +1147,36 @@ $!------------------------------------------------------
 </pre>
 
 <p>
+  As of Rdb V7.3-200 the new qualifier /DESCRIPTION of the command
+  RMU/SHOW LOGICAL_NAME documents all logicals available within Rdb, grouped
+  in the help library SYS$HELP:RMUDISPLAY73.HLB
+</p>
+
+<pre>
+$ RMU/SHOW LOGICAL_NAME/UNDEFINED/DESCRIPTION [{wildcard_string}]
+</pre>
+
+  Usage:<br>
+
+<pre>
+$ rmu/show logical_name/undefined/description *zigzag*
+
+"RDMS$DISABLE_ZIGZAG_BOOLEAN" = Undefined
+
+"RDMS$DISABLE_ZIGZAG_MATCH" = Undefined
+
+     Disables zigzag key skip on outer and inner match loops. Defining
+     this logical with the value "1" will disable zigzag key skip on
+     the outer loop. Defining this logical with the value "2" disables
+     zigzag key skip on both outer and inner match loops.
+
+     This value can also be set by defining the logical name RDMS$SET_
+     FLAGS or using the SET FLAGS statement with the string 'NOZIGZAG_
+     MATCH', or 'NOZIGZAG_OUTER'. See the SQL Reference Manual SET
+     FLAGS Statement for further details.
+</pre>
+
+<p>
 <b>CPTRDB_INITIALIZE_QUEUE.COM</b><br>
   Create and start a dedicated batch queue on a specific node, named
   CPT$RDB_BATCH_{node}
@@ -1201,6 +1275,7 @@ $ @CPTRDB_SUBMIT {node} [{name}|CPTRDB_CREATE_DB]
   Note that as of Rdb V7.2, the maximum buffer size is 128 blocks,
   the maximum page size is 63 blocks and the maximum number of global
   buffers is 1,048,576 (= POWER(2,20)).
+  As of Rdb V7.3-100, the maximum buffer size is 256 blocks.
 </p>
 
 <p>
@@ -2803,16 +2878,16 @@ $!-------------------------------
 <b>CPTRDB_AFTER_JOURNAL_SHUTDOWN_TIMEOUT.COM</b><br>
   Set online the database shutdown timeout value, which is applied
   when no more AIJ journal files are available: all live AIJ files full and/or
-  inaccessible, and all AIJ slots used.
+  inaccessible and/or in *Backup Needed* ..., and all AIJ slots used.
 </p>
 
   Parameters: Adapt the parameter block.<br>
 
 <pre>
-$!----------------------------------------------------
+$!-----------------------------------------
 $ dbid          = "CPTRDB_DB_1"
-$ timeout_value = "4320" ! minutes = 3 days, max value
-$!----------------------------------------------------
+$ timeout_value = "4320" ! minutes = 3 days
+$!-----------------------------------------
 </pre>
 
 <p>
@@ -2820,10 +2895,10 @@ $!----------------------------------------------------
 </p>
 
 <p>
-  Note that if
-  all live AIJ files are full,
-  and the AIJ Log Server ALS process is running,
-  and the logical RDM$BIND_ALS_CREATE_AIJ is defined as "1",
+  Note that if<br>
+  all live AIJ files are full,<br>
+  and the AIJ Log Server ALS process is running,<br>
+  and the logical RDM$BIND_ALS_CREATE_AIJ is defined as "1",<br>
   Rdb will create emergency live AIJ files named EMERGENCY_{timestamp in hex}
   with the same allocation and in the same or RDM$BIND_AIJ_EMERGENCY_DIR
   directory as the AIJ file being switched from.
@@ -2837,6 +2912,11 @@ $!----------------------------------------------------
 </p>
 
 <p>
+  If the logical RDM$BIND_ALS_CREATE_AIJ is defined as "0", no emergency
+  journals will be created.
+</p>
+
+<p>
   Always make up a detailed diagnosis of why the database was shut down
   and first attempt a noquiet point AIJ backup, before deciding on a AIJ
   disable, drop, recreate, reenable and full database backup.
@@ -2844,8 +2924,15 @@ $!----------------------------------------------------
 
 <p>
   Refer to My Oracle Support Document Id 62665.1 'AIJ Journaling Switch-Over
-  Recovery & Failure Prevention' for a in depth discussion of database
-  suspend state and shutdown.
+  Recovery & Failure Prevention' for a in depth discussion of the AIJ
+  suspend state and database shutdown.
+</p>
+
+<p>
+  As of Rdb V7.3-200 the command RMU/SET AFTER_JOURNAL/SWITCH_JOURNAL is
+  able to create a emergency journal file while the database is in AIJ
+  suspend state. Refer to the Rdb V7.3.x.x New Features Document for
+  more information.
 </p>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -3155,7 +3242,10 @@ $ @CPTRDB_SHOW_STAT_DATA_GO {node} {dbid} {rdb_vrsn}
   sizes.<br>
 
   The SQL$SAMPLE:PERFT4_RDB[72|73].EXE code determines the refresh interval from the
-  .UNL input file and calculates each statistic as a rate per second.
+  .UNL input file and calculates each statistic as a rate per second.<br>
+
+  Note that time values are expressed in 100 nanoseconds units,
+  1 second = 10,000,000 (100 nanoseconds units).
 </p>
 
   Unique output filespecs are created on each restart, such as:<br>
@@ -8207,11 +8297,6 @@ Outlines:
 <b>CPTRDB_QUERY.COM</b><br>
 <b>CPTRDB_CLIO_FULL_ADDRESS.COM</b><br>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-Procedures Usage
-</font>
-</h4>
-
 <p>
 The procedures in this chapter can be used in the iterating process of loading 
 equivalent production volumes of data into a test database, create candidate
@@ -8226,10 +8311,13 @@ Tuning indices is not a mathematical exact science but this try and error
 effort will pay back rapidly. 
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-Identify Potential Problem Areas
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 38.1"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 38.1 -- Identify Potential Problem Areas
 </font>
-</h4>
+</h3>
 
 <p>
   The RMU/Show Statistics logical area overview screens for tables and
@@ -8583,68 +8671,91 @@ node creations                 0        0        0.0          242           0.0
   on the application logic and behavior.  
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-Index Design Guidelines
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 38.2"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 38.2 -- Index Design Guidelines
 </font>
-</h4>
+</h3>
 
 <p>
 As the overall goal of the tuning effort is to reduce disk io (the slowest part
 during the execution of a query), a number of best practice rules apply.
-<p>
+</p>
 
-<pre>
-. Select a limited number of queries to tune for, based on frequency,
+<p>
+  Select a limited number of queries to tune for, based on frequency,
   business impact, online human users, batch jobs required elapsed time,
   actual io behavior, user complaints etc. The indices cannot match 
   every possible query that may be active on the database.
+</p>
 
-. Try to split up the queries in 'type of access' groups that serve a
+<p>
+  Try to split up the queries in 'type of access' groups that serve a
   clearly different access path, and design a suitable index for each group:
   daytime online versus nighttime batch mode, per business department etc.
+</p>
 
-. (Especially online) queries should be able to be resolved within the 
+<p>
+  (Especially online) queries should be able to be resolved within the 
   index. That is, all columns of the WHERE clause should be present in the
   index, so that there is no need to read data to evaluate a single
   condition. This is a common cause of elevated data reads. Data reads
   should only be done to return the actual results of the query, once the
   dbkey list is established. Successfull tuning of indices with more
   than 20 segments, including all 'indicator' columns, is feasible.
+</p>
 
-. Consider to limit the list of columns selected and/or add columns to the
+<p>
+  Consider to limit the list of columns selected and/or add columns to the
   index so that a 'index only retrieval' is possible and avoid data reads
   completely. Be aware if the application logic relies on the uniqueness  
   of the index and eventualy add a (verb time) unique constraint for
   the initial segments.
+</p>
 
-. Evaluate the need for a ORDER BY clause as this forces the build of the
+<p>
+  Evaluate the need for a ORDER BY clause as this forces the build of the
   complete result set before returning the rows, unless a suitable index
   provides the ordering. Eventually move the ordering to the application
   code.
+</p>
 
-. Avoid multiple indices with only one or a few columns that have
+<p>
+  Avoid multiple indices with only one or a few columns that have
   a low cardinality. They cause contention on insert/update and may
   confuse the dynamic optimizer to consider them a possible path that will
   be abandoned anyway, and results in wasted io.
+</p>
 
-. Avoid multiple similar indices with the same leading segments, as they may
+<p>
+  Avoid multiple similar indices with the same leading segments, as they may
   all (falsely) look attractive to the dynamic optimizer and result in wasted
   io.
+</p>
 
-. Create all (at least duplicates allowed) indices as SORTED RANKED and  
+<p>
+  Create all (at least duplicates allowed) indices as SORTED RANKED and  
   choose a node size equal to the max segment size. For example, node 
   size 1988 for a 4 blocks page size is a good default to start with. 
   Take also into account the buffer size and disk cluster size.
+</p>
 
-. Avoid placement via hashed indices unless realy required for performance.
+<p>
+  Avoid placement via hashed indices unless realy required for performance.
   Consider 'non placement via' hashed indices in separate mixed areas,
   in parallel to uniform data areas. They provide more flexibility
   to recreate in case mixed areas become too full, and page collisions  
   start to hamper performance. The cost is on average one more io to fetch the
   data row but this may be acceptable in many cases.
+</p>
 
-. The ordering of the index segments is crucial, and this is the toughest part.
+<p>
+  The ordering of the index segments is crucial, and this is the toughest part.
+</p>
 
+<p>
   Place columns with a equality condition first, from low cardinality to 
   high cardinality or from high selectivity to lower selectivity. 
   Columns used in small selective range specifications are also good
@@ -8652,16 +8763,22 @@ during the execution of a query), a number of best practice rules apply.
   data right from the start of the index traversal. For example
   FROM and TO validity dates, if the application always looks for recent data,
   and seldom considers historical data. 
+</p>
 
+<p>
   As a second group place columns with a non equality condition from low 
   cardinality to higher cardinality, to limit the index physical size. 
+</p>
 
+<p>
   As a third group place columns that are only there to complete the WHERE 
   clause and avoid data reads for their evaluation. At this point the bulk
   of the result set dbkeys should already have been established by the
   selection in group one and two. 
+</p>
   
-. The order of the segments within each column group in the index definition
+<p>
+  The order of the segments within each column group in the index definition
   is subject to the testing. Test and retest every index change, with
   a data volume equivalent to production, using the procedures supplied
   in this chapter. On each iteration evaluate the optimizer strategy,
@@ -8671,12 +8788,15 @@ during the execution of a query), a number of best practice rules apply.
   of column groups. Experiment several column orders within the third group,
   as they can have a big impact on the physical structure and size
   of the index.
-</pre>
+</p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-Index Node Sizes
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 38.3"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 38.3 -- Index Node Sizes
 </font>
-</h4>
+</h3>
 
 <p>
 <b>CPTRDB_INDEX_NODE_SIZES.COM</b><br>
@@ -8693,6 +8813,7 @@ Parameters: P1, integer, max page size blocks
   Note that as of Rdb V7.2, the maximum buffer size is 128 blocks,
   the maximum page size is 63 blocks and the maximum number of global
   buffers is 1,048,576 (= POWER(2,20)).
+  As of Rdb V7.3-100 the maximum buffer size is 256 blocks.
 </p>
 
 Usage:<br>
@@ -8848,6 +8969,313 @@ Below the page header of a 4 blocks snapshot page with 2 index nodes of
                                   ....  total B-tree node size: 988
                        005B 200D  002E  line 1 (3:823115:1) index: set 91
 </pre>
+
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 38.4"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 38.4 -- Logical Area Thresholds
+</font>
+</h3>
+
+While discussing page structure layouts.<br>
+
+<p>
+For uniform page format storage areas and compression enabled logical areas,
+logical area thresholds allow to determine at which fullness percentage
+a data page will be considered full, and will no longer be available for
+inserts. 
+</p>
+
+<p>
+When looking for free space to insert a row, Rdb scans the space
+management SPAM pages in forward direction, starting from the latest insert or
+delete location for this user and logical area (or pages in the user's 
+buffers), looking for a page with threshold 0 in the SPAM page, meaning there 
+is enough space available to store a new row.
+</p>
+
+<p>
+Pages with a threshold 3 in the SPAM page, are considered full, and are no 
+candidates to insert a new row. Note that the SPAM pages in uniform page
+format storage areas only specify two thresholds: 0 for 'free space available' 
+and 3 for 'full'. 
+</p>
+
+<p>
+The SPAM page also indicates which clumps belong to which logical areas. 
+A clump is the buffer size number of pages minimum allocation for a logical 
+area. In the SPAM page extract below, for a buffer size of 24 blocks and
+a page size of 4 blocks, the clump size is 6 pages. 
+</p>
+
+Extracts of a SPAM page:<br>
+
+<pre>
+                   0007 00000001  0000  page 1, physical area 7 (space mgmt)
+                        3B927D97  0006  checksum = 3B927D97
+               00000000 00000000  000A  time stamp = 17-NOV-1858 00:00:00.00
+                       0000 0001  0012  1 free byte, 0 locked
+
+00000000000000000FFF000000000FFF  0016  pages 2-7: threshold 3
+                                        pages 8-25: threshold 0
+                                        pages 26-31: threshold 3
+                                        pages 32-65: threshold 0
+00000000000000000000000000000000  0026  pages 66-129: threshold 0
+...
+                            0242  0379  578 clumps
+                            0049  037B  pages 2-7, logical area 73
+                            0049  037D  pages 8-13, logical area 73
+                            8FA0  037F  pages 14-19, deleted by TID 4000
+                            8FA0  0381  pages 20-25, deleted by TID 4000
+                            0042  0383  pages 26-31, logical area 66
+                            0042  0385  pages 32-37, logical area 66
+                            0000  0387  pages 38-43, logical area 0
+                            0000  0389  pages 44-49, logical area 0
+...
+</pre>
+
+<p>
+When a page with threshold 0 in the SPAM page is found, Rdb compares in a first
+step the compressed length of the row to the free space on the candidate page.
+If the compressed row fits on the candidate page, the row is inserted, 
+otherwise the 'Pages Checked' statistic is incremented, and the search 
+continues across the SPAM pages of interest for this logical area.
+If no feasible page is found across all SPAM intervals to store the new row,
+the storage area is extended and a new clump (buffersize number of pages)
+is allocated to the logical area.
+</p>
+
+<p>
+In a second step, the fullness threshold in the SPAM page has to be updated,
+for the data page that hosted the insert. 
+</p>
+
+<p>
+If no logical area threshold is defined, Rdb compares the nominal uncompressed
+length of a row for this logical area, to the free space left on the updated 
+page. If a uncompressed row still fits, the threshold in the SPAM page remains
+at 0. If a uncompressed row no longer fits, the threshold in the SPAM page is 
+updated to 3, and the data page is considered full and no longer available
+for inserts. 
+</p>
+
+<p>
+If a logical area threshold is defined, the threshold in the SPAM page is 
+updated to 3 (full), only if the fullness of the data page is now greater than
+the logical area threshold percentage specified. That is, assuming no free space
+reservation for future in place growth of the rows, when the free space on the
+data page is smaller than the average compressed length of a row for this 
+logical area. Below a not to scale, graphical representation of a logical area
+threshold for a 4 blocks data page, and a average compressed row length of 100
+bytes.
+</p>
+
+<pre>
+-------------- max segment length        1988
+(1 row)        average compressed length  100
+-------------- logical area threshold %    94
+                                           trunc(((1988 - 100)/1988) * 100)
+
+(18 rows)
+
+-------------- data page (4 blocks)         0
+</pre>
+
+<p>
+In order to fill data pages upto a maximum number of rows, calculate the 
+logical area threshold percentage as: 
+</p>
+
+<pre>
+trunc(((max_segment_length - avg_compressed_length) / max_segment_length) * 100)
+</pre>
+
+<p>
+The max_segment_length is a few bytes smaller and more conservative than the
+max_page_free_space for the storage area. Use CPTRDB_SHOW_ONE_STORAGE_AREA.COM
+to observe these values.
+</p>
+
+<p>
+Lower the logical area threshold percentage, if free space has to be reserved
+for future in place growth of the rows and avoid fragmentation, starting from
+the theoretical expected number of compressed rows and the compressed extension
+length per row on the data page.
+</p>
+
+<p>
+Note that if no logical area threshold is defined, each data page will have
+a left over unused free space of approximately the nominal uncompressed
+length of a row for this logical area. This may not be acceptable for 'long'
+rows that on average have a high degree of compression, and will leave
+a lot of space spoiled.
+</p>
+
+<p>
+Use the procedure CPTRDB_DBKEYS_GROUPBY_PAGE.COM to investigate the
+distribution of the data rows of a single table across the pages of it's
+logical area(s). Observe one individual page using CPTRDB_SHOW_ONE_PAGE.COM
+</p>
+
+<p>
+For uniform page format storage areas, the logical area thresholds are
+specified in the SQL [CREATE|ALTER] STORAGE MAP statements:
+</p>
+
+<pre>
+CREATE STORAGE MAP {map_name}
+FOR {table_name}
+COMPRESSION ENABLED
+STORE IN {storage_area_name}
+         (THRESHOLDS ARE ({integer},100,100));
+</pre>
+
+<p>
+The parentheses around the THRESHOLDS ARE clause indicate that the threshold
+only applies to this single storage area.
+</p>
+
+<p>
+In the ALTER STORAGE MAP statement the THRESHOLDS clause can only be specified
+for new storage areas that are added to the storage map, and not for storage
+areas that are already part of the storage map. 
+</p>
+
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 38.5"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 38.5 -- Scanning Space Management SPAM Pages
+</font>
+</h3>
+
+<p>
+When scanning the SPAM pages of interest for a particular logical area, Rdb
+runs across three levels of information, to achieve this in the most efficient 
+way.
+</p>
+
+<p>
+The logical area RDB$AIP located in the RDB$SYSTEM storage area, contains the 
+AIP Area Inventory Pages which list per storage_area/logical_area pair the first
+ABM Area Bitmap Page for this logical area.
+</p>
+
+Observe the AIP Area Inventory Pages using:<br>
+
+<pre>
+$ RMU/DUMP/LAREA=RDB$AIP
+
+                                        entry #6
+                        00000002  0186  first area bitmap page 2
+                       0007 0049  018A  logical area 73, physical area 7
+                              0B  018E  area name length 11 bytes
+000000000049545241505F454C424154  018F  area name 'TABLE_PARTI.....'
+  000000000000000000000000000000  019F  area name '...............'
+                        001E8EE0  01AE  snaps enabled TSN 2002656
+                            001A  01B2  record length 26 bytes
+                        00000004  01B4  entry resides on page 4
+                              01  01B8  entry is in use
+                            0000  01B9  MBZ '..'
+                          000000  01BB  thresholds are (0,0,0)
+                              00  01BE  MBZ '.'
+                              01  01BF  record type data table
+                              00  01C0  MBZ '.'
+</pre>
+
+<p>
+The bitmaps in the ABM Area Bitmap Pages list the SPAM pages of interest that 
+contain threshold and clump information for this logical area in the current 
+storage area.
+</p>
+
+Observe the first ABM Area Bitmap Page using:<br>
+
+<pre>
+$ @CPTRDB_SHOW_ONE_PAGE cptrdb_db_1 7 2 data 
+
+                   0007 00000002  0000  page 2, physical area 7
+                        4309F376  0006  checksum = 4309F376
+               00ADA4A0 F2BEDFB8  000A  time stamp =  4-OCT-2013 15:43:34.52
+                       0000 0004  0012  4 free bytes, 0 locked
+
+                        00000003  0016  next area bitmap page 3
+                        00000000  001A  max set bit index 0
+                        00000000  001E  MBZ '....'
+                        00003E60  0022  bitvector count 15968
+
+00000000000000000000000000000001  0026  bitvector '................'
+00000000000000000000000000000000  0036  bitvector '................'
+                                  ::::  (122 duplicate lines)
+        000000000000000000000000  07E6  bitvector '............'
+
+                        00000000  07F2  MBZ '....'
+
+                            8049  07F6  bitmap page for logical area 73
+                        00000000  07F8  page sequence number 0
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+</pre>
+
+<p>
+Finally the Space Management SPAM pages list the threshold and clump 
+information. 
+</p>
+
+<p>
+Note that the first page of a storage area is always a SPAM page. The first 
+clump starting with page 2 contains always ABM pages.
+</p>
+
+Observe the first SPAM page using:<br>
+
+<pre>
+$ @CPTRDB_SHOW_ONE_PAGE cptrdb_db_1 7 1 data 
+
+                   0007 00000001  0000  page 1, physical area 7 (space mgmt)
+                        E7A27C96  0006  checksum = E7A27C96
+               00000000 00000000  000A  time stamp = 17-NOV-1858 00:00:00.00
+                       0000 0001  0012  1 free byte, 0 locked
+
+00000000000000000FFF000FFF000FFF  0016  pages 2-7: threshold 3
+                                        pages 8-13: threshold 0
+                                        pages 14-19: threshold 3
+                                        pages 20-25: threshold 0
+                                        pages 26-31: threshold 3
+                                        pages 32-65: threshold 0
+00000000000000000000000000000000  0026  pages 66-129: threshold 0
+00000000000000000000000000000000  0036  pages 130-193: threshold 0
+...
+00000000000000000000000000000000  0356  pages 3330-3393: threshold 0
+00000000000000000000000000000000  0366  pages 3394-3457: threshold 0
+                          000000  0376  pages 3458-3469: threshold 0
+
+                            0242  0379  578 clumps
+                            0049  037B  pages 2-7, logical area 73
+                            0049  037D  pages 8-13, logical area 73
+                            8F4C  037F  pages 14-19, deleted by TID 3916
+                            8FA0  0381  pages 20-25, deleted by TID 4000
+                            0042  0383  pages 26-31, logical area 66
+                            0042  0385  pages 32-37, logical area 66
+                            0000  0387  pages 38-43, logical area 0
+                            0000  0389  pages 44-49, logical area 0
+                            0000  038B  pages 50-55, logical area 0
+...
+                            0000  07F9  pages 3452-3457, logical area 0
+                            0000  07FB  pages 3458-3463, logical area 0
+                            0000  07FD  pages 3464-3469, logical area 0
+
+                              00  07FF  MBZ free '.'
+</pre>
+
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 38.6"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 38.6 -- Procedures Usage
+</font>
+</h3>
 
 <p>
 <b>CPTRDB_UNLOAD.COM</b><br>
@@ -9070,7 +9498,7 @@ $!-------------------------
   page for a single database and hardcoded table.
 
   Refer to the chapter
-  <a href="#Chapter 34">-- § 34 -- Placement Via Hashed Index And Vertical/Horizontal Partitioning</a> 
+  <a href="#Chapter 34">§ -- 34 -- Placement Via Hashed Index And Vertical/Horizontal Partitioning</a> 
   for more details on this procedure.
 </p>
 
@@ -9992,6 +10420,11 @@ SQL> show protection on database rdb$dbhandle;
 <pre>
 {hostname}::sys$common:[rdb$remote7%]RDBSERVER_TCPIP.LOG
 </pre>
+
+<p>
+  As of Rdb V7.3-200 TCP/IP proxy access to remote databases is supported.
+  Refer to the Rdb V7.3 New Features Document for more information.
+</p>
 
 Output sample:<br>
 
@@ -10962,13 +11395,15 @@ CPTRDB_JDBC_LogfilesDifferences
 </h3>
 
 <b>CPTRDB_SRVTRC_CLIENTS_ALL.COM</b> (Calls)<br>
+<b>CPTRDB_SRVTRC_CLIENTS_73020.COM</b><br>
+<b>CPTRDB_SRVTRC_CLIENTS_73100.COM</b><br>
 <b>CPTRDB_SRVTRC_CLIENTS_73202.COM</b><br>
-<b>CPTRDB_SRVTRC_CLIENTS_7302.COM</b><br>
-<b>CPTRDB_SRVTRC_CLIENTS_7310.COM</b><br><br>
-
-<b>CPTRDB_CONFIGURATION.REF</b> (Configuration file)<br>
+<b>CPTRDB_SRVTRC_CLIENTS_73402.COM</b><br><br>
 
 <b>CPTRDB_SRVTRC_CLIENTS_73202_ONE.COM</b><br>
+<b>CPTRDB_SRVTRC_CLIENTS_73402_ONE.COM</b><br><br>
+
+<b>CPTRDB_CONFIGURATION.REF</b> (Configuration file)<br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures Usage
@@ -10987,7 +11422,7 @@ The procedures in this chapter assume:<br>
 </pre>
  
 <p>
-Refer to the chapter <a href="#Chapter 45">-- § 45 -- Restart JDBC Thin Servers</a> on 
+Refer to the chapter <a href="#Chapter 45">§ -- 45 -- Restart JDBC Thin Servers</a> on 
 how to modify RDB$JDBC_COM:RDBJDBC_STARTSRV.COM to obtain meaningful output 
 filenames for the thin server processes.
 </p>
@@ -10995,10 +11430,10 @@ filenames for the thin server processes.
 <p>
 <b>CPTRDB_SRVTRC_CLIENTS_ALL.COM</b><br>
   Parse yesterday's list of Rdb JDBC thin server/node trace files
-  level 0x40000400 for ip address and client info.
+  level 0x40000400 for ip address and client info.<br>
 
-  Calls CPTRDB_SRVTRC_CLIENTS_nnnn[n].COM per server/node, depending on the
-  JDBC version running.
+  Calls CPTRDB_SRVTRC_CLIENTS_nnnnn.COM per server/node, depending on the
+  JDBC version running.<br>
 
   The list of trace files is enumerated in the configuration file 
   CPTRDB_CONFIGURATION.REF, identified by the keywords
@@ -11031,42 +11466,71 @@ CPT$RDB_JOB|CPTRDB_SRVTRC_CLIENTS_ALL|L15S29|TOMORROW + 04:00|
 </pre>
 
 <p>
+<b>CPTRDB_SRVTRC_CLIENTS_73020.COM</b><br>
+<b>CPTRDB_SRVTRC_CLIENTS_73100.COM</b><br>
 <b>CPTRDB_SRVTRC_CLIENTS_73202.COM</b><br>
-<b>CPTRDB_SRVTRC_CLIENTS_7302.COM</b><br>
-<b>CPTRDB_SRVTRC_CLIENTS_7310.COM</b><br>
+<b>CPTRDB_SRVTRC_CLIENTS_73402.COM</b><br>
   Called from CPTRDB_SRVTRC_CLIENTS_ALL.COM
 </p>
 
 <p>
   Parse one daily Rdb JDBC thin server/node trace file level 0x40000400
-  for ip address and client info.
+  for ip address and client info.<br>
 
-  Send a cockpit message and mail if no trace file or no clients are found.
-
-  Each procedure is JDBC version specific, as the format of the client info
-  in the trace file is version dependent, and the parsing subroutine is
-  different.
-
-  CPTRDB_SRVTRC_CLIENTS_73202.COM is compatible with v73310, v73323 and V73402.
+  Send a cockpit message and mail if no trace file or no clients are found.<br>
 
   The input and output directories are listed in the configuration file
-  identified by the keywords CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73202
+  identified by the keywords CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73402
 </p>
 
 <pre>
-CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73202|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_THINDIR|L15S36::ALLEMEERSCH|
+CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73402|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_THINDIR|L15S36::ALLEMEERSCH|
 !
 ! 0 CPT$RDB_PARAM
-! 1 CPTRDB_SRVTRC_CLIENTS_73202
+! 1 CPTRDB_SRVTRC_CLIENTS_73402
 ! 2 Trace source directory, extract a second time from done directory
 ! 3 Trace rename directory
 ! 4 Extract output directory
 ! 5 Exception mail address
 </pre>
 
-   Input trace file extract:<br>
+<p>
+  Each procedure is JDBC version specific, as the format of the client info
+  in the trace file is version dependent, and the parsing subroutine is
+  different.
+</p>
+
+  Input trace file extracts per version:<br>
 
 <pre>
+V73020
+
+>> RDB$CLIENT_ID_00000002 C00000000 2010-03-09 11:34:19.363 : 
+srv.DBActionHandler@7b6889( "id=00000002,name=JDBCMON,db=clio_db,ip=10.3.130.172:62695,processID=24D17892:1" )
+
+V73100
+
+>> RDB$CLIENT_ID_00000002 C00000000*T 2012-05-20 23:18:44.011 : srv.DBActionHandler@15212bc( "client info", "
+  id=00000002
+  ,name=JDBCMON
+  ,db=clio_db
+  ,ip=10.3.130.172:62274
+  ,processID=28D036FE
+  ,version=73100:20120227" )
+
+V73202, compatible V73310, V73323
+
+>> RDB$CLIENT_ID_00000002 C00000000*T 2016-04-05 0:24:06.490 : srv.DBActionHandler@7a148bd3( "client info", "
+  id=00000002
+  ,name=JDBCMON
+  ,db=ssp_db
+  ,ip=10.3.130.193:65382
+  ,processID=28A14E53:2
+  ,version=73202:20130501" )
+>> RDB$CLIENT_ID_00000002 C00000000*T 2016-04-05 0:24:06.744 : [RdbProcessId] .doAction msg : 28A14E53:1
+ 
+V73323
+
 >> RDB$CLIENT_ID_00000002 C00000000*T 2015-04-09 0:18:44.965 : srv.DBActionHandler@377653ae( "client info", "
   id=00000002
   ,name=JDBCMON
@@ -11075,6 +11539,28 @@ CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73202|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_T
   ,processID=2D8678A5:1
   ,version=73323:20141224" )
 >> RDB$CLIENT_ID_00000002 C00000000*T 2015-04-09 0:18:45.174 : [RdbProcessId] .doAction msg : 2D8678A5:1
+
+V73402, compatible V73410
+
+>40000400> RDB$CLIENT_ID_00000002 C00000000*T 2016-03-31 0:18:43.029 : srv.DBActionHandler@77827284( "client info", "
+  id=00000002
+  ,name=JDBCMON
+  ,db=c170_db
+  ,ip=10.3.130.172:55416
+  ,processID=2DCC04FF:1
+  ,version=73402:20150626" )
+>40000400> RDB$CLIENT_ID_00000002 C00000000*T 2016-03-31 0:18:43.282 : [RdbProcessId]  msg : 2DCC04FF:1
+
+V73410
+
+>40000400> RDB$CLIENT_ID_00000002 C00000000*T 2016-03-31 16:08:43.766 : srv.DBActionHandler@77827284( "client info", "
+  id=00000002
+  ,name=JDBCMON
+  ,db=c170_db
+  ,ip=10.3.130.172:58524
+  ,processID=2DCB3215:1
+  ,version=73410:20160222" )
+>40000400> RDB$CLIENT_ID_00000002 C00000000*T 2016-03-31 16:08:44.016 : [RdbProcessId]  msg : 2DCB3215:1
 </pre>
 
   The client info listed per new client and sorted by timestamp is:<br>
@@ -11122,8 +11608,9 @@ CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73202|CPT$RDB_JDBC_TRCDIRDONE|CPT$RDB_JDBC_T
 
 <p>
 <b>CPTRDB_SRVTRC_CLIENTS_73202_ONE.COM</b><br>
+<b>CPTRDB_SRVTRC_CLIENTS_73402_ONE.COM</b><br>
   Standalone parse one Rdb JDBC thin server/node/day trace file level 0x40000400
-  for ip address and client info, running JDBC v73202.
+  for ip address and client info.
 </p>
 
   Parameters: Adapt the parameter block.<br>
@@ -11139,14 +11626,10 @@ $ outdir     = "CPT$RDB:"
 $!-------------------------
 </pre>
 
-<p>
-  The procedure is compatible with v73310, v73323 and v73402.
-</p>
-
   Usage:<br>
 
 <pre>
-$ @CPTRDB_SUBMIT {node} CPTRDB_SRVTRC_CLIENTS_73202_ONE
+$ @CPTRDB_SUBMIT {node} CPTRDB_SRVTRC_CLIENTS_73402_ONE
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -11690,10 +12173,13 @@ JCCLML_SUBMIT.COM and conform to the naming policy of log and output
 files starting with "LML_".
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- Reopen Logfiles Daily --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.1"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.1 -- Reopen Logfiles Daily
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_LML_REOPEN_LOGS.COM </b><br>
@@ -11763,10 +12249,13 @@ CPT$RDB_JOB|JCCLML_LML_REOPEN_LOGS_ALL|L15S29|TOMORROW + 00:02|
 ! 3 Reschedule time
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- Rename Logfiles --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.2"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.2 -- Rename Logfiles
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_RENAME_LOGFILES.COM</b><br>
@@ -11807,10 +12296,13 @@ $ @JCCLML_RENAME_LOGFILES {loader_name}
 $ @JCCLML_RENAME_LOGFILES_ALL
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- Shutdown Loader Sessions --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.3"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.3 -- Shutdown Loader Sessions
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_SHUTDOWN.COM</b><br>
@@ -11848,10 +12340,13 @@ $ @JCCLML_SHUTDOWN_ALL
   This procedure can be run from the system shutdown.
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- Run Statistics Sessions --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.4"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.4 -- Run Statistics Sessions
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_LML_RUN_STATS.COM</b><br>
@@ -11992,12 +12487,17 @@ JCC_RUN_DTL-{loader name}_{node}_yyyymmdd.LOG_ddmmmhhmmss
 $ @JCCLML_LML_RUN_STATS_ALL
 </pre>
 
-  This procedure can be run from the system startup.<br>
+<p>
+  This procedure can be run from the system startup.
+</p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- List And Check Processes And Logfiles --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.5"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.5 -- List And Check Processes And Logfiles
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_SHOW_PROCESS_BATCH.COM</b><br>
@@ -12138,10 +12638,13 @@ CPTRDB_JCCLML_ProcessDiff
 "CPTRDB - JCCLML Process Diff {node} yyyymmdd"
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- List And Check Statistics Sessions And Logfiles --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.6"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.6 -- List And Check Statistics Sessions And Logfiles
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_SHOW_STATS.COM</b><br>
@@ -12245,10 +12748,13 @@ CPTRDB_JCCLML_StatsDiff
 "CPTRDB - JCCLML Stats Diff {node} yyyymmdd"
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- List And Check Heartbeat Timestamps From CTL Logfiles --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.7"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.7 -- List And Check Heartbeat Timestamps From CTL Logfiles
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_SHOW_HEARTBEAT_BATCH.COM</b><br>
@@ -12259,9 +12765,9 @@ CPTRDB_JCCLML_StatsDiff
 
 <p>
   List the most recent heartbeat timestamps from the CTL logfiles and their 
-  realtime delay for all JCC Logminer Loader sessions on one node.
+  realtime delay for all JCC Logminer Loader sessions on one node.<br>
 
-  Per loader name the status is flagged as "OK" or "*DELAYED*".
+  Per loader name the status is flagged as "OK" or "*DELAYED*".<br>
 
   The runtime parameters are retrieved from the configuration file
   CPTRDB_CONFIGURATION.REF identified by the keywords
@@ -12286,7 +12792,7 @@ CPT$RDB_PARAM|JCCLML_SHOW_HEARTBEAT_BATCH|0-00:05:00.00|10|-4:00:00|
 <p>
   Interactive list the most recent heartbeat timestamps and their realtime delay
   from the CTL logfiles, for all JCC Logminer Loader sessions on a series 
-  of nodes.
+  of nodes.<br>
 
   The list of nodes is retrieved from the configuration file
   CPTRDB_CONFIGURATION.REF, identified by the keywords
@@ -12357,22 +12863,22 @@ Total number of loader sessions 14
 <p>
   List the most recent heartbeat timestamps and their realtime delay
   from the CTL logfiles for a series of JCC Logminer Loader sessions and
-  nodes, in a continuous way every n minutes.
+  nodes, in a continuous way every n minutes.<br>
 
-  The default reschedule interval is 30 minutes.
+  The default reschedule interval is 30 minutes.<br>
 
   Default, the output files *.log / *.lis / *.diff are cleaned after 4 hours,
-  *.mime files after 7 days.
+  *.mime files after 7 days.<br>
 
   The list of nodes is retrieved from the configuration file 
   CPTRDB_CONFIGURATION.REF identified by the keywords 
-  CPT$RDB_NODE|JCCLML_SHOW_HEARTBEAT.
+  CPT$RDB_NODE|JCCLML_SHOW_HEARTBEAT.<br>
 
   Send cockpit message and mail if difference found with reference file
-  CPT$RDB:JCCLML_SHOW_HEARTBEAT.REF.
+  CPT$RDB:JCCLML_SHOW_HEARTBEAT.REF.<br>
 
   The purpose of this procedure is to track the presence and normal progress
-  of the loader sessions. 
+  of the loader sessions.<br> 
 
   The reschedule node, time and exception mail address are retrieved from
   the configuration file CPTRDB_CONFIGURATION.REF, identified by the
@@ -12402,10 +12908,13 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_HEARTBEAT_CONT|L15S29|+00:30|L15S36::ALLEMEERSCH|
 "CPTRDB - JCCLML Heartbeat Diff {node} yyyymmdd"
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- List And Check Heartbeat AERCP Checkpoints From LML Logfiles --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.8"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.8 -- List And Check Heartbeat AERCP Checkpoints From LML Logfiles
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_SHOW_AERCP_BATCH.COM</b><br>
@@ -12416,7 +12925,7 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_HEARTBEAT_CONT|L15S29|+00:30|L15S36::ALLEMEERSCH|
 
 <p>
   List the most recent heartbeat AERCP checkpoints and their realtime delay
-  from the LML logfile for one JCC Logminer Loader session.
+  from the LML logfile for one JCC Logminer Loader session.<br>
 
   The runtime parameters are retrieved from the configuration file
   CPTRDB_CONFIGURATION.REF, identified by the keywords
@@ -12446,7 +12955,7 @@ CPT$RDB_PARAM|JCCLML_SHOW_AERCP_BATCH|0-00:06:00.00|6|-4:00:00|
 <p>
   Interactive list the most recent heartbeat AERCP checkpoints and their 
   realtime delay from the LML logfiles for a series of JCC Logminer Loader 
-  sessions and nodes.
+  sessions and nodes.<br>
 
   The list of loaders and nodes is retrieved from the configuration file
   CPTRDB_CONFIGURATION.REF, identified by the keywords
@@ -12495,15 +13004,15 @@ CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1
   List the most recent heartbeat AERCP checkpoints and their realtime delay
   from the LML logfiles for a series of JCC Logminer Loader sessions and
   nodes, listed in the configuration file, identified by the keywords 
-  CPT$RDB_DATABASE|JCCLML_SHOW_AERCP, in a continuous way every n minutes.
+  CPT$RDB_DATABASE|JCCLML_SHOW_AERCP, in a continuous way every n minutes.<br>
 
-  The default reschedule interval is 30 minutes.
+  The default reschedule interval is 30 minutes.<br>
 
   Default, the output files *.log / *.lis / *.diff are cleaned after 4 hours,
-  *.mime files after 7 days.
+  *.mime files after 7 days.<br>
 
   Send cockpit message and mail if difference found with reference file
-  CPT$RDB:JCCLML_SHOW_AERCP.REF
+  CPT$RDB:JCCLML_SHOW_AERCP.REF<br>
 
   The reschedule node, time and exception mail address are retrieved from
   the configuration file CPTRDB_CONFIGURATION.REF, identified by the
@@ -12546,10 +13055,13 @@ CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1
                                     Live AIJ block number         <-|
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- Replicate Data Using The Data Pump Mechanism --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.9"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.9 -- Replicate Data Using The Data Pump Mechanism
 </font>
-</h4>
+</h3>
 
 <p>
 <b>CPTRDB_LML_DATA_PUMP_DRIVER.INI</b><br>
@@ -12573,10 +13085,13 @@ CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1
 $ @jcclml_submit {node} JCCLML_LML_DATA_PUMP_CPTRDB_LML
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- Format Char(20) Originating Dbkeys --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.10"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.10 -- Format Char(20) Originating Dbkeys
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_CVT_ODBKEY.C</b><br>
@@ -12617,10 +13132,13 @@ $ @JCCLML_CVT_ODBKEY 18295873505984512
   Decimal: 65:302:0
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- Dump Target Checkpoints --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.11"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.11 -- Dump Target Checkpoints
 </font>
-</h4>
+</h3>
 
 <p>
 <b>JCCLML_LML_DUMP_CHECKPOINT_RDB.COM</b><br>
@@ -12690,10 +13208,13 @@ Last Transaction:
         RM TID:
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
--- How To Exclude Deletes From Replication --
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 52.12"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 52.12 -- How To Exclude Deletes From Replication
 </font>
-</h4>
+</h3>
 
 <pre>
 Declare a virtualcolumn ACTION:
@@ -12852,7 +13373,8 @@ P4 is the TRANSACTION_START_TIME day of the transmitted row.
 <b>CPTRDB_PREPARE_DATABASE.COM</b><br><br>
 
 <b>CPTRDB_SHOW_SQLSRV_SUMMARY.COM</b><br>
-<b>CPTRDB_SHOW_SQLSRV_SUMMARY_BATCH.COM</b><br>
+<b>CPTRDB_SHOW_SQLSRV_SUMMARY_BATCH.COM</b><br><br>
+
 <b>CPTRDB_SHOW_SQLSRV_FULL.COM</b><br>
 <b>CPTRDB_SHOW_SQLSRV_FULL_ONE.COM</b><br>
 <b>CPTRDB_SHOW_SQLSRV_FULL_BATCH.COM</b><br><br>
@@ -12912,6 +13434,14 @@ $!------------------------
 <p>
   The procedure provides these three execution steps.
 </p>
+
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 54.1"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 54.1 -- Show Services Summary
+</font>
+</h3>
 
 <p>
 <b>CPTRDB_SHOW_SQLSRV_SUMMARY.COM</b><br>
@@ -12990,6 +13520,14 @@ List all SQL/Services services on one node sorted by name.
 Parameters: P1, output file, SHOW_SQLSRV_SUMMARY.TMP_{filecnt}
             P2, sqlsrv version, char(2), [72|73]
 </pre>
+
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 54.2"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 54.2 -- Show Services Full
+</font>
+</h3>
 
 <p>
 <b>CPTRDB_SHOW_SQLSRV_FULL.COM</b><br>
@@ -13136,6 +13674,14 @@ Parameters: P1, service name,   char(31)
             P2, sqlsrv version, char(2), [72|73]
             P3, output file,    show_sqlsrv_full.tmp_{filecnt}
 </pre>
+
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 54.3"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 54.3 -- Create/Start/Shutdown/Alter/Drop Services
+</font>
+</h3>
 
 <p>
 <b>CPTRDB_CREATE_SQLSRV.COM</b><br>
@@ -13369,10 +13915,13 @@ Parameters: P1, service name,   char(31)
   Create the SQL/Services protocol service CPTRDB_SQLSRV_SERVICE
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-OCI Protocol Services Configuration Files
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 54.4"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 54.4 -- OCI Protocol Services Configuration Files
 </font>
-</h4>
+</h3>
 
 <p>
 The configuration files for OCI protocol services must contain the following
@@ -13488,10 +14037,13 @@ for the OCI service being tested. The default directory is
 SYS$COMMON:[SQLSRV73.SQLNET.NETWORK.ADMIN].
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-Test A SQL/Services Protocol Service From A C Program
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 54.5"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 54.5 -- Test A SQL/Services Protocol Service From A C Program
 </font>
-</h4>
+</h3>
 
 <p>
 <b>CPTRDB_SQLSRV_SQL.COM</b><br>
@@ -14223,7 +14775,9 @@ Unexpected Failure             0        0        0.0            0           0.0
 </h3>
 
 <b>CPTRDB_LOCK_MANAGER.TXT</b><br>
-<b>CPTRDB_LCK_SHOW_ACTIVE.COM</b><br>
+<b>CPTRDB_LCK_SHOW_ACTIVE.COM</b><br><br>
+
+<b>$ MONITOR LOCK</b><br>
 <b>$ MONITOR DLOCK</b><br>
 <b>$ MASTERLOCK/DATABASE</b><br><br>
 
@@ -14231,9 +14785,10 @@ Unexpected Failure             0        0        0.0            0           0.0
 <b>.LOCKDIRWT </b><br>
 <b>.LOCKRMWT </b><br>
 <b>.PE1</b><br>
-<b>.DEADLOCK_WAIT</b><br><br>
+<b>.DEADLOCK_WAIT</b><br>
+<b>RDMS$BIND_DEADLOCK_WAIT</b><br><br>
 
-<b>Rdb DATABASE LOCK RESOURCE NAME</b><br>
+<b>Rdb Database Lock Resource Name</b><br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures Usage
@@ -14247,7 +14802,7 @@ Procedures Usage
   Part Id BA554-90021
 </p>
 
-  This text is highly recommended reading as introduction to this chapter.
+  This text is highly recommended reading as introduction to this chapter.<br>
 
 <p>
 Unless partitioned locktrees are enabled, all clusterwide OpenVMS distributed
@@ -14309,20 +14864,78 @@ FFFFFFFE.33D8FD40        151       151      120       1   L15S58   Ý...D....DATA
                                                           DISK$DATA_21:[EXP_DB]EXPLOITATION_DB.RDB;1
 </pre>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-$ MONITOR DLOCK
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 58.1"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 58.1 -- $ MONITOR [D]LOCK
 </font>
-</h4>
+</h3>
 
 <p>
-  The DCL command MONITOR DLOCK/INTERVAL=1 provides a dynamic overview of
-  incoming and outgoing lock activity on the executor node.
+  The DCL commands MONITOR [D]LOCK/INTERVAL=1 provide a dynamic overview of
+  local and incoming/outgoing lock activity on the executor node.
+  The number of locks and resources handled are essential information to
+  determine appropriate values for the OpenVMS SYSGEN parameters LOCKIDTBL,
+  LOCKIDTBL_MAX and RESHASHTBL.
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-$ MASTERLOCK/DATABASE
+Output samples:<br>
+
+<pre>
+                            OpenVMS Monitor Utility
+                           LOCK MANAGEMENT STATISTICS
+                                 on node L15S50
+                             7-APR-2016 16:42:09.75
+
+                                       CUR        AVE        MIN        MAX
+
+    New ENQ Rate                    283.66     570.33     159.00    1443.33
+    Converted ENQ Rate              319.66     882.06     319.66    1697.00
+
+    DEQ Rate                        237.66     351.93     103.00     994.33
+    Blocking AST Rate                71.66     136.59      63.33     217.66
+
+    ENQs Forced To Wait Rate         20.33      65.23      20.33     109.66
+    ENQs Not Queued Rate             46.33     180.69      46.33     328.33
+
+    Deadlock Search Rate              0.00       0.00       0.00       0.00
+    Deadlock Find Rate                0.00       0.00       0.00       0.00
+
+    Total Locks                 1215164.00 1214566.80 1213896.00 1215164.00
+    Total Resources              737248.00  737249.00  737173.00  737287.00
+
+                            OpenVMS Monitor Utility
+                     DISTRIBUTED LOCK MANAGEMENT STATISTICS
+                                 on node L15S50
+                             7-APR-2016 16:41:15.55
+
+                                       CUR        AVE        MIN        MAX
+
+    New ENQ Rate       (Local)      120.00      91.26       5.33     273.33
+                    (Incoming)      306.33     252.33     171.00     326.66
+                    (Outgoing)      618.66     268.33      48.00     618.66
+    Converted ENQ Rate (Local)      314.33     160.86      59.33     314.33
+                    (Incoming)      490.66     373.53     169.00     490.66
+                    (Outgoing)      797.33     357.00     167.33     797.33
+    DEQ Rate           (Local)       91.00      79.26       5.00     256.66
+                    (Incoming)      248.66     219.19      89.33     377.33
+                    (Outgoing)      351.33     154.66      28.00     351.33
+    Blocking AST Rate  (Local)       37.00      19.66       6.00      37.00
+                    (Incoming)       44.66      31.26      11.66      44.66
+                    (Outgoing)       97.33      75.86      31.33      97.33
+    Dir Functn Rate (Incoming)       15.33      49.46      15.33      74.33
+                    (Outgoing)       14.00      21.06       0.00      88.00
+    Deadlock Message Rate             0.00       0.00       0.00       0.00
+</pre>
+
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 58.2"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 58.2 -- $ MASTERLOCK/DATABASE
 </font>
-</h4>
+</h3>
 
 <p>
   As of CockpitMgr V7.9-019 the cockpit DCL command MASTERLOCK/DATABASE={dbid} 
@@ -14354,10 +14967,13 @@ $ show symbol cpt$masterlock*
   parameter was overloaded with these two meanings. 
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-  LOCKDIRWT
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 58.3"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 58.3 -- LOCKDIRWT
 </font>
-</h4>
+</h3>
 
 <p>
   LOCKDIRWT (Lock Directory Weight) sets the relative amount of lock directory
@@ -14373,10 +14989,13 @@ $ show symbol cpt$masterlock*
   in the resource block.
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-  LOCKRMWT
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 58.4"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 58.4 -- LOCKRMWT
 </font>
-</h4>
+</h3>
 
 <p>
   (Courtesy Keith Parris, HP Corp., 'The Lock Manager And Performance', presentation 
@@ -14491,10 +15110,13 @@ $ show symbol cpt$masterlock*
   (End courtesy Keith Parris)
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-PE1
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 58.5"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 58.5 -- PE1
 </font>
-</h4>
+</h3>
 
 <p>
   The PE1 value sets the maximum size of a lock tree that can be remastered. 
@@ -14505,10 +15127,13 @@ PE1
   the database master lock tree to reside.
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-DEADLOCK_WAIT
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 58.6"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 58.6 -- DEADLOCK_WAIT
 </font>
-</h4>
+</h3>
 
 <p>
   DEADLOCK_WAIT defines the number of seconds that a lock request
@@ -14526,10 +15151,55 @@ DEADLOCK_WAIT
   in 100 nano seconds units.
 </p>
 
-<h4><font face="helvetica, arial, sans-serif" color="#330099">
-Rdb DATABASE LOCK RESOURCE NAME
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 58.7"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 58.7 -- RDMS$BIND_DEADLOCK_WAIT
 </font>
-</h4>
+</h3>
+
+As of Rdb V7.3-200:<br>
+
+<pre>
+  OpenVMS allows the system manager to establish a DEADLOCK_WAIT by
+  setting this system parameter as small as 1 second. OpenVMS will
+  establish a default value of 10 seconds. More recent releases
+  of OpenVMS allow applications to establish a process specific
+  DEADLOCK_WAIT smaller than 1 second using the system service
+  SYS$SET_PROCESS_PROPERTIESW.
+
+  This release of Oracle Rdb provides an interface to this system
+  service for Rdb applications that wish to make use of sub-second
+  DEADLOCK_WAIT times. The logical name RDMS$BIND_DEADLOCK_WAIT can
+  be defined to a numeric value that specifies the deadlock wait
+  time in 100 nanosecond units. The smallest value is 100000 (which
+  is 10 milliseconds) and the largest value is 10000000 (which is 1
+  second). If the value specified for the logical name is outside
+  this range it will be ignored and the application will default to
+  the setting of the system parameter DEADLOCK_WAIT.
+
+  This logical name can be defined as a process, group, job or
+  system wide logical name. Rdb only translates this logical name
+  on the first database connection. Any effects of this logical
+  name are removed when the image which attached to the database
+  exits.
+
+  Please note that the smaller the deadlock wait setting the more
+  often the OpenVMS lock manager will initiate a deadlock search.
+  The use of the logical name for Rdb is only recommended for
+  high-end transaction processing systems which have the database
+  load and sufficiently powerful CPU systems to require such fine
+  tuning.
+</pre>
+
+<a href="#Chapter 1">To Top</a><br>
+
+<a name="Chapter 58.8"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 58.8 -- Rdb Database Lock Resource Name
+</font>
+</h3>
 
   The Rdb database lock resource name is constructed as follows.<br>
 
