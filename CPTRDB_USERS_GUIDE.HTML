@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 16-jun-2016, Luc Allemeersch<br>
+Modified: 15-jul-2016, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -910,6 +910,25 @@ $ UNZIP {kitid}.zip
 $ @CPTRDB_TOOLSET_KITINSTAL
 </pre>
 
+<p>
+ Sample filespecs in the CPT$RDB_DATA directory after the installation:
+</p>
+
+<pre>
+BACKUP_CPT$RDB_L15S29_20160616.BCK_16JUN153201;1
+BACKUP_CPT$RDB_REF_L15S29_20160616.BCK_16JUN153201;1
+CPTRDB_KIT_20160616_16JUN151742.A;1
+CPTRDB_TOOLSET_KITINSTAL.COM;1
+CPTRDB_TOOLSET_START_GEN.COM;1
+CPTRDB_TOOLSET_STOP_GEN.COM;1
+CPTRDB_USERS_GUIDE.HTML;1
+CPTRDB_USERS_GUIDE.TXT;1
+TOOLSET_START_L15S29_20160616.COM_16JUN;1
+TOOLSET_START_L15S29_20160616.LOG_16JUN;1
+TOOLSET_STOP_L15S29_20160616.COM_16JUN;1
+TOOLSET_STOP_L15S29_20160616.LOG_16JUN;1
+</pre>
+
 <a href="#Chapter 1">To Top</a><br>
 
 <a name="Chapter 7"></a>
@@ -1062,6 +1081,27 @@ The users guides CPTRDB_USERS_GUIDE.[TXT|HTML] and the kitinstal procedures
 CPTRDB_TOOLSET_*.COM are NOT included in the {kitid}.A OpenVMS backup saveset,
 and are only present in the {kitid}.ZIP zipped archive.
 </p>
+
+<p>
+<b>CPTRDB_FUTURE_RELEASE</b>
+</p>
+
+<p>
+New Procedure(s) In This Release:
+</p>
+
+<pre>
+CPTRDB_AFTER_JOURNAL_DROP_GEN.COM
+</pre>
+
+<p>
+Procedures that now require entries the configuration file:
+</p>
+
+<pre>
+CPTRDB_SHOW_DATA_AREAS.COM
+CPTRDB_SHOW_SNAPSHOT_AREAS.COM
+</pre>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -1239,7 +1279,7 @@ Procedures Usage
 The reference files contain the fixed 'expected' output data of repeating
 check and monitoring procedures. On each run, an extract of the actual output
 data is compared to the reference file. If a mismatch is detected, a mail 
-and cockpit event message are sent. This double notification across the
+and CockpitMgr event message are sent. This double notification across the
 toolset, also for procedures where no reference file is involved, should assure
 that no exception conditions are overlooked. 
 
@@ -1571,7 +1611,7 @@ Procedures Usage
 </h4>
 
 <p>
-  These procedures allow to clear individual cockpit event messages raised
+  These procedures allow to clear individual CockpitMgr event messages raised
   by the toolset. The event text contains a timestamp ddmmmhhmmss to
   be able to determine if an event is initial or repeating, by
   comparing the event date and time to the text timestamp. 
@@ -1586,7 +1626,7 @@ $ POKE/AGENT/INIT/CLASS=[{class_name}|"OracleRdb"]
 </pre>
 
 <p>
-  Cockpit events, created using POKE/AGENT, are default refreshed in the event console
+  CockpitMgr events, created using POKE/AGENT, are default refreshed in the event console
   every minute. New events, cleared within the same refresh interval, are
   ignored. In order to assure that events created by the toolset are visible
   and receive a proper clear, some procedures wait for more than one
@@ -2351,7 +2391,7 @@ $ SET ENTRY/RELEASE CPTRDB_BACKUP_DB_ALL
   assuming the current hour is not a scheduled hour.
 </p>
 
-  Toolset cockpit events:<br>
+  Toolset CockpitMgr events:<br>
 
 <pre>
 CPTRDB_DB_BackupStarted 
@@ -2528,7 +2568,7 @@ $ POKE/AGENT/INIT/CLASS="OracleRdb"
 </pre>
 
 <p>
-  The cockpit captures, matches, displays and clears all standard AIJ related 
+  CockpitMgr captures, matches, displays and clears all standard AIJ related 
   opcom messages issued by Rdb. The database should have the setting 
   'NOTIFY ENABLED'.
 </p>
@@ -2547,7 +2587,7 @@ $ POKE/AGENT/INIT/CLASS="OracleRdb"
   RDB_AIJ_MANUAL_BACKUP_FAILED "AIJ manual backup operation failed"
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_AIJ_BackupFailed
@@ -2679,7 +2719,7 @@ Total of 1 file, 2079 blocks.
   identified in the configuration file CPTRDB_CONFIGURATION.REF by
   the keywords CPT$RDB_NODE|CPTRDB_SHOW_DB_BCK.
 
-  Send cockpit message and mail if differences are found with reference file
+  Send CockpitMgr message and mail if differences are found with reference file
   CPTRDB_SHOW_DB_BCK.REF.
  
   The reschedule node, reschedule time and exception mail address are
@@ -2697,7 +2737,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_DB_BCK_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERSCH
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_DB_BackupsDifferences
@@ -2792,10 +2832,6 @@ CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK|L15S29|CPTRDB_MASTR|
 </pre>
 
 <p>
-  The dates listed are creation, expiration and backup date.
-</p>
-
-<p>
 <b>CPTRDB_SHOW_AIJ_BCK.COM</b><br>
   Calls CPTRDB_SHOW_AIJ_BCK_BATCH.COM
 </p>
@@ -2814,10 +2850,10 @@ CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK|L15S29|CPTRDB_MASTR|
 $ @CPTRDB_SHOW_AIJ_BCK
 </pre>
 
-  Output samples:<br>
+  Output sample:<br>
 
 <pre>
- 3-APR-2015 12:55:04.72 CPTRDB - AIJ Backup Files From Node L15S29
+29-JUN-2016 12:52:32.23 CPTRDB - AIJ Backup Files From Node L15S29
  
 --------------
 On Node L15S29
@@ -2827,56 +2863,21 @@ On Node L15S29
 
 Directory DISK$DATA_29:[CPT$RDB_AIJ_BCK]
 
-CPTRDB_DB_1_L15S29_20150403_0007_5271.AIJ_BCK;1
-                            290   3-APR-2015 00:07:51.28   {None specified}   {No backup recorded}
-CPTRDB_DB_1_L15S29_20150403_0608_5272.AIJ_BCK;1
-                            623   3-APR-2015 06:08:12.45   {None specified}   {No backup recorded}
-CPTRDB_DB_1_L15S29_20150403_0808_5273.AIJ_BCK;1
-                            290   3-APR-2015 08:08:20.36   {None specified}   {No backup recorded}
-CPTRDB_DB_1_L15S29_20150403_1008_5274.AIJ_BCK;1
-                            290   3-APR-2015 10:08:27.53   {None specified}   {No backup recorded}
-CPTRDB_DB_1_L15S29_20150403_1208_5275.AIJ_BCK;1
-                            290   3-APR-2015 12:08:34.90   {None specified}   {No backup recorded}
-
-Total of 5 files, 1783 blocks.
+CPTRDB_DB_1_L15S29_20160629_0016_9803.AIJ_BCK;1
+CPTRDB_DB_1_L15S29_20160629_0616_9804.AIJ_BCK;1
+CPTRDB_DB_1_L15S29_20160629_0817_9805.AIJ_BCK;1
+CPTRDB_DB_1_L15S29_20160629_1017_9806.AIJ_BCK;1
+CPTRDB_DB_1_L15S29_20160629_1217_9807.AIJ_BCK;1
  
 -- 2 CPTRDB_MASTR --
 
 Directory DISK$DATA_29:[CPT$RDB_AIJ_BCK]
 
-CPTRDB_MASTR_L15S29_20150403_0007_787.AIJ_BCK;1
-                            258   3-APR-2015 00:07:54.13   {None specified}   {No backup recorded}
-CPTRDB_MASTR_L15S29_20150403_0608_788.AIJ_BCK;1
-                            258   3-APR-2015 06:08:14.65   {None specified}   {No backup recorded}
-CPTRDB_MASTR_L15S29_20150403_0808_789.AIJ_BCK;1
-                            258   3-APR-2015 08:08:22.09   {None specified}   {No backup recorded}
-CPTRDB_MASTR_L15S29_20150403_1008_790.AIJ_BCK;1
-                            258   3-APR-2015 10:08:29.29   {None specified}   {No backup recorded}
-CPTRDB_MASTR_L15S29_20150403_1208_791.AIJ_BCK;1
-                            258   3-APR-2015 12:08:36.31   {None specified}   {No backup recorded}
-
-Total of 5 files, 1290 blocks.
-
-...
-
- 3-MAR-2016 10:45:27.06 CPTRDB - AIJ Backup Files From Node L15S29
-
---------------
-On Node L15S29
---------------
-
--- 1 CPTRDB_DB_1 --
-DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160303_0006_8623.AIJ_BCK;1
-DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160303_0606_8624.AIJ_BCK;1
-DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160303_0807_8625.AIJ_BCK;1
-DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160303_1007_8626.AIJ_BCK;1
-
--- 2 CPTRDB_MASTR --
-DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20160303_0006_4143.AIJ_BCK;1
-DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20160303_0607_4144.AIJ_BCK;1
-DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20160303_0807_4145.AIJ_BCK;1
-DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20160303_1007_4146.AIJ_BCK;1
-
+CPTRDB_MASTR_L15S29_20160629_0016_5348.AIJ_BCK;1
+CPTRDB_MASTR_L15S29_20160629_0616_5349.AIJ_BCK;1
+CPTRDB_MASTR_L15S29_20160629_0817_5350.AIJ_BCK;1
+CPTRDB_MASTR_L15S29_20160629_1017_5351.AIJ_BCK;1
+CPTRDB_MASTR_L15S29_20160629_1217_5352.AIJ_BCK;1
 </pre>
 
 <p>
@@ -2888,15 +2889,15 @@ DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20160303_1007_4146.AIJ_BCK;1
   Daily list today's aij backup files for a number of databases on a series 
   of nodes, retrieved from the configuration file CPTRDB_CONFIGURATION.REF,
   identified by the keywords CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK. List the AIJ
-  backup files grouped by database.
+  backup files grouped by database.<br>
 
-  Send cockpit message and mail if a difference is found with the reference 
-  file CPTRDB_SHOW_AIJ_BCK.REF.
+  Send CockpitMgr message and mail if a difference is found with the reference 
+  file CPTRDB_SHOW_AIJ_BCK.REF.<br>
 
   The reference file contains one entry per node/directory/database.
   Duplicate entries per database are removed in the comparison of the
   actual output to the reference file, as the number of aij backup files 
-  per database is not predetermined.
+  per database is not predetermined.<br>
 
   Reschedule node, time and exception mail address are retrieved from the
   configuration file, identified by the keywords
@@ -2913,7 +2914,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_AIJ_BCK_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERSC
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_AIJ_BackupsDifferences
@@ -3012,7 +3013,7 @@ $ edit CPTRDB_BATCH_ENTRIES.REF
 <b>CPTRDB_BATCH_ENTRIES_DAILY.COM</b><br>
   (As user of the submitted jobs)<br>
   Daily check for the existence of a list of batch jobs located in CPT$RDB.
-  Send cockpit message and mail when a job is no longer running or scheduled.
+  Send CockpitMgr message and mail when a job is no longer running or scheduled.
   Reference file is list of filespecs CPTRDB_BATCH_ENTRIES.REF.
 
   The nodes, queues and source directory are listed in the configuration
@@ -3040,7 +3041,7 @@ CPT$RDB_JOB|CPTRDB_BATCH_ENTRIES_DAILY|L15S29|TOMORROW + 08:15|L15S36::ALLEMEERS
   are created in CPT$RDB and not in CPT$RDB_LISTS which is an exception.
 </p>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_BatchEntriesDifferences
@@ -3076,6 +3077,7 @@ CPTRDB_BatchEntriesDifferences
 <b>CPTRDB_AFTER_JOURNAL_EDIT_FILENAME.COM</b><br>
 <b>CPTRDB_AFTER_JOURNAL_RESERVE.COM</b><br>
 <b>CPTRDB_AFTER_JOURNAL_SHUTDOWN_TIMEOUT.COM</b><br>
+<b>CPTRDB_AFTER_JOURNAL_DROP_GEN.COM</b><br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures Usage
@@ -3303,7 +3305,7 @@ AIJ3|AIJ file has been modified|AIJ file block has been assigned|
   configuration file CPTRDB_CONFIGURATION.REF, identified by the keywords
   CPT$RDB_DATABASE|CPTRDB_SHOW_AIJ_LIVE.
 
-  Send cockpit message and mail if exceptions are found, or a emergency
+  Send CockpitMgr message and mail if exceptions are found, or a emergency
   journal exists.
 
   Exceptions are flagged with "*{exception}*" in the output file.
@@ -3351,7 +3353,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_AIJ_LIVE_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERS
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_AIJ_LiveExceptions
@@ -3554,6 +3556,51 @@ $!-----------------------------------------
   more information.
 </p>
 
+<p>
+<b>CPTRDB_AFTER_JOURNAL_DROP_GEN.COM</b><br>
+  Generate a command file in CPT$RDB_DATA: to drop latent emergency live
+  AIJ files for a given database.<br>
+  Requires the information table RDB$JOURNALS.
+</p>
+
+<p>
+  Parameters: P1, database logical, varchar(255)
+</p>
+
+<p>
+  Usage:
+</p>
+
+<pre>
+$ @CPTRDB_AFTER_JOURNAL_DROP_GEN {dbid}
+</pre>
+
+<p>
+  Output sample:
+</p>
+
+<pre>
+$!
+$! Generated By CPTRDB On Node L15S29 At 2016-07-06 16:07:49
+$!
+$ set nover
+$ on error then goto exit_procedure
+$!
+$ set proc/priv=all
+$ set proc/prio=4
+$ set proc/parse_style=traditional
+$!
+$ set ver
+$!
+$ rmu/set after_journal /drop=(name=EMERGENCY_4) CPTRDB_DB_1
+$!
+$ set nover
+$!
+$exit_procedure:
+$ set nover
+$ exit
+</pre>
+
 <a href="#Chapter 1">To Top</a><br>
 
 <a name="Chapter 22"></a>
@@ -3699,12 +3746,12 @@ $ @CPTRDB_SHOW_STAT_LOGS_GO {node} {dbid} {rdb_vrsn}
 
   The default refresh rate is 1 second.<br>
 
-  The default stall alarm is 5 seconds, reported by the cockpit event
+  The default stall alarm is 5 seconds, reported by the CockpitMgr event
   RDB_StallExceeded.<br>
 
   The default long transaction alarm, as specified in the configuration
   file CPTRDB_SHOW_STAT_LOGS.CONFIG "LONG_TX_SECONDS = 300;" is 5 minutes,
-  reported by the cockpit event RDB_LONG_LASTING_TRANSACTION.<br>
+  reported by the CockpitMgr event RDB_LONG_LASTING_TRANSACTION.<br>
 
   The CockpitMgr event console displays all standard Rdb alarm messages 
   generated by this procedure.
@@ -4081,7 +4128,7 @@ Total of 1 file.
   cluster nodes, listed in the configuration file CPTRDB_CONFIGURATION.REF
   identified by the keywords CPT$RDB_NODE|CPTRDB_SHOW_STATS.
 
-  Send cockpit message and mail if difference found with reference file
+  Send CockpitMgr message and mail if difference found with reference file
   CPTRDB_SHOW_STATS.REF
 
   If a statistics job is missing, this will also be reported by the procedures
@@ -4102,7 +4149,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_STATS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERSCH|
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_StatisticsDifferences
@@ -4256,7 +4303,7 @@ Number of open databases: 5
   Daily list open databases on a series of nodes listed in the configuration 
   file, identified by the keywords CPT$RDB_NODE|CPTRDB_SHOW_DBS_OPEN.
 
-  Send cockpit message and mail if difference found with reference file
+  Send CockpitMgr message and mail if difference found with reference file
   CPTRDB_SHOW_DBS_OPEN.REF.
 
   Reschedule node, reschedule time and exception mail address are
@@ -4274,7 +4321,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_DBS_OPEN_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERS
 ! 4 Exception mail address
 </pre>
   
-  Toolkit cockpit event:<br>
+  Toolkit CockpitMgr event:<br>
 
 <pre>
 CPTRDB_OpenDatabasesDifferences
@@ -4305,8 +4352,8 @@ CPTRDB_OpenDatabasesDifferences
 <b>CPTRDB_SHOW_STORAGE_AREAS.COM</b><br>
 <b>CPTRDB_ALTER_EXTENTS_GEN.COM</b><br><br>
 
-<b>CPTRDB_SHOW_DATA_AREAS.COM</b><br>
 <b>CPTRDB_SHOW_SNAPSHOT_AREAS.COM</b><br>
+<b>CPTRDB_SHOW_DATA_AREAS.COM</b><br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures usage
@@ -4481,7 +4528,7 @@ ACC_DB_G01S09
   confuguration file CPTRDB_CONFIGURATION.REF, identified by the keywords
   CPT$RDB_DATABASE|CPTRDB_SHOW_EXTENTS.
 
-  Send cockpit message and mail if storage areas extents or (snapshot areas)
+  Send CockpitMgr message and mail if storage areas extents or (snapshot areas)
   shrinks found.
 
   The reschedule node, time and execption mail address are retrieved from
@@ -4514,7 +4561,7 @@ CPTRDB_DB_1_20150403.SIZE_03APR080003;1
                       3-APR-2015 08:00:03.09
 </pre>
 
-  Toolkit cockpit event:<br>
+  Toolkit CockpitMgr event:<br>
 
 <pre>
 CPTRDB_ExtentsFound
@@ -4704,31 +4751,119 @@ $ exit
 </pre>
 
 <p>
-<b>CPTRDB_SHOW_DATA_AREAS.COM</b><br>
 <b>CPTRDB_SHOW_SNAPSHOT_AREAS.COM</b><br>
-  List the current data or snapshot areas file sizes for a series of databases
-  based on a search of the available .size files in the cpt$rdb_size directory.
-
-  Requires the {dbid}.size file(s) in the cpt$rdb_size directory. 
+  List the current snapshot areas file sizes for a series of databases,
+  based on the data in the CPT$RDB_SIZE directory, identified in the
+  configuration file CPTRDB_CONFIGURATION.REF by the keywords
+  CPT$RDB_DATABASE|CPTRDB_SHOW_SNAPSHOT_AREAS
 </p>
 
-  Parameters: Adapt the database list.<br>
-
 <pre>
-$!-----------------------
-$ dbid    = "CPTRDB_DB_1"
-$ filecnt = filecnt + 1
-$ dbcnt   = dbcnt   + 1
-$ gosub do_one_db
-$ gosub append_one_file
-$!-----------------------
+CPT$RDB_DATABASE|CPTRDB_SHOW_SNAPSHOT_AREAS|CPTRDB_DB_1|
+!
+! 0 CPT$RDB_DATABASE
+! 1 CPTRDB_SHOW_SNAPSHOT_AREAS
+! 2 Database
 </pre>
 
-  Usage:<br>
+<p>
+  Requires the {dbid}.size file(s) in the CPT$RDB_SIZE: directory.
+</p>
+
+<p>
+  Usage:
+</p>
+
+<pre>
+$ @CPTRDB_SHOW_SNAPSHOT_AREAS
+</pre>
+
+<p>
+  Output sample:
+</p>
+
+<pre>
+2016-06-21 14:35:37.23 CPTRDB - Snapshot Areas Files On Node L15S29
+ 
+-- 1 -- CPTRDB_DB_1
+ 
+       288 DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]RDB_SYSTEM.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DEFAULT_AREA.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]LISTS_AREA.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]MIXED_AREA_1.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]MIXED_AREA_2.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]MIXED_AREA_3.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_11.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_12.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_21.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_22.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_31.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_32.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]INDEX_AREA_1.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]INDEX_AREA_2.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]INDEX_AREA_3.SNP;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]STALL_CNTS_AREA.SNP;1
+       288 <- .RDB Size
+    193536 <- .SNP Size
+</pre>
+
+<p>
+<b>CPTRDB_SHOW_DATA_AREAS.COM</b><br>
+  List the current data areas file sizes for a series of databases,
+  based on the data in the CPT$RDB_SIZE directory, identified in the
+  configuration file CPTRDB_CONFIGURATION.REF by the keywords
+  CPT$RDB_DATABASE|CPTRDB_SHOW_DATA_AREAS
+</p>
+
+<pre>
+CPT$RDB_DATABASE|CPTRDB_SHOW_DATA_AREAS|CPTRDB_DB_1|
+!
+! 0 CPT$RDB_DATABASE
+! 1 CPTRDB_SHOW_DATA_AREAS
+! 2 Database
+</pre>
+
+<p>
+  Requires the {dbid}.size file(s) in the CPT$RDB_SIZE: directory. 
+</p>
+
+<p>
+  Usage:
+</p>
 
 <pre>
 $ @CPTRDB_SHOW_DATA_AREAS
-$ @CPTRDB_SHOW_SNAPSHOT_AREAS
+</pre>
+
+<p>
+  Output sample:
+</p>
+
+<pre>
+2016-06-21 14:41:54.88 CPTRDB - Data Areas Files On Node L15S29
+ 
+-- 1 -- CPTRDB_DB_1
+ 
+       288 DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]RDB_SYSTEM.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DEFAULT_AREA.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]LISTS_AREA.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]MIXED_AREA_1.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]MIXED_AREA_2.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]MIXED_AREA_3.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_11.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_12.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_21.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_22.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_31.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]DATA_AREA_32.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]INDEX_AREA_1.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]INDEX_AREA_2.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]INDEX_AREA_3.RDA;1
+     12096 DISK$DATA_29:[CPTRDB_DB_1]STALL_CNTS_AREA.RDA;1
+       288 <- .RDB Size
+    193536 <- .RDA Size
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -4917,7 +5052,7 @@ $ @CPTRDB_TRNC_SNAPS_GEN_ALL
 <p>
   Weekly trunc the snapshot files for a series of databases.
   Abort and switch to next database if stalled for more than n seconds and send 
-  a cockpit message and mail.
+  a CockpitMgr message and mail.
 
   The list of databases and their individual trunc procedure settings are
   retrieved from the configuration file CPTRDB_CONFIGURATION.REF identified by
@@ -4959,7 +5094,7 @@ CPT$RDB_JOB|CPTRDB_TRNC_SNAPS_ALL|L15S29|TOMORROW +6-03:30|
   Called per database in parallel from CPTRDB_TRNC_SNAPS_ALL.COM.<br>
 
   If the trunc job for a database is still running after n seconds,
-  it is stopped and a cockpit message and mail are sent.
+  it is stopped and a CockpitMgr message and mail are sent.
 </p>
 
 <pre>
@@ -4982,7 +5117,7 @@ CPT$RDB_PARAM|CPTRDB_TRNC_SNAPS_STOP|00:00:30|L15S36::ALLEMEERSCH|
 ! 3 Exception mail address
 </pre>
 
-  Toolkit cockpit event:<br>
+  Toolkit CockpitMgr event:<br>
 
 <pre>
 CPTRDB_TruncSnapsStopped
@@ -5092,7 +5227,7 @@ Total of 1 file, 1/96 blocks.
   nodes, listed in the configuration file, identified by the keywords
   CPT$RDB_NODE|CPTRDB_SHOW_BUGCHECK.
 
-  Send cockpit message and mail if dump files are found.
+  Send CockpitMgr message and mail if dump files are found.
 
   The reschedule node, time and exception mail address are retrieved from
   the configuration file, identified by the keywords
@@ -5109,7 +5244,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_BUGCHECK_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERS
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_BugcheckDumpsFound
@@ -5502,7 +5637,7 @@ $!----------------------
   List 'waiting for' messages counts, desc per hour, from the stall logfile(s)
   for a specific database, node, and period.<br>
 
-  Send mail and cockpit message if a counts per hour alarm is exceeded.
+  Send mail and CockpitMgr message if a counts per hour alarm is exceeded.
 </p>
   
 <pre>
@@ -5565,7 +5700,7 @@ $!$ define sql$database "ANA_''dbid'"
 $!-----------------------------------
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_StallCntsExceeded
@@ -5766,7 +5901,7 @@ W writing
 </pre>
 
 <p>
-  Send mail and cockpit message if a counts per hour alarm is exceeded.
+  Send mail and CockpitMgr message if a counts per hour alarm is exceeded.
 </p>
   
 <pre>
@@ -5831,7 +5966,7 @@ $!$ define sql$database "ANA_''dbid'"
 $!-----------------------------------
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_StallRwCntsExceeded
@@ -6006,7 +6141,7 @@ $!----------------------
   List 'waiting for' messages counts, desc per hour, from the deadlock 
   logfile(s) for a specific database, node, and period.
   
-  Send mail and cockpit message if a deadlock counts per hour alarm is exceeded.
+  Send mail and CockpitMgr message if a deadlock counts per hour alarm is exceeded.
 </p>
   
 <pre>
@@ -6036,7 +6171,7 @@ Parameters: P1, database logical,       varchar(255)
   the day, the hour of the day and the deadlocked database object.
 
   Default no additional conditions are applied for notification. A mail
-  and cockpit event are sent as soon a the deadlock counts alarm limit
+  and CockpitMgr event are sent as soon a the deadlock counts alarm limit
   is reached.
 </p>
 
@@ -6063,7 +6198,7 @@ $!$ define sql$database "ANA_''dbid'"
 $!-----------------------------------
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_DeadlockCntsExceeded
@@ -6218,7 +6353,7 @@ $!----------------------
   List 'waiting for' messages stall times from the stall logfile(s)
   for a specific database, node, and period.
 
-  Send mail and cockpit message if a stall times alarm is exceeded.
+  Send mail and CockpitMgr message if a stall times alarm is exceeded.
 </p>
   
 <pre>
@@ -6308,7 +6443,7 @@ $!$ define sql$database "ANA_''dbid'"
 $!-----------------------------------
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_StallTimesExceeded
@@ -6453,7 +6588,7 @@ W writing
 </pre>
 
 <p>
-  Send mail and cockpit message if a number of seconds times alarm is exceeded.
+  Send mail and CockpitMgr message if a number of seconds times alarm is exceeded.
 </p>
   
 <pre>
@@ -6525,7 +6660,7 @@ $!$ define sql$database "ANA_''dbid'"
 $!-----------------------------------
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
   CPTRDB_StallRwTimesExceeded
@@ -11063,7 +11198,7 @@ AIJ3                            Unused    100000     Empty Latent  Accessible
   CPTRDB_ALTER_DATABASE.COM as a template, before the actual RMU/Open.
 </p>
 
-  Toolset cockpit events:<br>
+  Toolset CockpitMgr events:<br>
 
 <pre>
 CPTRDB_DB_RestoreStarted
@@ -11234,7 +11369,7 @@ AIJ3                              6217    100000         2 Current Accessible
   Run the job CPTRDB_BACKUP_DB_ALL and start normal processing.
 </p>
 
-  Toolset cockpit events:<br>
+  Toolset CockpitMgr events:<br>
 
 <pre>
 CPTRDB_DB_RecoverStarted
@@ -11467,23 +11602,194 @@ for a database with (continuous) logminer enabled.
   RMU/Unload/After_Journal data from a series of hardcoded AIJ journal files.
 </p>
 
-  Parameters: Adapt the list of AIJ backup files in the parameter block.<br>
+<p>
+  Parameters: Adapt the list of AIJ backup files in the parameter block.
+</p>
 
 <pre>
 $!---------------------------------------------------------------------------
 $ dbid    = "CPTRDB_DB_1"
-$ aijbck1 = "CPT$RDB_AIJ_BCK:CPTRDB_DB_1_L15S29_20150609_1002_5944.AIJ_BCK;1"
-$ aijbck2 = "CPT$RDB_AIJ_BCK:CPTRDB_DB_1_L15S29_20150609_1203_5945.AIJ_BCK;1"
-$ aijbck3 = "CPT$RDB_AIJ_BCK:CPTRDB_DB_1_L15S29_20150609_1403_5946.AIJ_BCK;1"
+$ aijbck1 = "CPT$RDB_AIJ_BCK:CPTRDB_DB_1_L15S29_20160715_1009_9966.AIJ_BCK;1"
+$ aijbck2 = "CPT$RDB_AIJ_BCK:CPTRDB_DB_1_L15S29_20160715_1209_9967.AIJ_BCK;1"
+$ aijbck3 = "CPT$RDB_AIJ_BCK:CPTRDB_DB_1_L15S29_20160715_1409_9968.AIJ_BCK;1"
 $!---------------------------------------------------------------------------
 </pre>
 
 <p>
-  Call JCCLML_CVT_ODBKEY.COM to convert dbkey bigint values to the 
-  readable format {larea}:{page}:{line}.
+  Sample logfile extract:
 </p>
 
-  Usage:<br>
+<pre>
+  table = jcclml$heartbeat, -
+    output            = cpt$rdb_data:rdb_lm_jcclml$heartbeat.unl, -
+    table_definition  = cpt$rdb_data:rdb_lm_jcclml$heartbeat.sql, -
+    record_definition = cpt$rdb_data:rdb_lm_jcclml$heartbeat.rrd
+   1 : TABLE=JCCLML$HEARTBEAT,OUTPUT=CPT$RDB_DATA:RDB_LM_JCCLML$HEARTBEAT.UNL,TABLE_DEFINITION=CPT$RDB_DATA:RDB_LM_JCCLML$HEARTBEAT.SQL,RECORD_DEFINITION=CPT$RDB_DATA:RDB_LM_JCCLML$HEARTBEAT.RRD
+  !
+%RMU-I-UNLAIJFL, Unloading table JCCLML$HEARTBEAT to CPT$RDB_ROOT:[DATA]RDB_LM_JCCLML$HEARTBEAT.UNL;1
+%RMU-I-LOGOPNAIJ, opened journal file DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160715_1009_9966.AIJ_BCK;1 at 15-JUL-2016 14:44:44.99
+%RMU-I-AIJRSTSEQ, journal sequence number is "9966"
+%RMU-I-AIJMODSEQ, next AIJ file sequence number will be 9967
+%RMU-I-LOGOPNAIJ, opened journal file DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160715_1209_9967.AIJ_BCK;1 at 15-JUL-2016 14:44:45.02
+%RMU-I-AIJRSTSEQ, journal sequence number is "9967"
+%RMU-I-AIJMODSEQ, next AIJ file sequence number will be 9968
+%RMU-I-LOGOPNAIJ, opened journal file DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20160715_1409_9968.AIJ_BCK;1 at 15-JUL-2016 14:44:45.07
+%RMU-I-AIJRSTSEQ, journal sequence number is "9968"
+%RMU-I-AIJMODSEQ, next AIJ file sequence number will be 9969
+%RMU-I-LOGSUMMARY, total 75 transactions committed
+%RMU-I-LOGSUMMARY, total 0 transactions rolled back
+------------------------------------------------------------------------------
+ ELAPSED:    0 00:00:00.15  CPU: 0:00:00.01  BUFIO: 39  DIRIO: 21  FAULTS: 74 
+Table "JCCLML$HEARTBEAT" : 72 records written (72 modify, 0 delete)
+Total : 72 records written (72 modify, 0 delete)
+</pre>
+
+<p>
+  Sample output files:
+</p>
+
+<p>
+RDB_LM_JCCLML$HEARTBEAT.SQL
+</p>
+
+<pre>
+-- Table definition for LogMiner transaction data 15-JUL-2016 14:44:44.92
+-- From database table "JCCLML$HEARTBEAT"
+CREATE TABLE RDB_LM_JCCLML$HEARTBEAT (
+  RDB$LM_ACTION CHAR
+ ,RDB$LM_RELATION_NAME CHAR (31)
+ ,RDB$LM_RECORD_TYPE INTEGER
+ ,RDB$LM_DATA_LEN SMALLINT
+ ,RDB$LM_NBV_LEN SMALLINT
+ ,RDB$LM_DBK BIGINT
+ ,RDB$LM_START_TAD DATE VMS
+ ,RDB$LM_COMMIT_TAD DATE VMS
+ ,RDB$LM_TSN BIGINT
+ ,RDB$LM_RECORD_VERSION SMALLINT
+ ,JCCLML$TIMESTAMP DATE VMS
+);
+</pre>
+
+<p>
+RDB_LM_JCCLML$HEARTBEAT.RRD
+</p>
+
+<pre>
+/* Record definition for LogMiner transaction data 15-JUL-2016 14:44:44.91 */
+/* From database table "JCCLML$HEARTBEAT" */
+DEFINE FIELD RDB$LM_ACTION DATATYPE IS TEXT SIZE IS 1.
+DEFINE FIELD RDB$LM_RELATION_NAME DATATYPE IS TEXT SIZE IS 31.
+DEFINE FIELD RDB$LM_RECORD_TYPE DATATYPE IS TEXT SIZE IS 12.
+DEFINE FIELD RDB$LM_DATA_LEN DATATYPE IS TEXT SIZE IS 6.
+DEFINE FIELD RDB$LM_NBV_LEN DATATYPE IS TEXT SIZE IS 6.
+DEFINE FIELD RDB$LM_DBK DATATYPE IS TEXT SIZE IS 20.
+DEFINE FIELD RDB$LM_START_TAD DATATYPE IS TEXT SIZE IS 16.
+DEFINE FIELD RDB$LM_COMMIT_TAD DATATYPE IS TEXT SIZE IS 16.
+DEFINE FIELD RDB$LM_TSN DATATYPE IS TEXT SIZE IS 20.
+DEFINE FIELD RDB$LM_RECORD_VERSION DATATYPE IS TEXT SIZE IS 6.
+DEFINE FIELD JCCLML$TIMESTAMP DATATYPE IS TEXT SIZE IS 16.
+DEFINE RECORD RDB_LM_JCCLML$HEARTBEAT.
+   RDB$LM_ACTION .
+   RDB$LM_RELATION_NAME .
+   RDB$LM_RECORD_TYPE .
+   RDB$LM_DATA_LEN .
+   RDB$LM_NBV_LEN .
+   RDB$LM_DBK .
+   RDB$LM_START_TAD .
+   RDB$LM_COMMIT_TAD .
+   RDB$LM_TSN .
+   RDB$LM_RECORD_VERSION .
+   JCCLML$TIMESTAMP .
+END RDB_LM_JCCLML$HEARTBEAT RECORD.
+</pre>
+
+<p>
+RDB_LM_JCCLML$HEARTBEAT.UNL
+</p>
+
+<pre>
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508124413|2016071508124415|3139848|1|2016071508124415
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508174413|2016071508174413|3139850|1|2016071508174413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508224413|2016071508224413|3139852|1|2016071508224413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508274413|2016071508274413|3139854|1|2016071508274413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508324413|2016071508324413|3139856|1|2016071508324413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508374413|2016071508374413|3139858|1|2016071508374413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508424413|2016071508424413|3139860|1|2016071508424413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508474413|2016071508474413|3139862|1|2016071508474413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508524413|2016071508524413|3139864|1|2016071508524413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508574413|2016071508574413|3139866|1|2016071508574413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509024413|2016071509024413|3139868|1|2016071509024413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509074413|2016071509074413|3139870|1|2016071509074413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509124413|2016071509124413|3139872|1|2016071509124413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509174413|2016071509174413|3139874|1|2016071509174413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509224413|2016071509224413|3139876|1|2016071509224413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509274413|2016071509274413|3139878|1|2016071509274413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509324413|2016071509324413|3139880|1|2016071509324413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509374413|2016071509374413|3139882|1|2016071509374413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509424413|2016071509424413|3139884|1|2016071509424413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509474413|2016071509474413|3139886|1|2016071509474413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509524413|2016071509524413|3139888|1|2016071509524413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509574413|2016071509574413|3139890|1|2016071509574413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510024413|2016071510024413|3139892|1|2016071510024413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510074413|2016071510074414|3139894|1|2016071510074413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510124413|2016071510124415|3140152|1|2016071510124415
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510174413|2016071510174413|3140154|1|2016071510174413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510224413|2016071510224413|3140156|1|2016071510224413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510274413|2016071510274413|3140158|1|2016071510274413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510324413|2016071510324413|3140160|1|2016071510324413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510374413|2016071510374413|3140162|1|2016071510374413
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510424414|2016071510424414|3140164|1|2016071510424414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510474414|2016071510474414|3140166|1|2016071510474414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510524414|2016071510524414|3140168|1|2016071510524414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510574414|2016071510574414|3140170|1|2016071510574414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511024414|2016071511024414|3140172|1|2016071511024414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511074414|2016071511074414|3140174|1|2016071511074414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511124414|2016071511124414|3140176|1|2016071511124414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511174414|2016071511174414|3140178|1|2016071511174414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511224414|2016071511224414|3140180|1|2016071511224414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511274414|2016071511274414|3140182|1|2016071511274414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511324414|2016071511324414|3140184|1|2016071511324414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511374414|2016071511374414|3140186|1|2016071511374414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511424414|2016071511424414|3140188|1|2016071511424414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511474414|2016071511474414|3140190|1|2016071511474414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511524414|2016071511524414|3140192|1|2016071511524414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511574414|2016071511574414|3140194|1|2016071511574414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512024414|2016071512024414|3140196|1|2016071512024414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512074414|2016071512074414|3140198|1|2016071512074414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512124414|2016071512124414|3140456|1|2016071512124414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512174414|2016071512174414|3140458|1|2016071512174414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512224414|2016071512224414|3140460|1|2016071512224414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512274414|2016071512274414|3140462|1|2016071512274414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512324414|2016071512324414|3140464|1|2016071512324414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512374414|2016071512374414|3140466|1|2016071512374414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512424414|2016071512424414|3140468|1|2016071512424414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512474414|2016071512474414|3140470|1|2016071512474414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512524414|2016071512524414|3140472|1|2016071512524414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512574414|2016071512574414|3140474|1|2016071512574414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513024414|2016071513024414|3140476|1|2016071513024414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513074414|2016071513074414|3140478|1|2016071513074414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513124414|2016071513124414|3140480|1|2016071513124414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513174414|2016071513174414|3140482|1|2016071513174414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513224414|2016071513224414|3140484|1|2016071513224414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513274414|2016071513274414|3140486|1|2016071513274414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513324414|2016071513324414|3140488|1|2016071513324414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513374414|2016071513374414|3140490|1|2016071513374414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513424414|2016071513424414|3140492|1|2016071513424414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513474414|2016071513474414|3140494|1|2016071513474414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513524414|2016071513524414|3140496|1|2016071513524414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513574414|2016071513574414|3140498|1|2016071513574414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071514024414|2016071514024414|3140500|1|2016071514024414
+M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071514074414|2016071514074414|3140502|1|2016071514074414
+</pre>
+
+<p>
+  Call JCCLML_CVT_ODBKEY.COM to convert dbkey bigint values to the 
+  readable format {larea}:{page}:{line} .
+</p>
+
+<p>
+  Usage:
+</p>
 
 <pre>
 $ @JCCLML_CVT_ODBKEY 18295873505984512
@@ -11491,6 +11797,11 @@ $ @JCCLML_CVT_ODBKEY 18295873505984512
   Hex:     410000012e0000
   Hex:     41:12e:0
   Decimal: 65:302:0
+
+SQL> select * from JCCLML$HEARTBEAT where dbkey = _dbkey'65:302:0';
+ JCCLML$TIMESTAMP
+ 15-JUL-2016 15:02:44.14
+1 row selected
 </pre>
 
 <p>
@@ -11983,7 +12294,7 @@ CPT$RDB_NODE|CPTRDB_SHOW_JDBC_PROCESS|L15S29|TS170|
 ! 3 Process name(s) (sub)string
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_JDBC_RestartStarted
@@ -12256,7 +12567,7 @@ Number of JDBC processes: 5
   in the configuration file CPTRDB_CONFIGURATION.REF, identified by the
   keywords CPT$RDB_NODE|CPTRDB_SHOW_JDBC_PROCESS.
 
-  Send cockpit message and mail if difference found with reference file
+  Send CockpitMgr message and mail if difference found with reference file
   CPTRDB_SHOW_JDBC_PROCESS.REF .
 
   The reschedule node, time and exception mail address are retrieved from
@@ -12274,7 +12585,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_JDBC_PROCESS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEM
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_JDBC_ProcessDifferences
@@ -12513,7 +12824,7 @@ Total of 4 files, 198/384 blocks.
   in the configuration file, identified by the keywords
   CPT$RDB_NODE|CPTRDB_SHOW_JDBC_LOGS.
 
-  Send cockpit message and mail if difference found with reference file
+  Send CockpitMgr message and mail if difference found with reference file
   CPTRDB_SHOW_JDBC_LOGS.REF.
 
   An additional jdbc restart on the previous day will create an extra
@@ -12534,7 +12845,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_JDBC_LOGS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEER
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_JDBC_LogfilesDifferences
@@ -12638,7 +12949,7 @@ CPT$RDB_JOB|CPTRDB_SRVTRC_CLIENTS_ALL|L15S29|TOMORROW + 04:00|
   Parse one daily Rdb JDBC thin server/node trace file level 0x40000400
   for ip address and client info.<br>
 
-  Send a cockpit message and mail if no trace file or no clients are found.<br>
+  Send a CockpitMgr message and mail if no trace file or no clients are found.<br>
 
   The input and output directories are listed in the configuration file
   identified by the keywords CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73402
@@ -12776,7 +13087,7 @@ V73410
 2015-01-14 11:14:04.691|10.3.130.173|clio_db|JDBCMON|2D7B8C72:1|61470|RDB$CLIENT_ID_000000FE|73310:20140826|2D7B8C72:127
 </pre>
 
-   Toolset cockpit event:<br>
+   Toolset CockpitMgr event:<br>
 
 <pre>
 "CPTRDB_SRVTRC_NoClients"
@@ -13832,7 +14143,7 @@ JCCLML_SHOW_PROCESS.REF
   cluster nodes, identified in the configuration file CPTRDB_CONFIGURATION.REF
   by the keywords CPT$RDB_NODE|JCCLML_SHOW_PROCESS.
 
-  Send a cockpit message and mail if a difference is found with the reference 
+  Send a CockpitMgr message and mail if a difference is found with the reference 
   file JCCLML_SHOW_PROCESS.REF.
 
   The reschedule node, time and exception mail address are retrieved from the 
@@ -13850,7 +14161,7 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_PROCESS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEME
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_JCCLML_ProcessDiff
@@ -13942,7 +14253,7 @@ Total of 1 file, 909/1056 blocks.
   series of cluster nodes, identified in the configuration file 
   CPTRDB_CONFIGURATION.REF by the keywords CPT$RDB_NODE|JCCLML_SHOW_STATS.
 
-  Send a cockpit message and mail if a difference is found with the reference 
+  Send a CockpitMgr message and mail if a difference is found with the reference 
   file JCCLML_SHOW_STATS.REF.
 
   The reschedule node, time and exception mail address are retrieved from the 
@@ -13960,7 +14271,7 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_STATS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEER
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_JCCLML_StatsDiff
@@ -14048,34 +14359,35 @@ CPTRDB_LML| 7-APR-2015 08:02:18.76|   0 00:05:01.73|*DELAYED*
 Total number of loader sessions 1
  
  7-APR-2015 08:07:20.59 *Show JCCLML heartbeats check failed*
+</pre>
 
-...
-
-JCC Logminer Loader Heartbeat Timestamps
-From Node L15S55
-At 10-APR-2015 09:37:31.36
+Or<br>
  
-Delay warning 0 00:05:00.00
+<pre>
+CPTRDB - JCC Logminer Loader Most Recent Heartbeat Timestamps
+From Node:     L15S55
+Delay warning: 0 00:05:00.00
+At:             8-JUL-2016 15:46:18.69
  
-On node L15S55
+--------------
+On Node L15S55
+--------------
  
-ACC_B01S15P|10-APR-2015 09:35:25.07|   0 00:02:06.54|OK
-ACC_C01S16P|10-APR-2015 09:35:27.19|   0 00:02:04.42|OK
-ACC_G01S09P|10-APR-2015 09:34:34.40|   0 00:02:57.21|OK
-ACC_H01S25P|10-APR-2015 09:35:32.73|   0 00:01:58.88|OK
-ACC_J01S14P|10-APR-2015 09:35:38.18|   0 00:01:53.43|OK
-ACC_L01S99P|10-APR-2015 09:34:36.93|   0 00:02:54.68|OK
-ACC_L11S02P|10-APR-2015 09:35:42.91|   0 00:01:48.71|OK
-ACC_L11S13P|10-APR-2015 09:35:50.37|   0 00:01:41.25|OK
-ACC_L14S36P|10-APR-2015 09:35:53.36|   0 00:01:38.26|OK
-ACC_L14S45P|10-APR-2015 09:34:41.98|   0 00:02:49.64|OK
-ACC_L14S50P|10-APR-2015 09:35:58.17|   0 00:01:33.45|OK
-ACC_L15S40P|10-APR-2015 09:36:04.87|   0 00:01:26.75|OK
-SSPTEDE    |10-APR-2015 09:32:27.96|   0 00:05:03.66|*DELAYED*
-SSP_RCODEVM|10-APR-2015 09:35:11.44|   0 00:02:20.19|OK
+ACC_B01S15P| 8-JUL-2016 15:42:02.77|   0 00:04:16.08|OK
+ACC_C01S16P| 8-JUL-2016 15:42:11.09|   0 00:04:07.76|OK
+ACC_G01S09P| 8-JUL-2016 15:41:24.14|   0 00:04:54.71|OK
+ACC_H01S25P| 8-JUL-2016 15:43:56.69|   0 00:02:22.16|OK
+ACC_J01S14P| 8-JUL-2016 15:44:00.95|   0 00:02:17.91|OK
+ACC_L01S99P| 8-JUL-2016 15:41:26.96|   0 00:04:51.90|OK
+ACC_L11S02P| 8-JUL-2016 15:44:05.07|   0 00:02:13.79|OK
+ACC_L11S13P| 8-JUL-2016 15:44:09.20|   0 00:02:09.66|OK
+ACC_L14S36P| 8-JUL-2016 15:44:14.88|   0 00:02:03.98|OK
+ACC_L14S45P| 8-JUL-2016 15:41:32.39|   0 00:04:46.47|OK
+ACC_L14S50P| 8-JUL-2016 15:42:20.36|   0 00:03:58.50|OK
+ACC_L15S40P| 8-JUL-2016 15:44:25.69|   0 00:01:53.18|OK
+SSPTEDE    | 8-JUL-2016 15:41:36.78|   0 00:04:42.09|OK
+SSP_RCODEVM| 8-JUL-2016 15:41:41.94|   0 00:04:36.93|OK
 Total number of loader sessions 14
- 
-10-APR-2015 09:37:31.71 *Show JCCLML heartbeats check failed*
 </pre>
 
 <p>
@@ -14099,7 +14411,7 @@ Total number of loader sessions 14
   CPTRDB_CONFIGURATION.REF identified by the keywords 
   CPT$RDB_NODE|JCCLML_SHOW_HEARTBEAT.<br>
 
-  Send cockpit message and mail if difference found with reference file
+  Send CockpitMgr message and mail if difference found with reference file
   CPT$RDB:JCCLML_SHOW_HEARTBEAT.REF.<br>
 
   The purpose of this procedure is to track the presence and normal progress
@@ -14120,7 +14432,7 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_HEARTBEAT_CONT|L15S29|+00:30|L15S36::ALLEMEERSCH|
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 "CPTRDB_JCCLML_HeartbeatDiff {node} yyyymmdd"
@@ -14236,7 +14548,7 @@ CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1
   Default, the output files *.log / *.lis / *.diff are cleaned after 4 hours,
   *.mime files after 7 days.<br>
 
-  Send cockpit message and mail if difference found with reference file
+  Send CockpitMgr message and mail if difference found with reference file
   CPT$RDB:JCCLML_SHOW_AERCP.REF<br>
 
   The reschedule node, time and exception mail address are retrieved from
@@ -14254,7 +14566,7 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_AERCP_CONT|L15S29|+00:30|L15S36::ALLEMEERSCH|
 ! 4 Exception mail address
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 "CPTRDB_JCCLML_AercpDiff {node} yyyymmdd"
@@ -14529,13 +14841,55 @@ SQL> select sys_context('userenv','db_name') from dual;
 <p>
 <b>CPTRDB_OCI_PTNOVA_INTERFACE.COM</b><br>
   List data from a Oracle RDBMS database using the Oracle OpenVMS client,
-  from a OpenVMS batch job.
+  from a OpenVMS batch job.<br>
 
   Template PL/SQL code using table S663_PTNOVA_INTERFACE, a JCC Logminer Loader
-  target table with virtual columns.
+  target table with virtual columns.<br>
 
   Parameters: Adapt the Oracle OpenVMS client environment
 </p>
+
+<p>
+Output sample:
+</p>
+
+<pre>
+...
+SQL> --  ptnova_interface_id                       not null number(10)
+SQL> --  seasn_tkt_code                                     varchar2(12)
+SQL> --  sls_item_no                                        varchar2(12)
+SQL> --  mobib_card_code                                    varchar2(20)
+SQL> --  origin                                             varchar2(287)
+SQL> --  transaction_start_time                             timestamp(2)
+SQL> --  transaction_commit_time                            timestamp(2)
+SQL> --  transmission_date_time                             timestamp(2)
+SQL> --  originating_dbkey                                  number(22)
+SQL> --  stkt_prgrs_code                                    varchar2(1)
+SQL> --  trace_seasn_tkt_code                               varchar2(12)
+SQL> --  trace_sls_item_no                                  varchar2(12)
+SQL> --  trace_stkt_trace_type                              varchar2(2)
+SQL> --  trace_duplct_sls_item_no                           varchar2(12)
+SQL> --  sls_item_id                                        varchar2(2)
+SQL> --  price_cd                                           varchar2(3)
+SQL> --  orgnsm_id                                          varchar2(4)
+...
+55367930|NULL|053841401491|NULL|S663_ORACLE|S663_MOBIB_CONTRACT|VALIDATION|2016-07-13 12:19:15|NULL|2016-07-13 12:19:15|NULL|NULL|NULL|053841401491|NULL|NULL|NULL|NULL|NULL
+55367941|NULL|034668628035|NULL|S663_ORACLE|S663_MOBIB_CONTRACT|VALIDATION|2016-07-13 12:19:38|NULL|2016-07-13 12:19:38|NULL|NULL|NULL|034668628035|NULL|NULL|NULL|NULL|NULL
+55367936|NULL|830106147938|NULL|S663_ORACLE|S663_MOBIB_CONTRACT|VALIDATION|2016-07-13 12:19:20|NULL|2016-07-13 12:19:20|NULL|NULL|NULL|830106147938|NULL|NULL|NULL|NULL|NULL
+55367944|NULL|023847996432|NULL|S663_ORACLE|S663_MOBIB_CONTRACT|VALIDATION|2016-07-13 12:19:42|NULL|2016-07-13 12:19:42|NULL|NULL|NULL|023847996432|NULL|NULL|NULL|NULL|NULL
+55367954|NULL|018630332783|NULL|SBN_DB|SEASN_TKT_TRACE|2016-07-13 12:20:49|2016-07-13 12:20:49|2016-07-13 12:20:49|54043200587890717|NULL|018600318142|018630332783|NV|NULL|NULL|NULL|NULL
+55367948|NULL|043468970819|NULL|SBN_DB|SEASN_TKT_TRACE|2016-07-13 12:20:11|2016-07-13 12:20:11|2016-07-13 12:20:11|54043200587890712|NULL|043401286852|043468970819|NV|NULL|NULL|NULL|NULL
+55367937|NULL|014846072793|NULL|SBN_DB|SEASN_TKT_TRACE|2016-07-13 12:19:29|2016-07-13 12:19:29|2016-07-13 12:19:29|54043200587890709|NULL|014800765487|014846072793|NV|NULL|NULL|NULL|NULL
+55367950|NULL|043780532290|NULL|SBN_DB|SEASN_TKT_TRACE|2016-07-13 12:20:25|2016-07-13 12:20:25|2016-07-13 12:20:25|54043200587890714|NULL|043701175616|043780532290|NV|NULL|NULL|NULL|NULL
+55367952|NULL|043780532391|NULL|SBN_DB|SEASN_TKT_TRACE|2016-07-13 12:20:38|2016-07-13 12:20:38|2016-07-13 12:20:38|54043200587890716|NULL|043701175715|043780532391|NV|NULL|NULL|NULL|NULL
+55367955|019501019065|NULL|NULL|SBN_DB|SEASN_TKT|2016-07-13 12:20:51|2016-07-13 12:20:51|2016-07-13 12:20:51|21110672253124613|8|NULL|NULL|NULL|NULL|NULL|NULL|NULL
+55367956|NULL|043780532492|NULL|SBN_DB|SEASN_TKT_TRACE|2016-07-13 12:20:54|2016-07-13 12:20:54|2016-07-13 12:20:54|54043200587890718|NULL|043701175517|043780532492|NV|NULL|NULL|NULL|NULL
+55367951|NULL|013980878869|NULL|SBN_DB|SEASN_TKT_TRACE|2016-07-13 12:20:30|2016-07-13 12:20:30|2016-07-13 12:20:30|54043200587890715|NULL|013903979802|013980878869|NV|NULL|NULL|NULL|NULL
+55367934|NULL|017912294024|NULL|SBN_DB|SEASN_TKT_TRACE|2016-07-13 12:19:19|2016-07-13 12:19:19|2016-07-13 12:19:19|54043200587890702|NULL|017902168065|017912294024|NV|NULL|NULL|NULL|NULL
+Total count: 13
+
+PL/SQL procedure successfully completed.
+</pre>
 
 <p>
 <b>CPTRDB_OCI_DETAILS_CENTRAL_GO.COM</b><br>
@@ -14562,7 +14916,7 @@ $ @CPTRDB_OCI_DETAILS_CENTRAL_GO.COM
 <p>
   This template code illustrates the call of a stored procedure with
   parameters within a Oracle RDBMS database, using the Oracle OpenVMS client,
-  from a OpenVMS batch job.
+  from a OpenVMS batch job.<br>
   
   List individual rows of a table for the central acc_db,
   inserted/updated on a specific day, transmitted via the JCC Logminer Loader,
@@ -14576,6 +14930,55 @@ Parameters: P1, acct_unit_id,   char(5),   14001
             P4, reference_date, date ansi, 2009-05-12
   
 P4 is the TRANSACTION_START_TIME day of the transmitted row.
+</pre>
+
+<p>
+Output sample:
+</p>
+
+<pre>
+SQL> exec s304_p_jcclml_details_central('92023','DOSSIER','PRICE',date '2016-07-13');
+01 acct_unit_id|
+02 table_name|
+03 column_name|
+04 reference_date|
+92023|DOSSIER|PRICE|2016-07-13|
+01 dossier_no|
+02 type_trans|
+03 dossier_no_seq|
+04 cash_desk_no|
+05 cash_ses_no|
+06 price|
+07 time_stamp|
+08 transaction_start_time|
+09 transaction_commit_time|
+10 transmission_date_time|
+11 originating_dbkey|
+0062004880|55|2|W05|71278|0.00|#|2016-07-11 14:38:36|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177174854172678|
+0062004880|56|1|W05|71278|0.00|#|2016-07-11 11:37:09|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177174854172679|
+0063002831|63|1|V63|60812|0.00|#|2016-07-11 08:55:36|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177174606118923|
+0063002832|62|1|V63|60812|0.00|#|2016-07-11 08:58:12|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177174606249994|
+0063002833|55|1|V63|60812|0.00|#|2016-07-11 09:56:44|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177174606184448|
+0063002834|62|1|V63|60812|0.00|#|2016-07-11 10:02:39|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177174606249995|
+0063002835|58|1000|V63|60812|0.00|#|2016-07-13 00:44:42|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177173088043008|
+0063002835|62|2|V63|60812|0.00|#|2016-07-11 13:10:46|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177174606118924|
+0063002836|63|1|V63|60812|0.00|#|2016-07-11 14:17:47|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177174605987850|
+0063002836|63|2|V63|60812|0.00|#|2016-07-11 14:17:47|2016-07-13 00:58:38|2016-07-13 00:59:17|2016-07-13 01:02:52|26177174606053378|
+...
+2843000258|62|4|FX4|258|0.00|#|2016-07-11 11:04:35|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:55|26177174758096905|
+2843000258|62|5|FX4|258|0.00|#|2016-07-11 12:09:38|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:55|26177174757769218|
+2843000258|62|6|FX4|258|0.00|#|2016-07-11 16:11:34|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:55|26177174757376002|
+2843000258|62|7|FX4|258|0.00|#|2016-07-11 18:18:44|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:55|26177174757441547|
+2845000257|62|1|FX6|257|0.00|#|2016-07-11 13:13:33|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:55|26177174757179400|
+2846000258|62|1|FX7|258|0.00|#|2016-07-11 08:38:42|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:56|26177175987945476|
+2846000258|62|2|FX7|258|0.00|#|2016-07-11 11:48:35|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:56|26177175986634761|
+2846000258|62|3|FX7|258|0.00|#|2016-07-11 12:51:33|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:56|26177175986307075|
+2846000258|62|4|FX7|258|0.00|#|2016-07-11 15:19:37|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:56|26177175985979395|
+2846000258|62|5|FX7|258|0.00|#|2016-07-11 18:39:37|2016-07-13 01:55:18|2016-07-13 01:55:55|2016-07-13 01:55:56|26177175987552268|
+Total number of rows: 17175
+Total amount: 262911.15
+
+PL/SQL procedure successfully completed.
 </pre>
 
 <p>
@@ -15388,7 +15791,7 @@ CPT$RDB_NODE|CPTRDB_SHOW_SQLSRV_DAILY|L15S29|73|
   The output file is identical to the results of the procedure
   CPTRDB_SHOW_SQLSRV_SUMMARY.COM.
 
-  Send a cockpit message and mail if a difference is found with reference file
+  Send a CockpitMgr message and mail if a difference is found with reference file
   CPTRDB_SHOW_SQLSRV.REF.
 
   The reschedule node/time and the exception mail address are retrieved
@@ -15421,7 +15824,7 @@ CPT$RDB_PARAM|CPTRDB_SHOW_SQLSRV_DAILY|21|
 ! 2 All nodes longest service name length, to align state in tmp reference file
 </pre>
 
-  Toolset cockpit event:<br>
+  Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_SQLSRV_Differences
@@ -16163,7 +16566,7 @@ Output samples:<br>
 </h3>
 
 <p>
-  As of CockpitMgr V7.9-019 the cockpit DCL command MASTERLOCK/DATABASE={dbid} 
+  As of CockpitMgr V7.9-019 the CockpitMgr DCL command MASTERLOCK/DATABASE={dbid} 
   lists the node where the database lock tree is mastered for a given database.
   The command also establishes two DCL symbols CPT$MASTERLOCK_FILE and
   CPT$MASTERLOCK_NODE. The {node} symbol can be used in DCL command files
@@ -17064,6 +17467,58 @@ BULK_DELETE_{dbid}_{node}_yyyymmdd.UNL_ddmmmhhmmss
 <b>CPTRDB_BULK_DELETE_C.EXE</b><br>
   Itanium format image file of the application.
 </p>
+
+<p>
+Output sample:
+</p>
+
+<pre>
+Purge TABLE_PARTI/TABLE_PLACE
+-----------------------------
+
+On node: LOCAL:.L15S29                                               
+At     :  7-JUL-2016 15:44:06.50
+
+For Database: 
+DSA29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1                                            
+
+P1, From COL1:        300
+P2, To COL1:          399
+P3, Indic simulation: N
+P4, Indic trace:      Y
+P5, Max rows:         38
+P6, Display step:     5
+P7, Dummy date ansi:  2015-02-28
+
+At  7-JUL-2016 15:44:06.97
+Number of candidate TABLE_PARTI rows to be deleted: 38
+Number of range     TABLE_PARTI rows to be deleted: 46
+
+ 7-JUL-2016 15:44:07.09 Deleted: 5
+ 7-JUL-2016 15:44:07.11 Deleted: 10
+ 7-JUL-2016 15:44:07.11 Deleted: 15
+ 7-JUL-2016 15:44:07.12 Deleted: 20
+ 7-JUL-2016 15:44:07.15 Deleted: 25
+ 7-JUL-2016 15:44:07.15 Deleted: 30
+ 7-JUL-2016 15:44:07.16 Deleted: 35
+
+ 7-JUL-2016 15:44:07.21 Total Deleted: 38
+ 7-JUL-2016 15:44:07.21 Stop on max rows reached
+
+Todo File:
+CPT$RDB_DATA:BULK_DELETE_CPTRDB_DB_1_L15S29_20160707.TODO_07JUL154406
+Trace File:
+CPT$RDB_DATA:BULK_DELETE_CPTRDB_DB_1_L15S29_20160707.UNL_07JUL154406
+ 
+Candidate count: 38         
+Range count:     46         
+Delete count:    38         
+ 
+--  7-JUL-2016 15:44:07.24 Submit for next day --
+ 
+Job CPTRDB_BULK_DELETE (queue CPT$RDB_BATCH_L15S29, entry 376) holding until  8-JUL-2016 05:00
+Logfile CPT$RDB_LOGS:BULK_DELETE_CPTRDB_DB_1_L15S29_20160708.LOG_08JUL050000
+</pre>
 
 <p>
 <b>CPTRDB_BULK_DELETE_SQL.COM</b><br>
