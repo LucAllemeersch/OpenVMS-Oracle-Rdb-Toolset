@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 19-oct-2016, Luc Allemeersch<br>
+Modified: 24-feb-2017, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -80,7 +80,8 @@ Modified: 19-oct-2016, Luc Allemeersch<br>
 <a href="#Chapter 38.4">§ -- 38.4 -- Logical Area Thresholds</a><br>
 <a href="#Chapter 38.5">§ -- 38.5 -- Scanning Space Management SPAM Pages</a><br>
 <a href="#Chapter 38.6">§ -- 38.6 -- Procedures Usage</a><br>
-<a href="#Chapter 38.7">§ -- 38.7 -- Collect Optimizer Statistics</a><br><br>
+<a href="#Chapter 38.7">§ -- 38.7 -- Collect Optimizer Statistics</a><br>
+<a href="#Chapter 38.8">§ -- 38.8 -- Database Key Scope And RMU/Reclaim</a><br><br>
 
 <a href="#Chapter 39">§ -- 39 -- Database Restore And Recover</a><br>
 <a href="#Chapter 40">§ -- 40 -- Verify Indices, Storage Areas And Constraints</a><br>
@@ -183,7 +184,7 @@ Event Console and mail messages.
 <p>
 The toolset is available to loyal and active members of the Rdb community
 and the release of the full and update kits is announced on the
-Oracle Rdb List Server, hosted on jcc.com.
+Oracle Rdb List Server, hosted on www.jcc.com .
 </p>
 
 The kit can be downloaded from<br>
@@ -241,7 +242,7 @@ serving the sales and ticketing department of the group.
 Luc Allemeersch holds a master degree in agricultural engineering
 (major plant production and protection, 1977) and completed master level
 studies in computer science (major programming, 1984) both from the
-Catholic University Of Leuven (KUL), Belgium.
+'Katholieke Universiteit Leuven' (KUL), Belgium.
 </p>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -252,7 +253,7 @@ Catholic University Of Leuven (KUL), Belgium.
 </font>
 </h3>
 
-Copyright (C) 2013 - 2016 Luc Allemeersch<br>
+Copyright (C) 2013 - 2017 Luc Allemeersch<br>
 
 <p>
 This program is free software: you can redistribute it and/or modify
@@ -1177,6 +1178,34 @@ Sample configuration file:
 CPTRDB_CONFIGURATION_L15S29_20161017.REF_17OCT160248
 </pre>
 
+<p>
+<b>CPTRDB_CHANGES_FUTURE.A</b><br>
+Cumulative Partial Update Kit
+</p>
+
+<p>
+Users Guide chapter changes:
+</p>
+
+<pre>
+CPTRDB_USERS_GUIDE.TXT
+CPTRDB_USERS_GUIDE.HTML
+
+§ -- 38.4 -- Logical Area Thresholds
+(Rewrite)
+§ -- 38.8 -- Database Key Scope And RMU/Reclaim
+(New)
+</pre>
+
+<p>
+New procedures:
+</p>
+
+<pre>
+CPTRDB_RECLAIM_AREA.COM
+(RMU/Reclaim one or more storage areas)
+</pre>
+
 <a href="#Chapter 1">To Top</a><br>
 
 <a name="Chapter 8"></a>
@@ -1395,11 +1424,15 @@ CPTRDB_MASTR_L15S29
 <p>
 This chapter lists the Oracle Rdb events displayed by the CockpitMgr Event 
 Console.
+</p>
 
+<p>
 The event names created by the toolset start with "CPTRDB_", while the
-standard events, created on Rdb opcom messages and captured, matched, displayed 
+events created on standard Rdb opcom messages and captured, matched, displayed 
 and cleared by CockpitMgr, start with "RDB_".
+</p>
 
+<p>
 The databases must have the setting "NOTIFY ENABLED", activated using:
 </p>
 
@@ -4599,7 +4632,7 @@ CPT$RDB_JOB|CPTRDB_SHOW_DBS_OPEN_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERS
 ! 4 Exception mail address
 </pre>
   
-  Toolkit CockpitMgr event:<br>
+Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_OpenDatabasesDifferences
@@ -4839,7 +4872,7 @@ CPTRDB_DB_1_20150403.SIZE_03APR080003;1
                       3-APR-2015 08:00:03.09
 </pre>
 
-  Toolkit CockpitMgr event:<br>
+Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_ExtentsFound
@@ -5168,11 +5201,11 @@ Procedures Usage
 </h4>
 
 <p>
-Note that the online snapshot truncation has two side effects. The truncation
+[Note that the online snapshot truncation has two side effects. The truncation
 itself waits for the currently active read only transactions to terminate
 and prevents new read only transactions from starting. Hence the need
 for a stop procedure, called in parallel from the truncation, to prevent
-excessive stall times.
+excessive stall times.]
 </p>
 
 <p>
@@ -5403,7 +5436,7 @@ CPT$RDB_PARAM|CPTRDB_TRNC_SNAPS_STOP|00:00:30|L15S36::ALLEMEERSCH|
 ! 3 Exception mail address
 </pre>
 
-  Toolkit CockpitMgr event:<br>
+Toolset CockpitMgr event:<br>
 
 <pre>
 CPTRDB_TruncSnapsStopped
@@ -6108,8 +6141,10 @@ $!----------------------------------------
 
 <p>
   List 'waiting for' messages counts, desc per hour, from the stall logfiles
-  for a series of databases, nodes, and periods.<br>
+  for a series of databases, nodes, and periods.
+</p>
 
+<p>
   The list of parameters per stall log file is retrieved from the 
   configuration file CPTRDB_CONFIGURATION.REF identified by the keywords  
   CPT$RDB_DATABASE|CPTRDB_STALL_CNTS.
@@ -6338,8 +6373,7 @@ $!-------------------------------------------
 
 <p>
   Daily report not 'waiting for' stall counts, desc per hour, from the stall 
-  logfiles for a series of databases, nodes and periods, listed in the 
-  configuration file CPTRDB_CONFIGURATION.REF
+  logfiles for a series of databases, nodes and periods.
 </p>
 
 <p>
@@ -6549,7 +6583,9 @@ $!----------------------------------------
 <p>
   List 'waiting for' messages counts, desc per hour, from the deadlock logfiles
   for a series of databases, nodes, and periods.
+</p>
 
+<p>
   The list of parameters per deadlock log file is retrieved from the 
   configuration file CPTRDB_CONFIGURATION.REF identified by the keywords  
   CPT$RDB_DATABASE|CPTRDB_DDLCK_CNTS.
@@ -6810,7 +6846,9 @@ $!-----------------------------------------
 <p>
   List 'waiting for' stall times from the stall logfiles
   for a series of databases, nodes, and periods.
+</p>
 
+<p>
   The list of parameters per stall log file is retrieved from the 
   configuration file CPTRDB_CONFIGURATION.REF identified by the keywords  
   CPT$RDB_DATABASE|CPTRDB_STALL_TIMES.
@@ -7028,8 +7066,7 @@ $!-------------------------------------------
 
 <p>
   Daily report not 'waiting for' stall times from the stall logfiles for a 
-  series of databases, nodes and periods, listed in the configuration file 
-  CPTRDB_CONFIGURATION.REF
+  series of databases, nodes and periods.
 </p>
 
 <p>
@@ -9259,34 +9296,65 @@ $ @CPTRDB_SHOW_ONE_PAGE {dbid} {s_area_nbr} {page_nbr} [DATA|SNAP]
   Output sample:<br>
 
 <pre>
-*     On Node L15S29
-* Dump of Live area MIXED_AREA_2
-*     Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1
-*     Filename: DISK$DATA_29:[CPTRDB_DB_1]MIXED_AREA_2.RDA;1
+*     On Node L15S50
+* Dump of Live area SEASN_TKT_DATA
+*     Database: DISK$DATA_23:[SBN_DB]SABIN_TT.RDB;1
+*     Filename: DISK$DATA_25:[SBN_DB]SEASN_TKT_DATA.RDA;1
 *     Time Stamp
-               00AF86F2 1149F43D  000A  time stamp = 10-JUN-2015 10:38:35.46
+               00B0F736 810F1060  000A  time stamp = 21-SEP-2016 02:15:36.66
 *     Free Bytes/Locked
-                       0000 077A  0012  1914 free bytes, 0 locked
+                       0000 05C8  0012  1480 free bytes, 0 locked
 *     Lines
-                            0003  0016  3 lines
+                            001E  0016  30 lines
 *     SPAM Page
 *     Bitmap Page
 *     Pointer/Data Segment
 *     Record Type/Fragment/Empty
-                            002A  07AA  line 1 (63:3002:1) record type 42
+                       0000 0000  0024  line 3: empty
+                       0000 0000  0030  line 6: empty
+                       0000 0000  0034  line 7: empty
+                       0000 0000  0048  line 12: empty
+                       0000 0000  0054  line 15: empty
+                       0000 0000  0060  line 18: empty
+                       0000 0000  0064  line 19: empty
+                       0000 0000  0068  line 20: empty
+                       0000 0000  006C  line 21: empty
+                       0000 0000  0070  line 22: empty
+                       0000 0000  0074  line 23: empty
+                            0048  06D0  line 29 (56:1000:29) record type 72
+                            0026  06FC  line 17 (56:1000:17) record type 38
+                            0025  0720  line 16 (56:1000:16) record type 37
+                            0023  0782  line 13 (56:1000:13) record type 35
+                            0048  07D8  line 11 (56:1000:11) record type 72
+                            0027  0832  line 9 (56:1000:9) record type 39
+                            0026  0868  line 5 (56:1000:5) record type 38
+                            0025  088C  line 4 (56:1000:4) record type 37
+                            0023  08F4  line 1 (56:1000:1) record type 35
+                            0048  09A6  line 27 (56:1000:27) record type 72
+                            0026  09CE  line 26 (56:1000:26) record type 38
+                            0025  09F2  line 25 (56:1000:25) record type 37
+                            0023  0A5C  line 24 (56:1000:24) record type 35
 *     Index Set
 *     Level
 *     Hash Index
-                       0044 2005  07C2  line 2: bucket for hash index 68
+                       005A 2005  080A  line 10: bucket for hash index 90
+                       00B7 2005  094A  line 28: bucket for hash index 183
+                       0057 2005  0AB2  line 14: bucket for hash index 87
+                       0052 2005  0B0E  line 8: bucket for hash index 82
+                       004A 2005  0B6A  line 2: bucket for hash index 74
 *     System Record
-                            2001  07E2  line 0 (63:3002:0) SYSTEM record
+                            2001  0BC6  line 0 (56:1000:0) SYSTEM record
 *     Storage Set Type
-                         0044 06  07E7  6 bytes, storage set type 68
+                         004A 07  0BCB  7 bytes, storage set type 74
+                         0052 07  0BD2  7 bytes, storage set type 82
+                         0057 07  0BD9  7 bytes, storage set type 87
+                         00B7 07  0BE0  7 bytes, storage set type 183
+                         005A 07  0BE7  7 bytes, storage set type 90
 *     Logical Area
 *     Snap Page Pointer
-                        00000552  07EE  snap page pointer 1362
+                        00005E81  0BEE  snap page pointer 24193
 *     Live Page Pointer
-Output CPT$RDB_LISTS:PAGE_5_3002_CPTRDB_DB_1_L15S29_20151019.LIS_19OCT154613
+Output RDB$PROCS:PAGE_8_1000_SBN_DB_L15S50_20161020.LIS_20OCT111520
 </pre>
 
 <p>
@@ -10588,46 +10656,114 @@ Below the page header of a 4 blocks snapshot page with 2 index nodes of
 </font>
 </h3>
 
-While discussing page structure layouts.<br>
-
 <p>
-For uniform page format storage areas and compression enabled logical areas,
-logical area thresholds allow to determine at which fullness percentage
-a data page will be considered full, and will no longer be available for
-inserts. 
+While discussing page structure layouts.
 </p>
 
 <p>
-When looking for free space to insert a row, Rdb scans the space
-management SPAM pages in forward direction, starting from the latest insert or
-delete location for this user and logical area (or pages in the user's 
-buffers), looking for a page with threshold 0 in the SPAM page, meaning there 
-is enough space available to store a new row.
+Logical area thresholds assist Rdb in the search for a feasible data page with
+large enough free space when attempting to insert a new row.  
 </p>
 
 <p>
-[As of Rdb V7.2-00, the forward search for free space in a uniform page format
-storage area has been optimized for users on the same node. See the release
-note at the end of this chapter.]
+They allow to determine at which fullness percentage a data page will be 
+considered full, and will no longer be a candidate page for inserts during
+a search for free space.
 </p>
 
 <p>
-Pages with a threshold 3 in the SPAM page, are considered full, and are no 
-candidates to insert a new row. Note that the SPAM pages in uniform page
-format storage areas only specify two thresholds: 0 for 'free space available' 
-and 3 for 'full'. 
+They can also be used to reserve space for future in place growth of rows and
+avoid fragmentation. [Once a dbkey is assigned to a data row, the dbkey never 
+changes.]
 </p>
 
 <p>
-The SPAM page also indicates which clumps belong to which logical areas. 
-A clump is the buffer size number of pages minimum allocation for a logical 
-area. In the SPAM page extract below, for a buffer size of 24 blocks and
-a page size of 4 blocks, the clump size is 6 pages. 
+Logical area thresholds are defined as a list of three integer values 
+(T1,T2,T3) such as (70,80,90) which express a percentage of the maximum free 
+space of a data page for a given storage area. 
 </p>
 
-Extracts of a SPAM page:<br>
+<p>
+The maximum free space can be retrieved as column RDB$MAX_PAGE_FREE_SPACE in 
+the information table RDB$STORAGE_AREAS or as MAX_FREE_LEN in the output of 
+RMU/DUMP/HEADER/OPTION=DEBUG {dbid}.
+</p>
+
+<p>
+The maximum size of a segment that can be stored on a data page can be
+retrieved as column RDB$MAX_SEGMENT_LENGTH in the information table
+RDB$STORAGE_AREAS or as MAX_NEW_SEG_LEN in the output of
+RMU/DUMP/HEADER/OPTION=DEBUG {dbid}.
+</p>
+
+<p>
+The three values divide the data page in four fullness level areas 0,1,2,3
+as illustrated below.
+</p>
 
 <pre>
+---------------- Max free space ----
+Fullness level 3 
+---------------- Threshold % 3
+Fullness level 2                ---- Actual fullness, Page threshold 2 
+---------------- Threshold % 2
+Fullness level 1 
+---------------- Threshold % 1
+Fullness level 0 
+---------------- Data page base ----
+</pre>
+
+<p>
+Depending on the location of the actual fullness of a data page within one of
+the fullness areas, the 'page threshold' is said to be 0, 1, 2 or 3.
+At threshold 3, a data page is considered full and is no longer a candidate
+page for inserts.
+</p>
+
+<p>
+For uniform page format storage areas the three values threshold list
+(T1,T2,T3) is an attribute of each individual logical area (partition) within
+the storage area.
+</p>
+
+<p>
+For mixed page format storage areas the three values threshold list (T1,T2,T3)
+is an attribute of the storage area and applies to all data pages across all
+logical areas within the storage area.
+</p>
+
+<p>
+The fullness threshold of each page is recorded in the Space Management SPAM
+pages that describe the contents of a series of data pages (the SPAM interval). 
+The first page of a storage area is always a SPAM page.
+</p>
+
+<p>
+For uniform page format storage areas the SPAM page also indicates for each
+'clump' to which logical area it belongs. A clump is the buffer size number of
+pages and is the minimum allocation for a logical area.
+</p>
+
+<p>
+[Note that in general, as to I/O size, Rdb reads buffers and writes pages.
+Hence the (not enforced) requirement that the buffer size should be a multiple
+of all pages sizes present across the database, in order to avoid the 
+unefficient reading of buffers that are not completely filled. Multiples of 12
+are popular buffer sizes as they allow for page sizes of 2, 3, 4, 6 and 12.]
+</p>
+
+<p>
+In the SPAM page extract below, for a buffer size of 24 blocks and a page size
+of 4 blocks, the clump size is 6 pages. 
+</p>
+
+<p>
+Extracts of a SPAM page in a uniform page format storage area:
+</p>
+
+<pre>
+-- The SPAM page has threshold and clump information
+*------------------------------------------------------------------------------
                    0007 00000001  0000  page 1, physical area 7 (space mgmt)
                         3B927D97  0006  checksum = 3B927D97
                00000000 00000000  000A  time stamp = 17-NOV-1858 00:00:00.00
@@ -10638,7 +10774,7 @@ Extracts of a SPAM page:<br>
                                         pages 26-31: threshold 3
                                         pages 32-65: threshold 0
 00000000000000000000000000000000  0026  pages 66-129: threshold 0
-...
+......
                             0242  0379  578 clumps
                             0049  037B  pages 2-7, logical area 73
                             0049  037D  pages 8-13, logical area 73
@@ -10648,13 +10784,178 @@ Extracts of a SPAM page:<br>
                             0042  0385  pages 32-37, logical area 66
                             0000  0387  pages 38-43, logical area 0
                             0000  0389  pages 44-49, logical area 0
-...
+......
+*------------------------------------------------------------------------------
 </pre>
 
 <p>
-When a page with threshold 0 in the SPAM page is found, Rdb compares in a first
-step the compressed length of the row to the free space on the candidate page.
-If the compressed row fits on the candidate page, the row is inserted, 
+Full dump of a SPAM page in a mixed page format storage area:
+</p>
+
+<pre>
+-- The SPAM page has only threshold information and no clump information
+*------------------------------------------------------------------------------
+                   0004 00000001  0000  page 1, physical area 4 (space mgmt)
+                        07B40005  0006  checksum = 07B40005
+               00000000 00000000  000A  time stamp = 17-NOV-1858 00:00:00.00
+                       0000 07B4  0012  1972 free bytes, 0 locked
+
+00000000000000000000000000000000  0016  pages 2-65: threshold 0
+00000000000000000000000000000000  0026  pages 66-129: threshold 0
+00000000000000000000000000000000  0036  pages 130-193: threshold 0
+                    000000000000  0046  pages 194-217: threshold 0
+
+00000000000000000000000000000000  004C  MBZ free '................'
+                                  ::::  (122 duplicate lines)
+                        00000000  07FC  MBZ free '....'
+*------------------------------------------------------------------------------
+</pre>
+
+<p>
+The runtime use of the logical area thresholds can be expressed in human words
+as, 'In order to insert a storage segment of this (compressed) length I
+need to find a page that is not full and has at least this free space 
+available, which requires a threshold of n'. 
+</p>
+
+<p>
+Rdb stores the thresholds as percentage of the maximum free space for a data
+page in the metadata, but runtime calculates free space lengths per threshold 
+value for easier comparison.
+</p>
+
+<p>
+The three threshold percentage values are in general calculated based on the
+minimum, average and maximum (compressed) length of the storage segments that
+have to be stored in this (uniform) logical area or (mixed) storage area.
+</p>
+
+<p>
+In uniform page format storage areas the default is (0,0,0). For mixed
+page format storage areas the default is (70,85,95).
+</p>
+
+<p>
+The actual threshold values can be observed as columns RDB$THRESHOLD1_PERCENT,
+RDB$THRESHOLD2_PERCENT and RDB$THRESHOLD3_PERCENT in the information tables
+RDB$LOGICAL_AREAS and RDB$STORAGE_AREAS.
+</p>
+
+<p>
+For (uniform) logical areas in the dump of the AIP Area Inventory Pages: 
+</p>
+
+<pre>
+$ RMU/Dump/Larea=RDB$AIP {dbid} 
+
+                                        entry #6
+                        00000002  0186  first area bitmap page 2
+                       0007 0049  018A  logical area 73, physical area 7
+                              0B  018E  area name length 11 bytes
+000000000049545241505F454C424154  018F  area name 'TABLE_PARTI.....'
+  000000000000000000000000000000  019F  area name '...............'
+                        001E8EE0  01AE  snaps enabled TSN 2002656
+                            001A  01B2  record length 26 bytes
+                        00000004  01B4  entry resides on page 4
+                              01  01B8  entry is in use
+                            0000  01B9  MBZ '..'
+                          000000  01BB  thresholds are (0,0,0)
+                              00  01BE  MBZ '.'
+                              01  01BF  record type data table
+                              00  01C0  MBZ '.'
+</pre>
+
+<p>
+For (uniform) logical areas using:
+</p>
+
+<pre>
+$ RMU/Show AIP {dbid} {l_area_name} 
+$ RMU/Show AIP {dbid} /Larea={l_area_id} 
+
+Logical area name TABLE_PARTI
+Type: TABLE
+Logical area 73 in uniform physical area 7
+Physical area name DATA_AREA_11
+Record length: 26
+Thresholds are (0, 0, 0)
+AIP page number: 4
+ABM page number: 2
+Snapshot Enabled TSN: 2002656
+</pre>
+
+<p>
+For mixed page format storage areas, in the output of: 
+</p>
+
+<pre>
+$ RMU/Dump/Header/Options=Debug {dbid}
+
+      - Thresholds are 70%, 85%, and 95%
+THRESHOLD = (70., 85., 95.)
+</pre>
+
+<p>
+When no thresholds are specfied for (uniform) logical areas, which defaults to
+(0,0,0), Rdb calculates one single free space length value T1=T2=T3 as 
+</p>
+
+<pre>
+MAX_FREE_LEN - min(MAX_NEW_SEG_LEN,{record_length})
+</pre>
+
+<p>
+The {record_length} is the nominal record length as stored in the AIP pages
+and listed in RMU/Show AIP for the logical area.
+</p>
+
+<p>
+So default and also when only one threshold value is specified as (T1,100,100)
+only two fullness level areas are definded, 0 for "free space available" and
+3 for "full"
+</p>
+
+<p>
+Default (0,0,0)
+</p>
+
+<pre>
+---------------- Max free space  ----
+Fullness level 3                     <-- Nominal record length
+---------------- Computed by Rdb ----
+Fullness level 0 
+---------------- Data page base  ----
+</pre>
+
+<p>
+(T1,100,100)
+</p>
+
+<pre>
+---------------- Max free space  ----
+Fullness level 3                     <-- Avg compressed length
+---------------- Threshold % 1   ----
+Fullness level 0 
+---------------- Data page base  ----
+</pre>
+
+<p>
+When looking for free space to insert a row, Rdb scans the space
+management SPAM pages in forward direction, starting from the latest insert or
+delete location for this user and logical area (or pages in the user's 
+buffers), looking for a page with threshold 0 or 1 or 2 in the SPAM page, 
+where the actual (compressed) length of the storage segment fits into the free 
+space available length as defined by the thresholds. 
+</p>
+
+<p>
+[As of Rdb V7.2-00, the forward search for free space in a uniform page format
+storage area has been optimized for users on the same node. See the release
+note at the end of this chapter.]
+</p>
+
+<p>
+If the (compressed) row fits on the candidate page, the row is inserted, 
 otherwise the 'Pages Checked' statistic is incremented, and the search 
 continues across the SPAM pages of interest for this logical area.
 If no feasible page is found across all SPAM intervals to store the new row,
@@ -10668,60 +10969,77 @@ for the data page that hosted the insert.
 </p>
 
 <p>
-If no logical area threshold is defined, Rdb compares the nominal uncompressed
-length of a row for this logical area, to the free space left on the updated 
-page. If a uncompressed row still fits, the threshold in the SPAM page remains
-at 0. If a uncompressed row no longer fits, the threshold in the SPAM page is 
-updated to 3, and the data page is considered full and no longer available
-for inserts. 
+If no logical area thresholds are defined, the single threshold computed by Rdb 
+based on the nominal record length applies. If the nominal record length still
+fits, the threshold in the SPAM page remains at 0, otherwise the threshold in
+the SPAM page is updated to 3, and the data page is considered full and no
+longer available for inserts.  
 </p>
 
 <p>
-If a logical area threshold is defined, the threshold in the SPAM page is 
-updated to 3 (full), only if the fullness of the data page is now greater than
-the logical area threshold percentage specified. That is, assuming no free space
-reservation for future in place growth of the rows, when the free space on the
-data page is smaller than the average compressed length of a row for this 
-logical area. Below a not to scale, graphical representation of a logical area
-threshold for a 4 blocks data page, and a average compressed row length of 100
+If logical area thresholds are defined, the threshold in the SPAM page is 
+updated according to the location of the actual fullness of the page
+within the defined fullness level areas. 
+</p>
+
+<p>
+Assuming no free space reservation for future in place growth of the rows, 
+and a threshold of (T1,100,100) based on the average compressed length, the
+SPAM page threshold is updated to 3 (full) only if the free space on the
+page is now smaller than the average compressed length of a row for this 
+logical area. 
+</p>
+
+<p>
+Below a not to scale, graphical representation of a (T1,100,100) logical area
+threshold for a 4 blocks data page, and a average compressed row length of 97
 bytes.
 </p>
 
 <pre>
--------------- max segment length        1988
-(1 row)        average compressed length  100
--------------- logical area threshold %    94
-                                           trunc(((1988 - 100)/1988) * 100)
+-------------- RDB$MAX_PAGE_FREE_SPACE   2006
+               RDB$MAX_SEGMENT_LENGTH    1988
 
-(18 rows)
+(1 row)        average compressed length   97
+
+-------------- logical area threshold %    95
+                                           trunc(((2006 - 97)/2006) * 100)
+
+(19 rows)
 
 -------------- data page (4 blocks)         0
 </pre>
 
 <p>
-In order to fill data pages upto a maximum number of rows, calculate the 
+In order to fill data pages upto a maximum number of rows, calculate the T1 
 logical area threshold percentage as: 
 </p>
 
 <pre>
-trunc(((max_segment_length - avg_compressed_length) / max_segment_length) * 100)
+trunc(((max_free_space - avg_compressed_length) / max_free_space) * 100)
 </pre>
 
 <p>
-The max_segment_length is a few bytes smaller and more conservative than the
-max_page_free_space for the storage area. Use CPTRDB_SHOW_ONE_STORAGE_AREA.COM
-to observe these values.
+To define a (T1,T2,T3) threshold, repeat this calculation using the
+minimum, average and maximum (compressed) lengths of the data segments
+to be stored.
 </p>
 
 <p>
-Lower the logical area threshold percentage, if free space has to be reserved
+For uniform page format storage areas the RDB$MAX_SEGMENT_LENGTH is a few 
+bytes smaller and more conservative than the RDB$MAX_PAGE_FREE_SPACE but
+yields similar threshold percentages. 
+</p>
+
+<p>
+Lower the logical area T3 threshold percentage, if free space has to be reserved
 for future in place growth of the rows and avoid fragmentation, starting from
-the theoretical expected number of compressed rows and the compressed extension
-length per row on the data page.
+the theoretical expected number of (compressed) rows and the (compressed) 
+extension length per row on the data page.
 </p>
 
 <p>
-Note that if no logical area threshold is defined, each data page will have
+Note that if no logical area thresholds are defined, each data page will have
 a left over unused free space of approximately the nominal uncompressed
 length of a row for this logical area. This may not be acceptable for 'long'
 rows that on average have a high degree of compression, and will leave
@@ -10744,7 +11062,7 @@ CREATE STORAGE MAP {map_name}
 FOR {table_name}
 COMPRESSION ENABLED
 STORE IN {storage_area_name}
-         (THRESHOLDS ARE ({integer},100,100));
+         (THRESHOLDS ARE ({integer},{integer},{integer}));
 </pre>
 
 <p>
@@ -10756,6 +11074,59 @@ only applies to this single storage area.
 In the ALTER STORAGE MAP statement the THRESHOLDS clause can only be specified
 for new storage areas that are added to the storage map, and not for storage
 areas that are already part of the storage map. 
+</p>
+
+<p>
+Note that, as opposed to popular belief, LIST OF BYTE VARYING (segmented
+string, blob), by definition uncompressed data with variable segment sizes, do
+NOT have to be stored in mixed page format storage areas, in order to apply
+(T1,T2,T3) logical area thresholds. The [CREATE|ALTER] STORAGE MAP STORE LISTS
+statement for the single lists storage map, accepts a threshold clause for 
+logical areas in uniform storage areas, as illustrated in the mini test below.
+</p>
+
+<pre>
+create database file boem.rdb
+create storage area lists_area;
+create table tab1 (col1 list of byte varying as text);
+
+create storage map lists_map
+store lists
+in lists_area (thresholds are (70,80,90)) for (tab1.col1)
+in rdb$system;
+
+commit;
+</pre>
+
+<p>
+$ rmu/show aip boem.rdb rdb$segmented_strings
+</p>
+
+<pre>
+Logical area name RDB$SEGMENTED_STRINGS
+Type: LARGE OBJECT
+Logical area 58 in uniform physical area 2
+Physical area name LISTS_AREA
+Record length: 155
+Thresholds are (70, 80, 90)
+AIP page number: 3
+ABM page number: 2
+Snapshot Enabled TSN: 34
+</pre>
+
+<p>
+The RMU/Set AIP command is used to modify some attributes of an existing
+logical area. It cannot be used to add or delete a logical area.
+This command can be used to correct the record length, thresholds
+and name of a logical area described by an AIP entry. It can also
+be used to rebuild the SPAM pages for a logical area stored in
+UNIFORM page format areas so that threshold settings for a page
+correctly reflect the definition of the table.
+</p>
+
+<p>
+See also the RMU Repair Spam command for information on
+rebuilding SPAM pages for MIXED areas.
 </p>
 
 <pre>
@@ -11696,6 +12067,959 @@ CPT$RDB_JOB|CPTRDB_COLLECT_STAT_WEEKLY|L15S29|TOMORROW +6-04:30|
 
 <a href="#Chapter 1">To Top</a><br>
 
+<a name="Chapter 38.8"></a>
+<h3><font face="helvetica, arial, sans-serif" color="#330099">
+§ -- 38.8 -- Database Key Scope And RMU/Reclaim
+</font>
+</h3>
+
+<b>CPTRDB_RECLAIM_AREA.COM</b><br>
+
+<p>
+The DBKEY SCOPE IS [TRANSACTION|ATTACH] clause in the SQL ATTACH string
+for a user, determines if line numbers on data pages of the database can
+be reused.
+</p>
+
+<p>
+When a user is active in mode TRANSACTION, the default, the dbkey of a row 
+deleted by this user can be reused by other users after the COMMIT of the 
+current transaction.
+</p>
+
+<p>
+[During a read write transaction the statement consistency and row level 
+locking apply and a dbkey is only visible to the user handling this line.
+Rdb does not implement 'dirty read' and prevents the visibility of uncommited
+data to other users.] 
+</p>
+
+<p>
+When the database key scope mode is set to ATTACH by any user of the database,
+no line numbers on any page of the database will be reused.
+</p>
+
+<p>
+The ATTACH mode guarantees to the user that a reread by dbkey of a row 
+will return the data linked to this dbkey, or the updated value of the data
+linked to this dbkey, or 'not found' if meanwhile the row has been deleted.
+The line number will not be reused to store a different row on the page.
+</p>
+ 
+<p>
+Note that the ATTACH mode is only useful if dbkeys are passed by the
+application code from one code path to another across transaction boundaries.
+</p>
+
+<p>
+In this context two rules are enforced. At any point in time all active users
+must apply the same dbkey scope mode, and as soon as one (new) user becomes 
+active in the ATTACH mode, all other active users have to switch to the
+ATTACH mode. 
+</p>
+
+<p>
+This negociation between users occurs on transaction boundaries and is 
+implemented using the single 'database key scope lock'. Each user requests the 
+database key scope lock in his 'intended' mode at the start of every read 
+write transaction.
+</p>
+
+<p>
+A user holding the lock in CW (Concurrent Write) is applying the TRANSACTION 
+mode, which is the default, while a user requesting the lock in the 
+incompatible PR (Protected Read) mode is asking to start a transaction in the 
+ATTACH mode. 
+</p>
+
+<p>
+In environments that (erroneously) allow the two modes to coexist, which should
+be avoided, this negociation between users can lead to excessive stall times
+'waiting for database key scope' as is illustrated in the stall log extract
+below.
+</p>
+
+<pre>
+26-OCT-2016 10:19:10.8507612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+   State... Process.ID Process.name... Lock.ID. Rq Gr Queue "database key scope"
+   Blocker: 296005B6   SBN_LISA_0010   541F0C36    CW Grant
+   Blocker: 296005B6   SBN_LISA_0010   1C2D9AA9    CW Grant
+   Waiting: 29600688   SBN_LISA_0017   181B77AB PR    Wait
+26-OCT-2016 10:19:11.8557612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+26-OCT-2016 10:19:12.8577612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+26-OCT-2016 10:19:13.8597612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+26-OCT-2016 10:19:14.8617612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+26-OCT-2016 10:19:15.8627612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+26-OCT-2016 10:19:16.8647612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+26-OCT-2016 10:19:17.8667612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+26-OCT-2016 10:19:18.8687612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+26-OCT-2016 10:19:19.8707612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+26-OCT-2016 10:19:20.8727612 29600688:3895 26-OCT-2016 10:19:09.9577612 waiting for database key scope (PR)
+</pre>
+
+<p>
+The SBN_LISA_0017 process, requesting to start in ATTACH mode (PR), is stalled
+for eleven seconds while the SBN_LISA_0010 process is active in TRANSACTION 
+mode (CW). Once the SBN_LISA_0010 process terminates it's transaction and the 
+SBN_LISA_0017 process has acquired the database key scope lock in PR, all 
+other subsequent new transactions will have to switch to the ATTACH mode. 
+</p>
+
+<p>
+The scenario below indicates that only the users who explicitly request the
+ATTACH mode when they arrive on the database are holding the key scope lock in
+Protected Read (PR). The existing default users in TRANSACTION mode, holding
+the lock in Concurrent Write (CW), or new default users, are 'quietly' 
+converted to the ATTACH mode and do not hold the key scope lock.
+</p>
+
+<p>
+When the last ATTACH mode user has left the database, the default user also
+'quietly' returns to the TRANSACTION mode, holding the key scope lock in
+Concurrent Write (CW) after a subsequent read write transaction.
+</p>
+
+<pre>
+Rdb V7.3-200
+
+$ create/directory/owner=system {dev}:[MF_PERSONNEL]
+$ set def {dev}:[MF_PERSONNEL]
+$ @sql$sample:personnel sql m
+$ define/sys/exec mfp_db {dev}:[MF_PERSONNEL]MF_PERSONNEL.RDB
+$ rmu/open mfp_db
+
+-- Session 1
+$ @cptrdb_attach mfp_db
+Default transaction is read only
+SQL$DATABASE is MFP_DB
+$ sql
+SQL> set transaction read write;
+SQL> commit;
+
+$ rmu/show lock/resource_type=dbkey_scope mfp_db
+
+--------------------------------------------------------------------------------
+Resource Name: database key scope
+Granted Lock Count: 1,  Parent Lock ID: 3D0670A6,   Lock Access Mode: Executive,
+Resource Type: Global,  Lock Value Block: 0
+
+          -Master Node Info-  --Lock Mode Information--     -Remote Node Info-
+ProcessID Lock ID   SystemID  Requested Granted   Queue     Lock ID   SystemID
+2F6116E4  23002D34  0001007B            CW        GRANT     23002D34  0001007B
+--------------------------------------------------------------------------------
+
+    - 1 active database user on this node
+      - 2F6116E4:1 - _FTA4:, RDBMON
+        - attached 25-JAN-2017 15:15:28.97 (elapsed 0 00:03:00)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+
+-- Session 2
+SQL> attach 'file mfp_db dbkey scope attach';
+SQL> set transaction read write;
+SQL> commit;
+
+--------------------------------------------------------------------------------
+Resource Name: database key scope
+Granted Lock Count: 1,  Parent Lock ID: 1A07360C,   Lock Access Mode: Executive,
+Resource Type: Global,  Lock Value Block: 0
+
+          -Master Node Info-  --Lock Mode Information--     -Remote Node Info-
+ProcessID Lock ID   SystemID  Requested Granted   Queue     Lock ID   SystemID
+2F611349  150543CB  0001007B            PR        GRANT     150543CB  0001007B
+--------------------------------------------------------------------------------
+
+    - 2 active database users on this node
+      - 2F6116E4:1 - _FTA4:, RDBMON
+        - attached 25-JAN-2017 15:15:28.97 (elapsed 0 00:08:01)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+      - 2F611349:1 - _FTA5:, RDBMON
+        - attached 25-JAN-2017 15:20:53.45 (elapsed 0 00:02:37)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+
+-- Session 3
+SQL> attach 'file mfp_db dbkey scope attach';
+SQL> set transaction read write;
+SQL> commit;
+
+--------------------------------------------------------------------------------
+Resource Name: database key scope
+Granted Lock Count: 2,  Parent Lock ID: 1A07360C,   Lock Access Mode: Executive,
+Resource Type: Global,  Lock Value Block: 0
+
+          -Master Node Info-  --Lock Mode Information--     -Remote Node Info-
+ProcessID Lock ID   SystemID  Requested Granted   Queue     Lock ID   SystemID
+2F61184E  13061A59  0001007B            PR        GRANT     13061A59  0001007B
+2F611349  150543CB  0001007B            PR        GRANT     150543CB  0001007B
+--------------------------------------------------------------------------------
+Resource Name: database key scope
+Granted Lock Count: 2,  Parent Lock ID: 1C041546,   Lock Access Mode: Executive,
+Resource Type: Global,  Lock Value Block: 0
+
+          -Master Node Info-  --Lock Mode Information--     -Remote Node Info-
+ProcessID Lock ID   SystemID  Requested Granted   Queue     Lock ID   SystemID
+2F61184E  13061A59  0001007B            PR        GRANT     13061A59  0001007B
+2F611349  150543CB  0001007B            PR        GRANT     150543CB  0001007B
+--------------------------------------------------------------------------------
+
+    - 3 active database users on this node
+      - 2F6116E4:1 - _FTA4:, RDBMON
+        - attached 25-JAN-2017 15:15:28.97 (elapsed 0 00:13:04)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+      - 2F611349:1 - _FTA5:, RDBMON
+        - attached 25-JAN-2017 15:20:53.45 (elapsed 0 00:07:39)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+      - 2F61184E:1 - _FTA6:, RDBMON
+        - attached 25-JAN-2017 15:26:15.84 (elapsed 0 00:02:17)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+
+-- Session 4
+SQL> attach 'file mfp_db dbkey scope attach';
+SQL> set transaction read write;
+SQL> commit;
+
+--------------------------------------------------------------------------------
+Resource Name: database key scope
+Granted Lock Count: 3,  Parent Lock ID: 1A07360C,   Lock Access Mode: Executive,
+Resource Type: Global,  Lock Value Block: 0
+
+          -Master Node Info-  --Lock Mode Information--     -Remote Node Info-
+ProcessID Lock ID   SystemID  Requested Granted   Queue     Lock ID   SystemID
+2F611CD6  74069C01  0001007B            PR        GRANT     74069C01  0001007B
+2F61184E  13061A59  0001007B            PR        GRANT     13061A59  0001007B
+2F611349  150543CB  0001007B            PR        GRANT     150543CB  0001007B
+--------------------------------------------------------------------------------
+Resource Name: database key scope
+Granted Lock Count: 3,  Parent Lock ID: 1C041546,   Lock Access Mode: Executive,
+Resource Type: Global,  Lock Value Block: 0
+
+          -Master Node Info-  --Lock Mode Information--     -Remote Node Info-
+ProcessID Lock ID   SystemID  Requested Granted   Queue     Lock ID   SystemID
+2F611CD6  74069C01  0001007B            PR        GRANT     74069C01  0001007B
+2F61184E  13061A59  0001007B            PR        GRANT     13061A59  0001007B
+2F611349  150543CB  0001007B            PR        GRANT     150543CB  0001007B
+--------------------------------------------------------------------------------
+Resource Name: database key scope
+Granted Lock Count: 3,  Parent Lock ID: 20074ECE,   Lock Access Mode: Executive,
+Resource Type: Global,  Lock Value Block: 0
+
+          -Master Node Info-  --Lock Mode Information--     -Remote Node Info-
+ProcessID Lock ID   SystemID  Requested Granted   Queue     Lock ID   SystemID
+2F611CD6  74069C01  0001007B            PR        GRANT     74069C01  0001007B
+2F61184E  13061A59  0001007B            PR        GRANT     13061A59  0001007B
+2F611349  150543CB  0001007B            PR        GRANT     150543CB  0001007B
+--------------------------------------------------------------------------------
+
+    - 4 active database users on this node
+      - 2F6116E4:1 - _FTA4:, RDBMON
+        - attached 25-JAN-2017 15:15:28.97 (elapsed 0 00:17:33)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+      - 2F611349:1 - _FTA5:, RDBMON
+        - attached 25-JAN-2017 15:20:53.45 (elapsed 0 00:12:09)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+      - 2F61184E:1 - _FTA6:, RDBMON
+        - attached 25-JAN-2017 15:26:15.84 (elapsed 0 00:06:47)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+      - 2F611CD6:1 - _FTA7:, RDBMON
+        - attached 25-JAN-2017 15:30:38.21 (elapsed 0 00:02:24)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+
+-- Session 4 
+SQL> exit;
+
+-- Session 3 
+SQL> exit;
+
+-- Session 2 
+SQL> exit;
+
+-- Session 1
+SQL> set transaction read write;
+SQL> commit;
+
+--------------------------------------------------------------------------------
+Resource Name: database key scope
+Granted Lock Count: 1,  Parent Lock ID: 3D0670A6,   Lock Access Mode: Executive,
+Resource Type: Global,  Lock Value Block: 0
+
+          -Master Node Info-  --Lock Mode Information--     -Remote Node Info-
+ProcessID Lock ID   SystemID  Requested Granted   Queue     Lock ID   SystemID
+2F6116E4  11053E74  0001007B            CW        GRANT     11053E74  0001007B
+--------------------------------------------------------------------------------
+
+    - 1 active database user on this node
+      - 2F6116E4:1 - _FTA4:, RDBMON
+        - attached 25-JAN-2017 15:15:28.97 (elapsed 0 00:25:49)
+        - image DSA2:[SYS0.SYSCOMMON.][SYSEXE]SQL$73.EXE
+</pre>
+
+<p>
+This means that the ATTACH mode may remain enforced on the whole database for 
+a prolonged period until some point in time occurs where no users are 
+active in ATTACH mode. Note that even when no ATTACH mode users are
+active, not all line numbers of previous sessions will be reclaimed, depending 
+on the ordinal position of the line (last line or not) and the type of
+modification on the page (delete or update of a line with/without a change in
+size of the row). This can be called a 'lazy garbage collection' by the
+subsequent users after the last ATTACH mode user has left the database.   
+</p>
+
+<p>
+The enforcement of the ATTACH mode has a direct impact on the layout structure
+of data pages across the whole database. The 'not reuse' of line numbers
+is implemented during the space and line reclamation of a target page that
+hosted a subsequent successful modification or erase of storage segments. 
+</p>
+
+<p>
+The garbage collection within a single data page consists of a number of
+actions.
+</p>
+
+<p>
+In both key scope mode TRANSACTION and ATTACH the data section of the page is 
+reclaimed, the locked space upfront the data section becomes free space and
+the line index entries of deleted lines that were marked "locked by {TID}" are
+now marked "empty". 
+</p>
+
+<p>
+In key scope mode TRANSACTION the line and TSN index entries are reclaimed
+if possible, their allocation is added to the free space and the first 
+available line number is assigned to a new line.
+</p>
+
+<p>
+In key scope mode ATTACH the line and TSN index entries are NOT reclaimed
+and the next highest line number is assigned to a new line.
+</p>
+
+<p>
+This difference in behavior of the garbage collection introduces the potential
+for line and TSN index entries to pile up over time and occupy a significant
+part of the data pages across the whole database, as soon as one or more 
+ATTACH mode transactions are active on the database
+</p>
+
+<p>
+[Note that the TID 'Transaction Identification Number' acronym is misleading
+as it is basically a smallint ATTACH identifier which is recycled over time.
+The TSN 'Transaction Sequence'Number' consists of two integer values and
+is unique across the lifetime of the database or until the execution of 
+RMU/Repair/Initialize=Tsns which causes a complete rewrite of all data pages 
+across the whole database]
+</p>
+
+<p>
+Refer to My Oracle Support Document Id 62672.1 'RDBPROD: Locked Free Space
+Collection Algorithm for Oracle Rdb 7.X' for a in depth discussion of the
+algorithms applied during the process of space and line reclamation of a
+data page. 
+</p>
+
+<p>
+The RMU/Reclaim command allows database keys of deleted rows to
+be rapidly reset in one or more storage areas. The RMU Reclaim
+command reads and updates all pages in a storage area, and, where
+possible, releases locked lines and locked free space so that
+they are available for later allocation.
+</p>
+
+<p>
+The DELETE|INSERT|RMU/Reclaim scenario's below illustrate the structure layout
+changes of a single data page in both dbkey scope modes TRANSACTION and ATTACH.
+They are based on the example databse MF_PERSONNEL where the favorite employee 
+Toliver each time is dropped and recreated. 
+</p>
+
+<pre>
+Rdb V7.3-200
+
+$ create/directory/owner=system {dev}:[MF_PERSONNEL]
+$ set def {dev}:[MF_PERSONNEL]
+$ @sql$sample:personnel sql m
+$ define/sys/exec mfp_db {dev}:[MF_PERSONNEL]MF_PERSONNEL.RDB
+$ rmu/open mfp_db
+
+$ deass sqlini
+$ define sql$database mfp_db
+
+SQL> @cptrdb_get_dcl_data
+SQL> @sql$sample:info_tables
+SQL> commit;
+
+SQL> select dbkey from employees where LAST_NAME = 'Toliver';
+                  DBKEY
+                79:38:1
+
+$ @CPTRDB_SHOW_AREAS_IDS mfp_db
+
+--------------------------------------------------------------------------------
+Sarea Larea   AIP Recrd Index  Hash Systm Segme
+   Id    Id  Type  Type   Set Index Recrd Strng
+--------------------------------------------------------------------------------
+    2 EMPIDS_LOW
+         79|    1|   32|     |     |     |     |EMPLOYEES
+         76|    3|     |     |   76|     |     |EMPLOYEES_HASH
+         85|    1|   35|     |     |     |     |JOB_HISTORY
+         82|    3|     |     |   82|     |     |JOB_HISTORY_HASH
+         57|    4|     |     |     |   57|     |RDB$SYSTEM_RECORD
+
+SQL> sh trigger EMPLOYEE_ID_CASCADE_DELETE
+...
+  (DELETE FROM JOB_HISTORY JH WHERE JH.EMPLOYEE_ID =
+   EMPLOYEES.EMPLOYEE_ID)
+     FOR EACH ROW
+...
+
+$ @CPTRDB_SHOW_ONE_PAGE mfp_db 2 38 data
+
+-- Original page
+-- Employees   has 1 row
+-- Job_history has 2 rows
+*------------------------------------------------------------------------------
+                   0002 00000026  0000  page 38, physical area 2
+                        00828729  0006  checksum = 00828729
+               00B14955 2AEE0477  000A  time stamp =  3-JAN-2017 14:21:41.90
+                       0000 064A  0012  1610 free bytes, 0 locked
+                            0007  0016  7 lines
+                       0013 07DA  0018  line 0: offset 07DA, 19 bytes
+                       0052 0788  001C  line 1: offset 0788, 82 bytes
+                       0020 0768  0020  line 2: offset 0768, 32 bytes
+                       002B 073C  0024  line 3: offset 073C, 43 bytes
+                       0020 071C  0028  line 4: offset 071C, 32 bytes
+                       0025 06F6  002C  line 5: offset 06F6, 37 bytes
+                       005C 069A  0030  line 6: offset 069A, 92 bytes
+
+                        000000C0  0034  line 0: TSN 192
+                        00000060  0038  line 1: TSN 96
+                        00000060  003C  line 2: TSN 96
+                        000000C0  0040  line 3: TSN 192
+                        000000C0  0044  line 4: TSN 192
+                        000000C0  0048  line 5: TSN 192
+                        000000C0  004C  line 6: TSN 192
+
+00000000000000000000000000000000  0050  free space '................'
+                                  ::::  (99 duplicate lines)
+            00000000000000000000  0690  free space '..........'
+
+                            2007  069A  line 6: duplicate hash node.
+                                  ....  total duplicate node size: 92
+              FFFF FFFFFFFF FFFF  069C  duplicate overflow -1:-1:-1
+                            0010  06A4  hash duplicate list 16 bytes
+              0055 00000026 0005  06A6   duplicate record 85:38:5
+              0055 00000026 0003  06AE   duplicate record 85:38:3
+
+                            0023  06F6  line 5 (57:38:5) record type 35
+                         00 0001  06F8  Control information
+                                  ....  32 bytes of static data
+8E57000052474D443436313030000111  06FB   data '...00164DMGR..W.'
+C838323230304E4D424D09008889B96D  070B   data 'm¹....MBMN00228È'
+                              00  071B  padding '.'
+
+                       0052 2005  071C  line 4: bucket for hash index 82
+                                  ....  total hash bucket size: 32
+              FFFF FFFFFFFF FFFF  0720  bucket overflow -1:-1:-1
+                              00  0728  flags 0
+                        00000002  0729  duplicate count 2
+              FFAE 00000026 0006  072D   duplicate node 82:38:6
+                              06  0735   key len: 6 bytes
+                    343631303000  0736   key: '.00164'
+
+                            0023  073C  line 3 (57:38:3) record type 35
+                         00 0001  073E  Control information
+                                  ....  38 bytes of static data
+2957C0004D4750533436313030000124  0741   data '$..00164SPGM.ÀW)'
+4D42434D0089B8A463ED400000885D51  0751   data 'Q]...@íc¤¸..MCBM'
+                    C03436313030  0761   data '00164À'
+                              00  0767  padding '.'
+
+                       004C 2005  0768  line 2: bucket for hash index 76
+                                  ....  total hash bucket size: 32
+              FFFF FFFFFFFF FFFF  076C  bucket overflow -1:-1:-1
+                              00  0774  flags 0
+                        00000001  0775  duplicate count 1
+              004F 00000026 0001  0779   pointer 79:38:1
+                              06  0781   key len: 6 bytes
+                    343631303000  0782   key: '.00164'
+
+                            0020  0788  line 1 (57:38:1) record type 32
+                         00 0001  078A  Control information
+                                  ....  77 bytes of static data
+86726576696C6F54343631303000010D  078D   data '...00164Toliver.'
+5020363431411120846E69766C410420  079D   data ' .Alvin. .A146 P'
+4307209B6563616C50206C6C656E7261  07AD   data 'arnell Place. .C'
+31383330484E12208B6175726F636F68  07BD   data 'hocorua. .NH0381'
+      00F03100630F72B31C00004D37  07CD   data '7M...³r.c.1ð.'
+
+                            2001  07DA  line 0 (57:38:0) SYSTEM record
+                         02 000F  07DC  15 bytes in 2 sets/dynamic items
+                         004C 07  07DF  7 bytes, storage set type 76
+                         0132 5B  07E2   next  76:38:2
+                              00  07E5   owner 57:38:0
+                         0052 07  07E6  7 bytes, storage set type 82
+                         0194 5B  07E9   next  82:38:4
+                              00  07EC   owner 57:38:0
+                              00  07ED  padding '.'
+
+                        FFFFFFFF  07EE  snap page pointer -1
+                        000000C0  07F2  snap pointer TSN 192
+                            0000  07F6  MBZ '..'
+                        00000000  07F8  page sequence number 0
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+*------------------------------------------------------------------------------
+
+-- Dbkey scope transaction
+-- Delete employees row
+-- Job_history rows deleted by trigger
+
+SQL> delete from employees where dbkey = _dbkey'79:38:1';
+1 row deleted
+SQL> commit;
+%RDB-E-INTEG_FAIL, violation of constraint RESUMES_FOREIGN1 caused operation to fail
+-RDB-F-ON_DB, on database DSA29:[MF_PERSONNEL_DB]MF_PERSONNEL.RDB;1
+SQL> rollback;
+
+SQL> alter table resumes disable constraint RESUMES_FOREIGN1;
+SQL> commit;
+SQL> exit;
+
+SQL> delete from employees where dbkey = _dbkey'79:38:1';
+1 row deleted
+SQL> commit;
+
+$ @CPTRDB_SHOW_ONE_PAGE mfp_db 2 38 data
+
+-- Page after delete
+-- Only system record and hash buckets remain
+-- The deleted line index entries are marked "locked by {TID}"
+--                                offset set to "0000"
+--                                length set to TID of delete attach
+-- The locked space is moved upfront the data section
+*------------------------------------------------------------------------------
+                   0002 00000026  0000  page 38, physical area 2
+                        A8959E54  0006  checksum = A8959E54
+               00B14957 C7D4518B  000A  time stamp =  3-JAN-2017 14:40:24.13
+                       0124 064A  0012  1610 free bytes, 292 locked
+                            0007  0016  7 lines
+                       0013 07DA  0018  line 0: offset 07DA, 19 bytes
+                       000F 0000  001C  line 1: locked by 15
+                       000D 07CC  0020  line 2: offset 07CC, 13 bytes
+                       000F 0000  0024  line 3: locked by 15
+                       000D 07BE  0028  line 4: offset 07BE, 13 bytes
+                       000F 0000  002C  line 5: locked by 15
+                       000F 0000  0030  line 6: locked by 15
+
+                        000000C0  0034  line 0: TSN 192
+                        00000166  0038  line 1: TSN 358
+                        00000166  003C  line 2: TSN 358
+                        00000166  0040  line 3: TSN 358
+                        00000166  0044  line 4: TSN 358
+                        00000166  0048  line 5: TSN 358
+                        00000166  004C  line 6: TSN 358
+
+000F000F000F000F000F000F000F000F  0050  locked space '................'
+                                  ::::  (17 duplicate lines)
+                        000F000F  0170  locked space '....'
+00000000000000000000000000000000  0174  free space '................'
+                                  ::::  (99 duplicate lines)
+            00000000000000000000  07B4  free space '..........'
+
+                       0052 2005  07BE  line 4: bucket for hash index 82
+                                  ....  total hash bucket size: 13
+              FFFF FFFFFFFF FFFF  07C2  bucket overflow -1:-1:-1
+                              00  07CA  flags 0
+                              34  07CB  padding '4'
+
+                       004C 2005  07CC  line 2: bucket for hash index 76
+                                  ....  total hash bucket size: 13
+              FFFF FFFFFFFF FFFF  07D0  bucket overflow -1:-1:-1
+                              00  07D8  flags 0
+                              34  07D9  padding '4'
+
+                            2001  07DA  line 0 (57:38:0) SYSTEM record
+                         02 000F  07DC  15 bytes in 2 sets/dynamic items
+                         004C 07  07DF  7 bytes, storage set type 76
+                         0132 5B  07E2   next  76:38:2
+                              00  07E5   owner 57:38:0
+                         0052 07  07E6  7 bytes, storage set type 82
+                         0194 5B  07E9   next  82:38:4
+                              00  07EC   owner 57:38:0
+                              00  07ED  padding '.'
+
+                        00000001  07EE  snap page pointer 1
+                        00000166  07F2  snap pointer TSN 358
+                            0000  07F6  MBZ '..'
+                        00000000  07F8  page sequence number 0
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+*------------------------------------------------------------------------------
+
+-- Dbkey scope transaction
+-- Insert employees row on same page
+
+SQL> insert into employees (employee_id,last_name) values ('00164','Toliver');
+1 row inserted
+SQL> commit;
+
+$ @CPTRDB_SHOW_ONE_PAGE mfp_db 2 38 data
+
+-- The successful insert causes garbage collection on the page
+-- Line 1 is reused for the new data row (first available line)
+-- Line 3 line index is marked "empty" 
+--                   offset and length set to "0000"
+-- Line 5 and 6 trailing line and TSN index entries are reclaimed
+-- Locked space upfront the data section becomes free space 
+-- The allocation of the reclaimed line and TSN entries is added to the free space
+*------------------------------------------------------------------------------
+                   0002 00000026  0000  page 38, physical area 2
+                        4BDCCFDA  0006  checksum = 4BDCCFDA
+               00B1495A 79DE9FAB  000A  time stamp =  3-JAN-2017 14:59:41.83
+                       0000 074A  0012  1866 free bytes, 0 locked
+                            0005  0016  5 lines
+                       0013 07DA  0018  line 0: offset 07DA, 19 bytes
+                       0022 078A  001C  line 1: offset 078A, 34 bytes
+                       0020 07BA  0020  line 2: offset 07BA, 32 bytes
+                       0000 0000  0024  line 3: empty
+                       000D 07AC  0028  line 4: offset 07AC, 13 bytes
+
+                        000000C0  002C  line 0: TSN 192
+                        00000169  0030  line 1: TSN 361
+                        00000169  0034  line 2: TSN 361
+                        00000166  0038  line 3: TSN 358
+                        00000166  003C  line 4: TSN 358
+
+000F000F000F000F000F000F000F000F  0040  free space '................'
+                                  ::::  (18 duplicate lines)
+000000000000000000000000000F000F  0170  free space '................'
+00000000000000000000000000000000  0180  free space '................'
+                                  ::::  (95 duplicate lines)
+            00000000000000000000  0780  free space '..........'
+
+                            0020  078A  line 1 (57:38:1) record type 32
+                         00 0001  078C  Control information
+                                  ....  29 bytes of static data
+86726576696C6F54343631303000010D  078F   data '...00164Toliver.'
+      04F44E0200873F0020C8008920  079F   data ' ..È .?...Nô.'
+
+                       0052 2005  07AC  line 4: bucket for hash index 82
+                                  ....  total hash bucket size: 13
+              FFFF FFFFFFFF FFFF  07B0  bucket overflow -1:-1:-1
+                              00  07B8  flags 0
+                              34  07B9  padding '4'
+
+                       004C 2005  07BA  line 2: bucket for hash index 76
+                                  ....  total hash bucket size: 32
+              FFFF FFFFFFFF FFFF  07BE  bucket overflow -1:-1:-1
+                              00  07C6  flags 0
+                        00000001  07C7  duplicate count 1
+              004F 00000026 0001  07CB   pointer 79:38:1
+                              06  07D3   key len: 6 bytes
+                    343631303000  07D4   key: '.00164'
+
+                            2001  07DA  line 0 (57:38:0) SYSTEM record
+                         02 000F  07DC  15 bytes in 2 sets/dynamic items
+                         004C 07  07DF  7 bytes, storage set type 76
+                         0132 5B  07E2   next  76:38:2
+                              00  07E5   owner 57:38:0
+                         0052 07  07E6  7 bytes, storage set type 82
+                         0194 5B  07E9   next  82:38:4
+                              00  07EC   owner 57:38:0
+                              00  07ED  padding '.'
+
+                        00000001  07EE  snap page pointer 1
+                        00000169  07F2  snap pointer TSN 361
+                            0000  07F6  MBZ '..'
+                        00000000  07F8  page sequence number 0
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+*------------------------------------------------------------------------------
+
+-- Dbkey scope transaction
+-- RMU/Reclaim after delete
+
+$ rmu/reclaim/log/area=empids_low mfp_db
+%RMU-I-RCLMAREA, Reclaiming area EMPIDS_LOW
+%RMU-I-RCLMPRCT, 53 pages processed of 53 total pages for area EMPIDS_LOW, approximately 100 %
+ ELAPSED:    0 00:00:00.01  CPU: 0:00:00.02  BUFIO: 26  DIRIO: 29  FAULTS: 258
+
+$ @CPTRDB_SHOW_ONE_PAGE mfp_db 2 38 data
+
+-- Page after RMU/Reclaim
+-- RMU/Reclaim has the same effects as a subsequent successful insert
+-- Line 1 is also marked "empty"
+*------------------------------------------------------------------------------
+                   0002 00000026  0000  page 38, physical area 2
+                        AD27900A  0006  checksum = AD27900A
+               00B14A24 BE865557  000A  time stamp =  4-JAN-2017 15:07:35.35
+                       0000 077E  0012  1918 free bytes, 0 locked
+                            0005  0016  5 lines
+                       0013 07DA  0018  line 0: offset 07DA, 19 bytes
+                       0000 0000  001C  line 1: empty
+                       000D 07CC  0020  line 2: offset 07CC, 13 bytes
+                       0000 0000  0024  line 3: empty
+                       000D 07BE  0028  line 4: offset 07BE, 13 bytes
+
+                        000000C0  002C  line 0: TSN 192
+                        00000161  0030  line 1: TSN 353
+                        00000161  0034  line 2: TSN 353
+                        00000161  0038  line 3: TSN 353
+                        00000161  003C  line 4: TSN 353
+
+000B000B000B000B000B000B000B000B  0040  free space '................'
+                                  ::::  (18 duplicate lines)
+000000000000000000000000000B000B  0170  free space '................'
+00000000000000000000000000000000  0180  free space '................'
+                                  ::::  (98 duplicate lines)
+    0000000000000000000000000000  07B0  free space '..............'
+
+                       0052 2005  07BE  line 4: bucket for hash index 82
+                                  ....  total hash bucket size: 13
+              FFFF FFFFFFFF FFFF  07C2  bucket overflow -1:-1:-1
+                              00  07CA  flags 0
+                              34  07CB  padding '4'
+
+                       004C 2005  07CC  line 2: bucket for hash index 76
+                                  ....  total hash bucket size: 13
+              FFFF FFFFFFFF FFFF  07D0  bucket overflow -1:-1:-1
+                              00  07D8  flags 0
+                              34  07D9  padding '4'
+
+                            2001  07DA  line 0 (57:38:0) SYSTEM record
+                         02 000F  07DC  15 bytes in 2 sets/dynamic items
+                         004C 07  07DF  7 bytes, storage set type 76
+                         0132 5B  07E2   next  76:38:2
+                              00  07E5   owner 57:38:0
+                         0052 07  07E6  7 bytes, storage set type 82
+                         0194 5B  07E9   next  82:38:4
+                              00  07EC   owner 57:38:0
+                              00  07ED  padding '.'
+
+                        00000001  07EE  snap page pointer 1
+                        00000161  07F2  snap pointer TSN 353
+                            0000  07F6  MBZ '..'
+                        00000000  07F8  page sequence number 0
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+*------------------------------------------------------------------------------
+
+-- Dbkey scope ATTACH 
+-- From two different sessions
+-- Session 1 remains on database
+
+-- Session1
+SQL> alter table resumes disable constraint RESUMES_FOREIGN1;
+SQL> commit;
+SQL> exit;
+
+SQL> attach 'file mfp_db dbkey scope attach';
+SQL> delete from employees where dbkey = _dbkey'79:38:1';
+1 row deleted
+SQL> commit;
+-- Remains on database
+
+-- Session 2
+SQL> insert into employees (employee_id,last_name) values ('00164','Toliver');
+1 row inserted
+SQL> commit;
+
+$ @CPTRDB_SHOW_ONE_PAGE mfp_db 2 38 data
+
+-- Page after delete and insert 
+-- The insert does not trigger garbage collection for the line and tsn index
+-- The deleted line index extries remain "locked by {TID}"
+-- The new row is inserted into the new line 7 (next highest line) 
+-- The locked space becomes free space
+-- The data section is reclaimed
+*------------------------------------------------------------------------------
+                   0002 00000026  0000  page 38, physical area 2
+                        26FE7981  0006  checksum = 26FE7981
+               00B14961 20EE762B  000A  time stamp =  3-JAN-2017 15:47:19.09
+                       0000 0732  0012  1842 free bytes, 0 locked
+                            0008  0016  8 lines
+                       0013 07DA  0018  line 0: offset 07DA, 19 bytes
+                       000B 0000  001C  line 1: locked by 11
+                       0020 07BA  0020  line 2: offset 07BA, 32 bytes
+                       000B 0000  0024  line 3: locked by 11
+                       000D 07AC  0028  line 4: offset 07AC, 13 bytes
+                       000B 0000  002C  line 5: locked by 11
+                       000B 0000  0030  line 6: locked by 11
+                       0022 078A  0034  line 7: offset 078A, 34 bytes
+
+                        000000C0  0038  line 0: TSN 192
+                        00000161  003C  line 1: TSN 353
+                        00000163  0040  line 2: TSN 355
+                        00000161  0044  line 3: TSN 353
+                        00000161  0048  line 4: TSN 353
+                        00000161  004C  line 5: TSN 353
+                        00000161  0050  line 6: TSN 353
+                        00000163  0054  line 7: TSN 355
+
+000B000B000B000B000B000B000B000B  0058  free space '................'
+                                  ::::  (16 duplicate lines)
+00000000000B000B000B000B000B000B  0168  free space '................'
+00000000000000000000000000000000  0178  free space '................'
+                                  ::::  (96 duplicate lines)
+                            0000  0788  free space '..'
+
+                            0020  078A  line 7 (57:38:7) record type 32
+                         00 0001  078C  Control information
+                                  ....  29 bytes of static data
+86726576696C6F54343631303000010D  078F   data '...00164Toliver.'
+      04F44E0200873F0020C8008920  079F   data ' ..È .?...Nô.'
+
+                       0052 2005  07AC  line 4: bucket for hash index 82
+                                  ....  total hash bucket size: 13
+              FFFF FFFFFFFF FFFF  07B0  bucket overflow -1:-1:-1
+                              00  07B8  flags 0
+                              34  07B9  padding '4'
+
+                       004C 2005  07BA  line 2: bucket for hash index 76
+                                  ....  total hash bucket size: 32
+              FFFF FFFFFFFF FFFF  07BE  bucket overflow -1:-1:-1
+                              00  07C6  flags 0
+                        00000001  07C7  duplicate count 1
+              004F 00000026 0007  07CB   pointer 79:38:7
+                              06  07D3   key len: 6 bytes
+                    343631303000  07D4   key: '.00164'
+
+                            2001  07DA  line 0 (57:38:0) SYSTEM record
+                         02 000F  07DC  15 bytes in 2 sets/dynamic items
+                         004C 07  07DF  7 bytes, storage set type 76
+                         0132 5B  07E2   next  76:38:2
+                              00  07E5   owner 57:38:0
+                         0052 07  07E6  7 bytes, storage set type 82
+                         0194 5B  07E9   next  82:38:4
+                              00  07EC   owner 57:38:0
+                              00  07ED  padding '.'
+
+                        00000001  07EE  snap page pointer 1
+                        00000163  07F2  snap pointer TSN 355
+                            0000  07F6  MBZ '..'
+                        00000000  07F8  page sequence number 0
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+*------------------------------------------------------------------------------
+
+-- Dbkey scope ATTACH
+-- RMU/Reclaim after delete/insert
+
+$ rmu/reclaim/area=empids_low mfp_db/log
+%RMU-I-RCLMAREA, Reclaiming area EMPIDS_LOW
+%RMU-I-RCLMPRCT, 53 pages processed of 53 total pages for area EMPIDS_LOW, approximately 100 %
+ ELAPSED:    0 00:00:00.01  CPU: 0:00:00.02  BUFIO: 26  DIRIO: 30  FAULTS: 254
+
+-- Page after delete/insert RMU/Reclaim
+-- The deleted line index entries are marked "empty"
+--                                cannot be reclaimed as they are not trailing
+-- Line and tsn index entries will accumulate over time
+*------------------------------------------------------------------------------
+                   0002 00000026  0000  page 38, physical area 2
+                        9E834EEC  0006  checksum = 9E834EEC
+               00B14961 F659EDDB  000A  time stamp =  3-JAN-2017 15:53:17.15
+                       0000 0732  0012  1842 free bytes, 0 locked
+                            0008  0016  8 lines
+                       0013 07DA  0018  line 0: offset 07DA, 19 bytes
+                       0000 0000  001C  line 1: empty
+                       0020 07BA  0020  line 2: offset 07BA, 32 bytes
+                       0000 0000  0024  line 3: empty
+                       000D 07AC  0028  line 4: offset 07AC, 13 bytes
+                       0000 0000  002C  line 5: empty
+                       0000 0000  0030  line 6: empty
+                       0022 078A  0034  line 7: offset 078A, 34 bytes
+
+                        000000C0  0038  line 0: TSN 192
+                        00000161  003C  line 1: TSN 353
+                        00000163  0040  line 2: TSN 355
+                        00000161  0044  line 3: TSN 353
+                        00000161  0048  line 4: TSN 353
+                        00000161  004C  line 5: TSN 353
+                        00000161  0050  line 6: TSN 353
+                        00000163  0054  line 7: TSN 355
+
+000B000B000B000B000B000B000B000B  0058  free space '................'
+                                  ::::  (16 duplicate lines)
+00000000000B000B000B000B000B000B  0168  free space '................'
+00000000000000000000000000000000  0178  free space '................'
+                                  ::::  (96 duplicate lines)
+                            0000  0788  free space '..'
+
+                            0020  078A  line 7 (57:38:7) record type 32
+                         00 0001  078C  Control information
+                                  ....  29 bytes of static data
+86726576696C6F54343631303000010D  078F   data '...00164Toliver.'
+      04F44E0200873F0020C8008920  079F   data ' ..È .?...Nô.'
+
+                       0052 2005  07AC  line 4: bucket for hash index 82
+                                  ....  total hash bucket size: 13
+              FFFF FFFFFFFF FFFF  07B0  bucket overflow -1:-1:-1
+                              00  07B8  flags 0
+                              34  07B9  padding '4'
+
+                       004C 2005  07BA  line 2: bucket for hash index 76
+                                  ....  total hash bucket size: 32
+              FFFF FFFFFFFF FFFF  07BE  bucket overflow -1:-1:-1
+                              00  07C6  flags 0
+                        00000001  07C7  duplicate count 1
+              004F 00000026 0007  07CB   pointer 79:38:7
+                              06  07D3   key len: 6 bytes
+                    343631303000  07D4   key: '.00164'
+
+                            2001  07DA  line 0 (57:38:0) SYSTEM record
+                         02 000F  07DC  15 bytes in 2 sets/dynamic items
+                         004C 07  07DF  7 bytes, storage set type 76
+                         0132 5B  07E2   next  76:38:2
+                              00  07E5   owner 57:38:0
+                         0052 07  07E6  7 bytes, storage set type 82
+                         0194 5B  07E9   next  82:38:4
+                              00  07EC   owner 57:38:0
+                              00  07ED  padding '.'
+
+                        00000001  07EE  snap page pointer 1
+                        00000163  07F2  snap pointer TSN 355
+                            0000  07F6  MBZ '..'
+                        00000000  07F8  page sequence number 0
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+*------------------------------------------------------------------------------
+</pre>
+
+<b>CPTRDB_RECLAIM_AREA.COM</b><br>
+
+<p>
+RMU/Reclaim one storage area.
+</p>
+
+<p>
+Basically this command online applies the garbage collection of the dbkey 
+scope mode TRANACTION to all pages of a storage area.
+</p>
+
+<p>
+Change locked space upfront the data section of data pages into free space.<br> 
+Mark "locked by {TID}" line index entries as "empty".<br>
+Reclaim line and TSN index entries if possible and add their allocation
+to the free space.
+</p>
+
+<p>
+No users in dbkey scope mode ATTACH should be active on the database
+while this command is executing.
+</p>
+
+<p>
+Parameters: Adapt the parameter block.
+</p>
+
+<pre>
+$!-------------------------
+$ dbid   = "SBN_DB"
+$ sarea1 = "SEASN_TKT_DATA"
+$!-------------------------
+</pre>
+
+<a href="#Chapter 1">To Top</a><br>
+
 <a name="Chapter 39"></a>
 <h3><font face="helvetica, arial, sans-serif" color="#330099">
 § -- 39 -- Database Restore And Recover
@@ -11746,8 +13070,8 @@ $ @CPTRDB_RESTORE_OPTIONS {dbid_backup} {dbid_restore}
 </pre>
 
 <p>
-  They specify the new locations and aij settings of the restored database,
-  and can be created using CPTRDB_RESTORE_OPTIONS.COM.
+  These option files specify the new locations and AIJ settings of the 
+  restored database, and can be created using CPTRDB_RESTORE_OPTIONS.COM.
 
   Note that the RMU/Analyze (weekly) job saves the restore options files 
   for later reference (in case of disaster recovery) in CPT$RDB_ANA.
@@ -12176,6 +13500,152 @@ Procedures Usage
 ==> that has been uploaded in Rdb V7.2-52 !
 </pre>
 
+<p>
+Below a full dump of a data page containing list of byte varying pointer and 
+data segments:
+</p>
+
+<pre>
+*------------------------------------------------------------------------------
+* Oracle Rdb V7.3-200                                    4-JAN-2017 11:42:06.21
+*
+* Dump of Live area LISTS_AREA
+*     Filename: DISK$DATA_29:[CPTRDB_DB_1]LISTS_AREA.RDA;1
+*     Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1
+*
+*------------------------------------------------------------------------------
+
+                   0003 00000008  0000  page 8, physical area 3
+                        D294D324  0006  checksum = D294D324
+               00ADA4A1 F1649A08  000A  time stamp =  4-OCT-2013 15:50:41.75
+                       0000 0590  0012  1424 free bytes, 0 locked
+                            0009  0016  9 lines
+                       0023 07CA  0018  line 0: offset 07CA, 35 bytes
+                       0039 0790  001C  line 1: offset 0790, 57 bytes
+                       0049 0746  0020  line 2: offset 0746, 73 bytes
+                       003E 0708  0024  line 3: offset 0708, 62 bytes
+                       0027 06E0  0028  line 4: offset 06E0, 39 bytes
+                       0049 0696  002C  line 5: offset 0696, 73 bytes
+                       002B 066A  0030  line 6: offset 066A, 43 bytes
+                       0030 063A  0034  line 7: offset 063A, 48 bytes
+                       0049 05F0  0038  line 8: offset 05F0, 73 bytes
+
+                        000000F0  003C  line 0: TSN 240
+                        000000F0  0040  line 1: TSN 240
+                        000000F0  0044  line 2: TSN 240
+                        000000F0  0048  line 3: TSN 240
+                        000000F0  004C  line 4: TSN 240
+                        000000F0  0050  line 5: TSN 240
+                        000000F0  0054  line 6: TSN 240
+                        000000F0  0058  line 7: TSN 240
+                        000000F0  005C  line 8: TSN 240
+
+00000000000000000000000000000000  0060  free space '................'
+                                  ::::  (88 duplicate lines)
+
+                            200B  05F0  line 8: blob primary pointer segment
+                         00 0001  05F2  Control information
+                                  ....  total blob segment size: 68
+                        00000000  05F5  segment type 0
+                        00000000  05F9  MBZ '....'
+                        00000000  05FD  unused '....'
+              FFFF FFFFFFFF FFFF  0601  next pointer segment -1:-1:-1
+                        00000002  0609  number of dbkeys 2
+                0000000000000051  060D  total length of segments 81
+                        00000002  0615  number of data segments 2
+                        00000001  0619  number of pointer segments 1
+                        0000002B  061D  length of longest segment 43
+     00000026 003D 00000008 0006  0621  data segment 61:8:6 (len 38)
+     0000002B 003D 00000008 0007  062D  data segment 61:8:7 (len 43)
+                              00  0639  padding '.'
+
+                            0000  063A  line 7 (3:8:7) record type 0
+                         00 0001  063C  Control information
+                                  ....  43 bytes of static data
+656562207361682074616874203E3D3D  063F   data '==> that has bee'
+6452206E6920646564616F6C7075206E  064F   data 'n uploaded in Rd'
+          212032352D322E37562062  065F   data 'b V7.2-52 !'
+
+                            0000  066A  line 6 (3:8:6) record type 0
+                         00 0001  066C  Control information
+                                  ....  38 bytes of static data
+206568742073692073696854203E3D3D  066F   data '==> This is the '
+786574206120666F20746E65746E6F63  067F   data 'content of a tex'
+                    656C69662074  068F   data 't file'
+                              00  0695  padding '.'
+
+                            200B  0696  line 5: blob primary pointer segment
+                         00 0001  0698  Control information
+                                  ....  total blob segment size: 68
+                        00000000  069B  segment type 0
+                        00000000  069F  MBZ '....'
+                        00000000  06A3  unused '....'
+              FFFF FFFFFFFF FFFF  06A7  next pointer segment -1:-1:-1
+                        00000002  06AF  number of dbkeys 2
+                000000000000005B  06B3  total length of segments 91
+                        00000002  06BB  number of data segments 2
+                        00000001  06BF  number of pointer segments 1
+                        00000039  06C3  length of longest segment 57
+     00000039 003D 00000008 0003  06C7  data segment 61:8:3 (len 57)
+     00000022 003D 00000008 0004  06D3  data segment 61:8:4 (len 34)
+                              00  06DF  padding '.'
+
+                            0000  06E0  line 4 (3:8:4) record type 0
+                         00 0001  06E2  Control information
+                                  ....  34 bytes of static data
+706D6973206E616320756F59203E3D3D  06E5   data '==> You can simp'
+656C6966206120747265736E6920796C  06F5   data 'ly insert a file'
+                            2120  0705   data ' !'
+                              00  0707  padding '.'
+
+                            0000  0708  line 3 (3:8:3) record type 0
+                         00 0001  070A  Control information
+                                  ....  57 bytes of static data
+726620746168742065746F4E203E3D3D  070D   data '==> Note that fr'
+74206E6F20312E377620626452206D6F  071D   data 'om Rdb v7.1 on t'
+65726F6D206863756D20736920736968  072D   data 'his is much more'
+              2E746E6167656C6520  073D   data ' elegant.'
+
+                            200B  0746  line 2: blob primary pointer segment
+                         00 0001  0748  Control information
+                                  ....  total blob segment size: 68
+                        00000000  074B  segment type 0
+                        00000000  074F  MBZ '....'
+                        00000000  0753  unused '....'
+              FFFF FFFFFFFF FFFF  0757  next pointer segment -1:-1:-1
+                        00000002  075F  number of dbkeys 2
+                0000000000000052  0763  total length of segments 82
+                        00000002  076B  number of data segments 2
+                        00000001  076F  number of pointer segments 1
+                        00000034  0773  length of longest segment 52
+     0000001E 003D 00000008 0000  0777  data segment 61:8:0 (len 30)
+     00000034 003D 00000008 0001  0783  data segment 61:8:1 (len 52)
+                              00  078F  padding '.'
+
+                            0000  0790  line 1 (3:8:1) record type 0
+                         00 0001  0792  Control information
+                                  ....  52 bytes of static data
+6574796220666F207473694C203E3D3D  0795   data '==> List of byte'
+6E656D676573202C676E697972617620  07A5   data ' varying, segmen'
+6F6C62202C73676E6972747320646574  07B5   data 'ted strings, blo'
+                        3F207362  07C5   data 'bs ?'
+                              00  07C9  padding '.'
+
+                            0000  07CA  line 0 (3:8:0) record type 0
+                         00 0001  07CC  Control information
+                                  ....  30 bytes of static data
+64206D726574206863696857203E3D3D  07CF   data '==> Which term d'
+    3F2072656665727020756F79206F  07DF   data 'o you prefer ?'
+                              00  07ED  padding '.'
+
+                        00000001  07EE  snap page pointer 1
+                        000000F0  07F2  snap pointer TSN 240
+                            003D  07F6  logical area 61
+                        00000009  07F8  page sequence number 9
+                            0000  07FC  page TSN base 0
+                            0000  07FE  MBZ '..'
+</pre>
+
 <a href="#Chapter 1">To Top</a><br>
 
 <a name="Chapter 42"></a>
@@ -12333,68 +13803,7 @@ M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508424413|2016071508424413|31
 M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508474413|2016071508474413|3139862|1|2016071508474413
 M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508524413|2016071508524413|3139864|1|2016071508524413
 M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071508574413|2016071508574413|3139866|1|2016071508574413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509024413|2016071509024413|3139868|1|2016071509024413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509074413|2016071509074413|3139870|1|2016071509074413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509124413|2016071509124413|3139872|1|2016071509124413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509174413|2016071509174413|3139874|1|2016071509174413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509224413|2016071509224413|3139876|1|2016071509224413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509274413|2016071509274413|3139878|1|2016071509274413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509324413|2016071509324413|3139880|1|2016071509324413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509374413|2016071509374413|3139882|1|2016071509374413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509424413|2016071509424413|3139884|1|2016071509424413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509474413|2016071509474413|3139886|1|2016071509474413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509524413|2016071509524413|3139888|1|2016071509524413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071509574413|2016071509574413|3139890|1|2016071509574413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510024413|2016071510024413|3139892|1|2016071510024413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510074413|2016071510074414|3139894|1|2016071510074413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510124413|2016071510124415|3140152|1|2016071510124415
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510174413|2016071510174413|3140154|1|2016071510174413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510224413|2016071510224413|3140156|1|2016071510224413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510274413|2016071510274413|3140158|1|2016071510274413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510324413|2016071510324413|3140160|1|2016071510324413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510374413|2016071510374413|3140162|1|2016071510374413
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510424414|2016071510424414|3140164|1|2016071510424414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510474414|2016071510474414|3140166|1|2016071510474414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510524414|2016071510524414|3140168|1|2016071510524414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071510574414|2016071510574414|3140170|1|2016071510574414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511024414|2016071511024414|3140172|1|2016071511024414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511074414|2016071511074414|3140174|1|2016071511074414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511124414|2016071511124414|3140176|1|2016071511124414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511174414|2016071511174414|3140178|1|2016071511174414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511224414|2016071511224414|3140180|1|2016071511224414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511274414|2016071511274414|3140182|1|2016071511274414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511324414|2016071511324414|3140184|1|2016071511324414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511374414|2016071511374414|3140186|1|2016071511374414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511424414|2016071511424414|3140188|1|2016071511424414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511474414|2016071511474414|3140190|1|2016071511474414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511524414|2016071511524414|3140192|1|2016071511524414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071511574414|2016071511574414|3140194|1|2016071511574414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512024414|2016071512024414|3140196|1|2016071512024414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512074414|2016071512074414|3140198|1|2016071512074414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512124414|2016071512124414|3140456|1|2016071512124414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512174414|2016071512174414|3140458|1|2016071512174414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512224414|2016071512224414|3140460|1|2016071512224414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512274414|2016071512274414|3140462|1|2016071512274414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512324414|2016071512324414|3140464|1|2016071512324414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512374414|2016071512374414|3140466|1|2016071512374414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512424414|2016071512424414|3140468|1|2016071512424414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512474414|2016071512474414|3140470|1|2016071512474414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512524414|2016071512524414|3140472|1|2016071512524414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071512574414|2016071512574414|3140474|1|2016071512574414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513024414|2016071513024414|3140476|1|2016071513024414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513074414|2016071513074414|3140478|1|2016071513074414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513124414|2016071513124414|3140480|1|2016071513124414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513174414|2016071513174414|3140482|1|2016071513174414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513224414|2016071513224414|3140484|1|2016071513224414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513274414|2016071513274414|3140486|1|2016071513274414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513324414|2016071513324414|3140488|1|2016071513324414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513374414|2016071513374414|3140490|1|2016071513374414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513424414|2016071513424414|3140492|1|2016071513424414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513474414|2016071513474414|3140494|1|2016071513474414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513524414|2016071513524414|3140496|1|2016071513524414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071513574414|2016071513574414|3140498|1|2016071513574414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071514024414|2016071514024414|3140500|1|2016071514024414
-M|JCCLML$HEARTBEAT|45|8|1|18295873505984512|2016071514074414|2016071514074414|3140502|1|2016071514074414
+......
 </pre>
 
 <p>
@@ -16858,7 +18267,9 @@ Usage:
 $ @CPTRDB_MASTR_DB_INSERT {integer} {integer} {string varchar(10)}
 </pre>
 
+<hr>
 The procedure for an existing master database starts from here.<br>
+<hr>
 
 <p>
 <b>CPTRDB_RESTORE_OPTIONS.COM</b><br>
@@ -17095,6 +18506,77 @@ Commit stall x1000             0        0        0.0        83844         156.1
 
 Startup/Shutdown               0        0        0.0            1           0.0
 Unexpected Failure             0        0        0.0            0           0.0
+</pre>
+
+<p>
+The (re)start of the replication may fail with the messages below if the AIJ
+sequence number that is current on the standby database has already been backed
+up on the master database.
+</p>
+
+<pre>
+(From the monitor logfile)
+(SYS$SYSROOT:[SYSEXE]RDMMON73.LOG)
+
+24-JAN-2017 10:15:44.11 - Received AIJ Log Catch-Up Server process termination from 2F606ABA:1
+  - database name "DSA29:[CPTRDB_MASTR_DB]CPTRDB_MASTR_DB.RDB;1" [_DSA29] (769,35902,0)
+  - process failed
+    %RDMS-F-HOTSEQBCK, cannot find AIJ journal required to start replication
+  - sending AIJ Log Catch-Up Server start reply to 2F605E62:0
+    - %RDMS-F-CANTSTARTLCS, error starting AIJ Log Catch-Up Server process
+    - -RDMS-F-HOTSEQBCK, cannot find AIJ journal required to start replication
+  - LCS inactivated
+</pre>
+
+<p>
+In this case, stop the AIJ backups on the master database, and recover the 
+standby database with the AIJ backup files of the master database, starting
+with the sequence number that is current on the standby database.
+</p>
+
+<p>
+Usage:
+</p>
+
+<pre>
+$ @CPTRDB_SHOW_AIJ_BCK_ONE cptrdb_mastr_db
+(Creates CPT$RDB_DATA:AIJ_BCK_CPTRDB_MASTR_DB_L15S29_20170124.LIS_24JAN125506;1)
+
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170123_1007_7372.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170123_1208_7373.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170123_1408_7374.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170123_1608_7375.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170123_1808_7376.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170123_2009_7377.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170123_2209_7378.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170124_0009_7379.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170124_0610_7380.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170124_0810_7381.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170124_1010_7382.AIJ_BCK;1
+DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_MASTR_L15S29_20170124_1210_7383.AIJ_BCK;1
+
+Adapt CPTRDB_RECOVER_DATABASE.COM
+
+$!------------------------------------------------------------------------------
+$ mailto1      = "L15S36::ALLEMEERSCH"
+$ dbid_backup  = "CPTRDB_MASTR_DB"
+$ dbid_restore = "CPTRDB_STDBY_DB"
+$! -- AIJ backup files list in CPT$RDB_DATA:
+$ nodeid       = "L15S29"
+$ yyyymmdd     = "20170124"
+$ ddmmmhhmmss  = "24JAN125506"
+$!------------------------------------------------------------------------------
+
+$ RMU/Close CPTRDB_STDBY_DB
+$ @CPTRDB_SUBMIT {node} CPTRDB_RECOVER_DATABASE
+
+$ RMU/Open CPTRDB_STDBY_DB
+$ CPTRDB_REPLICATE_AFTER_START
+
+[The start of the replication will execute a AIJ backup of the master and
+standby database.]
+
+Reactivate AIJ backups on the master database.
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -17714,62 +19196,7 @@ conditions, and boils down to a private data pump function.
 **SYSTEM|RDB$DATABASE_JOURNAL|0|33|0|1|8|1|0|16386|NULL|NULL|NULL|0:65536:211|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.60|2013-12-03 16:06:47.87|0.0000000|RDBMON#
 **SYSTEM|RDB$DATABASE_ROOT|0|34|0|1|8|1|0|16386|NULL|NULL|NULL|0:65536:211|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.60|2013-12-03 16:06:47.87|0.0000000|RDBMON#
 **SYSTEM|RDB$DATABASE_USERS|0|35|0|1|8|1|0|16386|NULL|NULL|NULL|0:65536:211|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.60|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$FIELDS|0|1|86|1|8|1|1285|10|NULL|NULL|NULL|0:0:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$FIELD_VERSIONS|0|6|83|1|8|1|2404|10|NULL|NULL|NULL|0:0:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$GRANTED_PROFILES|0|27|107|1|8|1|0|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$INDEX_SEGMENTS|0|2|85|1|8|1|81|10|NULL|NULL|NULL|0:0:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$INDICES|0|3|84|1|8|1|57|10|NULL|NULL|NULL|0:0:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$INTERRELATIONS|0|15|94|1|8|1|1642|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$JOURNALS|0|37|0|1|8|1|0|16386|NULL|NULL|NULL|0:65536:211|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.60|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$LOGICAL_AREAS|0|38|0|1|8|1|0|16386|NULL|NULL|NULL|0:65536:211|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.60|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$MODULES|0|21|101|1|8|1|20|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$NLS_CHARACTER_SETS|0|40|0|1|8|1|0|16386|NULL|NULL|NULL|0:65536:211|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.60|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$OBJECT_SYNONYMS|0|31|110|1|8|1|0|0|NULL|NULL|NULL|0:65536:207|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$PARAMETERS|0|23|103|1|8|1|392|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$PRIVILEGES|0|20|100|1|8|1|0|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$PROFILES|0|26|106|1|8|1|0|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$QUERY_OUTLINES|0|24|104|1|8|1|0|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$RELATIONS|0|4|82|1|8|1|173|10|NULL|NULL|NULL|0:0:0|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$RELATION_CONSTRAINTS|0|18|98|1|8|1|14|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$RELATION_CONSTRAINT_FLDS|0|19|99|1|8|1|5|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$RELATION_FIELDS|0|5|87|1|8|1|2404|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$ROUTINES|0|22|102|1|8|1|163|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$SEQUENCES|0|25|105|1|8|1|0|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$STORAGE_AREAS|0|36|0|1|8|1|0|16386|NULL|NULL|NULL|0:65536:211|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.60|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$STORAGE_MAPS|0|13|92|1|8|1|14|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$STORAGE_MAP_AREAS|0|14|93|1|8|1|25|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$TRIGGERS|0|17|96|1|8|1|3|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$TRIGGER_ACTIONS|0|30|97|1|8|1|3|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$TYPES|0|28|108|1|8|1|0|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$TYPE_FIELDS|0|29|109|1|8|1|0|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RDB$VIEW_RELATIONS|0|12|91|1|8|1|133|10|NULL|NULL|NULL|0:65536:206|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:34:25.22|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**SYSTEM|RECYCLEBIN|0|138|5|1|8|1|0|131072|NULL|NULL|NULL|0:65536:88|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|ROLE_SYS_PRIVS|0|153|20|1|8|1|0|131072|NULL|NULL|NULL|0:65536:1319|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|ROLE_TAB_PRIVS|0|154|21|1|8|1|0|131072|NULL|NULL|NULL|0:0:1320|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|SESSION_ROLES|0|144|10|1|8|1|0|131072|NULL|NULL|NULL|0:65536:156|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|SNAP$|0|156|23|1|8|1|0|131072|NULL|NULL|NULL|0:65536:1320|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**USER|SQLSRV_EMPLOYEES|0|160|25|0|8|1|5|0|NULL|NULL|NULL|0:0:0|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-05-08 15:43:02.20|2014-05-08 15:43:02.20|0.0000000|RDBMON#
-**USER|SQLSRV_INSERT_TABLE|0|161|26|0|8|1|5|0|NULL|NULL|NULL|0:0:5|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-05-08 15:43:02.20|2014-05-08 15:43:02.20|0.0000000|RDBMON#
-**SYSTEM|SQL_CAPABILITY|0|145|11|1|8|1|3|131072|NULL|NULL|NULL|0:65536:156|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|SYSTEM_PRIVILEGE_MAP|0|155|22|1|8|1|32|131072|NULL|NULL|NULL|0:65536:1320|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**USER|TABLE_ALL_DATATYPES|0|41|60|0|8|1|6|0|NULL|0:65536:514|NULL|0:65536:514|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:36:27.34|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**USER|TABLE_PARTI|0|43|0|0|8|1|337|0|NULL|NULL|NULL|0:65536:525|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:43:34.40|2015-06-10 12:40:23.89|0.0000000|RDBMON#
-**USER|TABLE_PLACE|0|42|0|0|8|1|100|0|NULL|NULL|NULL|0:65536:525|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2013-10-04 15:43:34.40|2013-12-03 16:06:47.87|0.0000000|RDBMON#
-**USER|TABLE_TRACE|0|1009|0|0|8|1|0|0|NULL|NULL|NULL|0:65536:88|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2015-07-17 15:02:16.05|2015-07-17 15:02:16.05|0.0000000|RDBMON#
-**SYSTEM|TOOL_MODULE|0|143|9|1|8|1|0|131072|NULL|NULL|NULL|0:65536:156|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|USER$|0|141|7|1|8|1|4|131072|NULL|NULL|NULL|0:0:118|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|USER_ROLE_PRIVS|0|151|18|1|8|1|0|131072|NULL|NULL|NULL|0:65536:1319|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|USER_SYS_PRIVS|0|150|17|1|8|1|0|131072|NULL|NULL|NULL|0:65536:1319|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|USER_TABLESPACES|0|147|13|1|8|1|1|131072|NULL|NULL|NULL|0:65536:157|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|V$NLS_PARAMETERS|0|134|0|1|8|1|0|132608|NULL|NULL|NULL|0:65536:26|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|V$OPTION|0|139|6|1|8|1|0|131072|NULL|NULL|NULL|0:0:91|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|V$PARAMETER|0|142|0|1|8|1|0|132608|NULL|NULL|NULL|0:65536:129|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|V$SESSION|0|140|0|1|8|1|0|132608|NULL|NULL|NULL|0:65536:91|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|V$SQLAREA|0|158|0|1|8|1|0|132608|NULL|NULL|NULL|0:0:1378|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**SYSTEM|V$VERSION|0|135|0|1|8|1|0|132608|NULL|NULL|NULL|0:65536:26|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2014-04-29 16:04:37.14|2014-04-29 16:04:37.14|0.0000000|RDBMON#
-**USER|WAITING_FOR_CNTS|0|1485|0|0|8|1|1|0|NULL|NULL|NULL|0:65536:26|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2015-12-23 04:45:00.66|2015-12-23 04:45:01.43|0.0000000|RDBMON#
-**USER|WAITING_FOR_DDLCKS|0|1484|0|0|8|1|0|0|NULL|NULL|NULL|0:65536:26|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2015-12-23 04:30:00.66|2015-12-23 04:30:01.41|0.0000000|RDBMON#
-**USER|WAITING_FOR_TIMES|0|1486|0|0|8|1|1|0|NULL|NULL|NULL|0:65536:31|NULL|NULL|0|0|RDB$SECURITY_CLASS|0|0|2015-12-23 05:00:00.58|2015-12-23 05:00:01.37|0.0000000|RDBMON#
+......
 </pre>
 
 <p>
@@ -18998,15 +20425,15 @@ SHOW_STATS_DAILY_L15S29_20150407.LOG_07APR080000
 SHOW_STAT_DATA_CPTRDB_1_L15S29_20150407.LOG_07APR
 SHOW_STAT_LOGS_CPTRDB_1_L15S29_20150407.LOG_07APR
 
-SRVTRC_CLIENTS_ALL_L15S29_20160922.LOG_22SEP040000;1
-SRVTRC_CLIENTS_TS1702_L15S28_20160921.LOG_22SEP040000;1
-SRVTRC_CLIENTS_TS1702_L15S29_20160921.LOG_22SEP040013;1
-SRVTRC_CLIENTS_TS1703_L15S28_20160921.LOG_22SEP040001;1
-SRVTRC_CLIENTS_TS1703_L15S29_20160921.LOG_22SEP040014;1
-SRVTRC_CLIENTS_TS1704_L15S28_20160921.LOG_22SEP040004;1
-SRVTRC_CLIENTS_TS1704_L15S29_20160921.LOG_22SEP040016;1
-SRVTRC_CLIENTS_TS1705_L15S28_20160921.LOG_22SEP040006;1
-SRVTRC_CLIENTS_TS1705_L15S29_20160921.LOG_22SEP040018;1
+SRVTRC_CLIENTS_ALL_L15S29_20160922.LOG_22SEP040000
+SRVTRC_CLIENTS_TS1702_L15S28_20160921.LOG_22SEP040000
+SRVTRC_CLIENTS_TS1702_L15S29_20160921.LOG_22SEP040013
+SRVTRC_CLIENTS_TS1703_L15S28_20160921.LOG_22SEP040001
+SRVTRC_CLIENTS_TS1703_L15S29_20160921.LOG_22SEP040014
+SRVTRC_CLIENTS_TS1704_L15S28_20160921.LOG_22SEP040004
+SRVTRC_CLIENTS_TS1704_L15S29_20160921.LOG_22SEP040016
+SRVTRC_CLIENTS_TS1705_L15S28_20160921.LOG_22SEP040006
+SRVTRC_CLIENTS_TS1705_L15S29_20160921.LOG_22SEP040018
 
 STALL_CNTS_ALL_L15S29_20150407.LOG_07APR044500
 STALL_CNTS_CPTRDB_DB_1_L15S29_20150406.LOG_07APR044500
@@ -19169,32 +20596,32 @@ SRVOUT_TS1705_L15S29_20150407.LOG_07APR001645
 -- In CPT$RDB_JDBC_TRCDIR Daily --
 
 <pre>
-SRVTRC_TS1702_L15S29_20150407.LOG_07APR001650;1
-SRVTRC_TS1703_L15S29_20150407.LOG_07APR001652;1
-SRVTRC_TS1704_L15S29_20150407.LOG_07APR001647;1
-SRVTRC_TS1705_L15S29_20150407.LOG_07APR001645;1
+SRVTRC_TS1702_L15S29_20150407.LOG_07APR001650
+SRVTRC_TS1703_L15S29_20150407.LOG_07APR001652
+SRVTRC_TS1704_L15S29_20150407.LOG_07APR001647
+SRVTRC_TS1705_L15S29_20150407.LOG_07APR001645
 </pre>
 
 -- In CPT$RDB_JDBC_TRCDIRDONE Daily --
 
 <pre>
-SRVTRC_TS1702_L15S29_20150406.LOG_06APR001649;1
-SRVTRC_TS1703_L15S29_20150406.LOG_06APR001651;1
-SRVTRC_TS1704_L15S29_20150406.LOG_06APR001646;1
-SRVTRC_TS1705_L15S29_20150406.LOG_06APR001644;1
+SRVTRC_TS1702_L15S29_20150406.LOG_06APR001649
+SRVTRC_TS1703_L15S29_20150406.LOG_06APR001651
+SRVTRC_TS1704_L15S29_20150406.LOG_06APR001646
+SRVTRC_TS1705_L15S29_20150406.LOG_06APR001644
 </pre>
 
 -- In CPT$RDB_JDBC_THINDIR Daily --
 
 <pre>
-SRVTRC_CLIENTS_TS1702_L15S28_20160921.LIS_22SEP040000;1
-SRVTRC_CLIENTS_TS1702_L15S29_20160921.LIS_22SEP040014;1
-SRVTRC_CLIENTS_TS1703_L15S28_20160921.LIS_22SEP040002;1
-SRVTRC_CLIENTS_TS1703_L15S29_20160921.LIS_22SEP040015;1
-SRVTRC_CLIENTS_TS1704_L15S28_20160921.LIS_22SEP040004;1
-SRVTRC_CLIENTS_TS1704_L15S29_20160921.LIS_22SEP040017;1
-SRVTRC_CLIENTS_TS1705_L15S28_20160921.LIS_22SEP040006;1
-SRVTRC_CLIENTS_TS1705_L15S29_20160921.LIS_22SEP040019;1
+SRVTRC_CLIENTS_TS1702_L15S28_20160921.LIS_22SEP040000
+SRVTRC_CLIENTS_TS1702_L15S29_20160921.LIS_22SEP040014
+SRVTRC_CLIENTS_TS1703_L15S28_20160921.LIS_22SEP040002
+SRVTRC_CLIENTS_TS1703_L15S29_20160921.LIS_22SEP040015
+SRVTRC_CLIENTS_TS1704_L15S28_20160921.LIS_22SEP040004
+SRVTRC_CLIENTS_TS1704_L15S29_20160921.LIS_22SEP040017
+SRVTRC_CLIENTS_TS1705_L15S28_20160921.LIS_22SEP040006
+SRVTRC_CLIENTS_TS1705_L15S29_20160921.LIS_22SEP040019
 </pre>
 
 -- In CPT$RDB_JCCLML_LOGS Daily --
@@ -19283,139 +20710,153 @@ ANA_CPTRDB_DB_1_L15S29_20161003_0400.RBF
 -- In [CPTRDB_DB_1] --
 
 <pre>
-CPTRDB_DB_1.RDB;1  
-DATA_AREA_11.RDA;1 
-DATA_AREA_11.SNP;1 
-DATA_AREA_12.RDA;1 
-DATA_AREA_12.SNP;1 
-DATA_AREA_21.RDA;1 
-DATA_AREA_21.SNP;1 
-DATA_AREA_22.RDA;1 
-DATA_AREA_22.SNP;1 
-DATA_AREA_31.RDA;1 
-DATA_AREA_31.SNP;1 
-DATA_AREA_32.RDA;1 
-DATA_AREA_32.SNP;1 
-DEFAULT_AREA.RDA;1 
-DEFAULT_AREA.SNP;1 
-INDEX_AREA_1.RDA;1 
-INDEX_AREA_1.SNP;1 
-INDEX_AREA_2.RDA;1 
-INDEX_AREA_2.SNP;1 
-INDEX_AREA_3.RDA;1 
-INDEX_AREA_3.SNP;1 
-LISTS_AREA.RDA;1   
-LISTS_AREA.SNP;1   
-MIXED_AREA_1.RDA;1 
-MIXED_AREA_1.SNP;1 
-MIXED_AREA_2.RDA;1 
-MIXED_AREA_2.SNP;1 
-MIXED_AREA_3.RDA;1 
-MIXED_AREA_3.SNP;1 
-RDB_SYSTEM.RDA;1   
-RDB_SYSTEM.SNP;1   
-STALL_CNTS_AREA.RDA;1
-STALL_CNTS_AREA.SNP;1
+CPTRDB_DB_1.RDB  
+DATA_AREA_11.RDA 
+DATA_AREA_11.SNP 
+DATA_AREA_12.RDA 
+DATA_AREA_12.SNP 
+DATA_AREA_21.RDA 
+DATA_AREA_21.SNP 
+DATA_AREA_22.RDA 
+DATA_AREA_22.SNP 
+DATA_AREA_31.RDA 
+DATA_AREA_31.SNP 
+DATA_AREA_32.RDA 
+DATA_AREA_32.SNP 
+DEFAULT_AREA.RDA 
+DEFAULT_AREA.SNP 
+INDEX_AREA_1.RDA 
+INDEX_AREA_1.SNP 
+INDEX_AREA_2.RDA 
+INDEX_AREA_2.SNP 
+INDEX_AREA_3.RDA 
+INDEX_AREA_3.SNP 
+LISTS_AREA.RDA   
+LISTS_AREA.SNP   
+MIXED_AREA_1.RDA 
+MIXED_AREA_1.SNP 
+MIXED_AREA_2.RDA 
+MIXED_AREA_2.SNP 
+MIXED_AREA_3.RDA 
+MIXED_AREA_3.SNP 
+RDB_SYSTEM.RDA   
+RDB_SYSTEM.SNP   
+STALL_CNTS_AREA.RDA
+STALL_CNTS_AREA.SNP
 </pre>
 
 -- In [CPTRDB_DB_2] --
 
 <pre>
-CPTRDB_DB_2.RDB;1  
-DATA_AREA_11.RDA;1 
-DATA_AREA_11.SNP;1 
-DATA_AREA_12.RDA;1 
-DATA_AREA_12.SNP;1 
-DATA_AREA_21.RDA;1 
-DATA_AREA_21.SNP;1 
-DATA_AREA_22.RDA;1 
-DATA_AREA_22.SNP;1 
-DATA_AREA_31.RDA;1 
-DATA_AREA_31.SNP;1 
-DATA_AREA_32.RDA;1 
-DATA_AREA_32.SNP;1 
-DEFAULT_AREA.RDA;1 
-DEFAULT_AREA.SNP;1 
-INDEX_AREA_1.RDA;1 
-INDEX_AREA_1.SNP;1 
-INDEX_AREA_2.RDA;1 
-INDEX_AREA_2.SNP;1 
-INDEX_AREA_3.RDA;1 
-INDEX_AREA_3.SNP;1 
-LISTS_AREA.RDA;1   
-LISTS_AREA.SNP;1   
-MIXED_AREA_1.RDA;1 
-MIXED_AREA_1.SNP;1 
-MIXED_AREA_2.RDA;1 
-MIXED_AREA_2.SNP;1 
-MIXED_AREA_3.RDA;1 
-MIXED_AREA_3.SNP;1 
-RDB_SYSTEM.RDA;1   
-RDB_SYSTEM.SNP;1   
+CPTRDB_DB_2.RDB  
+DATA_AREA_11.RDA 
+DATA_AREA_11.SNP 
+DATA_AREA_12.RDA 
+DATA_AREA_12.SNP 
+DATA_AREA_21.RDA 
+DATA_AREA_21.SNP 
+DATA_AREA_22.RDA 
+DATA_AREA_22.SNP 
+DATA_AREA_31.RDA 
+DATA_AREA_31.SNP 
+DATA_AREA_32.RDA 
+DATA_AREA_32.SNP 
+DEFAULT_AREA.RDA 
+DEFAULT_AREA.SNP 
+INDEX_AREA_1.RDA 
+INDEX_AREA_1.SNP 
+INDEX_AREA_2.RDA 
+INDEX_AREA_2.SNP 
+INDEX_AREA_3.RDA 
+INDEX_AREA_3.SNP 
+LISTS_AREA.RDA   
+LISTS_AREA.SNP   
+MIXED_AREA_1.RDA 
+MIXED_AREA_1.SNP 
+MIXED_AREA_2.RDA 
+MIXED_AREA_2.SNP 
+MIXED_AREA_3.RDA 
+MIXED_AREA_3.SNP 
+RDB_SYSTEM.RDA   
+RDB_SYSTEM.SNP   
 </pre>
 
 -- In [CPTRDB_MASTR_DB] --
 
 <pre>
-CPTRDB_MASTR_DB.RDB;1
-DATA_AREA.RDA;1    
-DATA_AREA.SNP;1    
-DEFAULT_AREA.RDA;1 
-DEFAULT_AREA.SNP;1 
-INDEX_AREA.RDA;1   
-INDEX_AREA.SNP;1   
-LISTS_AREA.RDA;1   
-LISTS_AREA.SNP;1   
-RDB_SYSTEM.RDA;1   
-RDB_SYSTEM.SNP;1   
+CPTRDB_MASTR_DB.RDB
+DATA_AREA.RDA    
+DATA_AREA.SNP    
+DEFAULT_AREA.RDA 
+DEFAULT_AREA.SNP 
+INDEX_AREA.RDA   
+INDEX_AREA.SNP   
+LISTS_AREA.RDA   
+LISTS_AREA.SNP   
+RDB_SYSTEM.RDA   
+RDB_SYSTEM.SNP   
 </pre>
 
 -- In [CPTRDB_STDBY_DB] --
 
 <pre>
-CPTRDB_STDBY_DB.RDB;1
-DATA_AREA.RDA;1
-DATA_AREA.SNP;1
-DEFAULT_AREA.RDA;1
-DEFAULT_AREA.SNP;1
-INDEX_AREA.RDA;1
-INDEX_AREA.SNP;1
-LISTS_AREA.RDA;1
-LISTS_AREA.SNP;1
-RDB_SYSTEM.RDA;1
-RDB_SYSTEM.SNP;1
+CPTRDB_STDBY_DB.RDB
+DATA_AREA.RDA
+DATA_AREA.SNP
+DEFAULT_AREA.RDA
+DEFAULT_AREA.SNP
+INDEX_AREA.RDA
+INDEX_AREA.SNP
+LISTS_AREA.RDA
+LISTS_AREA.SNP
+RDB_SYSTEM.RDA
+RDB_SYSTEM.SNP
+</pre>
+
+-- In [ANA_CPTRDB_DB_1] --
+
+<pre>
+ANA_CPTRDB_DB_1.RDB
+DEFAULT_AREA.RDA
+DEFAULT_AREA.SNP
+RDB_SYSTEM.RDA
+RDB_SYSTEM.SNP
+RMU_ANA_DATA_1.RDA
+RMU_ANA_DATA_1.SNP
+RMU_ANA_INDEXES_1.RDA
+RMU_ANA_INDEXES_1.SNP
 </pre>
 
 -- In [JCCLML_FILTER_DIR] --
 
 <pre>
-JCCLML_FILTER_DB.RDB;1
-RDB_SYSTEM.RDA;1
-RDB_SYSTEM.SNP;1
+JCCLML_FILTER_DB.RDB
+RDB_SYSTEM.RDA
+RDB_SYSTEM.SNP
 </pre>
 
 -- In CPT$RDB_AIJ:[CPTRDB_DB_1] --
 
 <pre>
-CPTRDB_DB_1_JRNL_1.AIJ;1
-CPTRDB_DB_1_JRNL_2.AIJ;1
-CPTRDB_DB_1_JRNL_3.AIJ;1
+CPTRDB_DB_1_JRNL_1.AIJ
+CPTRDB_DB_1_JRNL_2.AIJ
+CPTRDB_DB_1_JRNL_3.AIJ
 </pre>
 
 -- In CPT$RDB_AIJ:[CPTRDB_MASTR_DB] --
 
 <pre>
-CPTRDB_MASTR_DB_JRNL_1.AIJ;1
-CPTRDB_MASTR_DB_JRNL_2.AIJ;1
-CPTRDB_MASTR_DB_JRNL_3.AIJ;1
+CPTRDB_MASTR_DB_JRNL_1.AIJ
+CPTRDB_MASTR_DB_JRNL_2.AIJ
+CPTRDB_MASTR_DB_JRNL_3.AIJ
 </pre>
 
 -- In CPT$RDB_AIJ:[CPTRDB_STDBY_DB] --
 
 <pre>
-CPTRDB_STDBY_DB_JRNL_1.AIJ;1
-CPTRDB_STDBY_DB_JRNL_2.AIJ;1
-CPTRDB_STDBY_DB_JRNL_3.AIJ;1
+CPTRDB_STDBY_DB_JRNL_1.AIJ
+CPTRDB_STDBY_DB_JRNL_2.AIJ
+CPTRDB_STDBY_DB_JRNL_3.AIJ
 </pre>
 
 -- In CPT$RDB_CACHES --
