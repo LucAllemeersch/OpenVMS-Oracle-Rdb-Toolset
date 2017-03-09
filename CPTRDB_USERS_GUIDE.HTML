@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 24-feb-2017, Luc Allemeersch<br>
+Modified: 09-mar-2017, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -10705,7 +10705,7 @@ as illustrated below.
 ---------------- Max free space ----
 Fullness level 3 
 ---------------- Threshold % 3
-Fullness level 2                ---- Actual fullness, Page threshold 2 
+Fullness level 2                <---- Actual fullness, Page threshold 2 
 ---------------- Threshold % 2
 Fullness level 1 
 ---------------- Threshold % 1
@@ -10812,17 +10812,68 @@ Full dump of a SPAM page in a mixed page format storage area:
 </pre>
 
 <p>
-The runtime use of the logical area thresholds can be expressed in human words
-as, 'In order to insert a storage segment of this (compressed) length I
-need to find a page that is not full and has at least this free space 
-available, which requires a threshold of n'. 
+The runtime use of the logical area thresholds can be expressed as:
+'In order to insert a storage segment of this (compressed) length (including
+overhead bytes, named NEED_LEN) I need to find a page that is not full and has
+at least this free space available, which requires a maximum threshold of
+2, 1 or 0'.
 </p>
 
 <p>
 Rdb stores the thresholds as percentage of the maximum free space for a data
-page in the metadata, but runtime calculates free space lengths per threshold 
-value for easier comparison.
+page in the metadata, but runtime calculates offsets into the free space per
+threshold value as (T3(%) * MAX_FREE_SPACE) named SPAM_T3 and
+(T2(%) * MAX_FREE_SPACE) named SPAM_T2, for easier comparison.
 </p>
+
+<p>
+These byte counts are used in the algorithm below to determine the page
+threshold to search for, based on: 'To fit into the free space available, the
+maximum threshold should be one of (2,1,0)'.
+Pages with a threshold of 3, are not considered as candidate pages for insert.
+</p>
+
+<pre>
+if      (MAX_FREE_SPACE - NEED_LEN) >= SPAM_T3 then
+  NEEDED_THRESHOLD = 2
+else if (MAX_FREE_SPACE - NEED_LEN) >= SPAM_T2 then
+  NEEDED_THRESHOLD = 1
+else
+  NEEDED_THRESHOLD = 0
+;
+</pre>
+
+<p>
+Below a not to scale graphical representation of a (60,80,90) threshold
+for a maximum free space of 1000, and variable segment sizes.
+</p>
+
+<pre>
+A  50 bytes segment requires a maximum threshold of 2.
+A 150 bytes segment requires a maximum threshold of 1.
+A 350 bytes segment requires a maximum threshold of 0.
+A 450 bytes segment requires a maximum threshold of 0.
+
+                                NEED_LEN
+                                   50   150   350   450
+----------- MAX_FREE_SPACE 1000 ----- ----- ----- -----
+                                  |     |     |     |
+Threshold 3                     <----   |     |     |
+                                        |     |     |
+----------- T3% 90  SPAM_T3 900         |     |     |
+                                        |     |     |
+Threshold 2                           <----   |     |
+                                              |     |
+----------- T2% 80  SPAM_T2 800               |     |
+                                              |     |
+Threshold 1                                 <----   |
+                                                    |
+----------- T1% 60          600                     |
+                                                    |
+Threshold 0                                       <----
+
+----------- Data page base    0
+</pre>
 
 <p>
 The three threshold percentage values are in general calculated based on the
@@ -10897,16 +10948,21 @@ THRESHOLD = (70., 85., 95.)
 
 <p>
 When no thresholds are specfied for (uniform) logical areas, which defaults to
-(0,0,0), Rdb calculates one single free space length value T1=T2=T3 as 
+(0,0,0), Rdb calculates one single offset value T1=T2=T3 into the free space as
 </p>
 
 <pre>
-MAX_FREE_LEN - min(MAX_NEW_SEG_LEN,{record_length})
+MAX_FREE_SPACE - {record_length}
 </pre>
 
 <p>
-The {record_length} is the nominal record length as stored in the AIP pages
-and listed in RMU/Show AIP for the logical area.
+The {record_length} is the nominal record length (including overhead bytes) as
+stored in the AIP pages and listed in RMU/Show AIP for the logical area.
+</p>
+
+<p>
+Default, the threshold of a uniform page changes from 0 to 3 when the total
+number of bytes used exceeds this limit.
 </p>
 
 <p>
@@ -10940,12 +10996,28 @@ Fullness level 0
 </pre>
 
 <p>
-When looking for free space to insert a row, Rdb scans the space
-management SPAM pages in forward direction, starting from the latest insert or
-delete location for this user and logical area (or pages in the user's 
-buffers), looking for a page with threshold 0 or 1 or 2 in the SPAM page, 
-where the actual (compressed) length of the storage segment fits into the free 
-space available length as defined by the thresholds. 
+[For mixed page format storage areas which host a hashed index or have a
+PLACEMENT VIA hashed index storage map specified, the relational engine 
+provides, on insert, a target page to the storage subsystem. For uniform
+page format storage areas no target page is being used. (Even for PLACEMENT VIA
+sorted index storage maps, where an attempt is made to store an index node
+as close as possible to it's adjacent nodes ?)]
+</p>
+
+<p>
+For uniform page format storage areas (and mixed page format storage areas
+without a target page ?), when looking for free space to insert a row, 
+Rdb scans the space management SPAM pages in forward direction, starting from 
+the latest insert or delete location for this user and logical area, or pages 
+in the user's buffers, or the first SPAM interval and data pages for the 
+storage area.
+</p>
+
+<p>
+For uniform page format storage areas, the forward search uses the information 
+from the AIP Area Inventory Pages and ABM Area Bitmap Pages to quickly identify
+the SPAM pages of interest for this logical area, and the clump information 
+in the SPAM pages to locate the individual pages of the logical area.
 </p>
 
 <p>
@@ -10955,12 +11027,39 @@ note at the end of this chapter.]
 </p>
 
 <p>
+For mixed page format storage areas where a candidate page is specified, 
+Rdb starts the search from the target page supplied by the relational 
+interface, applying a 'First Fit, Closest to Candidate' algorithm, alternating
+buffer reads after and before the candidate buffer, for all pages in the SPAM
+interval of the target page.
+</p>
+
+<p>
+The search consists in looking for a page with the needed threshold in the 
+SPAM page, where the actual (compressed) length of the storage segment fits 
+into the free space available length as defined by the thresholds. 
+</p>
+
+<p>
 If the (compressed) row fits on the candidate page, the row is inserted, 
 otherwise the 'Pages Checked' statistic is incremented, and the search 
-continues across the SPAM pages of interest for this logical area.
-If no feasible page is found across all SPAM intervals to store the new row,
-the storage area is extended and a new clump (buffersize number of pages)
-is allocated to the logical area.
+continues across the next SPAM intervals in forward direction, for both
+uniform and mixed page format storage areas.
+</p>
+
+<p>
+If, for a uniform page format storage area the end of the storage area has 
+been reached, and no feasible page has been found across all SPAM intervals to
+store the new row, the storage area is extended and a new clump (buffersize
+number of pages) is allocated to the logical area to insert the row.
+</p>
+
+<p>
+If, for a mixed page format storage area with a target page specified, 
+the end of the storage area has been reached, the search switches to the first
+SPAM interval of the storage area, and continues upto the SPAM interval of the
+target page. If still unsuccessful, the storage area is extended to store the
+row.
 </p>
 
 <p>
@@ -10978,7 +11077,7 @@ longer available for inserts.
 
 <p>
 If logical area thresholds are defined, the threshold in the SPAM page is 
-updated according to the location of the actual fullness of the page
+updated according to the location of the new actual fullness of the page
 within the defined fullness level areas. 
 </p>
 
@@ -11125,7 +11224,7 @@ correctly reflect the definition of the table.
 </p>
 
 <p>
-See also the RMU Repair Spam command for information on
+See also the RMU/Repair Spam command for information on
 rebuilding SPAM pages for MIXED areas.
 </p>
 
@@ -11161,9 +11260,9 @@ rows deleted.]
 </h3>
 
 <p>
-When scanning the SPAM pages of interest for a particular logical area, Rdb
-runs across three levels of information, to achieve this in the most efficient 
-way.
+For uniform page format storage areas, when scanning the SPAM pages of
+interest for a particular logical area, Rdb runs across three levels of
+information, to achieve this in the most efficient way.
 </p>
 
 <p>
@@ -12376,21 +12475,21 @@ actions.
 </p>
 
 <p>
-In both key scope mode TRANSACTION and ATTACH the data section of the page is 
-reclaimed, the locked space upfront the data section becomes free space and
-the line index entries of deleted lines that were marked "locked by {TID}" are
-now marked "empty". 
+In both key scope mode TRANSACTION and ATTACH the data section of the page is
+reclaimed and the locked space upfront the data section becomes free space.
 </p>
 
 <p>
-In key scope mode TRANSACTION the line and TSN index entries are reclaimed
-if possible, their allocation is added to the free space and the first 
-available line number is assigned to a new line.
+In key scope mode TRANSACTION the line index entries of deleted lines that
+were marked "locked by {TID}" are now marked "empty", the line and TSN index
+entries are reclaimed if possible and their allocation is added to the free
+space. The first available line number is assigned to a new line.
 </p>
 
 <p>
-In key scope mode ATTACH the line and TSN index entries are NOT reclaimed
-and the next highest line number is assigned to a new line.
+In key scope mode ATTACH the line and TSN index entries are NOT reclaimed and
+the line index entries of deleted lines remain "locked by {TID}". The next
+highest line number is assigned to a new line.
 </p>
 
 <p>
@@ -12425,9 +12524,9 @@ they are available for later allocation.
 </p>
 
 <p>
-The DELETE|INSERT|RMU/Reclaim scenario's below illustrate the structure layout
+The DELETE | INSERT | RMU/Reclaim scenario's below illustrate the structure layout
 changes of a single data page in both dbkey scope modes TRANSACTION and ATTACH.
-They are based on the example databse MF_PERSONNEL where the favorite employee 
+They are based on the example database MF_PERSONNEL where the favorite employee 
 Toliver each time is dropped and recreated. 
 </p>
 
