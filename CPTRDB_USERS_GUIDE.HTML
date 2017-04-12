@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 09-mar-2017, Luc Allemeersch<br>
+Modified: 12-apr-2017, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -303,6 +303,7 @@ Oracle Rdb V7.3-130 (Update 1)<br>
 Oracle Rdb V7.3-200<br>
 Oracle Rdb V7.3-200 (Update 1)<br>
 Oracle Rdb V7.3-200 (Update 2)<br>
+Oracle Rdb V7.3-210<br>
 Oracle Rdb JDBC V7.3-202:20130501<br>
 Oracle Rdb JDBC V7.3-310:20140826<br>
 Oracle Rdb JDBC V7.3-323:20141224<br>
@@ -312,9 +313,11 @@ Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-110<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-200<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-210<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-220<br>
+Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-230<br>
 Oracle Trace For Rdb V7.2-03<br>
 CockpitMgr For OpenVMS V7.8-020<br>
 CockpitMgr For OpenVMS V7.8-040<br>
+CockpitMgr For OpenVMS V7.10-22<br>
 HP C V7.2-001<br>
 HP Bliss V1.12-072<br>
 JCC Logminer Loader V3.2.2<br>
@@ -1043,7 +1046,7 @@ JCCLML_JCC_RUN_DTL_ALL.COM
 JCCLML_JCC_RUN_DTL_GO.COM
 </pre>
 
-Procedures that now require entries the configuration file:<br>
+Procedures that now require entries in the configuration file:<br>
 
 <pre>
 JCCLML_JCC_RUN_CTL_ALL.COM
@@ -1161,7 +1164,7 @@ CPTRDB_CLEANUP_LOGS_DAILY.COM
 </pre>
 
 <p>
-Procedures that now require entries the configuration file:
+Procedures that now require entries in the configuration file:
 </p>
 
 <pre>
@@ -1179,7 +1182,7 @@ CPTRDB_CONFIGURATION_L15S29_20161017.REF_17OCT160248
 </pre>
 
 <p>
-<b>CPTRDB_CHANGES_FUTURE.A</b><br>
+<b>CPTRDB_CHANGES_20170412_12APR105319.A</b><br>
 Cumulative Partial Update Kit
 </p>
 
@@ -1204,6 +1207,44 @@ New procedures:
 <pre>
 CPTRDB_RECLAIM_AREA.COM
 (RMU/Reclaim one or more storage areas)
+
+CPTRDB_CVT_FROM_HEX.COM
+CPTRDB_CVT_FROM_HEX_BUILD.COM
+CPTRDB_CVT_FROM_HEX_SIGNED_INT.C
+CPTRDB_CVT_FROM_HEX_SIGNED_INT.EXE
+CPTRDB_CVT_FROM_HEX_SIGNED_INT.OBJ
+CPTRDB_CVT_FROM_HEX_UNSIGNED_INT.C
+CPTRDB_CVT_FROM_HEX_UNSIGNED_INT.EXE
+CPTRDB_CVT_FROM_HEX_UNSIGNED_INT.OBJ
+
+CPTRDB_CVT_TO_HEX.COM
+CPTRDB_CVT_TO_HEX_BUILD.COM
+CPTRDB_CVT_TO_HEX_SIGNED_INT.C
+CPTRDB_CVT_TO_HEX_SIGNED_INT.EXE
+CPTRDB_CVT_TO_HEX_SIGNED_INT.OBJ
+CPTRDB_CVT_TO_HEX_UNSIGNED_INT.C
+CPTRDB_CVT_TO_HEX_UNSIGNED_INT.EXE
+CPTRDB_CVT_TO_HEX_UNSIGNED_INT.OBJ
+
+(Convert CHAR and (un)signed INTEGER ascii strings to and from hexadecimal	
+strings. In § -- 64 -- Miscellaneous Utilities)
+</pre>
+
+<p>
+Modified procedures:
+</p>
+
+<pre>
+CPTRDB_BACKUP_AIJ.COM
+(Add logical rdm$bind_aijbck_checkpoint_timeout)
+
+CPTRDB_SHOW_AIJ_BCK.COM
+(Add optional parameters /since /before, date vms)
+CPTRDB_SHOW_AIJ_BCK_BATCH.COM
+CPTRDB_SHOW_AIJ_BCK_DAILY.COM
+
+CPTRDB_SHOW_ONE_PAGE.COM
+(Add search on node size)
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -1922,7 +1963,7 @@ $!
 $! -- Output files device
 $ outdev   = "DISK$DATA_29:"
 $!
-$! -- Live aij files device, physical disk
+$! -- Live AIJ files device, physical disk
 $ aijdev   = "DSA29:"
 $!
 $! -- Adapt to existing jdbc environment
@@ -2621,7 +2662,7 @@ Procedures Usage
 </p>
 
 <p>
-  This procedure performs a regular repeating quiet point aij backup 
+  This procedure performs a regular repeating quiet point AIJ backup 
   to disk for a series of databases listed in the configuration file
   CPTRDB_CONFIGURATION.REF identified by the keywords 
   CPT$RDB_DATABASE|CPTRDB_BACKUP_AIJ
@@ -2668,7 +2709,7 @@ BACKUP_AIJ_ALL_{node}_yyyymmdd.LOG_ddmmmhhmm
 </p>
 
 <p>
-  Execute a quiet point aij journal backup to disk for one database.
+  Execute a quiet point AIJ journal backup to disk for one database.
   The runtime parameters are retrieved from the configuration file, identified
   by the keywords CPT$RDB_PARAM|CPTRDB_BACKUP_AIJ
 </p>
@@ -2684,7 +2725,14 @@ CPT$RDB_PARAM|CPTRDB_BACKUP_AIJ|00;06;08;10;12;14;16;18;20;22|9|30|L15S36::ALLEM
 ! 5 Exception mail address
 </pre>
 
-  Logfile format is<br>
+<pre>
+[The logical RDM$BIND_AIJBCK_CHECKPOINT_TIMEOUT implements a timeout for
+"%RMU-F-AIJJRNBSY, journal !AC is busy and cannot be backed up"
+The value is expressed in 30 sec units.
+As of Rdb V7.3-210, the value is expressed in 1 minute units.]
+</pre>
+
+The logfile format is<br>
 
 <pre>
 BACKUP_AIJ_{dbid}_{node}_yyyymmdd.LOG_ddmmmhhmmss
@@ -2719,19 +2767,19 @@ $ rmu/set after -
   {dbid}
 </pre>
 
-  A aij backup is executed if<br>
+  A AIJ backup is executed if<br>
 
 <pre>
    None exists for the current day
 Or the current hour is in the list of scheduled hours
    And none exists for the current hour (based on the .aij_bck filename)
-Or a live aij file (is full and) has the status "*Backup Needed*"
+Or a live AIJ file (is full and) has the status "*Backup Needed*"
 </pre>
 
 <p>
-  To force a aij backup, rename today's backup file(s) to a subdirectory
+  To force a AIJ backup, rename today's backup file(s) to a subdirectory
   and release the job CPTRDB_BACKUP_AIJ_ALL.
-  Eventually clear beforehand the aij backup failed event(s) using:
+  Eventually clear beforehand the AIJ backup failed event(s) using:
 </p>
 
 <pre>
@@ -2784,7 +2832,7 @@ And their expiration date is set to a timestamp older than 8 days before
 
 <p>
   Default, after a successful run, the procedure sets the expiration timestamp
-  to the creation timestamp for aij backup files created more than 24 hours 
+  to the creation timestamp for AIJ backup files created more than 24 hours 
   before the current date and time, so they are cleaned automatically after 
   8 days. 
       
@@ -2952,7 +3000,7 @@ Procedures Usage
   can be used as input file to RMU/Recover.
 
   The procedure handles the truncation to char(12) of the {dbid} in
-  the aij backup filespecs.
+  the AIJ backup filespecs.
 </p>
 
   Usage:<br>
@@ -3010,20 +3058,23 @@ CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK|L15S29|CPTRDB_MASTR|
 </p>
 
 <p>
-  Interactive list today's AIJ backup files for a number of databases on a 
+  Interactive list [today's] AIJ backup files for a number of databases on a 
   series of nodes retrieved from the configuration file 
   CPTRDB_CONFIGURATION.REF, identified by the keywords 
   CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK. List the AIJ backup files, grouped by
   database.
 </p>
 
-  Usage:<br>
+Usage:<br>
 
 <pre>
-$ @CPTRDB_SHOW_AIJ_BCK
+Optional parameters: P1, since date,  date vms
+                     P2, before date, date vms
+
+$ @CPTRDB_SHOW_AIJ_BCK [P1 [P2]]
 </pre>
 
-  Output sample:<br>
+Output sample:<br>
 
 <pre>
 29-JUN-2016 12:52:32.23 CPTRDB - AIJ Backup Files From Node L15S29
@@ -3059,7 +3110,7 @@ CPTRDB_MASTR_L15S29_20160629_1217_5352.AIJ_BCK;1
 </p>
 
 <p>
-  Daily list today's aij backup files for a number of databases on a series 
+  Daily list today's AIJ backup files for a number of databases on a series 
   of nodes, retrieved from the configuration file CPTRDB_CONFIGURATION.REF,
   identified by the keywords CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK. List the AIJ
   backup files grouped by database.<br>
@@ -3069,7 +3120,7 @@ CPTRDB_MASTR_L15S29_20160629_1217_5352.AIJ_BCK;1
 
   The reference file contains one entry per node/directory/database.
   Duplicate entries per database are removed in the comparison of the
-  actual output to the reference file, as the number of aij backup files 
+  actual output to the reference file, as the number of AIJ backup files 
   per database is not predetermined.<br>
 
   Reschedule node, time and exception mail address are retrieved from the
@@ -3398,11 +3449,11 @@ Procedures Usage
 </p>
 
 <p>
-  List the status of the live aij files for one database.
+  List the status of the live AIJ files for one database.
   Requires the information table RDB$JOURNALS.
 </p>
 
-  Per aij slot the procedure lists:<br>
+  Per AIJ slot the procedure lists:<br>
 
 <pre>
   rdb$journal_name
@@ -3451,7 +3502,7 @@ AIJ3|AIJ file block has been assigned|
 </p>
 
 <p>
-  Interactive list the live aij files for one database on the executor node,
+  Interactive list the live AIJ files for one database on the executor node,
   using the current Rdb version.
 </p>
 
@@ -3463,7 +3514,7 @@ $ @CPTRDB_SHOW_AIJ_LIVE_ONE {dbid}
 
 <p>
 <b>CPTRDB_SHOW_AIJ_LIVE_DUMP.COM</b><br>
-  Interactive list the live aij files of one database on the executor node, 
+  Interactive list the live AIJ files of one database on the executor node, 
   by dumping the header blocks, using RMU/Dump/After of the current Rdb version.
 </p>
 
@@ -3537,7 +3588,7 @@ Display terminated at user request after AIJ record 1
 </p>
 
 <p>
-  Interactive list the live aij files for a series of databases
+  Interactive list the live AIJ files for a series of databases
   enumerated in the configuration file CPTRDB_CONFIGURATION.REF,
   identified by the keywords CPT$RDB_DATABASE|CPTRDB_SHOW_AIJ_LIVE
 </p>
@@ -3609,7 +3660,7 @@ AIJ3|AIJ file has been modified|AIJ file block has been assigned|
 </p>
 
 <p>
-  Daily list live aij's status for a series of databases enumerated in the
+  Daily list live AIJ's status for a series of databases enumerated in the
   configuration file CPTRDB_CONFIGURATION.REF, identified by the keywords
   CPT$RDB_DATABASE|CPTRDB_SHOW_AIJ_LIVE.
 
@@ -7520,7 +7571,7 @@ CPT$RDB_JOB|CPTRDB_ANA_DBS_WEEKLY|L15S29|TOMORROW +6-04:00|
    In Rdb V7.2 the correct /FIELDS qualifier is applied to RMU/Load the analyze
    data.
 
-2) Dump the database header, and create/save the restore and aij options files 
+2) Dump the database header, and create/save the restore and AIJ options files 
    in CPT$RDB_ANA: for later reference (in case of disaster recovery).
 
 3) Create a database backup of the reporting database in CPT$RDB_ANA_DB_BCK:
@@ -8848,7 +8899,7 @@ WAITING_FOR_TIMES              ,WAITING_FOR_TIMES_IDX          ,4 ,    ,STALL_RE
   ----
   (On seperate lines)
   Output sequence number for sorting on tsn and stable output line sequence
-  Transaction type, Last aij checkpoint
+  Transaction type, Last AIJ checkpoint
   User name
   Process name
   Image filespec
@@ -13279,7 +13330,7 @@ DISK$DATA_29:[CPT$RDB_AIJ_BCK]CPTRDB_DB_1_L15S29_20150706_1426_6216.AIJ_BCK;1
   RMU/Recover AIJ rollforward one database.
 </p>
 
-  Requires the 'list of aij backup files' option file:<br>
+  Requires the 'list of AIJ backup files' option file:<br>
 
 <pre>
 AIJ_BCK_{dbid_backup}_{node}_yyyymmdd.LIS_ddmmmhhmmss
@@ -13294,16 +13345,16 @@ Remove the header lines from the output file before the recover.
 </pre>
 
 <p>
-  If the database backup AND the aij backups are quiet point, aij backup
+  If the database backup AND the AIJ backups are quiet point, AIJ backup
   filespecs older than the restored database backup can be 
-  removed from the list. In the sample aij sequence 6211 at 00:25, as
+  removed from the list. In the sample AIJ sequence 6211 at 00:25, as
   the restored database backup is created at 00:35. 
 
   Be aware that if this condition is not satisfied,
   the recover starting point may be way back in time until a database
-  quiet point backup or aij quiet point backup is present. No quiet point
-  daily database AND aij backups are not recommended as they impose a different
-  retention policy and scheduled forced database or aij quiet point
+  quiet point backup or AIJ quiet point backup is present. No quiet point
+  daily database AND AIJ backups are not recommended as they impose a different
+  retention policy and scheduled forced database or AIJ quiet point
   backups to keep the database recoverable. 
 </p>
 
@@ -15475,7 +15526,7 @@ CPTRDB_ADD_TABLES.COM
 </pre>
 
 <p>
-The source database must have aij and continuous logminer enabled.
+The source database must have AIJ and continuous logminer enabled.
 </p>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
@@ -16108,8 +16159,8 @@ P|TSN             1897707 |              LML    0.00    Sync   0.0%  Ckpt   0.0%
 
 <p>
   The "VBN" value in the "Restart Context" indicates the actual block number
-  position of the loader extraction in the aij file with sequence number 
-  "AIJ#". It can be compared to the aij sequence number "SeqNum" and current 
+  position of the loader extraction in the AIJ file with sequence number 
+  "AIJ#". It can be compared to the AIJ sequence number "SeqNum" and current 
   end of file block number "CurrEOF" in the RMU/Show Statistics screen 
   Journaling Information/AIJ Journal Information, to evaluate a eventual delay
   in the replication. 
@@ -16750,7 +16801,7 @@ CPT$RDB_JOB|JCCLML_LML_SHOW_AERCP_CONT|L15S29|+00:30|L15S36::ALLEMEERSCH|
 
 <p>
   The purpose of this procedure is to track the presence and normal progress
-  of the loader sessions. The positions within the live aij journal files
+  of the loader sessions. The positions within the live AIJ journal files
   allow to evaluate eventual delays at a glance for a series of loaders 
   without starting an interactive statistics session for each loader.  
 </p>
@@ -18341,7 +18392,7 @@ $!------------------------------
 
 <p>
 Add the master database to the configuration file CPTRDB_CONFIGURATION.REF 
-to participate in the normal database and aij journal backup operations. 
+to participate in the normal database and AIJ journal backup operations. 
 </p>
 
 <pre>
@@ -18389,13 +18440,13 @@ Adapt the filespecs and copy them to CPT$RDB_DATA:
 </pre>
 
 <p>
- Create a quiet point aij backup of the master database by renaming today's
- aij backup files in CPT$RDB_AIJ_BCK to a [.RENAME] subdirectory and run 
+ Create a quiet point AIJ backup of the master database by renaming today's
+ AIJ backup files in CPT$RDB_AIJ_BCK to a [.RENAME] subdirectory and run 
  CPTRDB_BACKUP_AIJ_ALL .
 </p>
 
 <p>
- Stop aij backups for the master database by commenting out it's entry in the
+ Stop AIJ backups for the master database by commenting out it's entry in the
  configuration file.
 </p>
 
@@ -18472,7 +18523,7 @@ $!-----------------------------------------------------------------
 </pre>
 
 <p>
- Reenable aij backups for the master database by reactivating the entry
+ Reenable AIJ backups for the master database by reactivating the entry
  in the configuration file.
 </p>
 
@@ -18481,7 +18532,7 @@ CPT$RDB_DATABASE|CPTRDB_BACKUP_AIJ|CPTRDB_MASTR_DB|7.3|L15S29|
 </pre>
 
 <p>
- Rename the renamed aij and database backup files to their original 
+ Rename the renamed AIJ and database backup files to their original 
  directories CPT$RDB_AIJ_BCK and CPT$RDB_DB_BCK.
 </p>
 
@@ -20214,7 +20265,25 @@ image_name
 
 <b>CPTRDB_X11_KEEP_ALIVE_BATCH.COM</b><br>
 <b>CPTRDB_X11_KEEP_ALIVE.COM</b><br>
-<b>CPTRDB_X11_KEEP_ALIVE_ALL.COM</b><br>
+<b>CPTRDB_X11_KEEP_ALIVE_ALL.COM</b><br><br>
+
+<b>CPTRDB_CVT_FROM_HEX.COM</b><br>
+<b>CPTRDB_CVT_FROM_HEX_BUILD.COM</b><br>
+<b>CPTRDB_CVT_FROM_HEX_SIGNED_INT.C</b><br>
+<b>CPTRDB_CVT_FROM_HEX_SIGNED_INT.EXE</b><br>
+<b>CPTRDB_CVT_FROM_HEX_SIGNED_INT.OBJ</b><br>
+<b>CPTRDB_CVT_FROM_HEX_UNSIGNED_INT.C</b><br>
+<b>CPTRDB_CVT_FROM_HEX_UNSIGNED_INT.EXE</b><br>
+<b>CPTRDB_CVT_FROM_HEX_UNSIGNED_INT.OBJ</b><br><br>
+
+<b>CPTRDB_CVT_TO_HEX.COM</b><br>
+<b>CPTRDB_CVT_TO_HEX_BUILD.COM</b><br>
+<b>CPTRDB_CVT_TO_HEX_SIGNED_INT.C</b><br>
+<b>CPTRDB_CVT_TO_HEX_SIGNED_INT.EXE</b><br>
+<b>CPTRDB_CVT_TO_HEX_SIGNED_INT.OBJ</b><br>
+<b>CPTRDB_CVT_TO_HEX_UNSIGNED_INT.C</b><br>
+<b>CPTRDB_CVT_TO_HEX_UNSIGNED_INT.EXE</b><br>
+<b>CPTRDB_CVT_TO_HEX_UNSIGNED_INT.OBJ</b><br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures Usage
@@ -20449,6 +20518,124 @@ Logfiles older than two hours are cleaned.
 <pre>
 Reply received on L15S29 from user RDBMON at L15S29 Batch   15:42:12
 30-JUL-2015 15:42:12.67 - X11 KEEP ALIVE
+</pre>
+
+<p>
+<b>CPTRDB_CVT_TO_HEX.COM</b><br>
+  Convert a character or (un)signed integer ascii string to a hexadecimal 
+  string.
+</p>
+  
+<pre>
+Parameters: P1, [CHAR|[UNSIGNED|SIGNED]_INT], input datatype
+            P2, input ascii string, CHAR varchar(2000), INT varchar(12)
+</pre>
+  
+<p>
+  Leading and trailing spaces %X'20' are ignored for datatype CHAR.<br>
+  
+  Calls CPTRDB_CVT_TO_HEX_[UNSIGNED|SIGNED]_INT.EXE as foreign command for
+  datatype INT.
+</p>
+
+<p>
+<b>CPTRDB_CVT_FROM_HEX.COM</b><br>
+  Convert a hexadecimal string to a character or (un)signed integer ascii 
+  string.
+</p>
+  
+<pre>
+Parameters: P1, [CHAR|[UNSIGNED|SIGNED]_INT], input datatype
+            P2, input hexadecimal string, CHAR varchar(2000), INT varchar(8)
+</pre>
+  
+<p>
+  INT hexadecimal strings are left padded with zero's upto char(8).<br>
+  
+  Calls CPTRDB_CVT_FROM_HEX_[UNSIGNED|SIGNED]_INT.EXE as foreign command for
+  datatype INT.
+</p>
+
+<p>
+Usage:
+</p>
+
+<pre>
+$ @CPTRDB_CVT_TO_HEX char "123 ABC"
+31323320414243
+
+$ @CPTRDB_CVT_FROM_HEX char 31323320414243
+123 ABC
+
+$ @CPTRDB_CVT_TO_HEX char " all bananas are sold out "
+616C6C2062616E616E61732061726520736F6C64206F7574
+
+$ @CPTRDB_CVT_FROM_HEX char 20616C6C2062616E616E61732061726520736F6C64206F7574
+ all bananas are sold out
+
+$ @CPTRDB_CVT_FROM_HEX unsigned_int ffffffff
+Hex: FFFFFFFF
+Int: 4294967295
+
+$ @CPTRDB_CVT_TO_HEX unsigned_int 4294967295
+Char: 4294967295
+Int:  4294967295
+Hex:  FFFFFFFF
+
+$ @CPTRDB_CVT_TO_HEX unsigned_int 4294967296
+Char: 4294967296
+***** Error converting P1 to unsigned integer
+%LIB-F-INTOVF, integer overflow
+
+$ @CPTRDB_CVT_FROM_HEX signed_int 7fffffff
+Hex: 7FFFFFFF
+Int: 2147483647
+
+$ @CPTRDB_CVT_TO_HEX signed_int 2147483647
+Char: 2147483647
+Int:  2147483647
+Hex:  7FFFFFFF
+
+$ @CPTRDB_CVT_TO_HEX signed_int 2147483648
+Char: 2147483648
+***** Error converting P1 to signed integer
+%LIB-F-INTOVF, integer overflow
+
+$ @CPTRDB_CVT_TO_HEX signed_int -1
+Char: -1
+Int:  -1
+Hex:  FFFFFFFF
+
+$ @CPTRDB_CVT_FROM_HEX signed_int ffffffff
+Hex: FFFFFFFF
+Int: -1
+
+$ @CPTRDB_CVT_TO_HEX signed_int -2147483647
+Char: -2147483647
+Int:  -2147483647
+Hex:  80000001
+
+$ @CPTRDB_CVT_TO_HEX signed_int -2147483648
+Char: -2147483648
+Int:  -2147483648
+Hex:  80000000
+
+$ @CPTRDB_CVT_TO_HEX signed_int -2147483649
+Char: -2147483649
+***** Error converting P1 to signed integer
+%LIB-F-INTOVF, integer overflow
+
+$ @CPTRDB_CVT_FROM_HEX signed_int 80000000
+Hex: 80000000
+Int: -2147483648
+
+$ @CPTRDB_CVT_FROM_HEX unsigned_int ff
+Hex: 000000FF
+Int: 255
+
+$ @CPTRDB_CVT_FROM_HEX signed_int ffff
+Hex: 0000FFFF
+Int: 65535
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
