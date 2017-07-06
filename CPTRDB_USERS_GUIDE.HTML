@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 12-apr-2017, Luc Allemeersch<br>
+Modified: 05-jul-2017, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -1227,7 +1227,8 @@ CPTRDB_CVT_TO_HEX_UNSIGNED_INT.EXE
 CPTRDB_CVT_TO_HEX_UNSIGNED_INT.OBJ
 
 (Convert CHAR and (un)signed INTEGER ascii strings to and from hexadecimal	
-strings. In § -- 64 -- Miscellaneous Utilities)
+strings.) 
+(In § -- 64 -- Miscellaneous Utilities)
 </pre>
 
 <p>
@@ -1245,6 +1246,64 @@ CPTRDB_SHOW_AIJ_BCK_DAILY.COM
 
 CPTRDB_SHOW_ONE_PAGE.COM
 (Add search on node size)
+</pre>
+
+<p>
+<b>CPTRDB_CHANGES_20170705_05JUL154304.A</b><br>
+Cumulative Partial Update Kit
+</p>
+
+<p>
+Modified procedures
+</p>
+
+<pre>
+CPTRDB_CVT_FROM_HEX.COM
+CPTRDB_CVT_FROM_HEX_BUILD.COM
+CPTRDB_CVT_TO_HEX.COM
+CPTRDB_CVT_TO_HEX_BUILD.COM
+(Add datatypes TIMESTAMP and BIGINT)
+(In § -- 64 -- Miscellaneous Utilities)
+
+CPTRDB_DAILY.COM
+(Adapt list *.mime*)
+(Add TODAY to "SHOW AIJ BCK ALL")
+</pre>
+
+<p>
+New procedures
+</p>
+
+<pre>
+CPTRDB_CVT_FROM_HEX_TIMESTAMP.C
+CPTRDB_CVT_FROM_HEX_TIMESTAMP.EXE
+CPTRDB_CVT_FROM_HEX_TIMESTAMP.OBJ
+(Add datatype TIMESTAMP)
+
+CPTRDB_CVT_TO_HEX_TIMESTAMP.C
+CPTRDB_CVT_TO_HEX_TIMESTAMP.EXE
+CPTRDB_CVT_TO_HEX_TIMESTAMP.OBJ
+(Add datatype TIMESTAMP)
+
+CPTRDB_CVT_FROM_HEX_SIGNED_BIGINT.C
+CPTRDB_CVT_FROM_HEX_SIGNED_BIGINT.EXE
+CPTRDB_CVT_FROM_HEX_SIGNED_BIGINT.OBJ
+CPTRDB_CVT_FROM_HEX_UNSIGNED_BIGINT.C
+CPTRDB_CVT_FROM_HEX_UNSIGNED_BIGINT.EXE
+CPTRDB_CVT_FROM_HEX_UNSIGNED_BIGINT.OBJ
+(Add datatype BIGINT)
+
+CPTRDB_CVT_TO_HEX_SIGNED_BIGINT.C
+CPTRDB_CVT_TO_HEX_SIGNED_BIGINT.EXE
+CPTRDB_CVT_TO_HEX_SIGNED_BIGINT.OBJ
+CPTRDB_CVT_TO_HEX_UNSIGNED_BIGINT.C
+CPTRDB_CVT_TO_HEX_UNSIGNED_BIGINT.EXE
+CPTRDB_CVT_TO_HEX_UNSIGNED_BIGINT.OBJ
+(Add datatype BIGINT)
+
+CPTRDB_BUGCHECK_PROCESS.COM
+CPTRDB_BUGCHECK_PROCESS_GO.COM
+(Force a bugcheckdump)
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -3961,6 +4020,34 @@ $ set nover
 $ exit
 </pre>
 
+<p>
+ Refer to the procedure CPTRDB_CVT_FROM_HEX.COM to interprete the hexadecimal
+ timestamp in the emergency live AIJ file filespecs.
+</p>
+
+<p>
+Usage:
+</p>
+
+<pre>
+$ @CPTRDB_CVT_FROM_HEX timestamp 00B0E18B9B88BB0A
+Hex:  00B0E18B9B88BB0A
+Char: 24-AUG-2016 12:29:22.72
+
+$ @CPTRDB_CVT_TO_HEX timestamp 24-AUG-2016 12:29:22.72
+Char: 24-AUG-2016 12:29:22.72
+Hex:  00B0E18B9B889A00
+
+$ @CPTRDB_CVT_from_HEX timestamp 00B0E18B9B880000
+Hex:  00B0E18B9B880000
+Char: 24-AUG-2016 12:29:22.71
+</pre>
+
+<p>
+Note that the hundredth's of seconds {.CC} in the translated timestamp are not
+reliable.
+</p>
+
 <a href="#Chapter 1">To Top</a><br>
 
 <a name="Chapter 22"></a>
@@ -5527,7 +5614,10 @@ CPTRDB_TruncSnapsStopped
 <b>CPTRDB_INFOZIP_UNZIP_60.EXE</b><br>
 <b>CPTRDB_ZIP_DUMP.COM</b><br>
 <b>CPTRDB_UNZIP_DUMP.COM</b><br>
-<b>CPTRDB_SUBMIT_SYSTEM.COM</b><br>
+<b>CPTRDB_SUBMIT_SYSTEM.COM</b><br><br>
+
+<b>CPTRDB_BUGCHECK_PROCESS.COM</b><br>
+<b>CPTRDB_BUGCHECK_PROCESS_GO.COM</b><br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures Usage
@@ -5950,6 +6040,64 @@ The logfile format is {name}_{node}_yyyymmdd.log_ddmmmhhmmss
 
 <pre>
 $ @CPTRDB_SUBMIT_SYSTEM {node} [{name}|CPTRDB_SEARCH_DUMP] {date time}
+</pre>
+
+<p>
+<b>CPTRDB_BUGCHECK_PROCESS.COM</b><br>
+Called from CPTRDB_BUGCHECK_PROCESS_GO.COM
+</p>
+
+<p>
+  RMU/Bugcheck one Rdb user process based on the process name.
+</p>
+  
+<pre>
+Parameters: P1, dbid,         varchar(255), cptrdb_db_1
+            P2, process name, varchar(15),  stats_cptrdb_1
+</pre>
+
+<p>
+  The bugcheckdump file most recent called routines will be similar to:
+</p>
+
+<pre>
+Saved PC = 0000000081E48060 : RDMSHRP73\KOD$BUGCHECK_DUMP + 00002270
+Saved PC = 0000000081B8E900 : RDMSHRP73\BUGCHKAST$COMPLETION_AST + 00000300
+...
+Saved PC = FFFFFFFF805E01C0 : symbol not found
+Saved PC = FFFFFFFF804E06A0 : symbol not found
+Saved PC = 0000000081D2A590 : RDMSHRP73\PIOGB$ADD_PAGE_TO_ASET + 00000000
+Saved PC = 0000000081D36F70 : RDMSHRP73\PIOGB$WITHIN_POOL + 000022A0
+Saved PC = 0000000081D33CA0 : RDMSHRP73\PIOGB$WITHIN_DB + 00000350
+Saved PC = 0000000081D112A0 : RDMSHRP73\PIOFETCH$WITHIN_DB + 00001CC0
+Saved PC = 0000000081D0AFE0 : RDMSHRP73\PIOFETCH$FETCH + 00000530
+Saved PC = 0000000081D08830 : RDMSHRP73\PIO$FETCH + 000017C0
+Saved PC = 0000000081B931E0 : RDMSHRP73\DIOFETCH$FETCH_VISIBLE_SEG + 000001E0
+Saved PC = 0000000081B95940 : RDMSHRP73\DIOFETCH$FETCH_ONE_LINE + 00001450
+Saved PC = 0000000081B96850 : RDMSHRP73\DIO$FETCH_DBKEY + 00000720
+Saved PC = 00000000813C41B0 : RDMSHRP73\RDMS$$KOD_FIND_CURRENT_REC + 00000AD0
+</pre>
+
+<p>
+<b>CPTRDB_BUGCHECK_PROCESS_GO.COM</b><br>
+Calls CPTRDB_BUGCHECK_PROCESS.COM
+</p>
+
+<p>
+  Submit CPTRDB_BUGCHECK_PROCESS.COM in batch with hardcoded parameters.
+</p>
+
+<p>
+  Parameters: Adapt the parameter block.
+</p>
+ 
+<pre>
+$!-------------------------------
+$ dbid         = "CPTRDB_DB_1"
+$ process_name = "STATS_CPTRDB_1"
+$ sched_node   = "L15S29"
+$ sched_time   = "+00:00:30"
+$!-------------------------------
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -8882,13 +9030,18 @@ WAITING_FOR_TIMES              ,WAITING_FOR_TIMES_IDX          ,4 ,    ,STALL_RE
 <p>
 <b>CPTRDB_SHOW_USERS.COM</b><br>
   List clusterwide database users and their tsn's in ascending order,
-  and [Y|N], clusterwide OpenVMS users.
+  and [Y|N], clusterwide OpenVMS users.<br>
+
+  The procedure assumes the .RUJ filespec is specified as DISK$*.RUJ
+  depending on the definition of the logical RDMS$RUJ.<br>
 
   The procedure allows to identify a long running read only transaction
   that causes the snapshot files to grow.
 </p>
 
-  The procedure lists per user on multiple lines:<br>
+<p>
+  The procedure lists per user on multiple lines:
+</p>
 
 <pre>
   (Repeating on each line to allow search)
@@ -9074,19 +9227,25 @@ CPT$RDB_PARAM|CPTRDB_RESTART_JDBC|L15S28|DISK$DATA_24:[JAVA$150.COM]JAVA$150_SET
 <p>
 <b>CPTRDB_SHOW_TSN_BLKS.COM</b><br>
   List the number of users and TSN blocks per cluster node for a database.
+</p>
 
+<p>
   The procedure enables to fine tune the number of users and the number
   of allocated tsn blocks: 28 users per tsn block, minimum
-  one tsn block per node. 
+  one tsn block per node.
+</p>
 
+<p>
   This information is also available using
   RMU/Show Statistics Database Parameter Info|TSNBLK Allocation.
+</p>
 
-  Note that, when a database is open on more than one node, at the start 
+<p>
+  [Note that, when a database is open on more than one node, at the start 
   of every read only transaction, all tsn blocks are scanned to apply the 
   visibility rules, serialized using the SEQBLK lock, at the cost of 2
   writes to the root file. This can result in 'waiting for TSNBLK/SEQBLK'
-  stalls.
+  stalls.]
 </p>
 
   Usage:<br>
@@ -20269,18 +20428,36 @@ image_name
 
 <b>CPTRDB_CVT_FROM_HEX.COM</b><br>
 <b>CPTRDB_CVT_FROM_HEX_BUILD.COM</b><br>
+<b>CPTRDB_CVT_FROM_HEX_SIGNED_BIGINT.C</b><br>
+<b>CPTRDB_CVT_FROM_HEX_SIGNED_BIGINT.EXE</b><br>
+<b>CPTRDB_CVT_FROM_HEX_SIGNED_BIGINT.OBJ</b><br>
 <b>CPTRDB_CVT_FROM_HEX_SIGNED_INT.C</b><br>
 <b>CPTRDB_CVT_FROM_HEX_SIGNED_INT.EXE</b><br>
 <b>CPTRDB_CVT_FROM_HEX_SIGNED_INT.OBJ</b><br>
+<b>CPTRDB_CVT_FROM_HEX_TIMESTAMP.C</b><br>
+<b>CPTRDB_CVT_FROM_HEX_TIMESTAMP.EXE</b><br>
+<b>CPTRDB_CVT_FROM_HEX_TIMESTAMP.OBJ</b><br>
+<b>CPTRDB_CVT_FROM_HEX_UNSIGNED_BIGINT.C</b><br>
+<b>CPTRDB_CVT_FROM_HEX_UNSIGNED_BIGINT.EXE</b><br>
+<b>CPTRDB_CVT_FROM_HEX_UNSIGNED_BIGINT.OBJ</b><br>
 <b>CPTRDB_CVT_FROM_HEX_UNSIGNED_INT.C</b><br>
 <b>CPTRDB_CVT_FROM_HEX_UNSIGNED_INT.EXE</b><br>
 <b>CPTRDB_CVT_FROM_HEX_UNSIGNED_INT.OBJ</b><br><br>
 
 <b>CPTRDB_CVT_TO_HEX.COM</b><br>
 <b>CPTRDB_CVT_TO_HEX_BUILD.COM</b><br>
+<b>CPTRDB_CVT_TO_HEX_SIGNED_BIGINT.C</b><br>
+<b>CPTRDB_CVT_TO_HEX_SIGNED_BIGINT.EXE</b><br>
+<b>CPTRDB_CVT_TO_HEX_SIGNED_BIGINT.OBJ</b><br>
 <b>CPTRDB_CVT_TO_HEX_SIGNED_INT.C</b><br>
 <b>CPTRDB_CVT_TO_HEX_SIGNED_INT.EXE</b><br>
 <b>CPTRDB_CVT_TO_HEX_SIGNED_INT.OBJ</b><br>
+<b>CPTRDB_CVT_TO_HEX_TIMESTAMP.C</b><br>
+<b>CPTRDB_CVT_TO_HEX_TIMESTAMP.EXE</b><br>
+<b>CPTRDB_CVT_TO_HEX_TIMESTAMP.OBJ</b><br>
+<b>CPTRDB_CVT_TO_HEX_UNSIGNED_BIGINT.C</b><br>
+<b>CPTRDB_CVT_TO_HEX_UNSIGNED_BIGINT.EXE</b><br>
+<b>CPTRDB_CVT_TO_HEX_UNSIGNED_BIGINT.OBJ</b><br>
 <b>CPTRDB_CVT_TO_HEX_UNSIGNED_INT.C</b><br>
 <b>CPTRDB_CVT_TO_HEX_UNSIGNED_INT.EXE</b><br>
 <b>CPTRDB_CVT_TO_HEX_UNSIGNED_INT.OBJ</b><br>
@@ -20522,70 +20699,134 @@ Reply received on L15S29 from user RDBMON at L15S29 Batch   15:42:12
 
 <p>
 <b>CPTRDB_CVT_TO_HEX.COM</b><br>
-  Convert a character or (un)signed integer ascii string to a hexadecimal 
-  string.
+  Convert a varchar(2000) character, varchar(12) (un)signed integer,
+  char(23) date vms timestamp or varchar(20) (un)signed bigint ascii string
+  to a varchar(2000), char(8) or char(16) hexadecimal string.
 </p>
   
 <pre>
-Parameters: P1, [CHAR|[UNSIGNED|SIGNED]_INT], input datatype
-            P2, input ascii string, CHAR varchar(2000), INT varchar(12)
+Parameters: P1, [CHAR|[UN]SIGNED_[BIG]INT|TIMESTAMP], input datatype
+            P2, input string,
+                CHAR varchar(2000), INT varchar(12), TIMESTAMP char(23),
+                BIGINT varchar(20)
 </pre>
   
 <p>
-  Leading and trailing spaces %X'20' are ignored for datatype CHAR.<br>
+  INT, TIMESTAMP and BIGINT output hexadecimal strings are left padded with 
+  zero's upto char(8) or char(16).
+</p>
+
+<p>
+  Calls CPTRDB_CVT_TO_HEX_[[UN]SIGNED_[BIG]INT|TIMESTAMP].EXE as foreign
+  command for datatypes INT, TIMESTAMP and BIGINT.
+</p>
   
-  Calls CPTRDB_CVT_TO_HEX_[UNSIGNED|SIGNED]_INT.EXE as foreign command for
-  datatype INT.
+<p>
+  Leading and trailing spaces %X'20' are ignored for datatype CHAR, using
+  the SQL function RAWTOHEX.
+</p>
+  
+<p>
+  Usage for datatype TIMESTAMP: do not embed the timestamp string in quotes.
+</p>
+  
+<pre>
+$ @CPTRDB_CVT_TO_HEX timestamp 21-APR-2017 15:47:08.00 ! No quotes
+Char: 21-APR-2017 15:47:08.00
+Hex:  00B19E3EFEEEA600
+</pre>
+  
+<p>
+  The use of the system service SYS$BINTIM implies that missing elements of
+  the timestamp string default to the current date and time, and thus 
+  yield varying hexadecimal strings.
+</p>
+
+<p>
+  Due to the lack of support by LIB$CVT_DX_DX for a unsigned quadword
+  descriptor, the CPTRDB_CVT_TO_HEX_UNSIGNED_BIGINT.C code is implmented using
+  the C RTL routine STRTOUQ, which implies that the error handling is different
+  from the standard OpenVMS RTL routines SYS$, LIB$ and OTS$ which are used
+  in the other CPTRDB_CVT_[TO|FROM]_HEX*.C code snippets.<br>
+  This code also exports the DCL symbol HEX_UNSIGNED_BIGINT.
 </p>
 
 <p>
 <b>CPTRDB_CVT_FROM_HEX.COM</b><br>
-  Convert a hexadecimal string to a character or (un)signed integer ascii 
-  string.
+  Convert a varchar(2000), char(8) or char(16) hexadecimal string to a
+  varchar(2000) character, varchar(12) (un)signed integer, char(23)
+  date vms timestamp or char(20) (un)signed bigint ascii string.
 </p>
   
 <pre>
-Parameters: P1, [CHAR|[UNSIGNED|SIGNED]_INT], input datatype
-            P2, input hexadecimal string, CHAR varchar(2000), INT varchar(8)
+Parameters: P1, [CHAR|[UN]SIGNED_[BIG]INT|TIMESTAMP], input datatype
+            P2, input hexadecimal string,
+                CHAR varchar(2000), INT char(8), TIMESTAMP char(16),
+                BIGINT char(16)
 </pre>
   
 <p>
-  INT hexadecimal strings are left padded with zero's upto char(8).<br>
-  
-  Calls CPTRDB_CVT_FROM_HEX_[UNSIGNED|SIGNED]_INT.EXE as foreign command for
-  datatype INT.
+  INT, TIMESTAMP and BIGINT input hexadecimal strings are left padded with 
+  zero's upto char(8) or char(16).
 </p>
+  
+<p>
+  Calls CPTRDB_CVT_FROM_HEX_[[UN]SIGNED_[BIG]INT|TIMESTAMP].EXE as foreign
+  command for datatypes INT, TIMESTAMP and BIGINT.
+</p>
+
+<p>
+  The datatype TIMESTAMP allows to interprete the filespecs of emergency live
+  AIJ files, which contain a timestamp in hex.
+</p>
+
+<pre>
+$!$ rmu/set after_journal /drop=(name=EMERGENCY_00B0E18B9B88BB0A) ACC_DB_B01S15
+$!
+$ @CPTRDB_CVT_FROM_HEX timestamp 00B0E18B9B88BB0A
+Hex:  00B0E18B9B88BB0A
+Char: 24-AUG-2016 12:29:22.72
+</pre>
 
 <p>
 Usage:
 </p>
 
 <pre>
-$ @CPTRDB_CVT_TO_HEX char "123 ABC"
-31323320414243
+$ @CPTRDB_CVT_TO_HEX char abc123
+414243313233
 
-$ @CPTRDB_CVT_FROM_HEX char 31323320414243
-123 ABC
+$ @CPTRDB_CVT_FROM_HEX char 414243313233
+ABC123
 
-$ @CPTRDB_CVT_TO_HEX char " all bananas are sold out "
-616C6C2062616E616E61732061726520736F6C64206F7574
+$ @CPTRDB_CVT_TO_HEX char "all bananas are sold out today"
+616C6C2062616E616E61732061726520736F6C64206F757420746F646179
 
-$ @CPTRDB_CVT_FROM_HEX char 20616C6C2062616E616E61732061726520736F6C64206F7574
- all bananas are sold out
+$ @CPTRDB_CVT_FROM_HEX char -
+_$ 616C6C2062616E616E61732061726520736F6C64206F757420746F646179
+all bananas are sold out today
 
-$ @CPTRDB_CVT_FROM_HEX unsigned_int ffffffff
-Hex: FFFFFFFF
-Int: 4294967295
+$ @CPTRDB_CVT_TO_HEX signed_int 333
+Char: 333
+Int:  333
+Hex:  0000014D
 
-$ @CPTRDB_CVT_TO_HEX unsigned_int 4294967295
-Char: 4294967295
-Int:  4294967295
-Hex:  FFFFFFFF
+$ @CPTRDB_CVT_FROM_HEX signed_int 0000014D
+Hex: 0000014D
+Int: 333
 
-$ @CPTRDB_CVT_TO_HEX unsigned_int 4294967296
-Char: 4294967296
-***** Error converting P1 to unsigned integer
-%LIB-F-INTOVF, integer overflow
+$ @CPTRDB_CVT_FROM_HEX signed_int 14d
+Hex: 0000014D
+Int: 333
+
+$ @CPTRDB_CVT_TO_HEX signed_int -333
+Char: -333
+Int:  -333
+Hex:  FFFFFEB3
+
+$ @CPTRDB_CVT_FROM_HEX signed_int FFFFFEB3
+Hex: FFFFFEB3
+Int: -333
 
 $ @CPTRDB_CVT_FROM_HEX signed_int 7fffffff
 Hex: 7FFFFFFF
@@ -20596,46 +20837,136 @@ Char: 2147483647
 Int:  2147483647
 Hex:  7FFFFFFF
 
-$ @CPTRDB_CVT_TO_HEX signed_int 2147483648
-Char: 2147483648
-***** Error converting P1 to signed integer
-%LIB-F-INTOVF, integer overflow
+$ @CPTRDB_CVT_FROM_HEX signed_int ffffffff
+Hex: FFFFFFFF
+Int: -1
 
 $ @CPTRDB_CVT_TO_HEX signed_int -1
 Char: -1
 Int:  -1
 Hex:  FFFFFFFF
 
-$ @CPTRDB_CVT_FROM_HEX signed_int ffffffff
-Hex: FFFFFFFF
-Int: -1
-
-$ @CPTRDB_CVT_TO_HEX signed_int -2147483647
-Char: -2147483647
-Int:  -2147483647
-Hex:  80000001
+$ @CPTRDB_CVT_FROM_HEX signed_int 80000000
+Hex: 80000000
+Int: -2147483648
 
 $ @CPTRDB_CVT_TO_HEX signed_int -2147483648
 Char: -2147483648
 Int:  -2147483648
 Hex:  80000000
 
-$ @CPTRDB_CVT_TO_HEX signed_int -2147483649
-Char: -2147483649
-***** Error converting P1 to signed integer
-%LIB-F-INTOVF, integer overflow
+$ @CPTRDB_CVT_FROM_HEX unsigned_int ffffffff
+Hex: FFFFFFFF
+Int: 4294967295
 
-$ @CPTRDB_CVT_FROM_HEX signed_int 80000000
-Hex: 80000000
-Int: -2147483648
+$ @CPTRDB_CVT_TO_HEX unsigned_int 4294967295
+Char: 4294967295
+Int:  4294967295
+Hex:  FFFFFFFF
 
-$ @CPTRDB_CVT_FROM_HEX unsigned_int ff
-Hex: 000000FF
-Int: 255
+$ sh time
+  24-MAY-2017 15:22:58
 
-$ @CPTRDB_CVT_FROM_HEX signed_int ffff
-Hex: 0000FFFF
-Int: 65535
+$ @CPTRDB_CVT_TO_HEX timestamp 24-MAY-2017 15:22:58.00
+Char: 24-MAY-2017 15:22:58.00
+Hex:  00B1B82A164BF500
+
+$ @CPTRDB_CVT_FROM_HEX timestamp 00B1B82A164BF500
+Hex:  00B1B82A164BF500
+Char: 24-MAY-2017 15:22:58.00
+
+$ sh time
+  14-JUN-2017 12:38:15
+
+$ @CPTRDB_CVT_TO_HEX timestamp 14-JUN-2017
+Char: 14-JUN-2017
+Hex:  00B1C8939D561C00
+
+$ @CPTRDB_CVT_FROM_HEX timestamp 00B1C8939D561C00
+Hex:  00B1C8939D561C00
+Char: 14-JUN-2017 12:38:40.32
+
+$ @CPTRDB_CVT_TO_HEX signed_bigint 1789
+Char: 1789
+Int:  1789
+Hex:  00000000000006FD
+
+$ @CPTRDB_CVT_FROM_HEX signed_bigint 00000000000006FD
+Hex:    00000000000006FD
+Bigint: 1789
+
+$ @CPTRDB_CVT_FROM_HEX signed_bigint 6FD
+Hex:    00000000000006FD
+Bigint: 1789
+
+$ @CPTRDB_CVT_TO_HEX signed_bigint -1789
+Char: -1789
+Int:  -1789
+Hex:  FFFFFFFFFFFFF903
+
+$ @CPTRDB_CVT_FROM_HEX signed_bigint FFFFFFFFFFFFF903
+Hex:    FFFFFFFFFFFFF903
+Bigint: -1789
+
+$ @CPTRDB_CVT_FROM_HEX signed_bigint 7fffffffffffffff
+Hex:    7FFFFFFFFFFFFFFF
+Bigint: 9223372036854775807
+
+$ @CPTRDB_CVT_TO_HEX signed_bigint 9223372036854775807
+Char: 9223372036854775807
+Int:  9223372036854775807
+Hex:  7FFFFFFFFFFFFFFF
+
+$ @CPTRDB_CVT_FROM_HEX signed_bigint 8000000000000000
+Hex:    8000000000000000
+Bigint: -9223372036854775808
+
+$ @CPTRDB_CVT_TO_HEX signed_bigint -9223372036854775808
+Char: -9223372036854775808
+Int:  -9223372036854775808
+Hex:  8000000000000000
+
+$ @CPTRDB_CVT_FROM_HEX signed_bigint ffffffffffffffff
+Hex:    FFFFFFFFFFFFFFFF
+Bigint: -1
+
+$ @CPTRDB_CVT_TO_HEX signed_bigint -1
+Char: -1
+Int:  -1
+Hex:  FFFFFFFFFFFFFFFF
+
+$ @CPTRDB_CVT_FROM_HEX unsigned_bigint ffffffffffffffff
+Hex:    FFFFFFFFFFFFFFFF
+Bigint: 18446744073709551615
+
+$ @CPTRDB_CVT_TO_HEX unsigned_bigint 18446744073709551615
+Translated upto: {}
+***** Warning, __UINT64_MAX Reached or integer overflow
+Max:     18446744073709551615
+Char:    18446744073709551615
+Decimal: 18446744073709551615
+Hex:     FFFFFFFFFFFFFFFF
+
+$ @CPTRDB_CVT_TO_HEX unsigned_bigint 18446744073709551616
+Translated upto: {6}
+***** Warning, __UINT64_MAX Reached or integer overflow
+Max:     18446744073709551615
+Char:    18446744073709551616
+Decimal: 18446744073709551615
+Hex:     FFFFFFFFFFFFFFFF
+
+$ @CPTRDB_CVT_TO_HEX unsigned_bigint g
+***** Error, Unrecognised character(s): {G                   }
+
+$ @CPTRDB_CVT_TO_HEX unsigned_bigint 128boem
+Translated upto: {BOEM             }
+Char:    128BOEM
+Decimal: 128
+Hex:     0000000000000080
+
+$ @CPTRDB_CVT_FROM_HEX unsigned_bigint 80
+Hex:    0000000000000080
+Bigint: 128
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
