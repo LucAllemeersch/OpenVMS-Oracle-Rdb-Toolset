@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 28-dec-2017, Luc Allemeersch<br>
+Modified: 20-apr-2018, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -199,7 +199,7 @@ https://github.com/LucAllemeersch/OpenVMS-Oracle-Rdb-Toolset</a><br>
 For feedback and remarks on the toolset, contact 
 <a href="mailto:luc.allemeersch@infrabel.be">luc.allemeersch@infrabel.be</a><br>
 For more information on CockpitMgr for OpenVMS, contact 
-<a href="mailto:johan.michiels@hpe.com">johan.michiels@hpe.com</a><br><br>
+<a href="mailto:johan.michiels@eurovms.com">johan.michiels@eurovms.com</a><br><br>
 
 For more information on Oracle Rdb, visit <a href="http://www.oracle.com/rdb">www.oracle.com/rdb</a><br>
 For more information on JCC Logminer Loader, visit <a href="http://www.jcc.com">www.jcc.com</a><br>
@@ -253,7 +253,7 @@ studies in computer science (major programming, 1984) both from the
 </font>
 </h3>
 
-Copyright © 2013 - 2017 Luc Allemeersch<br>
+Copyright © 2013 - 2018 Luc Allemeersch<br>
 
 <p>
 This program is free software: you can redistribute it and/or modify
@@ -305,12 +305,14 @@ Oracle Rdb V7.3-200 (Update 1)<br>
 Oracle Rdb V7.3-200 (Update 2)<br>
 Oracle Rdb V7.3-210<br>
 Oracle Rdb V7.3-210 (Update 2)<br>
+Oracle Rdb V7.3-210 (Update 3)<br>
 Oracle Rdb JDBC V7.3-202:20130501<br>
 Oracle Rdb JDBC V7.3-310:20140826<br>
 Oracle Rdb JDBC V7.3-323:20141224<br>
 Oracle Rdb JDBC V7.3-402:20150626<br>
 Oracle Rdb JDBC V7.3-410:20160222<br>
 Oracle Rdb JDBC V7.3-503:20170830<br>
+Oracle Rdb JDBC V7.3-510:20180227<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-110<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-200<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-210<br>
@@ -319,12 +321,13 @@ Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-230<br>
 Oracle Trace For Rdb V7.2-03<br>
 CockpitMgr for OpenVMS V7.8-020<br>
 CockpitMgr for OpenVMS V7.8-040<br>
-CockpitMgr for OpenVMS V7.10-22<br>
+CockpitMgr for OpenVMS V7.10-24<br>
 HP C V7.2-001<br>
 HP Bliss V1.12-072<br>
 JCC Logminer Loader V3.2.2<br>
 JCC Logminer Loader V3.4.4<br>
 JCC Logminer Loader V3.5.0<br>
+JCC Logminer Loader V3.5.1<br>
 OpenVMS Oracle Client V10.2.0.2.0<br>
 OpenVMS JAVA V1.5.0-7<br>
 OpenVMS JAVA V1.6.0-5<br>
@@ -1420,6 +1423,90 @@ CPTRDB_RDM$BUGCHECK_IGNORE_FLAGS.COM
 (Document more flags)
 </pre>
 
+<p>
+<b>CPTRDB_CHANGES_20180420_20APR143123.A</b><br>
+Partial Update Kit
+</p>
+
+<p>
+Running On New Versions
+</p>
+
+<pre>
+Oracle Rdb          V7.3-210 Update 3
+Oracle Rdb JDBC     V7.3-510
+JCC Logminer Loader V3.5.1
+</pre>
+
+<p>
+New Procedures:
+</p>
+
+<pre>
+CPTRDB_SHOW_ENTRIES_BATCH.COM
+CPTRDB_SHOW_ENTRIES.COM
+CPTRDB_SHOW_ENTRIES_DAILY.COM
+CPTRDB_SHOW_ENTRIES.REF
+CPTRDB_POKE_CLEAR_SHOW_ENTRIES_DIFF.COM
+(List and check batch entries for multipe nodes, users, queues and source directories)
+
+CPTRDB_SHOW_DOMAINS.COM
+(List all domains and their usage)
+
+JCCLML_CPTRDB_CONFIGURATION.REF
+(Template configuration file for a JCC Logminer Loader ONLY environment)
+
+JCCLML_CPTRDB_DAILY.COM;
+(Interactive check for a JCC Logminer Loader ONLY environment
+</pre>
+
+<p>
+Modified Procedures:
+</p>
+
+<pre>
+CPTRDB_CLEANUP_LOGS_DAILY.COM
+CPTRDB_CONFIGURATION.REF
+(Add CPTRDB_SHOW_ENTRIES)
+
+CPTRDB_DAILY.COM
+(Add CPTRDB_SHOW_ENTRIES)
+(Call CPTRDB_SHOW_AIJ_BCK /since /before)
+
+CPTRDB_SRVTRC_CLIENTS_ALL.COM
+CPTRDB_SRVTRC_CLIENTS_73402.COM
+CPTRDB_SRVTRC_CLIENTS_73402_ONE.COM
+(Add comment compatible JDBC V73510)
+
+CPTRDB_BATCH_ENTRIES_DAILY.COM
+(Avoid .tmp_ref delete if using same directory for 'tmpdir' and 'defdir')
+
+CPTRDB_SHOW_AIJ_BCK_DAILY.COM
+CPTRDB_SHOW_DBS_OPEN_DAILY.COM
+CPTRDB_SHOW_DB_BCK_DAILY.COM
+CPTRDB_SHOW_JDBC_LOGS_DAILY.COM
+CPTRDB_SHOW_JDBC_PROCESS_DAILY.COM
+CPTRDB_SHOW_SQLSRV_DAILY.COM
+CPTRDB_SHOW_STATS_DAILY.COM
+JCCLML_LML_SHOW_AERCP_CONT.COM
+JCCLML_LML_SHOW_HEARTBEAT_CONT.COM
+JCCLML_LML_SHOW_PROCESS_DAILY.COM
+JCCLML_LML_SHOW_STATS_DAILY.COM
+(Avoid .tmp_ref delete if using same directory for 'tmpdir' and 'outdir')
+
+JCCLML_FILTER_DB_LOGICALS.COM
+(Add DEFINE JCCLML_FILTER_DB database)
+
+JCCLML_JCC_RUN_CTL-CPTRDB_LML.COM
+JCCLML_JCC_RUN_DTL.COM
+JCCLML_LML_DATA_PUMP_CPTRDB_LML.COM
+JCCLML_LML_DUMP_CHECKPOINT_OCI.COM
+JCCLML_LML_DUMP_CHECKPOINT_RDB.COM
+JCCLML_LML_REOPEN_LOGS.COM
+JCCLML_SHUTDOWN.COM
+(Add "$ @jcc_tool_com:jcc_lml_user s" in preparation for multiversion V3.6)
+</pre>
+
 <a href="#Chapter 1">To Top</a><br>
 
 <a name="Chapter 8"></a>
@@ -1524,6 +1611,8 @@ Procedures reading the configuration file CPTRDB_CONFIGURATION.REF :
   CPTRDB_SHOW_DB_BCK.COM
   CPTRDB_SHOW_DB_BCK_BATCH.COM
   CPTRDB_SHOW_DB_BCK_DAILY.COM
+  CPTRDB_SHOW_ENTRIES.COM
+  CPTRDB_SHOW_ENTRIES_DAILY.COM
   CPTRDB_SHOW_EXTENTS.COM
   CPTRDB_SHOW_EXTENTS_DAILY.COM
   CPTRDB_SHOW_JDBC_LOGS.COM
@@ -1586,6 +1675,7 @@ CPTRDB_BATCH_ENTRIES.REF<br>
 CPTRDB_SHOW_AIJ_BCK.REF<br>
 CPTRDB_SHOW_DBS_OPEN.REF<br>
 CPTRDB_SHOW_DB_BCK.REF<br>
+CPTRDB_SHOW_ENTRIES.REF<br>
 CPTRDB_SHOW_JDBC_LOGS.REF<br>
 CPTRDB_SHOW_JDBC_PROCESS.REF<br>
 CPTRDB_SHOW_SQLSRV.REF<br>
@@ -1772,6 +1862,9 @@ Event names and their event text generated by the Oracle Rdb Toolset:<br>
   CPTRDB_OpenDatabasesDifferences
   "CPTRDB - Open Databases Differences {node} - ddmmmhhmmss"
 
+  CPTRDB_ShowEntriesDifferences
+  "CPTRDB - Show Entries Differences {node} - ddmmmhhmmss"
+
   CPTRDB_SQLSRV_Differences
   "CPTRDB - SQLSRV Differences {node} - ddmmmhhmmss"
 
@@ -1819,6 +1912,7 @@ Mail subjects issued by the Oracle Rdb Toolset:<br>
   "CPTRDB - JDBC Logfiles Diff {nodeid} yyyymmdd"
   "CPTRDB - JDBC Processes Diff {nodeid} yyyymmdd"
   "CPTRDB - Open Databases Diff {nodeid} yyyymmdd"
+  "CPTRDB - Show Entries Diff {nodeid} yyyymmdd"
   "CPTRDB - SQLSRV Diff {nodeid} yyyymmdd"
   "CPTRDB - SRVTRC No Clients {servid} {nodeid} yyyymmdd"
   "CPTRDB - Stall Cnts Exceeded {dbid} {nodeid} yyyymmdd"
@@ -1866,6 +1960,7 @@ Toolset procedures using POKE/AGENT:<br>
   CPTRDB_POKE_CLEAR_JDBC_PROCESS_DIFF.COM
   CPTRDB_POKE_CLEAR_JDBC_RESTART_STARTED.COM
   CPTRDB_POKE_CLEAR_OPEN_DATABASES_DIFF.COM
+  CPTRDB_POKE_CLEAR_SHOW_ENTRIES_DIFF.COM
   CPTRDB_POKE_CLEAR_SQLSRV_DIFF.COM
   CPTRDB_POKE_CLEAR_SRVTRC_NO_CLIENTS.COM
   CPTRDB_POKE_CLEAR_STALL_CNTS_EXCEEDED.COM
@@ -1886,6 +1981,7 @@ Toolset procedures using POKE/AGENT:<br>
   CPTRDB_SHOW_EXTENTS_DAILY.COM
   CPTRDB_SHOW_JDBC_LOGS_DAILY.COM
   CPTRDB_SHOW_JDBC_PROCESS_DAILY.COM
+  CPTRDB_SHOW_ENTRIES_DAILY.COM
   CPTRDB_SHOW_SQLSRV_DAILY.COM
   CPTRDB_SHOW_STATS_DAILY.COM
   CPTRDB_SRVTRC_CLIENTS_73202.COM
@@ -1933,6 +2029,7 @@ CPTRDB_POKE_CLEAR_JDBC_LOGFILES_DIFF.COM<br>
 CPTRDB_POKE_CLEAR_JDBC_PROCESS_DIFF.COM<br>
 CPTRDB_POKE_CLEAR_JDBC_RESTART_STARTED.COM<br>
 CPTRDB_POKE_CLEAR_OPEN_DATABASES_DIFF.COM<br>
+CPTRDB_POKE_CLEAR_SHOW_ENTRIES_DIFF.COM<br>
 CPTRDB_POKE_CLEAR_SQLSRV_DIFF.COM<br>
 CPTRDB_POKE_CLEAR_SRVTRC_NO_CLIENTS.COM<br>
 CPTRDB_POKE_CLEAR_STALL_CNTS_EXCEEDED.COM<br>
@@ -2020,7 +2117,7 @@ SQL> select rdb$file_name from rdb$database;
 
 <p>
 <b>CPTRDB_MIME$INIT.EVE</b><br>
-  Enables a mail attachment using the OpenVMS MIME utility.
+  Enables a mail body using the OpenVMS MIME utility.
 </p>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -2372,6 +2469,7 @@ SQL>@CPT$RDB:CPTRDB_GET_DCL_DATA
 
 <pre>
 CPTRDB_SHOW_STORAGE_AREAS.COM
+CPTRDB_SHOW_DOMAINS.COM
 CPTRDB_SHOW_TABLES.COM
 CPTRDB_SHOW_INDICES.COM
 CPTRDB_SHOW_AREAS_IDS.COM
@@ -3631,13 +3729,18 @@ CPTRDB_AIJ_NotExpiredBackups
 </h3>
 
 <b>CPTRDB_BATCH_ENTRIES.COM</b><br>
-<b>CPTRDB_BATCH_ENTRIES_DAILY.COM</b><br><br>
+<b>CPTRDB_BATCH_ENTRIES_DAILY.COM</b><br>
+<b>CPTRDB_BATCH_ENTRIES.REF</b> (Reference file)<br><br>
 
 <b>CPTRDB_SUBMIT_ALL_REF_GEN.COM</b><br>
 <b>CPTRDB_SUBMIT_ALL_QUEUE_GEN.COM</b><br><br>
 
+<b>CPTRDB_SHOW_ENTRIES_BATCH.COM</b><br>
+<b>CPTRDB_SHOW_ENTRIES.COM</b><br>
+<b>CPTRDB_SHOW_ENTRIES_DAILY.COM</b><br>
+<b>CPTRDB_SHOW_ENTRIES.REF</b> (Reference file)<br><br>
+
 <b>CPTRDB_CONFIGURATION.REF</b> (Configuration file)<br>
-<b>CPTRDB_BATCH_ENTRIES.REF</b> (Reference file)<br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures Usage
@@ -3648,7 +3751,7 @@ Procedures Usage
 <b>CPTRDB_BATCH_ENTRIES.COM</b><br>
   Interactive check for the presence of all batch jobs located in CPT$RDB,
   on the dedicated queues CPT$RDB_BATCH_{node}, compared to the reference file 
-  CPTRDB_BATCH_ENTRIES.REF, based on filespecs upto the version number.
+  CPTRDB_BATCH_ENTRIES.REF, based on filespecs upto the version number.<br>
 
   The nodes, queues and source directory are retrieved from the configuration
   file CPTRDB_CONFIGURATION.REF, identified by the keywords 
@@ -3689,9 +3792,11 @@ Output CPT$RDB_LISTS:BATCH_ENTRIES_L15S29_20150403.LIS_03APR130456
 
 <p>
   The output files<br>
-  BATCH_ENTRIES.DIFF<br>
-  BATCH_ENTRIES.TMP_REF<br>
-  are created in CPT$RDB and not in CPT$RDB_LISTS which is an exception.
+  BATCH_ENTRIES[_DAILY].DIFF<br>
+  BATCH_ENTRIES[_DAILY].TMP_REF<br>
+  are created in CPT$RDB and not in CPT$RDB_LISTS for easy comparison with
+  the reference file CPTRDB_BATCH_ENTRIES.REF, which is an exception to
+  the toolset file location conventions.
 </p>
 
 <p>
@@ -3711,32 +3816,13 @@ $ edit CPTRDB_BATCH_ENTRIES.REF
 <b>CPTRDB_BATCH_ENTRIES_DAILY.COM</b><br>
   (As user of the submitted jobs)<br>
   Daily check for the existence of a list of batch jobs located in CPT$RDB.
-  Send CockpitMgr message and mail when a job is no longer running or scheduled.
-  Reference file is list of filespecs CPTRDB_BATCH_ENTRIES.REF.
+  Send CockpitMgr event and mail when a job is no longer running or
+  scheduled.<br>
+
+  The reference file is the list of filespecs CPTRDB_BATCH_ENTRIES.REF.<br>
 
   The nodes, queues and source directory are listed in the configuration
   file, identified by the keywords CPT$RDB_NODE|CPTRDB_BATCH_ENTRIES.
-
-  Reschedule node, time and exception mail address are retrieved from the
-  configuration file, identified by the keywords
-  CPT$RDB_JOB|CPTRDB_BATCH_ENTRIES_DAILY.
-</p>
-
-<pre>
-CPT$RDB_JOB|CPTRDB_BATCH_ENTRIES_DAILY|L15S29|TOMORROW + 08:15|L15S36::ALLEMEERSCH|
-!
-! 0 CPT$RDB_JOB
-! 1 CPTRDB_BATCH_ENTRIES_DAILY
-! 2 Reschedule node
-! 3 Reschedule time
-! 4 Exception mail address
-</pre>
-
-<p>
-  The output files<br>
-  BATCH_ENTRIES_DAILY.DIFF<br>
-  BATCH_ENTRIES_DAILY.TMP_REF<br>
-  are created in CPT$RDB and not in CPT$RDB_LISTS which is an exception.
 </p>
 
   Toolset CockpitMgr event:<br>
@@ -3750,6 +3836,23 @@ CPTRDB_BatchEntriesDifferences
 
 <pre>
 "CPTRDB - Batch Entries Diff {node} yyyymmdd"
+</pre>
+
+
+<p>
+  The reschedule node, time and exception mail address are retrieved from the
+  configuration file, identified by the keywords
+  CPT$RDB_JOB|CPTRDB_BATCH_ENTRIES_DAILY.
+</p>
+
+<pre>
+CPT$RDB_JOB|CPTRDB_BATCH_ENTRIES_DAILY|L15S29|TOMORROW + 08:15|L15S36::ALLEMEERSCH|
+!
+! 0 CPT$RDB_JOB
+! 1 CPTRDB_BATCH_ENTRIES_DAILY
+! 2 Reschedule node
+! 3 Reschedule time
+! 4 Exception mail address
 </pre>
 
 <p>
@@ -3883,6 +3986,261 @@ $!
   measure for later reference, in case queue and/or job information may be
   lost due to some problem or incident. 
 </p>
+
+<p>
+<b>CPTRDB_SHOW_ENTRIES_BATCH.COM</b><br>
+  Called from CPTRDB_SHOW_ENTRIES[_DAILY].COM
+</p>
+
+<p>
+  List the queue entries for one node, user, queue and source directory
+  (sub)string on the executor node.
+</p>
+
+<pre>
+[Internal Parameters: P1, queue name
+                      P2, source filenames directory (sub)string
+                      P3, output filename, SHOW_ENTRIES.TMP_{filecnt}]
+</pre>
+
+<p>
+<b>CPTRDB_SHOW_ENTRIES.COM</b><br>
+  Calls CPTRDB_SHOW_ENTRIES_BATCH.COM
+</p>
+
+<p>
+  Interactive list queue entries for multiple nodes, users, queues and 
+  directories, identified in the configuration file CPTRDB_CONFIGURATION.REF 
+  by the keywords CPT$RDB_NODE|CPTRDB_SHOW_ENTRIES.
+</p>
+
+<pre>
+! -- List queue entries for multiple nodes, users, queues and directories
+CPT$RDB_NODE|CPTRDB_SHOW_ENTRIES|L15S29|RDBMON|CPT$RDB_BATCH_L15S29|CPT$RDB|
+CPT$RDB_NODE|CPTRDB_SHOW_ENTRIES|L15S28|RDBMON|CPT$RDB_BATCH_L15S28|CPT$RDB|
+CPT$RDB_NODE|CPTRDB_SHOW_ENTRIES|L15S28|RDBMON|RDB$BATCH_L15S28|RDB$PROCS|
+CPT$RDB_NODE|CPTRDB_SHOW_ENTRIES|L15S29|RDBMON|RDB$BATCH_L15S29|RDB$PROCS|
+!
+! 0 CPT$RDB_NODE
+! 1 CPTRDB_SHOW_ENTRIES
+! 2 Exec node
+! 3 Exec user
+! 4 Queue name
+! 5 Source filespecs directory (sub)string
+</pre>
+
+<p>
+  Compare the results to the reference file CPTRDB_SHOW_ENTRIES.REF
+</p>
+
+<p>
+  The output files SHOW_ENTRIES[_DAILY].[TMP_REF|DIFF] are created in the 
+  default directory CPT$RDB or 'defdir' for ease of comparison with the
+  reference file CPTRDB_SHOW_ENTRIES.REF, which is an exception to the
+  toolset file location conventions.
+</p>
+
+  Parameters: None<br><br>
+
+  Usage:<br>
+
+<pre>
+$ @CPTRDB_SHOW_ENTRIES
+</pre>
+
+  Output sample:<br>
+
+<pre>
+Number of difference sections found: 0
+Number of difference records found: 0
+
+DIFFERENCES
+/MERGED=1/OUTPUT=DISK$USERS:[ALLEMEERSCH.CPT$RDB]SHOW_ENTRIES.DIFF;37-
+    DISK$USERS:[ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_ENTRIES.REF;17-
+    DISK$USERS:[ALLEMEERSCH.CPT$RDB]SHOW_ENTRIES.TMP_REF;37
+
+List: CPT$RDB_LISTS:SHOW_ENTRIES_L15S29_20180305.LIS_05MAR153840
+Diff: CPT$RDB_LISTS:SHOW_ENTRIES_L15S29_20180305.DIFF_05MAR153840
+
+====
+
+ 5-MAR-2018 15:38:40.37 CPTRDB - Show Entries [Differences] From Node L15S29
+ 
+-----------------------------
+On Node: L15S29
+Queue:   CPT$RDB_BATCH_L15S29
+User:    RDBMON      
+Source:  CPT$RDB
+-----------------------------
+ 
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_ANA_DBS_WEEKLY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_BACKUP_AIJ_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_BACKUP_DB_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_BATCH_ENTRIES_DAILY.COM;3
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_CLEANUP_JDBC_LOGS_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_CLEANUP_LOGS_DAILY.COM;3
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_COLLECT_STAT_WEEKLY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_DDLCK_CNTS_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_AIJ_BCK_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_AIJ_BCK_NOEXP_DAY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_AIJ_LIVE_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_BUGCHECK_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_DBS_OPEN_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_DB_BCK_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_ENTRIES_DAILY.COM;14
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_EXTENTS_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_JDBC_LOGS_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_JDBC_PROCESS_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_SQLSRV_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_STATS_DAILY.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_STAT_DATA.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_STAT_LOGS.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_SRVTRC_CLIENTS_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_STALL_CNTS_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_STALL_RW_CNTS_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_STALL_RW_TIMES_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_STALL_TIMES_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]CPTRDB_TRNC_SNAPS_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]JCCLML_JCC_RUN_CTL-CPTRDB_LML.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]JCCLML_JCC_RUN_DTL.COM;2
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]JCCLML_LML_REOPEN_LOGS_ALL.COM;1
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]JCCLML_LML_SHOW_AERCP_CONT.COM;3
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]JCCLML_LML_SHOW_HEARTBEAT_CONT.COM;3
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]JCCLML_LML_SHOW_PROCESS_DAILY.COM;5
+_DSA30:[USERS.ALLEMEERSCH.CPT$RDB]JCCLML_LML_SHOW_STATS_DAILY.COM;3
+Number of jobs: 35
+ 
+-----------------------------
+On Node: L15S28
+Queue:   CPT$RDB_BATCH_L15S28
+User:    RDBMON      
+Source:  CPT$RDB
+-----------------------------
+ 
+Number of jobs: 0
+ 
+-----------------------------
+On Node: L15S28
+Queue:   RDB$BATCH_L15S28
+User:    RDBMON      
+Source:  RDB$PROCS
+-----------------------------
+ 
+_DSA30:[USERS.ORACLE.RDB$PROCS]CLEANUP_JDBC_LOGS_ALL.COM;9
+_DSA30:[USERS.ORACLE.RDB$PROCS]CLEANUP_RDB_LOGS.COM;46
+_DSA30:[USERS.ORACLE.RDB$PROCS]CPTRDB_BATCH_ENTRIES_DAILY.COM;23
+_DSA30:[USERS.ORACLE.RDB$PROCS]CPTRDB_SHOW_SQLSRV_DAILY.COM;9
+_DSA30:[USERS.ORACLE.RDB$PROCS]DEFINE_SLS_DB_ALL.COM;8
+_DSA30:[USERS.ORACLE.RDB$PROCS]PURGE_LISA_SALES.COM;18
+_DSA30:[USERS.ORACLE.RDB$PROCS]RESTART_JDBC_ALL.COM;15
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_AIJLIVE_ALL_V2.COM;18
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_AIJ_BCK_NOEXP_V2.COM;2
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_AIJ_BCK_V2.COM;17
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_BUGCHECK_V2.COM;6
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_DBS_OPEN_V2.COM;6
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_EXTENTS_V2.COM;27
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_JDBC_LOGS_V2.COM;19
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_JDBC_PROCESS_V2.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_RDB_AGENT_V2.COM;6
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_RDB_BCK_V2.COM;11
+_DSA30:[USERS.ORACLE.RDB$PROCS]SHOW_STATS_V2.COM;7
+_DSA30:[USERS.ORACLE.RDB$PROCS]TRNC_SNAPS_ALL.COM;8
+_DSA30:[USERS.ORACLE.RDB$PROCS]X11_KEEP_ALIVE_V2.COM;8
+Number of jobs: 34
+ 
+-----------------------------
+On Node: L15S29
+Queue:   RDB$BATCH_L15S29
+User:    RDBMON      
+Source:  RDB$PROCS
+-----------------------------
+ 
+_DSA30:[USERS.ORACLE.RDB$PROCS]BACKUP_AIJ_ALL.COM;30
+_DSA30:[USERS.ORACLE.RDB$PROCS]BACKUP_DB_ALL.COM;12
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_DATA.COM;13
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+_DSA30:[USERS.ORACLE.RDB$PROCS]RMU_SHOW_STAT_LOGS.COM;20
+Number of jobs: 16
+
+==== 
+
+Number of difference sections found: 0
+Number of difference records found: 0
+
+DIFFERENCES /MERGED=1/OUTPUT=DISK$USERS:[ALLEMEERSCH.CPT$RDB]SHOW_ENTRIES.DIFF;37-
+    DISK$USERS:[ALLEMEERSCH.CPT$RDB]CPTRDB_SHOW_ENTRIES.REF;17-
+    DISK$USERS:[ALLEMEERSCH.CPT$RDB]SHOW_ENTRIES.TMP_REF;37
+</pre>
+
+<p>
+<b>CPTRDB_SHOW_ENTRIES_DAILY.COM</b><br>
+  Calls CPTRDB_SHOW_ENTRIES_BATCH.COM
+</p>
+
+<p>
+  Daily list queue entries for a number of nodes, users, queues and
+  directories, identified in the configuration file CPTRDB_CONFIGURATION.REF
+  by the keywords CPT$RDB_NODE|CPTRDB_SHOW_ENTRIES.
+</p>
+  
+<p>
+  Send a CockpitMgr event and mail if differences are found with the
+  reference file CPTRDB_SHOW_ENTRIES.REF
+</p>
+
+  Toolset CockpitMgr event:<br>
+
+<pre>
+CPTRDB_ShowEntriesDifferences
+"CPTRDB - Show Entries Differences {node} - ddmmmhhmmss"
+</pre>
+
+  Mail subject:<br>
+
+<pre>
+"CPTRDB - Show Entries Diff {node} yyyymmdd"
+</pre>
+
+<p>
+  The reschedule node, time and exception mail address are retrieved from the
+  configuration file CPTRDB_CONFIGURATION.REF identified by the keywords
+  CPT$RDB_JOB|CPTRDB_SHOW_ENTRIES_DAILY.
+</p>
+
+<pre>
+CPT$RDB_JOB|CPTRDB_SHOW_ENTRIES_DAILY|L15S29|TOMORROW + 08:20|L15S36::ALLEMEERSCH|
+!
+! 0 CPT$RDB_JOB
+! 1 CPTRDB_SHOW_ENTRIES_DAILY
+! 2 Reschedule node
+! 3 Reschedule time
+! 4 Exception mail address
+</pre>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -4529,8 +4887,11 @@ $ @CPTRDB_DAILY [{vms_date}]
 <pre>
 $ SET DEF CPT$RDB:
 $ @CPTRDB_BATCH_ENTRIES
-$ [PIPE] @CPTRDB_DAILY [{vms_date}] [> x.x]
-$ [EDIT x.x]
+$ @CPTRDB_SHOW_ENTRIES
+$ PIPE @CPTRDB_DAILY [{vms_date}] > x.x
+$ EDIT x.x
+$ EDIT CPT$RDB_LISTS:SHOW_AIJ_BCK_{node}_yyyymmdd.LIS_ddmmmhhmmss
+$ DIRE CPT$RDB_LISTS:*.MIME*
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -9096,6 +9457,7 @@ SaId LaId                                    Count     Size  %Size
 </h3>
 
 <b>CPTRDB_SHOW_STORAGE_AREAS.COM</b><br>
+<b>CPTRDB_SHOW_DOMAINS.COM</b><br>
 <b>CPTRDB_SHOW_TABLES.COM</b><br>
 <b>CPTRDB_SHOW_INDICES.COM</b><br>
 <b>CPTRDB_SHOW_USERS.COM</b><br>
@@ -9221,6 +9583,119 @@ MIXED_AREA_2   | 4| 1988| | 3000| 6000|20| | 3000| 3000|20| | 12000| 24000| | 12
 MIXED_AREA_3   | 4| 1988| | 3000| 6000|20| | 3000| 3000|20| | 12000| 24000| | 12000| 12000
 RDB$SYSTEM     | 4| 1988| | 3000| 6000|20| | 3000| 3000|20| | 12000| 24000| | 12000| 12000
 STALL_CNTS_AREA| 4| 1988| | 3000| 6000|20| | 3000| 3000|20| | 12000| 24000| | 12000| 12000
+--------------------------------------------------------------------------------
+</pre>
+
+<p>
+<b>CPTRDB_SHOW_DOMAINS.COM</b><br>
+List all domains and their usage for a single database
+</p>
+
+<p>
+Domain names referenced in procedures and declared temporary tables are listed
+in separate sections after the 'ordinary' tables. Domains without any reference
+in tables are marked "*Not Used*".
+</p>
+
+<p>
+Usage:
+</p>
+
+<pre>
+$ CPTRDB_SHOW_DOMAINS {dbid}
+</pre>
+
+<p>
+Output sample:
+</p>
+
+<pre>
+All Domains And Their Usage For Database:
+DSA23:[SSP_DB_VDD]SSP_DB.RDB;1
+On Node: L15S29
+At:      2018-04-18 15:28:18
+--------------------------------------------------------------------------------
+Domain|Table|Position|Column
+--------------------------------------------------------------------------------
+ABRT_CD|CZAM_ABRT|1|ABRT_CD
+
+ACCESS_CONTROL_IDENT|R_ACCESS|3|ACCESS_CONTROL_IDENT
+
+ACCESS_CONTROL_PRIVS|R_ACCESS|4|ACCESS_CONTROL_PRIVS
+
+ACCESS_CONTROL_TYPE|R_ACCESS|2|ACCESS_CONTROL_TYPE
+
+ACCOMMODATION_TYPE|R_EXCHANGE_RATE|6|ACCOMMODATION_TYPE
+
+ACCOUNT_ORG_ID|PROD_COMP|7|ACCOUNT_ORG_ID
+
+ACCOUNT_RCVR_WSTATN_ID|ACCT_UNIT|18|ACCOUNT_RCVR_WSTATN_ID
+ACCOUNT_RCVR_WSTATN_ID|ACCT_UNIT_DNR|18|ACCOUNT_RCVR_WSTATN_ID
+
+ACCTUNIT_WAREHOUSE|ACCT_UNIT|15|ACCTUNIT_WAREHOUSE
+ACCTUNIT_WAREHOUSE|ACCT_UNIT_DNR|15|ACCTUNIT_WAREHOUSE
+
+ACCT_UNIT_ID|ACCT_UNIT|1|ACCT_UNIT_ID
+ACCT_UNIT_ID|ACCT_UNIT_DNR|1|ACCT_UNIT_ID
+ACCT_UNIT_ID|BADGE|15|ACCT_UNIT_ID
+ACCT_UNIT_ID|CASH_BADGE|2|ACCT_UNIT_ID
+ACCT_UNIT_ID|CASH_DESK|1|ACCT_UNIT_ID
+ACCT_UNIT_ID|WORK_UNIT|4|ACCT_UNIT_ID
+ACCT_UNIT_ID|WORK_UNIT|22|CNTRL_ACCT_UNIT
+ACCT_UNIT_ID|WORK_UNIT_DNR|4|ACCT_UNIT_ID
+ACCT_UNIT_ID|WORK_UNIT_DNR|22|CNTRL_ACCT_UNIT
+
+ACTVTN_NAME|ENTITY_AUTHZN|5|ACTVTN_NAME
+
+ACTVTY_ID|ACTVTY_NEW|1|ACTVTY_ID
+ACTVTY_ID|DMQ_Q_CONT|2|ACTVTY_ID
+ACTVTY_ID|NODE_ACTVTY|2|ACTVTY_ID
+
+ACTVTY_INSTNCE_ID|NODE_ACTVTY|5|ACTVTY_INSTNCE_ID
+
+ACTVTY_NEW_ID|*Not Used*
+
+AC_FROM|AGE_CTGRY|4|AC_FROM
+AC_FROM|SEFORA_AGE_CTGRY|4|AC_FROM
+
+AC_TO|AGE_CTGRY|5|AC_TO
+AC_TO|SEFORA_AGE_CTGRY|5|AC_TO
+
+...
+
+ZONE_ID|NETW_PT|6|ZONE_ID
+ZONE_ID|ZONE_T|1|ZONE_ID
+
+ZONE_TSTATN|CITY_NET|17|ZONE_TSTATN
+ZONE_TSTATN|TRAINSTATIONS|5|ZONE_TSTATN
+ZONE_TSTATN|TSTATN|11|ZONE_TSTATN
+
+ZONE_TSTATN_ID|R_TSTATN|7|ZONE_TSTATN_ID
+
+--------------------------------------------------------------------------------
+Domain|Module.Routine|Position|Parameter
+--------------------------------------------------------------------------------
+STKT_CTGRY_ID|STKT_CTGRY_MODULE.DISPL_STKT_CTGRY|1|STKT_CTGRY_ID
+
+STRING_DTYPE|GET_DCL_DATA.GET_DCL_SYMBOL|0|
+STRING_DTYPE|LIB$GET_SYMBOL|2|RESULTANT_STRING
+STRING_DTYPE|LIB$SET_SYMBOL|2|VALUE_STRING
+
+SYMBOL_DTYPE|GET_DCL_DATA.GET_DCL_SYMBOL|1|SYMBOL_NAME
+SYMBOL_DTYPE|LIB$GET_SYMBOL|1|SYMBOL
+SYMBOL_DTYPE|LIB$SET_SYMBOL|1|SYMBOL
+
+--------------------------------------------------------------------------------
+Domain|Module|Temporary Table
+--------------------------------------------------------------------------------
+PRICE_CD|XFERS_LISA_MODULE|PC_LISA
+PC_VRSN|XFERS_LISA_MODULE|PC_LISA
+ORGNSM_ID|XFERS_LISA_MODULE|ORGNSM_LISA
+OR_VRSN|XFERS_LISA_MODULE|ORGNSM_LISA
+TSTATN_ID|KEYCARD_REPORT|KEYCARD_TSTATN
+TSTATN_ID|KEYCARD_REPORT|KEYCARD_ZONE
+TSTATN_ID|KEYCARD_REPORT|KEYCARD_DSTNC
+TSTATN_INTER_DSTNC|KEYCARD_REPORT|KEYCARD_DSTNC
 --------------------------------------------------------------------------------
 </pre>
 
@@ -15842,7 +16317,7 @@ V73323
 </pre>
 
 <p>
-V73402, compatible V73410, V73503
+V73402, compatible V73410, V73503, V73510
 </p>
 
 <pre>
@@ -15885,6 +16360,22 @@ V73503
   ,version=73503:20170830" )
 >40000400> JDBC SubscriberThread C00000000*T 2017-10-01 0:18:44.470 : srv.ConnectContext@58a17083.getMemUsage( [null], false )
 >40000400> RDB$CLIENT_ID_00000002 C00000000*T 2017-10-01 0:18:44.670 : [RdbProcessId]  msg : 2FA2AA7E:1
+</pre>
+
+<p>
+V73510
+</p>
+
+<pre>
+>40000400> RDB$CLIENT_ID_00000002 C00000000*T 2018-04-12 15:44:28.058 : srv.DBActionHandler@7cf1bb78( "client info", "
+  id=00000002
+  ,name=JDBCMON
+  ,db=clio_db
+  ,ip=10.3.130.173:57107
+  ,processID=2FE60296:1
+  ,version=73510:20180227" )
+>40000400> JDBC SubscriberThread C00000000*T 2018-04-12 15:44:28.058 : srv.ConnectContext@692a3722.getMemUsage( [null], false )
+>40000400> RDB$CLIENT_ID_00000002 C00000000*T 2018-04-12 15:44:28.309 : [RdbProcessId]  msg : 2FE60296:1
 </pre>
 
   The client info listed per new client is:<br>
@@ -16165,7 +16656,10 @@ Hello World / DSA25:[CLIO_DB]CLIO_DB.RDB;1
 <b>JCCLML_LML_CREATE_FILTER_DB.COM</b><br><br>
 
 <b>JCCLML_SUBMIT.COM</b><br>
-<b>JCCLML_JCC_RUN_CTL_ALL.COM</b><br>
+<b>JCCLML_JCC_RUN_CTL_ALL.COM</b><br><br>
+
+<b>JCCLML_CPTRDB_CONFIGURATION.REF</b><br>
+<b>JCCLML_CPTRDB_DAILY.COM</b><br>
 
 <p>
 This template source files allow to create and run a single tutorial 
@@ -16485,6 +16979,34 @@ $ @JCCLML_JCC_RUN_CTL_ALL
   This procedure can be called from the system startup.
 </p>
 
+<p>
+<b>JCCLML_CPTRDB_CONFIGURATION.REF</b><br>
+  Template configuration and parameter file for a JCC Logminer Loader ONLY
+  environment.
+</p>
+
+<p>
+  This configuration file is a subset of the general 
+  CPTRDB_CONFIGURATION.REF<br> 
+  Adapt this file to your environment.<br>
+  Copy this file to 'defdir'CPTRDB_CONFIGURATION.REF in the runtime active
+  environment.
+</p>
+
+<p>
+<b>JCCLML_CPTRDB_DAILY.COM</b><br>
+  Quick interactive check on log and output files for a JCC Logminer Loader
+  ONLY environment.
+</p>
+
+<pre>
+Parameters: [P1], {vms_date}
+</pre>
+
+<p>
+  This procedure is a subset of the general CPTRDB_DAILY.COM
+</p>
+
 <a href="#Chapter 1">To Top</a><br>
 
 <a name="Chapter 52"></a>
@@ -16754,10 +17276,24 @@ $ @JCCLML_SHUTDOWN_ALL
 
   The process name is set to "DTL {loadername}".<br>
 
-  The output file format created in CPT$RDB_JCCLML_LOGS: is
-  DTL_{node}_{loader name}_yyyymmdd_hhmm.LOG
-  (defined by the JCC Logminer Loader product).<br>
+  The output file format created in CPT$RDB_JCCLML_LOGS: is<br>
+  DTL_{node}_{loader name}_yyyymmdd_hhmm.LOG<br>
+  (defined by the JCC Logminer Loader product).
+</p>
 
+<p>
+  The prefix of the output filespec indicates the type of statistics running:
+</p>
+
+<pre>
+BRIEF  BRF_
+FULL   FUL_
+DETAIL DTL_ (Default in the toolset)
+CSV    CSV_
+T4     T4_
+</pre>
+
+<p>
   The REOPEN option assures that the output file is reopened daily at
   midnight with the actual timestamp yyyymmdd_hhmm in the output filespec.
 </p>
@@ -16962,46 +17498,135 @@ $ @JCCLML_SHOW_PROCESS
 
 <pre>
 CPTRDB - JCC Logminer Loader Processes And Logfiles
-From Node: L15S29
-At:        17-APR-2015 12:19:46.17
+From Node: L95S08
+At:         7-MAR-2018 15:06:59.50
  
 --------------
-On Node L15S29
+On Node L95S08
 --------------
  
-OpenVMS V8.4  on node L15S29   17-APR-2015 12:19:46.36   Uptime  86 21:48:31
-2DAB092B CTL CPTRDB_LML  LEF      6  5799505   0 00:00:41.65      3424   2142  B
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:06:59.60   Uptime  76 02:20:29
+00022C31 CTL ACC_L90S05A LEF      6  3749375   0 00:00:29.74      5312   3297  B
+00169034 CTL ACC_L95S02A LEF      6  3728146   0 00:00:42.76      5296   3296  B
+0012B437 CTL ACC_L95S04A LEF      6  3666153   0 00:00:23.83      5361   3310  B
+00167C3B CTL ACC_L95S05A LEF      6  3666114   0 00:00:23.49      5267   3296  B
+Number of CTL processes: 4
+ 
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:06:59.74   Uptime  76 02:20:29
+00165833 CLM ACC_L90S05A HIB      6    59268   0 00:00:17.44      6984   2335  S
+0015B836 CLM ACC_L95S02A HIB      6   117329   0 00:00:12.32      8495   1980  S
+00171C39 CLM ACC_L95S04A HIB      6    40941   0 00:00:06.36      6905   2146  S
+0017D43E CLM ACC_L95S05A HIB      6    57947   0 00:00:05.86      6813   2191  S
+Number of CLM processes: 4
+ 
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:06:59.87   Uptime  76 02:20:29
+00168832 LML ACC_L90S05A LEF      6  7242709   0 00:00:47.80      7475   5603  S
+00166835 LML ACC_L95S02A LEF      6  7388475   0 00:01:18.23      7659   5793  S
+00172038 LML ACC_L95S04A LEF      6  7124454   0 00:00:28.15      6784   4887  S
+0017543C LML ACC_L95S05A LEF      6  7199507   0 00:00:40.75      7365   5438  S
+Number of LML processes: 4
+ 
+--------------
+On Node L95S08
+--------------
+ 
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:07:00.06   Uptime  76 02:20:30
+00188C42 CTL AGGREGSBNA  LEF      4  3684983   0 00:00:36.40      5359   3297  B
 Number of CTL processes: 1
  
-OpenVMS V8.4  on node L15S29   17-APR-2015 12:19:47.47   Uptime  86 21:48:32
-2DABA536 CLM CPTRDB_LML  HIB      6    68643   0 00:00:15.01      4309   2085  S
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:07:00.25   Uptime  76 02:20:30
+00175445 CLM AGGREGSBNA  HIB      6    95807   0 00:00:14.75      6706   2174  S
 Number of CLM processes: 1
  
-OpenVMS V8.4  on node L15S29   17-APR-2015 12:19:48.44   Uptime  86 21:48:33
-2DAAA530 LML CPTRDB_LML  LEF      6   193399   0 00:00:36.51      2701   2596  S
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:07:00.39   Uptime  76 02:20:30
+0017C044 LML AGGREGSBNA  LEF      6  7289632   0 00:01:02.75      7570   5265  S
 Number of LML processes: 1
  
+--------------
+On Node L95S08
+--------------
+ 
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:07:00.73   Uptime  76 02:20:30
+00188092 CTL PTNOVASBNA  LEF      6  3700217   0 00:00:29.03      4403   3187  B
+001884A5 CTL PTNSLS1302A LEF      6  3645941   0 00:00:28.86      4449   3103  B
+0017ECAE CTL PTNSLS1303A LEF      6  3645728   0 00:00:31.87      4441   3173  B
+Number of CTL processes: 3
+ 
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:07:00.86   Uptime  76 02:20:30
+0018B4A2 CLM PTNOVASBNA  HIB      6   106904   0 00:00:07.41      4290   2163  S
+0018B0A9 CLM PTNSLS1302A HIB      6    42444   0 00:00:09.61      6666   2132  S
+001880B0 CLM PTNSLS1303A HIB      6    42403   0 00:00:10.59      6655   2151  S
+Number of CLM processes: 3
+ 
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:07:01.00   Uptime  76 02:20:31
+001878A0 LML PTNOVASBNA  LEF      6   410948   0 00:01:01.83      3806   3215  S
+001880A8 LML PTNSLS1302A LEF      6  7109805   0 00:00:32.83      2882   2454  S
+0017DCAF LML PTNSLS1303A LEF      6  7109811   0 00:00:33.98      2855   2513  S
+Number of LML processes: 3
+ 
 
-Directory CPT$RDB_ROOT:[LML_LOGS]
+Directory DISK$DATA_6:[JCCLML350.LOCAL]
 
-JCC_RUN_CTL-CPTRDB_LML.LOG;1
-                        2044/2112     12-FEB-2015 10:47:13.73
+JCC_RUN_CTL-ACC_L90S05A.LOG;1
+                        2520/2592     26-JAN-2018 11:20:16.85
+JCC_RUN_CTL-ACC_L95S02A.LOG;1
+                        2521/2592     26-JAN-2018 11:20:21.86
+JCC_RUN_CTL-ACC_L95S04A.LOG;1
+                        2520/2592     26-JAN-2018 11:20:26.88
+JCC_RUN_CTL-ACC_L95S05A.LOG;1
+                        2520/2592     26-JAN-2018 11:20:31.88
+JCC_RUN_CTL-AGGREGSBNA.LOG;1
+                        2464/2592     26-JAN-2018 11:20:36.90
+JCC_RUN_CTL-PTNOVASBNA.LOG;1
+                        1332/1440     26-JAN-2018 11:20:41.92
+JCC_RUN_CTL-PTNSLS1302A.LOG;1
+                        2460/2592     26-JAN-2018 11:20:46.92
+JCC_RUN_CTL-PTNSLS1303A.LOG;1
+                        2460/2592     26-JAN-2018 11:20:51.93
 
-Total of 1 file, 2044/2112 blocks.
+Total of 8 files, 18797/19584 blocks.
 
-Directory DISK$DATA_29:[CPT$RDB_JCCLML_LOGS]
+Directory DISK$DATA_6:[JCCLML350.LOG]
 
-JCC_RUN_CLM-CPTRDB_LML.LOG;66
-                           0/1056     17-APR-2015 00:02:02.88
+jcc_run_clm-ACC_L90S05A.log;41
+                           0/1008      7-MAR-2018 00:02:01.17
+jcc_run_clm-ACC_L95S02A.log;41
+                           0/1008      7-MAR-2018 00:02:06.31
+jcc_run_clm-ACC_L95S04A.log;41
+                           0/1008      7-MAR-2018 00:02:11.55
+jcc_run_clm-ACC_L95S05A.log;41
+                           0/1008      7-MAR-2018 00:02:16.73
+jcc_run_clm-AGGREGSBNA.log;41
+                           0/1008      7-MAR-2018 00:02:22.10
+jcc_run_clm-PTNOVASBNA.log;41
+                           0/1008      7-MAR-2018 00:02:27.32
+jcc_run_clm-PTNSLS1302A.log;41
+                           0/1008      7-MAR-2018 00:02:32.50
+jcc_run_clm-PTNSLS1303A.log;41
+                           0/1008      7-MAR-2018 00:02:37.73
 
-Total of 1 file, 0/1056 blocks.
+Total of 8 files, 0/8064 blocks.
 
-Directory DISK$DATA_29:[CPT$RDB_JCCLML_LOGS]
+Directory DISK$DATA_6:[JCCLML350.LOG]
 
-JCC_RUN_LML-CPTRDB_LML.LOG;66
-                          67/1056     17-APR-2015 00:02:02.91
+jcc_run_lml-ACC_L90S05A.log;41
+                        6326/7056      7-MAR-2018 00:02:01.18
+jcc_run_lml-ACC_L95S02A.log;41
+                        3114/4032      7-MAR-2018 00:02:06.32
+jcc_run_lml-ACC_L95S04A.log;41
+                         172/1008      7-MAR-2018 00:02:11.56
+jcc_run_lml-ACC_L95S05A.log;41
+                         171/1008      7-MAR-2018 00:02:16.73
+jcc_run_lml-AGGREGSBNA.log;41
+                         127/1008      7-MAR-2018 00:02:22.10
+jcc_run_lml-PTNOVASBNA.log;41
+                         163/1008      7-MAR-2018 00:02:27.33
+jcc_run_lml-PTNSLS1302A.log;41
+                          78/1008      7-MAR-2018 00:02:32.51
+jcc_run_lml-PTNSLS1303A.log;41
+                          78/1008      7-MAR-2018 00:02:37.73
 
-Total of 1 file, 67/1056 blocks.
+Total of 8 files, 10229/17136 blocks.
 </pre>
 
 <p>
@@ -17088,30 +17713,58 @@ $ @JCCLML_SHOW_STATS
 
 <pre>
 CPTRDB - JCCLML Statistics Processes And Logfiles
-From Node: L15S29
-At:        17-APR-2015 12:22:24.14
+From Node: L95S08
+At:         7-MAR-2018 15:07:47.39
  
 --------------
-On Node L15S29
+On Node L95S08
 --------------
  
-OpenVMS V8.4  on node L15S29   17-APR-2015 12:22:24.36   Uptime  86 21:51:09
-2DABE948 DTL CPTRDB_LML  LEF      6    46712   0 00:00:15.82      1294    599  B
-Number of DTL processes: 1
+OpenVMS V8.4  on node L95S08    7-MAR-2018 15:07:47.48   Uptime  76 02:21:17
+001AC6D9 DTL ACC_L90S05A LEF      6    16527   0 00:00:08.91       997    587  B
+001986DA DTL ACC_L95S02A LEF      6    16519   0 00:00:09.13       997    587  B
+001AC6DB DTL ACC_L95S04A LEF      6    16505   0 00:00:09.19       997    587  B
+001772DC DTL ACC_L95S05A LEF      6    16518   0 00:00:08.68       997    587  B
+001AC6DD DTL AGGREGSBNA  LEF      6    16512   0 00:00:07.21       997    587  B
+0018D2DE DTL PTNOVASBNA  LEF      6    29412   0 00:00:07.69       924    535  B
+0011AEDF DTL PTNSLS1302A LEF      6    16532   0 00:00:07.05       997    587  B
+001982E0 DTL PTNSLS1303A LEF      5    16556   0 00:00:07.49       996    586  B
+Number of DTL processes: 8
  
 
-Directory CPT$RDB_ROOT:[LML_LOGS]
+Directory DISK$DATA_6:[JCCLML350.LOCAL]
 
-JCC_RUN_DTL-CPTRDB_LML_L15S29_20150212.LOG_12FEB104822;1
+JCC_RUN_DTL-ACC_L90S05A_L95S08_20180129.LOG_29JAN154847;1
+JCC_RUN_DTL-ACC_L95S02A_L95S08_20180129.LOG_29JAN154847;1
+JCC_RUN_DTL-ACC_L95S04A_L95S08_20180129.LOG_29JAN154847;1
+JCC_RUN_DTL-ACC_L95S05A_L95S08_20180129.LOG_29JAN154847;1
+JCC_RUN_DTL-AGGREGSBNA_L95S08_20180129.LOG_29JAN154847;1
+JCC_RUN_DTL-PTNOVASBNA_L95S08_20180129.LOG_29JAN154847;1
+JCC_RUN_DTL-PTNSLS1302A_L95S08_20180129.LOG_29JAN154847;1
+JCC_RUN_DTL-PTNSLS1303A_L95S08_20180129.LOG_29JAN154847;1
 
-Total of 1 file.
+Total of 8 files.
 
-Directory DISK$DATA_29:[CPT$RDB_JCCLML_LOGS]
+Directory DISK$DATA_6:[JCCLML350.LOG]
 
-DTL_L15S29_CPTRDB_LML_20150417_0000.LOG;1
-                         909/1056     17-APR-2015 00:03:22.01
+DTL_L95S08_ACC_L90S05A_20180307_0000.LOG;1
+                        1147/1440      7-MAR-2018 00:03:55.87
+DTL_L95S08_ACC_L95S02A_20180307_0000.LOG;1
+                        1151/1440      7-MAR-2018 00:03:55.96
+DTL_L95S08_ACC_L95S04A_20180307_0000.LOG;1
+                        1147/1440      7-MAR-2018 00:03:55.97
+DTL_L95S08_ACC_L95S05A_20180307_0000.LOG;1
+                        1147/1440      7-MAR-2018 00:03:55.97
+DTL_L95S08_AGGREGSBNA_20180307_0000.LOG;1
+                        1147/1440      7-MAR-2018 00:03:55.93
+DTL_L95S08_PTNOVASBNA_20180307_0000.LOG;1
+                        1121/1152      7-MAR-2018 00:03:47.00
+DTL_L95S08_PTNSLS1302A_20180307_0000.LOG;1
+                        1147/1440      7-MAR-2018 00:03:55.97
+DTL_L95S08_PTNSLS1303A_20180307_0000.LOG;1
+                        1151/1440      7-MAR-2018 00:03:55.96
 
-Total of 1 file, 909/1056 blocks.
+Total of 8 files, 9158/11232 blocks.
 </pre>
 
 <p>
@@ -17222,51 +17875,27 @@ Usage:<br>
 $ @JCCLML_SHOW_HEARTBEAT
 </pre>
 
-  Output samples:<br>
+  Output sample:<br>
 
 <pre>
 CPTRDB - JCC Logminer Loader Most Recent Heartbeat Timestamps
-From Node:     L15S29
-Delay Warning: 0-00:05:00.00
-At:             7-APR-2015 08:07:20.25
+From Node:     L95S08
+Delay Warning: 0-00:05:05.00
+At:             7-MAR-2018 15:08:06.84
  
 --------------
-On Node L15S29
+On Node L95S08
 --------------
  
-CPTRDB_LML| 7-APR-2015 08:02:18.76|   0 00:05:01.73|*DELAYED*
-Total number of loader sessions 1
- 
- 7-APR-2015 08:07:20.59 *Show JCCLML heartbeats check failed*
-</pre>
-
-Or<br>
- 
-<pre>
-CPTRDB - JCC Logminer Loader Most Recent Heartbeat Timestamps
-From Node:     L15S55
-Delay warning: 0 00:05:00.00
-At:             8-JUL-2016 15:46:18.69
- 
---------------
-On Node L15S55
---------------
- 
-ACC_B01S15P| 8-JUL-2016 15:42:02.77|   0 00:04:16.08|OK
-ACC_C01S16P| 8-JUL-2016 15:42:11.09|   0 00:04:07.76|OK
-ACC_G01S09P| 8-JUL-2016 15:41:24.14|   0 00:04:54.71|OK
-ACC_H01S25P| 8-JUL-2016 15:43:56.69|   0 00:02:22.16|OK
-ACC_J01S14P| 8-JUL-2016 15:44:00.95|   0 00:02:17.91|OK
-ACC_L01S99P| 8-JUL-2016 15:41:26.96|   0 00:04:51.90|OK
-ACC_L11S02P| 8-JUL-2016 15:44:05.07|   0 00:02:13.79|OK
-ACC_L11S13P| 8-JUL-2016 15:44:09.20|   0 00:02:09.66|OK
-ACC_L14S36P| 8-JUL-2016 15:44:14.88|   0 00:02:03.98|OK
-ACC_L14S45P| 8-JUL-2016 15:41:32.39|   0 00:04:46.47|OK
-ACC_L14S50P| 8-JUL-2016 15:42:20.36|   0 00:03:58.50|OK
-ACC_L15S40P| 8-JUL-2016 15:44:25.69|   0 00:01:53.18|OK
-SSPTEDE    | 8-JUL-2016 15:41:36.78|   0 00:04:42.09|OK
-SSP_RCODEVM| 8-JUL-2016 15:41:41.94|   0 00:04:36.93|OK
-Total number of loader sessions 14
+ACC_L90S05A| 7-MAR-2018 15:05:23.12|   0 00:02:43.82|OK
+ACC_L95S02A| 7-MAR-2018 15:05:26.76|   0 00:02:40.18|OK
+ACC_L95S04A| 7-MAR-2018 15:05:31.89|   0 00:02:35.06|OK
+ACC_L95S05A| 7-MAR-2018 15:05:36.80|   0 00:02:30.15|OK
+AGGREGSBNA | 7-MAR-2018 15:05:42.62|   0 00:02:24.33|OK
+PTNOVASBNA | 7-MAR-2018 15:05:46.70|   0 00:02:20.25|OK
+PTNSLS1302A| 7-MAR-2018 15:05:51.34|   0 00:02:15.61|OK
+PTNSLS1303A| 7-MAR-2018 15:05:56.23|   0 00:02:10.72|OK
+Total number of loader sessions 8
 </pre>
 
 <p>
@@ -17397,22 +18026,114 @@ $ @JCCLML_SHOW_AERCP
 
 <pre>
 CPTRDB - JCC Logminer Loader Heartbeat AERCP Checkpoints
-From Node:     L15S29
+From Node L95S08
+At  7-MAR-2018 15:08:24.16
+ 
 Delay Warning: 0-00:06:00.00
-At:             8-OCT-2014 09:20:56.46
  
 -- 1 --
-On Node L15S29
-At  8-OCT-2014 09:20:56.91
+On Node L95S08
+At  7-MAR-2018 15:08:24.27
  
-Loader: CPTRDB_LML
+Loader: ACC_L90S05A
  
-CPTRDB_LML|8-OCT-2014 08:19:54.24|   0 01:01:02.79|DLYD  |1-28-3506-5-1094724-1094724
-CPTRDB_LML|8-OCT-2014 08:24:54.24|   0 00:56:02.79|DLYD  |1-28-3506-7-1094726-1094726
-CPTRDB_LML|8-OCT-2014 08:29:54.24|   0 00:51:02.79|DLYD  |1-28-3506-8-1094728-1094728
-CPTRDB_LML|8-OCT-2014 08:34:54.24|   0 00:46:02.79|DLYD  |1-28-3506-9-1094730-1094730
-CPTRDB_LML|8-OCT-2014 08:39:54.24|   0 00:41:02.79|DLYD  |1-28-3506-11-1094732-1094732
-CPTRDB_LML|8-OCT-2014 08:44:54.24|   0 00:36:02.79|*DLYD*|1-28-3506-12-1094734-1094734
+ACC_L90S05A|7-MAR-2018 14:40:23.11|   0 00:28:01.22|DLYD  |1-28-31998-12-10115075-10115075
+ACC_L90S05A|7-MAR-2018 14:45:23.11|   0 00:23:01.22|DLYD  |1-28-31998-13-10115077-10115077
+ACC_L90S05A|7-MAR-2018 14:50:23.11|   0 00:18:01.22|DLYD  |1-28-31998-14-10115079-10115079
+ACC_L90S05A|7-MAR-2018 14:55:23.11|   0 00:13:01.22|DLYD  |1-28-31998-16-10115081-10115081
+ACC_L90S05A|7-MAR-2018 15:00:23.11|   0 00:08:01.22|DLYD  |1-28-31998-17-10115083-10115083
+ACC_L90S05A|7-MAR-2018 15:05:23.11|   0 00:03:01.22|OK    |1-28-31998-18-10115085-10115085
+ 
+-- 2 --
+On Node L95S08
+At  7-MAR-2018 15:08:24.42
+ 
+Loader: ACC_L95S02A
+ 
+ACC_L95S02A|7-MAR-2018 14:40:26.76|   0 00:27:57.71|DLYD  |1-28-31707-12-9956279-9956279
+ACC_L95S02A|7-MAR-2018 14:45:26.74|   0 00:22:57.73|DLYD  |1-28-31707-13-9956281-9956281
+ACC_L95S02A|7-MAR-2018 14:50:26.74|   0 00:17:57.73|DLYD  |1-28-31707-14-9956283-9956283
+ACC_L95S02A|7-MAR-2018 14:55:26.75|   0 00:12:57.72|DLYD  |1-28-31707-15-9956285-9956285
+ACC_L95S02A|7-MAR-2018 15:00:26.75|   0 00:07:57.72|DLYD  |1-28-31707-16-9956287-9956287
+ACC_L95S02A|7-MAR-2018 15:05:26.76|   0 00:02:57.71|OK    |1-28-31707-18-9956289-9956289
+ 
+-- 3 --
+On Node L95S08
+At  7-MAR-2018 15:08:24.57
+ 
+Loader: ACC_L95S04A
+ 
+ACC_L95S04A|7-MAR-2018 14:40:31.89|   0 00:27:52.69|DLYD  |1-28-33387-11-25303942-25303942
+ACC_L95S04A|7-MAR-2018 14:45:31.89|   0 00:22:52.69|DLYD  |1-28-33387-12-25303943-25303943
+ACC_L95S04A|7-MAR-2018 14:50:31.89|   0 00:17:52.70|DLYD  |1-28-33387-13-25303944-25303944
+ACC_L95S04A|7-MAR-2018 14:55:31.89|   0 00:12:52.70|DLYD  |1-28-33387-15-25303945-25303945
+ACC_L95S04A|7-MAR-2018 15:00:31.90|   0 00:07:52.69|DLYD  |1-28-33387-16-25303946-25303946
+ACC_L95S04A|7-MAR-2018 15:05:31.89|   0 00:02:52.70|OK    |1-28-33387-17-25303947-25303947
+ 
+-- 4 --
+On Node L95S08
+At  7-MAR-2018 15:08:24.69
+ 
+Loader: ACC_L95S05A
+ 
+ACC_L95S05A|7-MAR-2018 14:40:36.80|   0 00:27:47.91|DLYD  |1-28-31204-10-9305508-9305508
+ACC_L95S05A|7-MAR-2018 14:45:36.80|   0 00:22:47.91|DLYD  |1-28-31204-11-9305509-9305509
+ACC_L95S05A|7-MAR-2018 14:50:36.81|   0 00:17:47.90|DLYD  |1-28-31204-12-9305510-9305510
+ACC_L95S05A|7-MAR-2018 14:55:36.80|   0 00:12:47.91|DLYD  |1-28-31204-13-9305511-9305511
+ACC_L95S05A|7-MAR-2018 15:00:36.82|   0 00:07:47.89|DLYD  |1-28-31204-14-9305512-9305512
+ACC_L95S05A|7-MAR-2018 15:05:36.80|   0 00:02:47.91|OK    |1-28-31204-15-9305513-9305513
+ 
+-- 5 --
+On Node L95S08
+At  7-MAR-2018 15:08:24.81
+ 
+Loader: AGGREGSBNA
+ 
+AGGREGSBNA|7-MAR-2018 14:55:42.59|   0 00:12:42.24|DLYD  |1-28-37207-66-80859987-80859987
+AGGREGSBNA|7-MAR-2018 14:55:46.71|   0 00:12:38.12|DLYD  |1-28-37207-75-80859992-80859992
+AGGREGSBNA|7-MAR-2018 15:00:42.59|   0 00:07:42.24|DLYD  |1-28-37207-77-80859994-80859994
+AGGREGSBNA|7-MAR-2018 15:00:46.70|   0 00:07:38.13|DLYD  |1-28-37207-78-80859996-80859996
+AGGREGSBNA|7-MAR-2018 15:05:42.62|   0 00:02:42.21|OK    |1-28-37207-87-80860001-80860001
+AGGREGSBNA|7-MAR-2018 15:05:46.70|   0 00:02:38.13|OK    |1-28-37207-89-80860003-80860003
+ 
+-- 6 --
+On Node L95S08
+At  7-MAR-2018 15:08:24.93
+ 
+Loader: PTNOVASBNA
+ 
+PTNOVASBNA|7-MAR-2018 14:55:42.59|   0 00:12:42.36|DLYD  |1-28-37207-66-80859987-80859987
+PTNOVASBNA|7-MAR-2018 14:55:46.71|   0 00:12:38.24|DLYD  |1-28-37207-75-80859992-80859992
+PTNOVASBNA|7-MAR-2018 15:00:42.59|   0 00:07:42.36|DLYD  |1-28-37207-77-80859994-80859994
+PTNOVASBNA|7-MAR-2018 15:00:46.70|   0 00:07:38.25|DLYD  |1-28-37207-78-80859996-80859996
+PTNOVASBNA|7-MAR-2018 15:05:42.62|   0 00:02:42.33|OK    |1-28-37207-87-80860001-80860001
+PTNOVASBNA|7-MAR-2018 15:05:46.70|   0 00:02:38.25|OK    |1-28-37207-89-80860003-80860003
+ 
+-- 7 --
+On Node L95S08
+At  7-MAR-2018 15:08:25.07
+ 
+Loader: PTNSLS1302A
+ 
+PTNSLS1302A|7-MAR-2018 14:40:51.30|   0 00:27:33.80|DLYD  |1-28-18194-12-5690236-5690236
+PTNSLS1302A|7-MAR-2018 14:45:51.30|   0 00:22:33.80|DLYD  |1-28-18194-13-5690238-5690238
+PTNSLS1302A|7-MAR-2018 14:50:51.30|   0 00:17:33.80|DLYD  |1-28-18194-16-5690240-5690240
+PTNSLS1302A|7-MAR-2018 14:55:51.30|   0 00:12:33.80|DLYD  |1-28-18194-17-5690242-5690242
+PTNSLS1302A|7-MAR-2018 15:00:51.30|   0 00:07:33.80|DLYD  |1-28-18194-18-5690244-5690244
+PTNSLS1302A|7-MAR-2018 15:05:51.30|   0 00:02:33.80|OK    |1-28-18194-19-5690246-5690246
+ 
+-- 8 --
+On Node L95S08
+At  7-MAR-2018 15:08:25.19
+ 
+Loader: PTNSLS1303A
+ 
+PTNSLS1303A|7-MAR-2018 14:40:56.23|   0 00:27:28.98|DLYD  |1-28-18194-12-5690282-5690282
+PTNSLS1303A|7-MAR-2018 14:45:56.23|   0 00:22:28.98|DLYD  |1-28-18194-13-5690284-5690284
+PTNSLS1303A|7-MAR-2018 14:50:56.23|   0 00:17:28.98|DLYD  |1-28-18194-14-5690286-5690286
+PTNSLS1303A|7-MAR-2018 14:55:56.23|   0 00:12:28.98|DLYD  |1-28-18194-16-5690288-5690288
+PTNSLS1303A|7-MAR-2018 15:00:56.23|   0 00:07:28.98|DLYD  |1-28-18194-17-5690290-5690290
+PTNSLS1303A|7-MAR-2018 15:05:56.23|   0 00:02:28.98|OK    |1-28-18194-18-5690292-5690292
 </pre>
 
 <p>
@@ -21517,6 +22238,8 @@ for more information on the filespecs naming conventions.
 <pre>
 BATCH_ENTRIES_DAILY.DIFF
 BATCH_ENTRIES_DAILY.TMP_REF
+SHOW_ENTRIES_DAILY.DIFF
+SHOW_ENTRIES_DAILY.TMP_REF
 </pre>
 
 -- In CPT$RDB_LOGS Daily --
@@ -21558,6 +22281,7 @@ SHOW_AIJ_LIVE_DAILY_L15S29_20150407.LOG_07APR080000
 SHOW_BUGCHECK_DAILY_L15S29_20150407.LOG_07APR080000
 SHOW_DBS_OPEN_DAILY_L15S29_20150407.LOG_07APR080000
 SHOW_DB_BCK_DAILY_L15S29_20150407.LOG_07APR080000
+SHOW_ENTRIES_DAILY_L15S29_20180307.LOG_07MAR082000
 SHOW_EXTENTS_DAILY_L15S29_20150407.LOG_07APR080000
 
 SHOW_JDBC_LOGS_DAILY_L15S29_20150407.LOG_07APR080000
@@ -21633,6 +22357,9 @@ SHOW_DBS_OPEN_DAILY_L15S29_20150407.LIS_07APR080001
 SHOW_DB_BCK_DAILY.DIFF
 SHOW_DB_BCK_DAILY.TMP_REF
 SHOW_DB_BCK_DAILY_L15S29_20150407.LIS_07APR080001
+
+SHOW_ENTRIES_DAILY_L15S29_20180307.DIFF_07MAR082000
+SHOW_ENTRIES_DAILY_L15S29_20180307.LIS_07MAR082000
 
 SHOW_EXTENTS_DAILY_L15S29_20150407.LIS_07APR080001
 
