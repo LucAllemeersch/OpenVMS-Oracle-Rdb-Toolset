@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 20-apr-2018, Luc Allemeersch<br>
+Modified: 08-jun-2018, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -198,8 +198,11 @@ https://github.com/LucAllemeersch/OpenVMS-Oracle-Rdb-Toolset</a><br>
 
 For feedback and remarks on the toolset, contact 
 <a href="mailto:luc.allemeersch@infrabel.be">luc.allemeersch@infrabel.be</a><br>
+<br>
+
 For more information on CockpitMgr for OpenVMS, contact 
-<a href="mailto:johan.michiels@eurovms.com">johan.michiels@eurovms.com</a><br><br>
+<a href="mailto:johan.michiels@eurovms.com">johan.michiels@eurovms.com</a>
+or visit <a href="http://www.eurovms.com">www.eurovms.com</a><br><br>
 
 For more information on Oracle Rdb, visit <a href="http://www.oracle.com/rdb">www.oracle.com/rdb</a><br>
 For more information on JCC Logminer Loader, visit <a href="http://www.jcc.com">www.jcc.com</a><br>
@@ -1505,6 +1508,23 @@ JCCLML_LML_DUMP_CHECKPOINT_RDB.COM
 JCCLML_LML_REOPEN_LOGS.COM
 JCCLML_SHUTDOWN.COM
 (Add "$ @jcc_tool_com:jcc_lml_user s" in preparation for multiversion V3.6)
+</pre>
+
+<p>
+<b>CPTRDB_CHANGES_FUTURE.A</b><br>
+Cumulative Partial Update Kit
+</p>
+
+<p>
+Modified Procedures:
+</p>
+
+<pre>
+CPTRDB_SHOW_EXTENTS_BATCH.COM
+(Add nodeid to renamed .SIZE, .DIFF files)
+
+CPTRDB_COCKPITMGR_DATA_SHEET.PDF
+(Refer to www.eurovms.com)
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -5664,13 +5684,27 @@ $ @CPT$RDB:CPTRDB_DB_SIZE {dbid} cpt$rdb_size:{dbid}.size
   cpt$rdb_size:{dbid}.size<br>
 
   Previous size files are renamed to 
-  cpt$rdb_size:{dbid}_yyyymmdd.size_ddmmmhhmmss
+  cpt$rdb_size:{dbid}_{nodeid}_yyyymmdd.size_ddmmmhhmmss
   based on their creation timestamp.<br>
 
   Diff files are named
-  cpt$rdb_size:{dbid}_yyyymmdd.diff_ddmmmhhmmss
-  based on the creation timestamp of the corresponding .size file.<br>
+  cpt$rdb_size:{dbid}_{nodeid}_yyyymmdd.diff_ddmmmhhmmss
+  based on the creation timestamp of the corresponding .size file.
+</p>
 
+  Output files sample:<br>
+
+<pre>
+Directory DISK$DATA_29:[CPT$RDB_SIZE]
+
+CPTRDB_DB_1.SIZE;2          5/96         7-MAY-2018 12:10:08.86
+CPTRDB_DB_1_L15S29_20180507.DIFF_07MAY121008;1
+                            1/96         7-MAY-2018 12:10:09.12
+CPTRDB_DB_1_L15S29_20180507.SIZE_07MAY120911;1
+                            5/96         7-MAY-2018 12:09:11.60
+</pre>
+
+<p>
   These output files are cleaned by the job CPTRDB_CLEANUP_LOGS_DAILY
   with a retention interval of 22 days.
 </p>
@@ -5768,20 +5802,6 @@ CPT$RDB_JOB|CPTRDB_SHOW_EXTENTS_DAILY|L15S29|TOMORROW + 08:00|L15S36::ALLEMEERSC
 ! 4 Exception mail address
 </pre>
 
-  Output files sample:<br>
-
-<pre>
-Directory DISK$DATA_29:[CPT$RDB_SIZE]
-
-CPTRDB_DB_1.SIZE;1113
-                      3-APR-2015 15:16:06.19
-CPTRDB_DB_1_20150403.DIFF_03APR080003;1
-                      3-APR-2015 08:00:04.15
-CPTRDB_DB_1_20150403.DIFF_03APR151606;1
-                      3-APR-2015 15:16:06.55
-CPTRDB_DB_1_20150403.SIZE_03APR080003;1
-                      3-APR-2015 08:00:03.09
-</pre>
 
 Toolset CockpitMgr event:<br>
 
