@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 08-jun-2018, Luc Allemeersch<br>
+Modified: 24-oct-2018, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -173,12 +173,12 @@ qualify for public distribution.
 </p>
 
 <p>
-This free software is a addon to the from HP Corp. licensed product
-CockpitMgr for OpenVMS although the dependency on CockpitMgr is limited to the
-single statement POKE/AGENT[/SOLUTION]. Many procedures only require the
-minimum directories and logicals to be defined. Exception conditions are
-always signalled twice, using CockpitMgr events displayed in the CockpitMgr
-Event Console and mail messages.
+This free software is a addon to the from EuroVMS.com or previously HP Corp. 
+licensed product CockpitMgr for OpenVMS although the dependency on CockpitMgr 
+is limited to the single statement POKE/AGENT[/SOLUTION]. Many procedures only
+require the minimum directories and logicals to be defined. Exception 
+conditions are always signalled twice, using CockpitMgr events displayed in 
+the CockpitMgr Event Console and mail messages.
 </p>
 
 <p>
@@ -309,6 +309,7 @@ Oracle Rdb V7.3-200 (Update 2)<br>
 Oracle Rdb V7.3-210<br>
 Oracle Rdb V7.3-210 (Update 2)<br>
 Oracle Rdb V7.3-210 (Update 3)<br>
+Oracle Rdb V7.3-300 (Update 1)<br>
 Oracle Rdb JDBC V7.3-202:20130501<br>
 Oracle Rdb JDBC V7.3-310:20140826<br>
 Oracle Rdb JDBC V7.3-323:20141224<br>
@@ -322,9 +323,7 @@ Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-210<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-220<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-230<br>
 Oracle Trace For Rdb V7.2-03<br>
-CockpitMgr for OpenVMS V7.8-020<br>
-CockpitMgr for OpenVMS V7.8-040<br>
-CockpitMgr for OpenVMS V7.10-24<br>
+CockpitMgr for OpenVMS V7.10-50<br>
 HP C V7.2-001<br>
 HP Bliss V1.12-072<br>
 JCC Logminer Loader V3.2.2<br>
@@ -1448,8 +1447,8 @@ New Procedures:
 <pre>
 CPTRDB_SHOW_ENTRIES_BATCH.COM
 CPTRDB_SHOW_ENTRIES.COM
-CPTRDB_SHOW_ENTRIES_DAILY.COM
 CPTRDB_SHOW_ENTRIES.REF
+CPTRDB_SHOW_ENTRIES_DAILY.COM
 CPTRDB_POKE_CLEAR_SHOW_ENTRIES_DIFF.COM
 (List and check batch entries for multipe nodes, users, queues and source directories)
 
@@ -1469,7 +1468,6 @@ Modified Procedures:
 
 <pre>
 CPTRDB_CLEANUP_LOGS_DAILY.COM
-CPTRDB_CONFIGURATION.REF
 (Add CPTRDB_SHOW_ENTRIES)
 
 CPTRDB_DAILY.COM
@@ -1511,20 +1509,87 @@ JCCLML_SHUTDOWN.COM
 </pre>
 
 <p>
-<b>CPTRDB_CHANGES_FUTURE.A</b><br>
+<b>CPTRDB_CHANGES_20181024_24OCT142127.A</b><br>
 Cumulative Partial Update Kit
 </p>
+
+<p>
+Running On New Version:
+</p>
+
+<pre>
+Oracle Rdb V7.3-300 Update 1
+</pre>
+
+<p>
+New Procedures:
+</p>
+
+<pre>
+CPTRDB_JDBC_TRC_LIST_CLIENTS.COM
+CPTRDB_JDBC_TRC_LIST_SQL.COM
+CPTRDB_JDBC_TRC_LIST_TIME.COM
+CPTRDB_JDBC_TRC_LIST_TRANS.COM
+(Analyze Rdb JDBC level 0X40000400 'server actions' trace files)
+
+CPTRDB_ALL_DATATYPES_CREATE.COM
+(Recreate the ALL_DATATYPES table with datatypes [VAR]BINARY)
+</pre>
 
 <p>
 Modified Procedures:
 </p>
 
 <pre>
-CPTRDB_SHOW_EXTENTS_BATCH.COM
-(Add nodeid to renamed .SIZE, .DIFF files)
-
 CPTRDB_COCKPITMGR_DATA_SHEET.PDF
-(Refer to www.eurovms.com)
+(Refer to www.EuroVMS.com)
+
+CPTRDB_BACKUP_DB_ALL.COM
+(Use char(13) dbidlog in say logfile one database)
+
+CPTRDB_BATCH_ENTRIES.COM
+CPTRDB_BATCH_ENTRIES_DAILY.COM
+(Mark as deprecated)
+
+CPTRDB_DAILY.COM
+(Add check on COLLECT_STAT)
+(Adapt deadlocks/stalls check)
+(Add cpt$rdb_jdbc_thindir:*.mime*)
+
+CPTRDB_POKE_CLEAR_AIJ_NOT_EXP_BACKUPS.COM
+(Adapt /SOLUTION text)
+
+CPTRDB_SHOW_EXTENTS_BATCH.COM
+CPTRDB_SHOW_EXTENTS.COM
+CPTRDB_SHOW_EXTENTS_DAILY.COM
+(Add nodeid to renamed .SIZE, .DIFF files)
+(Adapt per database return file parameter)
+(Add debugging statements as comment)
+
+CPTRDB_SHOW_STATS.COM
+CPTRDB_SHOW_STATS_DAILY.COM
+CPTRDB_STOP_STATS.COM
+(Correct node name mixup if listing multiple nodes)
+
+CPTRDB_SHOW_JDBC_PROCESS_DAILY.COM
+CPTRDB_SHOW_STATS_BATCH.COM
+CPTRDB_SHOW_STATS_DAILY.COM
+CPTRDB_STOP_STATS_BATCH.COM
+JCCLML_LML_SHOW_PROCESS_DAILY.COM
+JCCLML_LML_SHOW_STATS_DAILY.COM
+(Add process states RWINS, RWCLU to identify process line)
+
+CPTRDB_ALL_DATATYPES_INSERT.COM
+CPTRDB_SHOW_TABLES.COM
+(Add datatypes [VAR]BINARY, Adapt RAW(nn) )
+
+CPTRDB_STALL_RW_CNTS.COM
+CPTRDB_STALL_RW_TIMES.COM
+(Add more not 'waiting for' stall messages)
+
+CPTRDB_CONFIGURATION_L15S29_20181024.REF_24OCT122907
+CPTRDB_SHOW_ENTRIES_L15S29_20181024.REF_24OCT123146
+(Renamed template toolset configuration and ENTRIES reference files)
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -2634,6 +2699,7 @@ $ @CPTRDB_SUBMIT {node} CPTRDB_BATCH_ENTRIES_DAILY
 
 <b>CPTRDB_CREATE_DB.COM</b><br>
 <b>CPTRDB_CREATE_DB_TABLES.COM</b><br>
+<b>CPTRDB_ALL_DATATYPES_CREATE.COM</b><br>
 <b>CPTRDB_ALL_DATATYPES_INSERT.COM</b><br>
 <b>CPTRDB_CREATE_DB_AIJ.COM</b><br><br>
 
@@ -2720,6 +2786,75 @@ $!-------------------------------
 
 <pre>
 $ @CPTRDB_SUBMIT {node} CPTRDB_CREATE_DB_TABLES
+</pre>
+
+<p>
+<b>CPTRDB_ALL_DATATYPES_CREATE.COM</b><br>
+  [Re]Create the [TABLE_]ALL_DATATYPES table for demonstration purposes.<br>
+  Add the datatypes BINARY and BINARY VARYING<br>
+  The LISTS storage map is adapted before and and after the [DROP|CREATE] TABLE
+</p>
+
+<p>
+  Parameters: Adapt the sql$database logical
+</p>
+
+<pre>
+$!-------------------------------
+$ define sql$database cptrdb_db_1
+$!-------------------------------
+</pre>
+
+<p>
+  Usage:
+</p>
+
+<pre>
+$ @CPTRDB_SUBMIT {node} CPTRDB_ALL_DATATYPES_CREATE
+</pre>
+
+<p>
+  Some numeric datatypes are converted to signed binary datatypes:
+</p>
+
+<pre>
+%SQL-I-NO_DECIMAL, DECIMAL_NOSCALE is being converted from DECIMAL to INTEGER.
+%SQL-I-NO_DECIMAL, DECIMAL_4 is being converted from DECIMAL to SMALLINT.
+%SQL-I-NO_DECIMAL, DECIMAL_9 is being converted from DECIMAL to INTEGER.
+%SQL-I-NO_DECIMAL, DECIMAL_18 is being converted from DECIMAL to BIGINT.
+%SQL-I-NO_DECIMAL, DECIMAL_19 is being converted from DECIMAL to FLOAT.
+%SQL-I-NO_DECIMAL, DECIMAL_4_SCALE is being converted from DECIMAL to SMALLINT.
+%SQL-I-NO_DECIMAL, DECIMAL_9_SCALE is being converted from DECIMAL to INTEGER.
+%SQL-I-NO_DECIMAL, DECIMAL_18_SCALE is being converted from DECIMAL to BIGINT.
+%SQL-I-NO_DECIMAL, DECIMAL_19_SCALE is being converted from DECIMAL to FLOAT.
+%SQL-I-NO_NUMERIC, NUMERIC_NOSCALE is being converted from NUMERIC to INTEGER.
+%SQL-I-NO_NUMERIC, NUMERIC_4 is being converted from NUMERIC to SMALLINT.
+%SQL-I-NO_NUMERIC, NUMERIC_9 is being converted from NUMERIC to INTEGER.
+%SQL-I-NO_NUMERIC, NUMERIC_18 is being converted from NUMERIC to BIGINT.
+%SQL-I-NO_NUMERIC, NUMERIC_19 is being converted from NUMERIC to FLOAT.
+%SQL-I-NO_NUMERIC, NUMERIC_4_SCALE is being converted from NUMERIC to SMALLINT.
+%SQL-I-NO_NUMERIC, NUMERIC_9_SCALE is being converted from NUMERIC to INTEGER.
+%SQL-I-NO_NUMERIC, NUMERIC_18_SCALE is being converted from NUMERIC to BIGINT.
+%SQL-I-NO_NUMERIC, NUMERIC_19_SCALE is being converted from NUMERIC to FLOAT.
+%SQL-I-NO_NUMBER, NUMBER_NOSCALE is being converted from NUMBER to FLOAT
+%SQL-I-NO_NUMBER, NUMBER_2 is being converted from NUMBER to TINYINT
+%SQL-I-NO_NUMBER, NUMBER_4 is being converted from NUMBER to SMALLINT
+%SQL-I-NO_NUMBER, NUMBER_9 is being converted from NUMBER to INTEGER
+%SQL-I-NO_NUMBER, NUMBER_18 is being converted from NUMBER to BIGINT
+%SQL-I-NO_NUMBER, NUMBER_19 is being converted from NUMBER to FLOAT
+%SQL-I-NO_NUMBER, NUMBER_2_SCALE is being converted from NUMBER to TINYINT
+%SQL-I-NO_NUMBER, NUMBER_4_SCALE is being converted from NUMBER to SMALLINT
+%SQL-I-NO_NUMBER, NUMBER_9_SCALE is being converted from NUMBER to INTEGER
+%SQL-I-NO_NUMBER, NUMBER_18_SCALE is being converted from NUMBER to BIGINT
+%SQL-I-NO_NUMBER, NUMBER_19_SCALE is being converted from NUMBER to FLOAT
+%SQL-I-NO_NUMBER, NUMBER_2_NEGSCALE is being converted from NUMBER to TINYINT
+%SQL-I-NO_NUMBER, NUMBER_4_NEGSCALE is being converted from NUMBER to SMALLINT
+%SQL-I-NO_NUMBER, NUMBER_9_NEGSCALE is being converted from NUMBER to INTEGER
+%SQL-I-NO_NUMBER, NUMBER_18_NEGSCALE is being converted from NUMBER to BIGINT
+%SQL-I-NO_NUMBER, NUMBER_19_NEGSCALE is being converted from NUMBER to FLOAT
+%SQL-I-NO_NUMBER, NUMBER_STAR is being converted from NUMBER to BIGINT
+%SQL-I-NO_NUMBER, NUMBER_STAR_SCALE is being converted from NUMBER to BIGINT
+%SQL-I-NO_NUMBER, NUMBER_STAR_NEGSCALE is being converted from NUMBER to BIGINT
 </pre>
 
 <p>
@@ -3769,13 +3904,15 @@ Procedures Usage
 
 <p>
 <b>CPTRDB_BATCH_ENTRIES.COM</b><br>
-  Interactive check for the presence of all batch jobs located in CPT$RDB,
-  on the dedicated queues CPT$RDB_BATCH_{node}, compared to the reference file 
-  CPTRDB_BATCH_ENTRIES.REF, based on filespecs upto the version number.<br>
+  List and check the batch entries for a single user and single source
+  directory across all CPT$RDB_BATCH_{node} queues, identified in the
+  confuguration file CPTRDB_CONFIGURATION.REF by the keywords
+  CPT$RDB_NODE|CPTRDB_BATCH_ENTRIES<br>
 
-  The nodes, queues and source directory are retrieved from the configuration
-  file CPTRDB_CONFIGURATION.REF, identified by the keywords 
-  CPT$RDB_NODE|CPTRDB_BATCH_ENTRIES.
+  Requires the reference file CPTRDB_BATCH_ENTRIES.REF<br><br>
+
+  *This procedure is deprecated. The use of CPTRDB_SHOW_ENTRIES.COM is
+  recommended.*
 </p>
 
 <pre>
@@ -3835,14 +3972,17 @@ $ edit CPTRDB_BATCH_ENTRIES.REF
 <p>
 <b>CPTRDB_BATCH_ENTRIES_DAILY.COM</b><br>
   (As user of the submitted jobs)<br>
-  Daily check for the existence of a list of batch jobs located in CPT$RDB.
-  Send CockpitMgr event and mail when a job is no longer running or
-  scheduled.<br>
 
-  The reference file is the list of filespecs CPTRDB_BATCH_ENTRIES.REF.<br>
+  Daily list and check the batch entries for a single user and source directory
+  across all CPT$RDB_BATCH_<node> queues, identified in the confuguration
+  file CPTRDB_CONFIGURATION.REF by the keywords
+  CPT$RDB_NODE|CPTRDB_BATCH_ENTRIES<br>
 
-  The nodes, queues and source directory are listed in the configuration
-  file, identified by the keywords CPT$RDB_NODE|CPTRDB_BATCH_ENTRIES.
+  Send a CockpitMgr event and mail if a difference is found with the
+  reference file CPTRDB_BATCH_ENTRIES.REF<br><br>
+
+  *This procedure is deprecated. The use of CPTRDB_SHOW_ENTRIES_DAILY.COM is
+  recommended.*
 </p>
 
   Toolset CockpitMgr event:<br>
@@ -4299,7 +4439,6 @@ Procedures Usage
 
 <p>
   List the status of the live AIJ files for one database.
-  Requires the information table RDB$JOURNALS.
 </p>
 
   Per AIJ slot the procedure lists:<br>
@@ -4767,8 +4906,7 @@ $!-----------------------------------------
 <p>
 <b>CPTRDB_AFTER_JOURNAL_DROP_GEN.COM</b><br>
   Generate a command file in CPT$RDB_DATA: to drop latent emergency live
-  AIJ files for a given database.<br>
-  Requires the information table RDB$JOURNALS.
+  AIJ files for a given database.
 </p>
 
 <p>
@@ -4938,6 +5076,114 @@ $ DIRE CPT$RDB_LISTS:*.MIME*
 Procedures Usage
 </font>
 </h4>
+
+<p>
+The gathering and analysis of stall and deadlock messages per database and
+node, using RMU/Show Satistics sessions in batch, should be considered
+mandatory in each (at least production) environment. They allow a detailed
+insight into the internal functioning of the database, and contain direct
+indications of concurrency issues and other potential problem areas.
+</p>
+
+<p>
+The toolset handles the analysis of the most frequent 'waiting for' stall
+messages in separate procedures from the less frequent NOT 'waiting for',
+named Read/Write RW, procedures.
+</p>
+
+<p>
+A nearly complete set of all possible stall messages written to the stall log 
+files is listed below:
+</p>
+
+<pre>
+Bugcheck: !AD
+Processing pending messages
+Processing pending redo
+RCS idle -waiting for work request
+RCS waiting for !AD cache record latch !AD
+binding to database
+committing TSN !UL:!UL
+connecting to remote database (!UL)
+creating AIJ backup file
+creating RCS process
+creating storage area !UL
+creating temporary AIJ journal
+extending AIJ file
+extending RUJ file
+extending storage area !UL
+finding buffer for record cache !AD
+hibernating for !AD cache latch
+hibernating on AIJ I/O completion
+hibernating on AIJ submission
+initializing AIJ journal
+initializing new AIJ journal
+latching page !UL:!UL in GB
+opening storage area !AD file
+performing cluster statistics collection
+performing local statistics collection
+prepared, waiting to commit distributed transaction
+querying standby database for state information
+reading !UL AIJ file blocks from VBN !UL
+reading !UL sort work file blocks from VBN !UL
+reading AIJ open record (block 1)
+reading ROOT file (!AD VBN !UL)
+reading RUJ file block !UL
+reading pages !UL:!UL to !UL:!UL
+sending "!AD" AIJ message !UL to standby database
+sending AIJ replication reply to master database
+switching AIJ journals
+waiting !UL second!%S for next pass through AIJ files
+waiting for !AD (!AD)
+waiting for !AD cache hash latch !UL
+waiting for !AD cache record latch
+waiting for !UL-block unmodified AIJ (!UL minute!%S)
+waiting for "!AD" reply !UL from standby database
+waiting for AIJ initialization
+waiting for AIJ message !UL from master database
+waiting for active AIJ backups to complete
+waiting for async-prefetch of pages !UL:!UL to !UL:!UL
+waiting for async-write of AIJ file
+waiting for async-write of ROOT file
+waiting for async-write of pages !UL:!UL to !UL:!UL
+waiting for asynchronous I/O completion
+waiting for busy AIJ sequence !UL (!UL minute!%S)
+waiting for checkpoint completion
+waiting for latch on !AD
+waiting for page !+!SL (!AD)
+waiting for page !SL:!SL (!AD)
+waiting for record !SW:!SL:!SW (!AD) E**!%F)
+waiting for routine !AD
+waiting for standby database activity request
+writing !UL AIJ file blocks from VBN !UL
+writing !UL page!%S back to database
+writing !UL sort work file blocks from VBN !UL
+writing AIJ sequence !UL block !UL
+writing ROOT file (!AD VBN !UL)
+writing RUJ file block !UL
+</pre>
+
+<p>
+A random stall log header and extract for the per database/node stall log file
+SBN_DB_STALL_L15S50_20181004.LOG_04OCT000200 :
+</p>
+
+<pre>
+ Oracle Rdb V7.3-200 Performance Monitor Stall Log
+ Database DISK$DATA_23:[SBN_DB]SABIN_TT.RDB;1
+ Stall Log created  4-OCT-2018 00:02:00.78
+...
+ 4-OCT-2018 03:53:07.3741046 2A7D5322:87638  4-OCT-2018 03:53:07.3721046 reading pages 17:350491 to 17:350494
+ 4-OCT-2018 03:56:32.7421046 2A76BCB4:163  4-OCT-2018 03:56:32.7351046 waiting for async-write of ROOT file
+ 4-OCT-2018 03:59:41.4801046 2A7D5322:87638  4-OCT-2018 03:59:41.4781046 waiting for async-write of ROOT file
+ 4-OCT-2018 04:08:28.6467146 2A75677B:158  4-OCT-2018 04:08:28.6447146 reading pages 16:488836 to 16:488836
+ 4-OCT-2018 04:23:49.3879946 2A791921:139  4-OCT-2018 04:23:49.3859946 reading pages 16:483899 to 16:483902
+ 4-OCT-2018 04:23:56.4029946 2A7D5322:87638  4-OCT-2018 04:23:56.4009946 reading pages 17:429695 to 17:429698
+ 4-OCT-2018 04:26:14.8889946 2A607A7F:1  4-OCT-2018 04:26:14.6619946 waiting for AIJ journal lock 0 (PW)
+   State... Process.ID Process.name... Lock.ID. Rq Gr Queue "AIJ journal lock 0"
+   Blocker: 2A051265   RDM_ALS73_0002  242A164F    PW Grant
+   Owner:   2A65905F   SBN_LISA_0005   7D17EF96    NL Grant
+</pre>
 
 <p>
 <b>CPTRDB_SHOW_STAT_LOGS_ALL.COM</b><br>
@@ -5736,42 +5982,136 @@ CPT$RDB_DATABASE|CPTRDB_SHOW_EXTENTS|CPTRDB_DB_1|7.3|L15S29|
 $ @CPTRDB_SHOW_EXTENTS
 </pre>
 
-  Output sample:<br>
+<p>
+Output sample:<br>
+(After a snapshot files truncation)
+</p>
 
 <pre>
-Rdb extents on node L15S55 at 19-MAR-2015 07:45:00.33
+30-JUL-2018 07:48:00.30 CPTRDB - Storage Areas Extents From Node L15S53
  
-ACC_DB_B01S15
+-- 1 BDG_DB --
  
-1 File sizes at 19-MAR-2015 07:45:01.43 on node L15S55
-1 File sizes at 18-MAR-2015 07:45:01.61 on node L15S55
+1 File sizes at 30-JUL-2018 07:48:00.68 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:00.65 on node L15S53
  
-DISK$DATA_33:[NW_DB_B01S15]DOSSIER_COMP_DATA.SNP;1
-From: 36096 To: 48096 Diff: 12000
+-- 2 C170_DB --
  
-ACC_DB_C01S16
+1 File sizes at 30-JUL-2018 07:48:01.22 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:01.16 on node L15S53
  
-1 File sizes at 19-MAR-2015 07:45:02.97 on node L15S55
-1 File sizes at 18-MAR-2015 07:45:02.97 on node L15S55
+-- 3 CLIO_DB --
  
-DISK$DATA_34:[NE_DB_C01S16]SESS_TOTAL_DATA.RDA;1
-From: 520224 To: 544224 Diff: 24000
+1 File sizes at 30-JUL-2018 07:48:01.78 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:01.75 on node L15S53
  
-DISK$DATA_34:[NE_DB_C01S16]ENCAISSE_SESS_INDICES.SNP;1
-From: 24096 To: 36096 Diff: 12000
+-- 4 EXP_DB --
  
-DISK$DATA_34:[NE_DB_C01S16]ENCAISSE_MVTS_DATA.SNP;1
-From: 24096 To: 24096 Diff: 0
+1 File sizes at 30-JUL-2018 07:48:02.47 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:02.44 on node L15S53
  
-DISK$DATA_34:[NE_DB_C01S16]ENCAISSE_MVTS_INDICES.SNP;1
-From: 24096 To: 36096 Diff: 12000
+-- 5 GPS_DB --
  
-ACC_DB_G01S09
+1 File sizes at 30-JUL-2018 07:48:02.93 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:02.94 on node L15S53
  
-1 File sizes at 19-MAR-2015 07:45:04.23 on node L15S55
-1 File sizes at 18-MAR-2015 07:45:04.30 on node L15S55
+-- 6 SBN_DB --
  
-...
+1 File sizes at 30-JUL-2018 07:48:03.47 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:03.50 on node L15S53
+ 
+DISK$DATA_21:[SBN_DB]FULL_SLS_SIDS.SNP;1
+From: 36096 To: 12096 Diff: -24000
+ 
+DISK$DATA_22:[SBN_DB]SBN_WASTED_DATA.SNP;1
+From: 12096 To: 12096 Diff: 0
+ 
+DISK$DATA_21:[SBN_DB]SBN_WASTED_SIDS.SNP;1
+From: 12096 To: 12096 Diff: 0
+ 
+DISK$DATA_23:[SBN_DB]SEASN_TKT_DATA.SNP;1
+From: 24096 To: 12096 Diff: -12000
+ 
+DISK$DATA_21:[SBN_DB]SEASN_TKT_SIDS.SNP;1
+From: 36096 To: 12096 Diff: -24000
+ 
+DISK$DATA_22:[SBN_DB]TRACING_SIDS.SNP;1
+From: 24096 To: 12096 Diff: -12000
+ 
+DISK$DATA_22:[SBN_DB]TTONWEB_DATA.SNP;1
+From: 12096 To: 12096 Diff: 0
+ 
+DISK$DATA_21:[SBN_DB]TTONWEB_SIDS.SNP;1
+From: 48096 To: 12096 Diff: -36000
+ 
+DISK$DATA_23:[SBN_DB]VALDTN_DATA.SNP;1
+From: 48096 To: 12096 Diff: -36000
+ 
+DISK$DATA_22:[SBN_DB]VALDTN_SIDS.SNP;1
+From: 60096 To: 12096 Diff: -48000
+ 
+DISK$DATA_25:[SBN_DB]LISA_DATA.SNP;1
+From: 12096 To: 12096 Diff: 0
+ 
+DISK$DATA_23:[SBN_DB]LISA_SIDS.SNP;1
+From: 12096 To: 12096 Diff: 0
+ 
+DISK$DATA_22:[SBN_DB]LISA_SALES_DATA.SNP;1
+From: 60096 To: 12096 Diff: -48000
+ 
+DISK$DATA_24:[SBN_DB]LISA_SALES_SIDS.SNP;1
+From: 84096 To: 12096 Diff: -72000
+ 
+-- 7 SBN_DB_ARCH --
+ 
+1 File sizes at 30-JUL-2018 07:48:04.34 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:04.35 on node L15S53
+ 
+-- 8 SITTE_DB --
+ 
+1 File sizes at 30-JUL-2018 07:48:04.82 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:04.82 on node L15S53
+ 
+-- 9 SLS_DB_1804 --
+ 
+1 File sizes at 30-JUL-2018 07:48:05.26 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:05.27 on node L15S53
+ 
+-- 10 SLS_DB_1805 --
+ 
+1 File sizes at 30-JUL-2018 07:48:05.73 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:05.72 on node L15S53
+ 
+-- 11 SLS_DB_1806 --
+ 
+1 File sizes at 30-JUL-2018 07:48:06.20 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:06.22 on node L15S53
+ 
+DISK$DATA_33:[SLS_DB_1806]SLS_DB_1806_SLS.SNP;1
+From: 108096 To: 12096 Diff: -96000
+ 
+-- 12 SLS_DB_1807 --
+ 
+1 File sizes at 30-JUL-2018 07:48:06.64 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:06.67 on node L15S53
+ 
+-- 13 SSP_DB_CMP --
+ 
+1 File sizes at 30-JUL-2018 07:48:07.18 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:07.18 on node L15S53
+ 
+-- 14 SSP_DB_PROD --
+ 
+1 File sizes at 30-JUL-2018 07:48:08.05 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:08.12 on node L15S53
+ 
+-- 15 TRACE_DB --
+ 
+1 File sizes at 30-JUL-2018 07:48:09.38 on node L15S53
+1 File sizes at 29-JUL-2018 07:48:09.41 on node L15S53
+ 
+ 
+30-JUL-2018 07:48:09.66 *Show extents check failed*
 </pre>
 
 <p>
@@ -7210,15 +7550,25 @@ CPT$RDB_JOB|CPTRDB_STALL_CNTS_ALL|L15S29|TOMORROW + 04:30|
 
 <pre>
 B binding
+B bugcheck
+C committing
+C connecting
 C creating
 E extending
+F finding
 H hibernating
 I initializing
 L latching
 O opening
-P prepared
+P performing
+P prepared,
+P processing
+Q querying
+R RCS
 R reading
+S sending
 S switching
+W waiting n seconds for next pass through AIJ files
 W writing
 </pre>
 
@@ -7304,41 +7654,54 @@ CPTRDB_StallRwCntsExceeded
   Output sample:<br>
 
 <pre> 
-CPTRDB - Not 'waiting for' Stall Counts Per Hour From Node L15S29
-For Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
-On Node:      L15S29
-Since:        10-MAY-2016
-Before:       11-MAY-2016
-Alarm:        1
-At:           11-MAY-2016 11:24:00.91
+CPTRDB - Not 'waiting for' Stall Counts Per Hour From Node L15S52
+For Database: DISK$DATA_25:[CLIO_DB]CLIO_DB.RDB
+On Node:      L15S59
+Since:        11-OCT-2018
+Before:       12-OCT-2018
+Alarm:        15
+At:           12-OCT-2018 14:32:05.07
 --------------------------------------------------------------------------------
 B binding
+B bugcheck
+C committing
+C connecting
 C creating
 E extending
+F finding
 H hibernating
 I initializing
 L latching
 O opening
+P performing
 P prepared
+P processing
+Q querying
+R RCS
 R reading
+S sending
 S switching
+W waiting next pass
 W writing
 --------------------------------------------------------------------------------
-2016-05-10|00|     1|O|storage area DISK$DATA_29:[CPTRDB_DB_1]STALL_CNTS_AREA.RDA;1 file|*Exceeded Send*
+2018-10-11|01|    47|I|AIJ journal|*Exceeded Send*
+2018-10-11|01|     5|B|to database|
+2018-10-11|01|     2|O|storage area DISK$DATA_22:[CLIO_DB]CLIO_CLNTS_DATA.SNP;1 file|
 -----------------------
-2016-05-10|06|     1|R|256 AIJ file blocks from VBN 31011|*Exceeded Send*
+2018-10-11|06|     9|I|AIJ journal|
 -----------------------
-2016-05-10|18|     1|H|on AIJ submission|*Exceeded Send*
+2018-10-11|14|     2|W|4 pages back to database|
 -----------------------
-2016-05-10|20|     1|R|256 AIJ file blocks from VBN 289|*Exceeded Send*
+2018-10-11|15|     2|H|on AIJ I/O completion|
 -----------------------
-2016-05-10|22|     1|R|256 AIJ file blocks from VBN 31011|*Exceeded Send*
+2018-10-11|22|     2|B|to database|
 --------------------------------------------------------------------------------
-Total number of stall groups:      5
-Total number of stall lines:       5
+Total number of stall groups:      7
+Total number of stall lines:      69
 
-11-MAY-2016 11:24:01.90 *Stall R/W Cnts Exceeded CPTRDB_DB_1 L15S29 20160510*
-11-MAY-2016 11:24:01.90 *Stall R/W Cnts Send     CPTRDB_DB_1 L15S29 20160510*
+12-OCT-2018 14:32:06.73 *Stall R/W Cnts Exceeded CLIO_DB L15S59 20181011*
+ 
+12-OCT-2018 14:32:06.73 *Stall R/W Cnts Send     CLIO_DB L15S59 20181011*
 </pre> 
 
 <p>
@@ -7900,15 +8263,25 @@ CPT$RDB_JOB|CPTRDB_STALL_TIMES_ALL|L15S29|TOMORROW + 05:00|
   
 <pre>
 B binding
+B bugcheck
+C committing
+C connecting
 C creating
 E extending
+F finding
 H hibernating
 I initializing
 L latching
 O opening
-P prepared
+P performing
+P prepared,
+P processing
+Q querying
+R RCS
 R reading
+S sending
 S switching
+W waiting n seconds for next pass through AIJ files
 W writing
 </pre>
 
@@ -8001,37 +8374,46 @@ $!-----------------------------------
   Output sample:<br>
 
 <pre> 
-CPTRDB - Not 'waiting for' Stall Times Greater Than One Second From Node L15S29
-For Database: DISK$DATA_29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB
-On Node:      L15S29
-Since:        10-MAY-2016
-Before:       11-MAY-2016
-Alarm:        1
-At:           11-MAY-2016 11:41:28.13
+CPTRDB - Not 'waiting for' Stall Times Greater Than One Second From Node L15S52
+For Database: DISK$DATA_23:[SBN_DB]SABIN_TT.RDB
+On Node:      L15S59
+Since:        21-OCT-2018
+Before:       22-OCT-2018
+Alarm:        6
+At:           22-OCT-2018 05:00:15.68
 ------------------------------------------------------------------------------------------------------------------------------------
 B binding
+B bugcheck
+C committing
+C connecting
 C creating
 E extending
+F finding
 H hibernating
 I initializing
 L latching
 O opening
+P performing
 P prepared
+P processing
+Q querying
+R RCS
 R reading
+S sending
 S switching
+W waiting next pass
 W writing
 ------------------------------------------------------------------------------------------------------------------------------------
-2016-05-10|00:35:01.4962841|2DE9DDB1:1    |    1|O|storage area DISK$DATA_29:[CPTRDB_DB_1]STALL_CNTS_AREA.RDA;1 file|*Exceeded Send*
-2016-05-10|06:30:00.4888541|2DF3FA9F:1    |    1|R|256 AIJ file blocks from VBN 31011|*Exceeded Send*
-2016-05-10|18:32:39.5936741|2DF41947:2    |    1|H|on AIJ submission|*Exceeded Send*
-2016-05-10|20:00:46.6766141|2DF47949:1    |    1|R|256 AIJ file blocks from VBN 289|*Exceeded Send*
-2016-05-10|22:00:54.9038141|2DFADD69:1    |    1|R|256 AIJ file blocks from VBN 31011|*Exceeded Send*
+2018-10-21|06:09:31.3976083|2A5CBC5A:1    |   14|I|AIJ journal|*Exceeded Send*
+2018-10-21|09:32:21.2217883|2A47811D:3    |    4|H|on AIJ submission|
+2018-10-21|12:22:32.4441883|2A53AFC8:1    |    2|I|AIJ journal|
 ------------------------------------------------------------------------------------------------------------------------------------
-Total number of stall groups:       5
-Total number of stall seconds:      5
+Total number of stall groups:       3
+Total number of stall seconds:     20
 
-11-MAY-2016 11:41:29.14 *Stall R/W Times Exceeded CPTRDB_DB_1 L15S29 20160510*
-11-MAY-2016 11:41:29.15 *Stall R/W Times Send     CPTRDB_DB_1 L15S29 20160510*
+22-OCT-2018 05:00:16.59 *Stall R/W Times Exceeded SBN_DB L15S59 20181021*
+ 
+22-OCT-2018 05:00:16.60 *Stall R/W Times Send     SBN_DB L15S59 20181021*
 </pre> 
 
 <p>
@@ -9736,8 +10118,139 @@ $ @CPTRDB_SHOW_TABLES {dbid}
 Tables And Their Columns/Datatypes For Database:
 DSA29:[CPTRDB_DB_1]CPTRDB_DB_1.RDB;1
 On Node: L15S29
-At: 2015-04-02 15:22:18
+At: 2018-10-04 12:12:57
 --------------------------------------------------------------------------------
+ALL_DATATYPES                  ,1  ,TINYINT_NOSCALE                ,TINYINT
+ALL_DATATYPES                  ,2  ,SMALLINT_NOSCALE               ,SMALLINT
+ALL_DATATYPES                  ,3  ,INTEGER_NOSCALE                ,INTEGER
+ALL_DATATYPES                  ,4  ,BIGINT_NOSCALE                 ,BIGINT
+ALL_DATATYPES                  ,5  ,TINYINT_SCALE                  ,TINYINT(2)
+ALL_DATATYPES                  ,6  ,SMALLINT_SCALE                 ,SMALLINT(2)
+ALL_DATATYPES                  ,7  ,INTEGER_SCALE                  ,INTEGER(2)
+ALL_DATATYPES                  ,8  ,BIGINT_SCALE                   ,BIGINT(2)
+ALL_DATATYPES                  ,9  ,FLOAT_NOSCALE                  ,DOUBLE PRECISION
+ALL_DATATYPES                  ,10 ,FLOAT_24                       ,REAL
+ALL_DATATYPES                  ,11 ,FLOAT_53                       ,DOUBLE PRECISION
+ALL_DATATYPES                  ,12 ,REAL_NOSCALE                   ,REAL
+ALL_DATATYPES                  ,13 ,DOUBLE_PRECISION               ,DOUBLE PRECISION
+ALL_DATATYPES                  ,14 ,DECIMAL_NOSCALE                ,INTEGER
+ALL_DATATYPES                  ,15 ,DECIMAL_4                      ,SMALLINT
+ALL_DATATYPES                  ,16 ,DECIMAL_9                      ,INTEGER
+ALL_DATATYPES                  ,17 ,DECIMAL_18                     ,BIGINT
+ALL_DATATYPES                  ,18 ,DECIMAL_19                     ,DOUBLE PRECISION
+ALL_DATATYPES                  ,19 ,DECIMAL_4_SCALE                ,SMALLINT(2)
+ALL_DATATYPES                  ,20 ,DECIMAL_9_SCALE                ,INTEGER(2)
+ALL_DATATYPES                  ,21 ,DECIMAL_18_SCALE               ,BIGINT(2)
+ALL_DATATYPES                  ,22 ,DECIMAL_19_SCALE               ,DOUBLE PRECISION
+ALL_DATATYPES                  ,23 ,NUMERIC_NOSCALE                ,INTEGER
+ALL_DATATYPES                  ,24 ,NUMERIC_4                      ,SMALLINT
+ALL_DATATYPES                  ,25 ,NUMERIC_9                      ,INTEGER
+ALL_DATATYPES                  ,26 ,NUMERIC_18                     ,BIGINT
+ALL_DATATYPES                  ,27 ,NUMERIC_19                     ,DOUBLE PRECISION
+ALL_DATATYPES                  ,28 ,NUMERIC_4_SCALE                ,SMALLINT(2)
+ALL_DATATYPES                  ,29 ,NUMERIC_9_SCALE                ,INTEGER(2)
+ALL_DATATYPES                  ,30 ,NUMERIC_18_SCALE               ,BIGINT(2)
+ALL_DATATYPES                  ,31 ,NUMERIC_19_SCALE               ,DOUBLE PRECISION
+ALL_DATATYPES                  ,32 ,NUMBER_NOSCALE                 ,DOUBLE PRECISION
+ALL_DATATYPES                  ,33 ,NUMBER_2                       ,TINYINT
+ALL_DATATYPES                  ,34 ,NUMBER_4                       ,SMALLINT
+ALL_DATATYPES                  ,35 ,NUMBER_9                       ,INTEGER
+ALL_DATATYPES                  ,36 ,NUMBER_18                      ,BIGINT
+ALL_DATATYPES                  ,37 ,NUMBER_19                      ,DOUBLE PRECISION
+ALL_DATATYPES                  ,38 ,NUMBER_2_SCALE                 ,TINYINT(2)
+ALL_DATATYPES                  ,39 ,NUMBER_4_SCALE                 ,SMALLINT(2)
+ALL_DATATYPES                  ,40 ,NUMBER_9_SCALE                 ,INTEGER(2)
+ALL_DATATYPES                  ,41 ,NUMBER_18_SCALE                ,BIGINT(2)
+ALL_DATATYPES                  ,42 ,NUMBER_19_SCALE                ,DOUBLE PRECISION
+ALL_DATATYPES                  ,43 ,NUMBER_2_NEGSCALE              ,TINYINT(-2)
+ALL_DATATYPES                  ,44 ,NUMBER_4_NEGSCALE              ,SMALLINT(-2)
+ALL_DATATYPES                  ,45 ,NUMBER_9_NEGSCALE              ,INTEGER(-2)
+ALL_DATATYPES                  ,46 ,NUMBER_18_NEGSCALE             ,BIGINT(-2)
+ALL_DATATYPES                  ,47 ,NUMBER_19_NEGSCALE             ,DOUBLE PRECISION
+ALL_DATATYPES                  ,48 ,NUMBER_STAR                    ,BIGINT
+ALL_DATATYPES                  ,49 ,NUMBER_STAR_SCALE              ,BIGINT(2)
+ALL_DATATYPES                  ,50 ,NUMBER_STAR_NEGSCALE           ,BIGINT(-2)
+ALL_DATATYPES                  ,51 ,CHAR_1                         ,CHAR(1)
+ALL_DATATYPES                  ,52 ,CHARACTER_1                    ,CHAR(1)
+ALL_DATATYPES                  ,53 ,CHAR_20                        ,CHAR(20)
+ALL_DATATYPES                  ,54 ,CHARACTER_20                   ,CHAR(20)
+ALL_DATATYPES                  ,55 ,CHAR_1_MCS                     ,CHAR(1)
+ALL_DATATYPES                  ,56 ,CHARACTER_1_MCS                ,CHAR(1)
+ALL_DATATYPES                  ,57 ,CHAR_20_MCS                    ,CHAR(20)
+ALL_DATATYPES                  ,58 ,CHARACTER_20_MCS               ,CHAR(20)
+ALL_DATATYPES                  ,59 ,CHAR_VARYING                   ,VARCHAR(1)
+ALL_DATATYPES                  ,60 ,CHARACTER_VARYING              ,VARCHAR(1)
+ALL_DATATYPES                  ,61 ,CHAR_VARYING_20                ,VARCHAR(20)
+ALL_DATATYPES                  ,62 ,CHARACTER_VARYING_20           ,VARCHAR(20)
+ALL_DATATYPES                  ,63 ,CHAR_VARYING_MCS               ,VARCHAR(1)
+ALL_DATATYPES                  ,64 ,CHARACTER_VARYING_MCS          ,VARCHAR(1)
+ALL_DATATYPES                  ,65 ,CHAR_VARYING_20_MCS            ,VARCHAR(20)
+ALL_DATATYPES                  ,66 ,CHARACTER_VARYING_20_MCS       ,VARCHAR(20)
+ALL_DATATYPES                  ,67 ,VARCHAR_20                     ,VARCHAR(20)
+ALL_DATATYPES                  ,68 ,VARCHAR2_20                    ,VARCHAR(20)
+ALL_DATATYPES                  ,69 ,VARCHAR_20_MCS                 ,VARCHAR(20)
+ALL_DATATYPES                  ,70 ,VARCHAR2_20_MCS                ,VARCHAR(20)
+ALL_DATATYPES                  ,71 ,LONG_VARCHAR                   ,VARCHAR(16383)
+ALL_DATATYPES                  ,72 ,RAW_20                         ,VARCHAR(20) UNSPECIFIED
+ALL_DATATYPES                  ,73 ,NCHAR1                         ,CHAR(1)
+ALL_DATATYPES                  ,74 ,NATIONAL_CHAR                  ,CHAR(1)
+ALL_DATATYPES                  ,75 ,NATIONAL_CHARACTER             ,CHAR(1)
+ALL_DATATYPES                  ,76 ,NCHAR_20                       ,CHAR(20)
+ALL_DATATYPES                  ,77 ,NATIONAL_CHAR_20               ,CHAR(20)
+ALL_DATATYPES                  ,78 ,NATIONAL_CHARACTER_20          ,CHAR(20)
+ALL_DATATYPES                  ,79 ,NCHAR_VARYING                  ,VARCHAR(1)
+ALL_DATATYPES                  ,80 ,NATIONAL_CHAR_VARYING          ,VARCHAR(1)
+ALL_DATATYPES                  ,81 ,NATIONAL_CHARACTER_VARYING     ,VARCHAR(1)
+ALL_DATATYPES                  ,82 ,NCHAR_VARYING_20               ,VARCHAR(20)
+ALL_DATATYPES                  ,83 ,NATIONAL_CHAR_VARYING_20       ,VARCHAR(20)
+ALL_DATATYPES                  ,84 ,NATIONAL_CHARACTER_VARYING_20  ,VARCHAR(20)
+ALL_DATATYPES                  ,85 ,DATE_VMS                       ,DATE VMS
+ALL_DATATYPES                  ,86 ,DATE_ANSI                      ,DATE ANSI
+ALL_DATATYPES                  ,87 ,TIME_NOFRAC                    ,TIME(0)
+ALL_DATATYPES                  ,88 ,TIME_FRAC                      ,TIME(2)
+ALL_DATATYPES                  ,89 ,TIMESTAMP_NOFRAC               ,TIMESTAMP(0)
+ALL_DATATYPES                  ,90 ,TIMESTAMP_FRAC                 ,TIMESTAMP(2)
+ALL_DATATYPES                  ,91 ,INTRVL_YEAR_NP                 ,INTERVAL YEAR(2)
+ALL_DATATYPES                  ,92 ,INTRVL_YEAR_P                  ,INTERVAL YEAR(3)
+ALL_DATATYPES                  ,93 ,INTRVL_Y2M_NP                  ,INTERVAL YEAR(2) TO MONTH
+ALL_DATATYPES                  ,94 ,INTRVL_Y2M_P                   ,INTERVAL YEAR(3) TO MONTH
+ALL_DATATYPES                  ,95 ,INTRVL_M_NP                    ,INTERVAL MONTH(2)
+ALL_DATATYPES                  ,96 ,INTRVL_M_P                     ,INTERVAL MONTH(3)
+ALL_DATATYPES                  ,97 ,INTRVL_D_NP                    ,INTERVAL DAY(2)
+ALL_DATATYPES                  ,98 ,INTRVL_D_P                     ,INTERVAL DAY(3)
+ALL_DATATYPES                  ,99 ,INTRVL_D2H_NP                  ,INTERVAL DAY(2) TO HOUR
+ALL_DATATYPES                  ,100,INTRVL_D2H_P                   ,INTERVAL DAY(4) TO HOUR
+ALL_DATATYPES                  ,101,INTRVL_D2M_NP                  ,INTERVAL DAY(2) TO MINUTE
+ALL_DATATYPES                  ,102,INTRVL_D2M_P                   ,INTERVAL DAY(4) TO MINUTE
+ALL_DATATYPES                  ,103,INTRVL_D2S_NP_NF               ,INTERVAL DAY(2) TO SECOND(0)
+ALL_DATATYPES                  ,104,INTRVL_D2S_NP_F                ,INTERVAL DAY(2) TO SECOND(2)
+ALL_DATATYPES                  ,105,INTRVL_D2S_P_NF                ,INTERVAL DAY(4) TO SECOND(0)
+ALL_DATATYPES                  ,106,INTRVL_D2S_P_F                 ,INTERVAL DAY(4) TO SECOND(2)
+ALL_DATATYPES                  ,107,INTRVL_H_NP                    ,INTERVAL HOUR(2)
+ALL_DATATYPES                  ,108,INTRVL_H_P                     ,INTERVAL HOUR(4)
+ALL_DATATYPES                  ,109,INTRVL_H2M_NP                  ,INTERVAL HOUR(2) TO MINUTE
+ALL_DATATYPES                  ,110,INTRVL_H2M_P                   ,INTERVAL HOUR(4) TO MINUTE
+ALL_DATATYPES                  ,111,INTRVL_H2S_NP_NF               ,INTERVAL HOUR(2) TO SECOND(0)
+ALL_DATATYPES                  ,112,INTRVL_H2S_NP_F                ,INTERVAL HOUR(2) TO SECOND(2)
+ALL_DATATYPES                  ,113,INTRVL_H2S_P_NF                ,INTERVAL HOUR(4) TO SECOND(0)
+ALL_DATATYPES                  ,114,INTRVL_H2S_P_F                 ,INTERVAL HOUR(4) TO SECOND(2)
+ALL_DATATYPES                  ,115,INTRVL_MIN_NP                  ,INTERVAL MINUTE(2)
+ALL_DATATYPES                  ,116,INTRVL_MIN_P                   ,INTERVAL MINUTE(4)
+ALL_DATATYPES                  ,117,INTRVL_MIN2S_NP_NF             ,INTERVAL MINUTE(2) TO SECOND(0)
+ALL_DATATYPES                  ,118,INTRVL_MIN2S_NP_F              ,INTERVAL MINUTE(2) TO SECOND(2)
+ALL_DATATYPES                  ,119,INTRVL_MIN2S_P_NF              ,INTERVAL MINUTE(4) TO SECOND(0)
+ALL_DATATYPES                  ,120,INTRVL_MIN2S_P_F               ,INTERVAL MINUTE(4) TO SECOND(2)
+ALL_DATATYPES                  ,121,INTRVL_S_NP_NF                 ,INTERVAL SECOND(2,0)
+ALL_DATATYPES                  ,122,INTRVL_S_NP_F                  ,INTERVAL SECOND(2,2)
+ALL_DATATYPES                  ,123,INTRVL_S_P_NF                  ,INTERVAL SECOND(4,0)
+ALL_DATATYPES                  ,124,INTRVL_S_P_F                   ,INTERVAL SECOND(4,2)
+ALL_DATATYPES                  ,125,LIST_OF_BYTE_TEXT              ,LIST OF BYTE VARYING AS TEXT
+ALL_DATATYPES                  ,126,LIST_OF_BYTE_BIN               ,LIST OF BYTE VARYING AS BINARY
+ALL_DATATYPES                  ,127,LONG_COL                       ,LIST OF BYTE VARYING AS TEXT
+ALL_DATATYPES                  ,128,LONG_RAW                       ,LIST OF BYTE VARYING AS BINARY
+ALL_DATATYPES                  ,129,BIN_1                          ,BINARY(1)
+ALL_DATATYPES                  ,130,BIN_VAR_4                      ,VARBINARY(4)
+
 ENCRYPT_TABLE                  ,1  ,CIPHER_TEXT                    ,VARCHAR(24)
 ENCRYPT_TABLE                  ,2  ,CIPHER_TEXT_HEX                ,VARCHAR(48)
 
@@ -9750,134 +10263,16 @@ SQLSRV_EMPLOYEES               ,1  ,EMPLOYEE_ID                    ,CHAR(5)
 
 SQLSRV_INSERT_TABLE            ,1  ,FIELD1                         ,CHAR(20)
 
-TABLE_ALL_DATATYPES            ,1  ,TINYINT_NOSCALE                ,TINYINT
-TABLE_ALL_DATATYPES            ,2  ,SMALLINT_NOSCALE               ,SMALLINT
-TABLE_ALL_DATATYPES            ,3  ,INTEGER_NOSCALE                ,INTEGER
-TABLE_ALL_DATATYPES            ,4  ,BIGINT_NOSCALE                 ,BIGINT
-TABLE_ALL_DATATYPES            ,5  ,TINYINT_SCALE                  ,TINYINT(2)
-TABLE_ALL_DATATYPES            ,6  ,SMALLINT_SCALE                 ,SMALLINT(2)
-TABLE_ALL_DATATYPES            ,7  ,INTEGER_SCALE                  ,INTEGER(2)
-TABLE_ALL_DATATYPES            ,8  ,BIGINT_SCALE                   ,BIGINT(2)
-TABLE_ALL_DATATYPES            ,9  ,FLOAT_NOSCALE                  ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,10 ,FLOAT_24                       ,REAL
-TABLE_ALL_DATATYPES            ,11 ,FLOAT_53                       ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,12 ,REAL_NOSCALE                   ,REAL
-TABLE_ALL_DATATYPES            ,13 ,DOUBLE_PRECISION               ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,14 ,DECIMAL_NOSCALE                ,INTEGER
-TABLE_ALL_DATATYPES            ,15 ,DECIMAL_4                      ,SMALLINT
-TABLE_ALL_DATATYPES            ,16 ,DECIMAL_9                      ,INTEGER
-TABLE_ALL_DATATYPES            ,17 ,DECIMAL_18                     ,BIGINT
-TABLE_ALL_DATATYPES            ,18 ,DECIMAL_19                     ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,19 ,DECIMAL_4_SCALE                ,SMALLINT(2)
-TABLE_ALL_DATATYPES            ,20 ,DECIMAL_9_SCALE                ,INTEGER(2)
-TABLE_ALL_DATATYPES            ,21 ,DECIMAL_18_SCALE               ,BIGINT(2)
-TABLE_ALL_DATATYPES            ,22 ,DECIMAL_19_SCALE               ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,23 ,NUMERIC_NOSCALE                ,INTEGER
-TABLE_ALL_DATATYPES            ,24 ,NUMERIC_4                      ,SMALLINT
-TABLE_ALL_DATATYPES            ,25 ,NUMERIC_9                      ,INTEGER
-TABLE_ALL_DATATYPES            ,26 ,NUMERIC_18                     ,BIGINT
-TABLE_ALL_DATATYPES            ,27 ,NUMERIC_19                     ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,28 ,NUMERIC_4_SCALE                ,SMALLINT(2)
-TABLE_ALL_DATATYPES            ,29 ,NUMERIC_9_SCALE                ,INTEGER(2)
-TABLE_ALL_DATATYPES            ,30 ,NUMERIC_18_SCALE               ,BIGINT(2)
-TABLE_ALL_DATATYPES            ,31 ,NUMERIC_19_SCALE               ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,32 ,NUMBER_NOSCALE                 ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,33 ,NUMBER_2                       ,TINYINT
-TABLE_ALL_DATATYPES            ,34 ,NUMBER_4                       ,SMALLINT
-TABLE_ALL_DATATYPES            ,35 ,NUMBER_9                       ,INTEGER
-TABLE_ALL_DATATYPES            ,36 ,NUMBER_18                      ,BIGINT
-TABLE_ALL_DATATYPES            ,37 ,NUMBER_19                      ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,38 ,NUMBER_2_SCALE                 ,TINYINT(2)
-TABLE_ALL_DATATYPES            ,39 ,NUMBER_4_SCALE                 ,SMALLINT(2)
-TABLE_ALL_DATATYPES            ,40 ,NUMBER_9_SCALE                 ,INTEGER(2)
-TABLE_ALL_DATATYPES            ,41 ,NUMBER_18_SCALE                ,BIGINT(2)
-TABLE_ALL_DATATYPES            ,42 ,NUMBER_19_SCALE                ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,43 ,NUMBER_2_NEGSCALE              ,TINYINT(-2)
-TABLE_ALL_DATATYPES            ,44 ,NUMBER_4_NEGSCALE              ,SMALLINT(-2)
-TABLE_ALL_DATATYPES            ,45 ,NUMBER_9_NEGSCALE              ,INTEGER(-2)
-TABLE_ALL_DATATYPES            ,46 ,NUMBER_18_NEGSCALE             ,BIGINT(-2)
-TABLE_ALL_DATATYPES            ,47 ,NUMBER_19_NEGSCALE             ,DOUBLE PRECISION
-TABLE_ALL_DATATYPES            ,48 ,NUMBER_STAR                    ,BIGINT
-TABLE_ALL_DATATYPES            ,49 ,NUMBER_STAR_SCALE              ,BIGINT(2)
-TABLE_ALL_DATATYPES            ,50 ,NUMBER_STAR_NEGSCALE           ,BIGINT(-2)
-TABLE_ALL_DATATYPES            ,51 ,CHAR_1                         ,CHAR(1)
-TABLE_ALL_DATATYPES            ,52 ,CHARACTER_1                    ,CHAR(1)
-TABLE_ALL_DATATYPES            ,53 ,CHAR_20                        ,CHAR(20)
-TABLE_ALL_DATATYPES            ,54 ,CHARACTER_20                   ,CHAR(20)
-TABLE_ALL_DATATYPES            ,55 ,CHAR_1_MCS                     ,CHAR(1)
-TABLE_ALL_DATATYPES            ,56 ,CHARACTER_1_MCS                ,CHAR(1)
-TABLE_ALL_DATATYPES            ,57 ,CHAR_20_MCS                    ,CHAR(20)
-TABLE_ALL_DATATYPES            ,58 ,CHARACTER_20_MCS               ,CHAR(20)
-TABLE_ALL_DATATYPES            ,59 ,CHAR_VARYING                   ,VARCHAR(1)
-TABLE_ALL_DATATYPES            ,60 ,CHARACTER_VARYING              ,VARCHAR(1)
-TABLE_ALL_DATATYPES            ,61 ,CHAR_VARYING_20                ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,62 ,CHARACTER_VARYING_20           ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,63 ,CHAR_VARYING_MCS               ,VARCHAR(1)
-TABLE_ALL_DATATYPES            ,64 ,CHARACTER_VARYING_MCS          ,VARCHAR(1)
-TABLE_ALL_DATATYPES            ,65 ,CHAR_VARYING_20_MCS            ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,66 ,CHARACTER_VARYING_20_MCS       ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,67 ,VARCHAR_20                     ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,68 ,VARCHAR2_20                    ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,69 ,VARCHAR_20_MCS                 ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,70 ,VARCHAR2_20_MCS                ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,71 ,LONG_VARCHAR                   ,VARCHAR(16383)
-TABLE_ALL_DATATYPES            ,72 ,RAW_20                         ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,73 ,NCHAR1                         ,CHAR(1)
-TABLE_ALL_DATATYPES            ,74 ,NATIONAL_CHAR                  ,CHAR(1)
-TABLE_ALL_DATATYPES            ,75 ,NATIONAL_CHARACTER             ,CHAR(1)
-TABLE_ALL_DATATYPES            ,76 ,NCHAR_20                       ,CHAR(20)
-TABLE_ALL_DATATYPES            ,77 ,NATIONAL_CHAR_20               ,CHAR(20)
-TABLE_ALL_DATATYPES            ,78 ,NATIONAL_CHARACTER_20          ,CHAR(20)
-TABLE_ALL_DATATYPES            ,79 ,NCHAR_VARYING                  ,VARCHAR(1)
-TABLE_ALL_DATATYPES            ,80 ,NATIONAL_CHAR_VARYING          ,VARCHAR(1)
-TABLE_ALL_DATATYPES            ,81 ,NATIONAL_CHARACTER_VARYING     ,VARCHAR(1)
-TABLE_ALL_DATATYPES            ,82 ,NCHAR_VARYING_20               ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,83 ,NATIONAL_CHAR_VARYING_20       ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,84 ,NATIONAL_CHARACTER_VARYING_20  ,VARCHAR(20)
-TABLE_ALL_DATATYPES            ,85 ,DATE_VMS                       ,DATE VMS
-TABLE_ALL_DATATYPES            ,86 ,DATE_ANSI                      ,DATE ANSI
-TABLE_ALL_DATATYPES            ,87 ,TIME_NOFRAC                    ,TIME(0)
-TABLE_ALL_DATATYPES            ,88 ,TIME_FRAC                      ,TIME(2)
-TABLE_ALL_DATATYPES            ,89 ,TIMESTAMP_NOFRAC               ,TIMESTAMP(0)
-TABLE_ALL_DATATYPES            ,90 ,TIMESTAMP_FRAC                 ,TIMESTAMP(2)
-TABLE_ALL_DATATYPES            ,91 ,INTRVL_YEAR_NP                 ,INTERVAL YEAR(2)
-TABLE_ALL_DATATYPES            ,92 ,INTRVL_YEAR_P                  ,INTERVAL YEAR(3)
-TABLE_ALL_DATATYPES            ,93 ,INTRVL_Y2M_NP                  ,INTERVAL YEAR(2) TO MONTH
-TABLE_ALL_DATATYPES            ,94 ,INTRVL_Y2M_P                   ,INTERVAL YEAR(3) TO MONTH
-TABLE_ALL_DATATYPES            ,95 ,INTRVL_M_NP                    ,INTERVAL MONTH(2)
-TABLE_ALL_DATATYPES            ,96 ,INTRVL_M_P                     ,INTERVAL MONTH(3)
-TABLE_ALL_DATATYPES            ,97 ,INTRVL_D_NP                    ,INTERVAL DAY(2)
-TABLE_ALL_DATATYPES            ,98 ,INTRVL_D_P                     ,INTERVAL DAY(3)
-TABLE_ALL_DATATYPES            ,99 ,INTRVL_D2H_NP                  ,INTERVAL DAY(2) TO HOUR
-TABLE_ALL_DATATYPES            ,100,INTRVL_D2H_P                   ,INTERVAL DAY(4) TO HOUR
-TABLE_ALL_DATATYPES            ,101,INTRVL_D2M_NP                  ,INTERVAL DAY(2) TO MINUTE
-TABLE_ALL_DATATYPES            ,102,INTRVL_D2M_P                   ,INTERVAL DAY(4) TO MINUTE
-TABLE_ALL_DATATYPES            ,103,INTRVL_D2S_NP_NF               ,INTERVAL DAY(2) TO SECOND(0)
-TABLE_ALL_DATATYPES            ,104,INTRVL_D2S_NP_F                ,INTERVAL DAY(2) TO SECOND(2)
-TABLE_ALL_DATATYPES            ,105,INTRVL_D2S_P_NF                ,INTERVAL DAY(4) TO SECOND(0)
-TABLE_ALL_DATATYPES            ,106,INTRVL_D2S_P_F                 ,INTERVAL DAY(4) TO SECOND(2)
-TABLE_ALL_DATATYPES            ,107,INTRVL_H_NP                    ,INTERVAL HOUR(2)
-TABLE_ALL_DATATYPES            ,108,INTRVL_H_P                     ,INTERVAL HOUR(4)
-TABLE_ALL_DATATYPES            ,109,INTRVL_H2M_NP                  ,INTERVAL HOUR(2) TO MINUTE
-TABLE_ALL_DATATYPES            ,110,INTRVL_H2M_P                   ,INTERVAL HOUR(4) TO MINUTE
-TABLE_ALL_DATATYPES            ,111,INTRVL_H2S_NP_NF               ,INTERVAL HOUR(2) TO SECOND(0)
-TABLE_ALL_DATATYPES            ,112,INTRVL_H2S_NP_F                ,INTERVAL HOUR(2) TO SECOND(2)
-TABLE_ALL_DATATYPES            ,113,INTRVL_H2S_P_NF                ,INTERVAL HOUR(4) TO SECOND(0)
-TABLE_ALL_DATATYPES            ,114,INTRVL_H2S_P_F                 ,INTERVAL HOUR(4) TO SECOND(2)
-TABLE_ALL_DATATYPES            ,115,INTRVL_MIN_NP                  ,INTERVAL MINUTE(2)
-TABLE_ALL_DATATYPES            ,116,INTRVL_MIN_P                   ,INTERVAL MINUTE(4)
-TABLE_ALL_DATATYPES            ,117,INTRVL_MIN2S_NP_NF             ,INTERVAL MINUTE(2) TO SECOND(0)
-TABLE_ALL_DATATYPES            ,118,INTRVL_MIN2S_NP_F              ,INTERVAL MINUTE(2) TO SECOND(2)
-TABLE_ALL_DATATYPES            ,119,INTRVL_MIN2S_P_NF              ,INTERVAL MINUTE(4) TO SECOND(0)
-TABLE_ALL_DATATYPES            ,120,INTRVL_MIN2S_P_F               ,INTERVAL MINUTE(4) TO SECOND(2)
-TABLE_ALL_DATATYPES            ,121,INTRVL_S_NP_NF                 ,INTERVAL SECOND(2,0)
-TABLE_ALL_DATATYPES            ,122,INTRVL_S_NP_F                  ,INTERVAL SECOND(2,2)
-TABLE_ALL_DATATYPES            ,123,INTRVL_S_P_NF                  ,INTERVAL SECOND(4,0)
-TABLE_ALL_DATATYPES            ,124,INTRVL_S_P_F                   ,INTERVAL SECOND(4,2)
-TABLE_ALL_DATATYPES            ,125,LIST_OF_BYTE_TEXT              ,LIST OF BYTE VARYING AS TEXT
-TABLE_ALL_DATATYPES            ,126,LIST_OF_BYTE_BIN               ,LIST OF BYTE VARYING AS BINARY
-TABLE_ALL_DATATYPES            ,127,LONG_COL                       ,LIST OF BYTE VARYING AS TEXT
-TABLE_ALL_DATATYPES            ,128,LONG_RAW                       ,LIST OF BYTE VARYING AS BINARY
+STALL_RW_CNTS                  ,1  ,STALL_DATE                     ,CHAR(10)
+STALL_RW_CNTS                  ,2  ,STALL_TIME                     ,CHAR(2)
+STALL_RW_CNTS                  ,3  ,INDIC_RW                       ,CHAR(1)
+STALL_RW_CNTS                  ,4  ,STALL_REASON                   ,VARCHAR(198)
+
+STALL_RW_TIMES                 ,1  ,STALL_DATE                     ,CHAR(10)
+STALL_RW_TIMES                 ,2  ,STALL_TIME                     ,CHAR(16)
+STALL_RW_TIMES                 ,3  ,STALL_PID                      ,CHAR(14)
+STALL_RW_TIMES                 ,4  ,INDIC_RW                       ,CHAR(1)
+STALL_RW_TIMES                 ,5  ,STALL_REASON                   ,VARCHAR(198)
 
 TABLE_PARTI                    ,1  ,COL1                           ,INTEGER
 TABLE_PARTI                    ,2  ,COL2                           ,CHAR(10)
@@ -9886,6 +10281,11 @@ TABLE_PARTI                    ,3  ,COL3                           ,INTEGER
 TABLE_PLACE                    ,1  ,COL1                           ,INTEGER
 TABLE_PLACE                    ,2  ,COL2                           ,CHAR(10)
 TABLE_PLACE                    ,3  ,COL3                           ,INTEGER
+
+TABLE_TRACE                    ,1  ,COL1                           ,INTEGER
+TABLE_TRACE                    ,2  ,COL2                           ,CHAR(10)
+TABLE_TRACE                    ,3  ,COL3                           ,INTEGER
+TABLE_TRACE                    ,4  ,STMT                           ,CHAR(3)
 
 WAITING_FOR_CNTS               ,1  ,STALL_DATE                     ,CHAR(10)
 WAITING_FOR_CNTS               ,2  ,STALL_TIME                     ,CHAR(2)
@@ -16184,7 +16584,12 @@ CPTRDB_JDBC_LogfilesDifferences
 <b>CPTRDB_SRVTRC_CLIENTS_73202_ONE.COM</b><br>
 <b>CPTRDB_SRVTRC_CLIENTS_73402_ONE.COM</b><br><br>
 
-<b>CPTRDB_CONFIGURATION.REF</b> (Configuration file)<br>
+<b>CPTRDB_CONFIGURATION.REF</b> (Configuration file)<br><br>
+
+<b>CPTRDB_JDBC_TRC_LIST_CLIENTS.COM</b><br>
+<b>CPTRDB_JDBC_TRC_LIST_SQL.COM</b><br>
+<b>CPTRDB_JDBC_TRC_LIST_TIME.COM</b><br>
+<b>CPTRDB_JDBC_TRC_LIST_TRANS.COM</b><br>
 
 <h4><font face="helvetica, arial, sans-serif" color="#330099">
 Procedures Usage
@@ -16472,6 +16877,340 @@ $!-------------------------
 
 <pre>
 $ @CPTRDB_SUBMIT {node} CPTRDB_SRVTRC_CLIENTS_73402_ONE
+</pre>
+
+<p>
+[As the Rdb JDBC trace files contain 'long' lines that prevent the use of a 
+ normal editor to read them, the CPTRDB_JDBC_TRC*.COM procedures below are based
+ on the DCL SEARCH command, and/or handle the input file line per line.]
+</p>
+
+<p>
+<b>CPTRDB_JDBC_TRC_LIST_CLIENTS.COM</b><br>
+  List all clients from a hardcoded Rdb JDBC level 0X40000400 trace file.
+</p>
+
+<p>
+  Parameters: Adapt the input trace file filespec and/or the SEARCH command.
+</p>
+
+<pre>
+$!------------------------------------------------------------------
+$ trcfile = "''datdir'SRVTRC_TS1703_L15S58_20180917.LOG_17SEP195428"
+$!------------------------------------------------------------------
+</pre>
+
+<p>
+  Search items:
+</p>
+
+<pre>
+!! "New Client", -
+!! ".doAction.INIT_V713(", -
+!! ".doAction.CONNECT_SECURE_V73(", -
+"Client connecting", -
+"client info", -
+",name=", -
+",db=", -
+",ip=", -
+",processID=", -
+",version=", -
+"[RdbProcessId]", -
+".doAction.DISCONNECT(", -
+".forceDisconnect.<FORCED DISCONNECT>(", -
+"RdbException", -
+"-E-", -
+"-F-"
+</pre>
+
+<p>
+  Usage:
+</p>
+
+<pre>
+$ @CPTRDB_SUBMIT {node} CPTRDB_JDBC_TRC_LIST_CLIENTS 
+</pre>
+
+<p>
+  The procedure lists the raw data lines default in the CPT$RDB_LISTS: directory
+  without any formatting.
+</p>
+
+<p>
+  Output sample:
+</p>
+
+<pre>
+>> RDB$CLIENT_ID_0000002D C00000000*T 2018-09-17 20:01:14.851 : srv.DBClientHandler@7bcd107f.message msg : New Client initiating RDB$CLIENT_ID_0000002D
+>> RDB$CLIENT_ID_0000002E C00000000*T 2018-09-17 20:01:14.901 : srv.DBClientHandler@67a5a19.message msg : New Client initiating RDB$CLIENT_ID_0000002E
+>40000400> RDB$CLIENT_ID_0000002E C00000000*T 2018-09-17 20:01:15.046 : srv.DBActionHandler@2cf18e8e( "client info", "
+  ,name=JDBCMON
+  ,db=clio_db
+  ,ip=10.3.130.191:54490
+  ,processID=29E96F42:3
+  ,version=73410:20160222" )
+>40000400> RDB$CLIENT_ID_0000002E C00000000*T 2018-09-17 20:01:15.046 : [RdbProcessId]  msg : 29E96F42:23
+>00000400> RDB$CLIENT_ID_0000002E C00000000*T 2018-09-17 20:01:15.246 : srv.DBActionHandler@2cf18e8e.doAction.DISCONNECT(  )
+>00000400> RDB$CLIENT_ID_0000002C C00000000*T 2018-09-17 20:01:33.381 : srv.DBActionHandler@a81b1fb.doAction.DISCONNECT(  )
+>> RDB$CLIENT_ID_0000002F C00000000*T 2018-09-17 20:01:39.888 : srv.DBClientHandler@6d372656.message msg : New Client initiating RDB$CLIENT_ID_0000002F
+>> RDB$CLIENT_ID_00000030 C00000000*T 2018-09-17 20:01:39.988 : srv.DBClientHandler@69d6065.message msg : New Client initiating RDB$CLIENT_ID_00000030
+>40000400> RDB$CLIENT_ID_00000030 C00000000*T 2018-09-17 20:01:40.099 : srv.DBActionHandler@2c8376b( "client info", "
+  ,name=JDBCMON
+  ,db=clio_db
+  ,ip=10.3.130.191:54497
+  ,processID=29E96F42:3
+  ,version=73410:20160222" )
+>40000400> RDB$CLIENT_ID_00000030 C00000000*T 2018-09-17 20:01:40.149 : [RdbProcessId]  msg : 29E96F42:24
+>00000400> RDB$CLIENT_ID_00000030 C00000000*T 2018-09-17 20:01:40.299 : srv.DBActionHandler@2c8376b.doAction.DISCONNECT(  )
+>> RDB$CLIENT_ID_00000031 C00000000*T 2018-09-17 20:02:47.366 : srv.DBClientHandler@1629ce8c.message msg : New Client initiating RDB$CLIENT_ID_00000031
+>> RDB$CLIENT_ID_00000032 C00000000*T 2018-09-17 20:02:47.416 : srv.DBClientHandler@359eda2c.message msg : New Client initiating RDB$CLIENT_ID_00000032
+>40000400> RDB$CLIENT_ID_00000032 C00000000*T 2018-09-17 20:02:47.576 : srv.DBActionHandler@ffdadcd( "client info", "
+  ,name=JDBCMON
+  ,db=clio_db
+  ,ip=10.3.130.191:54505
+  ,processID=29E96F42:2
+  ,version=73410:20160222" )
+>40000400> RDB$CLIENT_ID_00000032 C00000000*T 2018-09-17 20:02:47.628 : [RdbProcessId]  msg : 29E96F42:25
+>00000400> RDB$CLIENT_ID_00000032 C00000000*T 2018-09-17 20:02:47.778 : srv.DBActionHandler@ffdadcd.doAction.DISCONNECT(  )
+</pre>
+
+<p>
+<b>CPTRDB_JDBC_TRC_LIST_SQL.COM</b><br>
+  List all sql statements for a given client from a hardcoded Rdb JDBC level
+  0X40000400 trace file.<br>
+  Number the sql statements and split the output lines in char(132) segments.
+</p>
+
+<p>
+  Parameters: Adapt the input trace file filespec and client id 
+</p>
+
+<pre>
+$!-------------------------------------------------------------------
+$ trcfile  = "''datdir'SRVTRC_TS1703_L15S58_20180601.LOG_01JUN002139"
+$ srchstr1 = ">> sql>"
+$ srchstr2 = "RDB$CLIENT_ID_00000010"
+$!-------------------------------------------------------------------
+</pre>
+
+<p>
+  Usage:
+</p>
+
+<pre>
+$ @CPTRDB_SUBMIT {node} CPTRDB_JDBC_TRC_LIST_SQL 
+</pre>
+
+<p>
+  The output file is default created in the CPT$RDB_LISTS: directory.
+</p>
+
+<p>
+  Output sample:<br>
+  (Statements generated by the 'Hibernate' product)
+</p>
+
+<pre>
+-- 2 --
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-06-01 0:39:22.455 : >> sql>  msg : select disability0_.HANDICAP_ID as HANDICAP1_3
+0_0_, disability0_.HANDICAP_CD as HANDICAP2_30_0_, disability0_.DSCRPN_F as DSCRPN3_30_0_, disability0_.DSCRPN_D as DSCRPN4_30_0_, d
+isability0_.DSCRPN_G as DSCRPN5_30_0_, disability0_.DSCRPN_E as DSCRPN6_30_0_, disability0_.TIME_STAMP as TIME7_30_0_, disability0_.
+USER_FNGR_PRNT as USER8_30_0_, disability0_.APPLCTN_ID as APPLCTN9_30_0_ , dbkey as RDB$JDBC_ROW_ID from CLIO_HANDICAPS disability0_
+ where disability0_.HANDICAP_ID=?
+------------------------------------------------------------------------------------------------------------------------------------
+-- 3 --
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-06-01 0:39:22.505 : >> sql>  msg : select addresstyp0_.ADR_TYPE_ID as ADR1_1_0_, 
+addresstyp0_.HIBVERSION as HIBVERSION1_0_, addresstyp0_.ADR_TYPE_CD as ADR2_1_0_, addresstyp0_.DSCRPN_F as DSCRPN3_1_0_, addresstyp0
+_.DSCRPN_D as DSCRPN4_1_0_, addresstyp0_.DSCRPN_G as DSCRPN6_1_0_, addresstyp0_.DSCRPN_E as DSCRPN5_1_0_, addresstyp0_.TIME_STAMP as
+ TIME7_1_0_, addresstyp0_.USER_FNGR_PRNT as USER8_1_0_, addresstyp0_.APPLCTN_ID as APPLCTN9_1_0_ , dbkey as RDB$JDBC_ROW_ID from CLI
+O_ADR_TYPES addresstyp0_ where addresstyp0_.ADR_TYPE_ID=?
+------------------------------------------------------------------------------------------------------------------------------------
+-- 4 --
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-06-01 0:39:22.505 : >> sql>  msg : select applicatio0_.APPLCTN_ID as APPLCTN1_37_
+0_, applicatio0_.APPLCTN_CD as APPLCTN2_37_0_, applicatio0_.DSCRPN_F as DSCRPN3_37_0_, applicatio0_.DSCRPN_D as DSCRPN4_37_0_, appli
+catio0_.DSCRPN_G as DSCRPN5_37_0_, applicatio0_.DSCRPN_E as DSCRPN6_37_0_ , dbkey as RDB$JDBC_ROW_ID from CLIO_APPLCTNS applicatio0_
+ where applicatio0_.APPLCTN_ID=?
+------------------------------------------------------------------------------------------------------------------------------------
+-- 5 --
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-06-01 0:39:22.616 : >> sql>  msg : select linkedkeys0_.INTRN_KEY_ID as INTRN3_1_,
+ linkedkeys0_.LNK_KEY_ID as LNK1_1_, linkedkeys0_.LNK_KEY_ID as LNK1_17_0_, linkedkeys0_.INTRN_KEY_TYPE_ID as INTRN2_17_0_, linkedke
+ys0_.INTRN_KEY_ID as INTRN3_17_0_, linkedkeys0_.XTRN_KEY_TYPE_ID as XTRN4_17_0_, linkedkeys0_.XTRN_KEY_VALUE as XTRN5_17_0_, linkedk
+eys0_.TIME_STAMP as TIME6_17_0_, linkedkeys0_.USER_FNGR_PRNT as USER7_17_0_ , dbkey as RDB$JDBC_ROW_ID from CLIO_LNK_KEYS linkedkeys
+0_ where  ( linkedkeys0_.INTRN_KEY_TYPE_ID=1)  and linkedkeys0_.INTRN_KEY_ID=?
+------------------------------------------------------------------------------------------------------------------------------------
+-- 6 --
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-06-01 0:39:22.666 : >> sql>  msg : select bankaccoun0_.BANK_ACCT_ID as BANK1_2_, 
+bankaccoun0_.CLNT_ID as CLNT13_2_, bankaccoun0_.SEQ_NO as SEQ3_2_, bankaccoun0_.BANK_OFFC_ID as BANK4_2_, bankaccoun0_.BANK_ACCT_NO 
+as BANK14_2_, bankaccoun0_.BANK_IBAN_CD as BANK5_2_, bankaccoun0_.BANK_ACCT_OWNER as BANK7_2_, bankaccoun0_.BANK_ACCT_TYPE as BANK8_
+2_, bankaccoun0_.BANK_ACCT_COMMENT as BANK9_2_, bankaccoun0_.TIME_STAMP as TIME10_2_, bankaccoun0_.USER_FNGR_PRNT as USER11_2_, bank
+accoun0_.APPLCTN_ID as APPLCTN12_2_ , dbkey as RDB$JDBC_ROW_ID from CLIO_BANK_ACCTS bankaccoun0_ where (bankaccoun0_.CLNT_ID=3892115
+ ) order by  bankaccoun0_.SEQ_NO DESC LIMIT 1
+------------------------------------------------------------------------------------------------------------------------------------
+-- 7 --
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-06-01 0:39:22.716 : >> sql>  msg : select * , dbkey as RDB$JDBC_ROW_ID from clio_
+clnts where clnt_id='3892115'
+------------------------------------------------------------------------------------------------------------------------------------
+</pre>
+
+<p>
+<b>CPTRDB_JDBC_TRC_LIST_TIME.COM</b><br>
+  List timestamp interval lines from a hardcoded Rdb JDBC level 0X40000400
+  trace file.<br> 
+  Trunc the output lines to char(132) segments.
+</p>
+
+<p>
+  Parameters: Adapt the input trace file filespec and timestamp string.
+</p>
+
+<pre>
+$!------------------------------------------------------------------
+$ trcfile = "''datdir'SRVTRC_TS1703_L15S58_20180601.LOG_01JUN002139"
+$ timestr = "2018-06-01 10:00:00."
+$!------------------------------------------------------------------
+</pre>
+
+<p>
+  Usage:
+</p>
+
+<pre>
+$ @CPTRDB_SUBMIT {node} CPTRDB_JDBC_TRC_LIST_TIME
+</pre>
+
+<p>
+  The output file is default created in the CPT$RDB_LISTS: directory.
+</p>
+
+<p>
+  Output sample:
+</p>
+
+<pre>
+>00000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : srv.DBActionHandler@2aaf914c.doAction.SET_DEF_TRANS(  )
+>00000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : srv.DBActionHandler@2aaf914c.doAction.SET_DEF_TRANS(  )
+>00000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : srv.DBActionHandler@2aaf914c.doAction.PREPARE_STMT(  )
+>40000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : >>  msg : PREPARE_STMT
+>40000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : >> sql>  msg : SELECT TA_BE_ROAD_ID, NAME, UPPERNAME, LC, ST
+>00000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : srv.DBActionHandler@2aaf914c.doAction.SELECT(  )
+>40000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 :  >>  msg : SELECT
+>40000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : [[num records]]  msg : 100
+>00000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : srv.DBActionHandler@2aaf914c.doAction.FETCH_READ_ROW(  )
+>40000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 :  >>  msg : FETCH_READ_ROW
+>40000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : [[num records]]  msg : 100
+>00000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 : srv.DBActionHandler@2aaf914c.doAction.FETCH_READ_ROW(  )
+>40000400> RDB$CLIENT_ID_0000018E C00000000*T 2018-06-01 10:00:00.378 :  >>  msg : FETCH_READ_ROW
+</pre>
+
+<p>
+<b>CPTRDB_JDBC_TRC_LIST_TRANS.COM</b><br>
+  List the transactons from a hardcoded Rdb JDBC level 0X40000400 trace file.<br>
+  Sort the output lines on client id and time.<br>
+  List the first char(132) segment and calculate the elapsed time per client.<br>
+  Allow search and sort on start, end and elapsed time.
+</p>
+  
+<p>
+  Parameters: Adapt the input trace file filespec and/or SEARCH command
+</p>
+
+<pre>
+$!------------------------------------------------------------------
+$ trcfile = "''datdir'SRVTRC_TS1703_L15S58_20180917.LOG_17SEP195428"
+$!------------------------------------------------------------------
+</pre>
+
+<p>
+Search items:
+</p>
+
+<pre>
+"[RdbProcessId]", -
+">> sql>  msg : select", -
+">> sql>  msg : insert", -
+">> sql>  msg : update", -
+">> sql>  msg : delete", -
+!! ".doAction.EXECUTE_BATCH(", -
+!! ".doAction.EXECUTE_INSERT(", -
+!! ".doAction.EXECUTE_STMT(", -
+!! ".doAction.FETCH_READ_ROW(", -
+!! ".doAction.CLOSE_CURS(", -
+!! ".doAction.PREPARE_STMT(", -
+!! ".doAction.RELEASE_STMT(", -
+!! ".doAction.SELECT(", -
+!! ".doAction.SET_BIN_VAL(", -
+!! ".doAction.SET_DATE_VAL_T(", -
+!! ".doAction.SET_INT_VAL(", -
+!! ".doAction.SET_NULL_IND(", -
+!! ".doAction.SET_DEF_TRANS("
+".doAction.ROLL_TRANS(", -
+".doAction.COMMIT_TRANS("
+</pre>
+
+<p>
+  Usage:
+</p>
+
+<pre>
+$ @CPTRDB_SUBMIT {node} CPTRDB_JDBC_TRC_LIST_TRANS
+</pre>
+
+<p>
+  The output file is default created in the CPT$RDB_LISTS: directory.
+</p>
+
+<p>
+  Output sample:
+</p>
+
+<pre>
+------------------------------------------------------------------------------------------------------------------------------------
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-09-17 19:54:31.731 : [RdbProcessId]  msg : 29E96F42:9
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-09-17 19:54:31.834 : >> sql>  msg : select MASTER_CLNT_ID , dbkey as RDB$JDBC_ROW
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-09-17 19:54:32.710 : >> sql>  msg : select client0_.CLNT_ID as CLNT1_4_0_, addres
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-09-17 19:54:33.804 : >> sql>  msg : select addresstyp0_.ADR_TYPE_ID as ADR1_1_0_,
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-09-17 19:54:34.148 : >> sql>  msg : select applicatio0_.APPLCTN_ID as APPLCTN1_37
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-09-17 19:54:34.577 : >> sql>  msg : select country0_.CNTRY_ID as CNTRY1_14_0_, co
+>40000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-09-17 19:54:35.554 : >> sql>  msg : select linkedkeys0_.INTRN_KEY_ID as INTRN3_1_
+>00000400> RDB$CLIENT_ID_00000010 C00000000*T 2018-09-17 19:54:36.528 : srv.DBActionHandler@21f8c6df.doAction.COMMIT_TRANS(  )
+***Start   2018-09-17 19:54:31.73 RDB$CLIENT_ID_00000010
+***End     2018-09-17 19:54:36.52 RDB$CLIENT_ID_00000010
+***Elapsed          0 00:00:04.79 RDB$CLIENT_ID_00000010
+------------------------------------------------------------------------------------------------------------------------------------
+>40000400> RDB$CLIENT_ID_00000012 C00000000*T 2018-09-17 19:54:32.006 : [RdbProcessId]  msg : 29E96F42:2
+>40000400> RDB$CLIENT_ID_00000012 C00000000*T 2018-09-17 19:54:32.108 : >> sql>  msg : SELECT city2.* , dbkey as RDB$JDBC_ROW_ID FRO
+>00000400> RDB$CLIENT_ID_00000012 C00000000*T 2018-09-17 19:54:39.233 : srv.DBActionHandler@462ba11b.doAction.COMMIT_TRANS(  )
+>40000400> RDB$CLIENT_ID_00000012 C00000000*T 2018-09-17 19:54:40.400 : >> sql>  msg : select client0_.CLNT_ID as CLNT1_4_0_, addres
+>40000400> RDB$CLIENT_ID_00000012 C00000000*T 2018-09-17 19:54:42.139 : >> sql>  msg : select linkedkeys0_.INTRN_KEY_ID as INTRN3_1_
+>40000400> RDB$CLIENT_ID_00000012 C00000000*T 2018-09-17 19:54:42.189 : >> sql>  msg : select bankaccoun0_.BANK_ACCT_ID as BANK1_2_,
+>00000400> RDB$CLIENT_ID_00000012 C00000000*T 2018-09-17 19:54:42.239 : srv.DBActionHandler@462ba11b.doAction.COMMIT_TRANS(  )
+***Start   2018-09-17 19:54:32.00 RDB$CLIENT_ID_00000012
+***End     2018-09-17 19:54:42.23 RDB$CLIENT_ID_00000012
+***Elapsed          0 00:00:10.23 RDB$CLIENT_ID_00000012
+------------------------------------------------------------------------------------------------------------------------------------
+>40000400> RDB$CLIENT_ID_00000013 C00000000*T 2018-09-17 19:54:31.784 : [RdbProcessId]  msg : 29E96F42:7
+>40000400> RDB$CLIENT_ID_00000013 C00000000*T 2018-09-17 19:54:32.237 : >> sql>  msg : select client0_.CLNT_ID as CLNT1_4_0_, addres
+>40000400> RDB$CLIENT_ID_00000013 C00000000*T 2018-09-17 19:54:34.040 : >> sql>  msg : select disability0_.HANDICAP_ID as HANDICAP1_
+>40000400> RDB$CLIENT_ID_00000013 C00000000*T 2018-09-17 19:54:34.527 : >> sql>  msg : select applicatio0_.APPLCTN_ID as APPLCTN1_37
+>40000400> RDB$CLIENT_ID_00000013 C00000000*T 2018-09-17 19:54:35.604 : >> sql>  msg : select linkedkeys0_.INTRN_KEY_ID as INTRN3_1_
+>40000400> RDB$CLIENT_ID_00000013 C00000000*T 2018-09-17 19:54:37.811 : >> sql>  msg : select bankaccoun0_.BANK_ACCT_ID as BANK1_2_,
+>00000400> RDB$CLIENT_ID_00000013 C00000000*T 2018-09-17 19:54:38.105 : srv.DBActionHandler@43462851.doAction.COMMIT_TRANS(  )
+***Start   2018-09-17 19:54:31.78 RDB$CLIENT_ID_00000013
+***End     2018-09-17 19:54:38.10 RDB$CLIENT_ID_00000013
+***Elapsed          0 00:00:06.32 RDB$CLIENT_ID_00000013
+------------------------------------------------------------------------------------------------------------------------------------
+>40000400> RDB$CLIENT_ID_00000014 C00000000*T 2018-09-17 19:54:31.784 : [RdbProcessId]  msg : 29E96F42:4
+>40000400> RDB$CLIENT_ID_00000014 C00000000*T 2018-09-17 19:54:32.237 : >> sql>  msg : select client0_.CLNT_ID as CLNT1_4_0_, addres
+>40000400> RDB$CLIENT_ID_00000014 C00000000*T 2018-09-17 19:54:33.752 : >> sql>  msg : select disability0_.HANDICAP_ID as HANDICAP1_
+>40000400> RDB$CLIENT_ID_00000014 C00000000*T 2018-09-17 19:54:34.527 : >> sql>  msg : select applicatio0_.APPLCTN_ID as APPLCTN1_37
+>40000400> RDB$CLIENT_ID_00000014 C00000000*T 2018-09-17 19:54:35.187 : >> sql>  msg : select country0_.CNTRY_ID as CNTRY1_14_0_, co
+>40000400> RDB$CLIENT_ID_00000014 C00000000*T 2018-09-17 19:54:35.903 : >> sql>  msg : select linkedkeys0_.INTRN_KEY_ID as INTRN3_1_
+>40000400> RDB$CLIENT_ID_00000014 C00000000*T 2018-09-17 19:54:37.937 : >> sql>  msg : select bankaccoun0_.BANK_ACCT_ID as BANK1_2_,
+>00000400> RDB$CLIENT_ID_00000014 C00000000*T 2018-09-17 19:54:38.155 : srv.DBActionHandler@e4ac00c.doAction.COMMIT_TRANS(  )
+***Start   2018-09-17 19:54:31.78 RDB$CLIENT_ID_00000014
+***End     2018-09-17 19:54:38.15 RDB$CLIENT_ID_00000014
+***Elapsed          0 00:00:06.37 RDB$CLIENT_ID_00000014
+------------------------------------------------------------------------------------------------------------------------------------
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
