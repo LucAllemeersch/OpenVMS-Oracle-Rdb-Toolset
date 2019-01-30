@@ -20,7 +20,7 @@ Users Guide
 <b>CPT$RDB:CPTRDB_USERS_GUIDE.HTML</b><br><br>
 
 Created:  17-apr-2013, Luc Allemeersch<br>
-Modified: 24-oct-2018, Luc Allemeersch<br>
+Modified: 30-jan-2019, Luc Allemeersch<br>
 
 <a name="Chapter 1"></a>
 <h3>    
@@ -196,7 +196,7 @@ https://github.com/LucAllemeersch/OpenVMS-Oracle-Rdb-Toolset</a><br>
   Provides a condensed introduction to the CockpitMgr for OpenVMS product.
 </p>
 
-For feedback and remarks on the toolset, contact 
+For feedback, remarks and questions on the toolset, contact 
 <a href="mailto:luc.allemeersch@infrabel.be">luc.allemeersch@infrabel.be</a><br>
 <br>
 
@@ -208,9 +208,7 @@ For more information on Oracle Rdb, visit <a href="http://www.oracle.com/rdb">ww
 For more information on JCC Logminer Loader, visit <a href="http://www.jcc.com">www.jcc.com</a><br>
 For more information on the Oracle Rdb List Server, visit <a href="http://www.jcc.com">www.jcc.com</a><br>
 For more information on OpenVMS, visit <a href="http://www.vmssoftware.com">www.vmssoftware.com</a> and
-<a href="https://www.hpe.com/us/en/servers/openvms.html">www.hpe.com/us/en/servers/openvms.html</a><br>
-For more information on T4 and TlViz visit 
-<a href="http://h41379.www4.hpe.com/openvms/products/t4">http://h41379.www4.hpe.com/openvms/products/t4</a><br><br>
+<a href="https://www.hpe.com/us/en/servers/openvms.html">www.hpe.com/us/en/servers/openvms.html</a><br><br>
 
 <a href="#Chapter 1">To Top</a><br>
 
@@ -256,7 +254,7 @@ studies in computer science (major programming, 1984) both from the
 </font>
 </h3>
 
-Copyright © 2013 - 2018 Luc Allemeersch<br>
+Copyright © 2013 - 2019 Luc Allemeersch<br>
 
 <p>
 This program is free software: you can redistribute it and/or modify
@@ -323,7 +321,7 @@ Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-210<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-220<br>
 Oracle SQL/Services, OCI Services For Oracle Rdb V7.3-230<br>
 Oracle Trace For Rdb V7.2-03<br>
-CockpitMgr for OpenVMS V7.10-50<br>
+CockpitMgr for OpenVMS V7.11<br>
 HP C V7.2-001<br>
 HP Bliss V1.12-072<br>
 JCC Logminer Loader V3.2.2<br>
@@ -331,6 +329,7 @@ JCC Logminer Loader V3.4.4<br>
 JCC Logminer Loader V3.5.0<br>
 JCC Logminer Loader V3.5.1<br>
 OpenVMS Oracle Client V10.2.0.2.0<br>
+OpenVMS Oracle Client V11.2.0.4.0<br>
 OpenVMS JAVA V1.5.0-7<br>
 OpenVMS JAVA V1.6.0-5<br>
 HP OpenVMS IA64 V8.4<br>
@@ -371,16 +370,6 @@ CPTRDB_KIT_YYYYMMDD_DDMMMHHMMSS.A (OpenVMS backup save set), the user guides
 CPTRDB_USERS_GUIDE.[TXT|HTML], and the installation procedures
 CPTRDB_TOOLSET_KITINSTAL_%.COM, CPTRDB_TOOLSET_[STOP|START]_GEN.COM and
 CPTRDB_TOOLSET_SUBMIT_KITINSTAL.COM .
-</p>
-
-<p>
-All source files in the kit have a version number of one ";1".
-</p>
-
-<p>
-All reference files *.REF in the kit have been renamed using
-CPTRDB_RENAME_CDT.COM to their creation date and time
-{name}_{node}_yyyymmdd.REF_ddmmmhhmmss .
 </p>
 
 <p>
@@ -436,6 +425,17 @@ $ COPY CPTRDB_USERS_GUIDE.* CPT$RDB_CHANGES:
 <p>
 The changes are documented in the chapter 
 <a href="#Chapter 7">§ -- 7 -- Kit Updates Log</a> of the users guide.
+</p>
+
+<p>
+All source files in the kits have a version number of one ";1".
+</p>
+
+<p>
+The template configuration and reference files .REF in the kits have been
+renamed using the procedure CPTRDB_RENAME_CDT.COM to their creation date and
+time {name}_{node}_yyyymmdd.REF_ddmmmhhmmss, in order not to intervene
+in the runtime active environments.
 </p>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -1592,6 +1592,67 @@ CPTRDB_SHOW_ENTRIES_L15S29_20181024.REF_24OCT123146
 (Renamed template toolset configuration and ENTRIES reference files)
 </pre>
 
+<p>
+<b>CPTRDB_CHANGES_20190130_30JAN144135.A</b><br>
+Cumulative Partial Update Kit
+</p>
+
+<p>
+Running On New Versions:
+</p>
+
+<pre>
+OpenVMS Oracle Client V11.2.0.4.0
+</pre>
+
+<p>
+New Procedures:
+</p>
+
+<pre>
+JCCLML_DUMP_CHECKPOINT_BATCH.COM
+JCCLML_DUMP_CHECKPOINT.COM
+JCCLML_LML_DUMP_CHECKPOINT_CON.COM
+JCCLML_DUMP_CHECKPOINT_L15S29_20181129.REF_29NOV124536 (Renamed reference file)
+CPTRDB_POKE_CLEAR_JCCLML_CHECKPT_DIFF.COM
+(List and inspect checkpoint realtime delays in target databases)
+(Chapter 52.11)
+
+JCCLML_LML_CLEANUP_LOGS_DAILY.COM
+(Catchall cleanup in JCCLML only environment)
+</pre>
+
+<p>
+Modified Procedures:
+</p>
+
+<pre>
+CPTRDB_DAILY.COM
+JCCLML_CPTRDB_DAILY.COM (Use CPT$RDB locations)
+(Add JCCLML_DUMP_CHECKPOINT)
+
+CPTRDB_CLEANUP_LOGS_DAILY.COM
+(Add LML_DUMP_CHECKPOINT)
+
+JCCLML_LML_DUMP_CHECKPOINT_OCI.COM
+JCCLML_LML_DUMP_CHECKPOINT_RDB.COM
+(Mark as deprecated)
+
+CPTRDB_SHOW_USERS.COM
+(Correct "No active users")
+
+JCCLML_LML_SHOW_STATS_DAILY.COM
+(Remove compress in create .tmp_ref, loader names < char(11) )
+
+CPTRDB_CONFIGURATION_L15S29_20190118.REF_18JAN163051
+JCCLML_CPTRDB_CONFIGURATION_L15S29_2019.REF_17JAN162359
+(Add JCCLML_DUMP_CHECKPOINT)
+(Renamed toolset configuration and parameter files)
+
+CPTRDB_SHOW_ENTRIES_L15S29_20181207.REF_07DEC120227
+(Renamed CPTRDB_SHOW_ENTRIES reference file)
+</pre>
+
 <a href="#Chapter 1">To Top</a><br>
 
 <a name="Chapter 8"></a>
@@ -1605,7 +1666,7 @@ CPTRDB_SHOW_ENTRIES_L15S29_20181024.REF_24OCT123146
 <p>
 In order to achieve the longterm goal of completely eliminating any
 hardcoded settings and parameters (grouped at the beginning of a procedure)
-a configuration and parameter file is provided (starting may 2014). 
+a configuration and parameter file is provided. 
 
 Along with this change the use of the output directories
 CPT$RDB_[TMP|LOGS|LISTS|DATA|JCCLML_MGR] is being introduced.
@@ -1725,14 +1786,22 @@ Procedures reading the configuration file CPTRDB_CONFIGURATION.REF :
   CPTRDB_STALL_RW_TIMES_ALL.COM
   CPTRDB_STALL_TIMES_ALL.COM
   CPTRDB_START_SQLSRV.COM
+  CPTRDB_STOP_STATS.COM
+  CPTRDB_STOP_STATS_BATCH.COM
+  CPTRDB_SUBMIT_ALL_QUEUE_GEN.COM
+  CPTRDB_SUBMIT_ALL_REF_GEN.COM
   CPTRDB_THINSRV$STARTUP.COM
   CPTRDB_TOOLSET_START_GEN.COM
   CPTRDB_TOOLSET_STOP_GEN.COM
   CPTRDB_TRNC_SNAPS_ALL.COM
   CPTRDB_TRNC_SNAPS_STOP.COM
 
+  JCCLML_DUMP_CHECKPOINT.COM
+  JCCLML_DUMP_CHECKPOINT_BATCH.COM
   JCCLML_JCC_RUN_CTL_ALL.COM
   JCCLML_JCC_RUN_DTL_ALL.COM
+  JCCLML_LML_CLEANUP_LOGS_DAILY.COM
+  JCCLML_LML_DUMP_CHECKPOINT_CON.COM
   JCCLML_LML_REOPEN_LOGS_ALL.COM
   JCCLML_LML_SHOW_AERCP_CONT.COM
   JCCLML_LML_SHOW_HEARTBEAT_CONT.COM
@@ -1766,6 +1835,7 @@ CPTRDB_SHOW_JDBC_PROCESS.REF<br>
 CPTRDB_SHOW_SQLSRV.REF<br>
 CPTRDB_SHOW_STATS.REF<br><br>
 
+JCCLML_DUMP_CHECKPOINT.REF<br>
 JCCLML_SHOW_AERCP.REF<br>
 JCCLML_SHOW_HEARTBEAT.REF<br>
 JCCLML_SHOW_PROCESS.REF<br>
@@ -1783,13 +1853,14 @@ check and monitoring procedures. On each run, an extract of the actual output
 data is compared to the reference file. If a mismatch is detected, a mail 
 and CockpitMgr event message are sent. This double notification across the
 toolset, also for procedures where no reference file is involved, should assure
-that no exception conditions are overlooked. 
+that no exception conditions are overlooked.
 
 The reference files can easily be constructed from the output of the interactive
 variant of a procedure, or from the very first run results.
 
 The .TMP_REF files in CPT$RDB_LISTS: created by the CPTRDB*_DAILY or 
-JCCLML*_CONT jobs contain the actual most recent (un)valid built reference file.
+JCCLML*_CON[T] jobs contain the actual most recent (un)valid built reference 
+file.
 
 To test an exception condition and force a CockpitMgr event and notification
 mail, add a junk textline to the reference file and rerun the procedure. 
@@ -1926,6 +1997,9 @@ Event names and their event text generated by the Oracle Rdb Toolset:<br>
   CPTRDB_JCCLML_AercpDiff
   "CPTRDB - JCCLML Aercp Diff {node} - ddmmmhhmmss"
 
+  CPTRDB_JCCLML_CheckpointDiff
+  "CPTRDB - JCCLML Checkpoint Diff {node} - ddmmmhhmmss"
+
   CPTRDB_JCCLML_HeartbeatDiff
   "CPTRDB - JCCLML Heartbeat Diff {node} - ddmmmhhmmss"
 
@@ -1991,6 +2065,7 @@ Mail subjects issued by the Oracle Rdb Toolset:<br>
   "CPTRDB - Deadlock Cnts Exceeded {dbid} {nodeid} yyyymmdd"
   "CPTRDB - Extents Found {nodeid} yyyymmdd"
   "CPTRDB - JCCLML AERCP Diff {nodeid} yyyymmdd"
+  "CPTRDB - JCCLML Checkpoint Diff {nodeid} yyyymmdd"
   "CPTRDB - JCCLML Heartbeat Diff {nodeid} yyyymmdd"
   "CPTRDB - JCCLML Process Diff {nodeid} yyyymmdd"
   "CPTRDB - JCCLML Stats Diff {nodeid} yyyymmdd"
@@ -2038,6 +2113,7 @@ Toolset procedures using POKE/AGENT:<br>
   CPTRDB_POKE_CLEAR_DDLCK_CNTS_EXCEEDED.COM
   CPTRDB_POKE_CLEAR_EXTENTS_FOUND.COM
   CPTRDB_POKE_CLEAR_JCCLML_AERCP_DIFF.COM
+  CPTRDB_POKE_CLEAR_JCCLML_CHECKPT_DIFF.COM
   CPTRDB_POKE_CLEAR_JCCLML_HEARTBEAT_DIFF.COM
   CPTRDB_POKE_CLEAR_JCCLML_PROCESS_DIFF.COM
   CPTRDB_POKE_CLEAR_JCCLML_STATS_DIFF.COM
@@ -2063,10 +2139,10 @@ Toolset procedures using POKE/AGENT:<br>
   CPTRDB_SHOW_BUGCHECK_DAILY.COM
   CPTRDB_SHOW_DBS_OPEN_DAILY.COM
   CPTRDB_SHOW_DB_BCK_DAILY.COM
+  CPTRDB_SHOW_ENTRIES_DAILY.COM
   CPTRDB_SHOW_EXTENTS_DAILY.COM
   CPTRDB_SHOW_JDBC_LOGS_DAILY.COM
   CPTRDB_SHOW_JDBC_PROCESS_DAILY.COM
-  CPTRDB_SHOW_ENTRIES_DAILY.COM
   CPTRDB_SHOW_SQLSRV_DAILY.COM
   CPTRDB_SHOW_STATS_DAILY.COM
   CPTRDB_SRVTRC_CLIENTS_73202.COM
@@ -2076,6 +2152,7 @@ Toolset procedures using POKE/AGENT:<br>
   CPTRDB_STALL_RW_TIMES.COM
   CPTRDB_STALL_TIMES.COM
   CPTRDB_TRNC_SNAPS_STOP.COM
+  JCCLML_LML_DUMP_CHECKPOINT_CON.COM
   JCCLML_LML_SHOW_AERCP_CONT.COM
   JCCLML_LML_SHOW_HEARTBEAT_CONT.COM
   JCCLML_LML_SHOW_PROCESS_DAILY.COM
@@ -2107,6 +2184,7 @@ CPTRDB_POKE_CLEAR_DB_RESTORE_STARTED.COM<br>
 CPTRDB_POKE_CLEAR_DDLCK_CNTS_EXCEEDED.COM<br>
 CPTRDB_POKE_CLEAR_EXTENTS_FOUND.COM<br>
 CPTRDB_POKE_CLEAR_JCCLML_AERCP_DIFF.COM<br>
+CPTRDB_POKE_CLEAR_JCCLML_CHECKPT_DIFF.COM<br>
 CPTRDB_POKE_CLEAR_JCCLML_HEARTBEAT_DIFF.COM<br>
 CPTRDB_POKE_CLEAR_JCCLML_PROCESS_DIFF.COM<br>
 CPTRDB_POKE_CLEAR_JCCLML_STATS_DIFF.COM<br>
@@ -2135,7 +2213,7 @@ Procedures Usage
   by the toolset. The event text contains a timestamp ddmmmhhmmss to
   be able to determine if an event is initial or repeating, by
   comparing the event date and time to the text timestamp. 
-  The clear has to be executed on the same node that raised the event.
+  The clear has to be executed on the same node that raised the event.<br>
 
   As of V7.8-040 of CockpitMgr for OpenVMS, all events of a specific class
   on a single node can be cleared using
@@ -2258,6 +2336,24 @@ CPT$RDB_LISTS
 CPT$RDB_DATA
 CPT$RDB_CHANGES
 CPT$RDB_BATCH_{node}
+</pre>
+
+<p>
+All procedures are handling a double indirection for the directory locations,
+using DCL symbols and logicals, grouped in a parameter block as below, upfront
+the procedure code. Default the CPT$RDB* logicals are being used. In this way
+the active directories can be easily modified and adapted to the current
+runtime environment.
+</p>
+
+<pre>
+$!-------------------------
+$ defdir = "CPT$RDB:"
+$ tmpdir = "CPT$RDB_TMP:"
+$ logdir = "CPT$RDB_LOGS:"
+$ outdir = "CPT$RDB_LISTS:"
+$ datdir = "CPT$RDB_DATA:"
+$!-------------------------
 </pre>
 
 <p>
@@ -2560,6 +2656,8 @@ CPTRDB_SHOW_INDICES.COM
 CPTRDB_SHOW_AREAS_IDS.COM
 CPTRDB_SHOW_USERS.COM
 CPTRDB_SHOW_TSN_BLKS.COM
+CPTRDB_SHOW_AIJ_LIVE_ONE.COM
+CPTRDB_SHOW_AIJ_LIVE_DUMP.COM
 
 CPTRDB_SHOW_ONE_HASH_INDEX.COM
 CPTRDB_SHOW_ONE_INDEX_SET.COM
@@ -2588,8 +2686,6 @@ CPTRDB_SHOW_DBS_OPEN.REF
 CPTRDB_SHOW_AIJ_LIVE.COM
 CPTRDB_SHOW_AIJ_LIVE_BATCH.COM
 CPTRDB_SHOW_AIJ_LIVE_DAILY.COM
-CPTRDB_SHOW_AIJ_LIVE_DUMP.COM
-CPTRDB_SHOW_AIJ_LIVE_ONE.COM
 
 CPTRDB_BATCH_ENTRIES.COM
 CPTRDB_BATCH_ENTRIES_DAILY.COM
@@ -2660,10 +2756,6 @@ $ EDIT CPTRDB_CONFIGURATION.REF
 </p>
 
 <pre>
-$! -- Not using the configuration file --
-$ @CPTRDB_SHOW_AIJ_LIVE_ONE  {dbid}
-$ @CPTRDB_SHOW_AIJ_LIVE_DUMP {dbid}
-
 $! -- Using the configuration file --
 $ @CPTRDB_SHOW_AIJ_LIVE
 $ @CPTRDB_SHOW_DBS_OPEN
@@ -3475,7 +3567,7 @@ Total of 1 file, 2079 blocks.
   identified in the configuration file CPTRDB_CONFIGURATION.REF by
   the keywords CPT$RDB_NODE|CPTRDB_SHOW_DB_BCK.
 
-  Send CockpitMgr message and mail if differences are found with reference file
+  Send CockpitMgr event and mail if differences are found with reference file
   CPTRDB_SHOW_DB_BCK.REF.
  
   The reschedule node, reschedule time and exception mail address are
@@ -3667,7 +3759,7 @@ CPTRDB_MASTR_L15S29_20171128_2215_10476.AIJ_BCK;1
   identified by the keywords CPT$RDB_NODE|CPTRDB_SHOW_AIJ_BCK. List the AIJ
   backup files grouped by database.<br>
 
-  Send CockpitMgr message and mail if a difference is found with the reference 
+  Send CockpitMgr event and mail if a difference is found with the reference 
   file CPTRDB_SHOW_AIJ_BCK.REF.<br>
 
   The reference file contains one entry per node/directory/database.
@@ -4652,7 +4744,7 @@ AIJ3|AIJ file has been modified|AIJ file block has been assigned|
   configuration file CPTRDB_CONFIGURATION.REF, identified by the keywords
   CPT$RDB_DATABASE|CPTRDB_SHOW_AIJ_LIVE.
 
-  Send CockpitMgr message and mail if exceptions are found, or a emergency
+  Send CockpitMgr event and mail if exceptions are found, or a emergency
   journal exists.
 
   Exceptions are flagged with "*{exception}*" in the output file.
@@ -5616,7 +5708,7 @@ Total of 1 file.
   cluster nodes, listed in the configuration file CPTRDB_CONFIGURATION.REF
   identified by the keywords CPT$RDB_NODE|CPTRDB_SHOW_STATS.
 
-  Send CockpitMgr message and mail if difference found with reference file
+  Send CockpitMgr event and mail if difference found with reference file
   CPTRDB_SHOW_STATS.REF
 
   If a statistics job is missing, this will also be reported by the procedures
@@ -5791,7 +5883,7 @@ Number of open databases: 5
   Daily list open databases on a series of nodes listed in the configuration 
   file, identified by the keywords CPT$RDB_NODE|CPTRDB_SHOW_DBS_OPEN.
 
-  Send CockpitMgr message and mail if difference found with reference file
+  Send CockpitMgr event and mail if difference found with reference file
   CPTRDB_SHOW_DBS_OPEN.REF.
 
   Reschedule node, reschedule time and exception mail address are
@@ -6124,7 +6216,7 @@ From: 108096 To: 12096 Diff: -96000
   confuguration file CPTRDB_CONFIGURATION.REF, identified by the keywords
   CPT$RDB_DATABASE|CPTRDB_SHOW_EXTENTS.
 
-  Send CockpitMgr message and mail if storage areas extents or (snapshot areas)
+  Send CockpitMgr event and mail if storage areas extents or (snapshot areas)
   shrinks found.
 
   The reschedule node, time and execption mail address are retrieved from
@@ -6642,7 +6734,7 @@ $ @CPTRDB_TRNC_SNAPS_GEN_ALL
 <p>
   Weekly trunc the snapshot files for a series of databases.
   Abort and switch to next database if stalled for more than n seconds and send 
-  a CockpitMgr message and mail.
+  a CockpitMgr event and mail.
 
   The list of databases and their individual trunc procedure settings are
   retrieved from the configuration file CPTRDB_CONFIGURATION.REF identified by
@@ -6684,7 +6776,7 @@ CPT$RDB_JOB|CPTRDB_TRNC_SNAPS_ALL|L15S29|TOMORROW +6-03:30|
   Called per database in parallel from CPTRDB_TRNC_SNAPS_ALL.COM.<br>
 
   If the trunc job for a database is still running after n seconds,
-  it is stopped and a CockpitMgr message and mail are sent.
+  it is stopped and a CockpitMgr event and mail are sent.
 </p>
 
 <pre>
@@ -6820,7 +6912,7 @@ Total of 1 file, 1/96 blocks.
   nodes, listed in the configuration file, identified by the keywords
   CPT$RDB_NODE|CPTRDB_SHOW_BUGCHECK.
 
-  Send CockpitMgr message and mail if dump files are found.
+  Send CockpitMgr event and mail if dump files are found.
 
   The reschedule node, time and exception mail address are retrieved from
   the configuration file, identified by the keywords
@@ -7297,7 +7389,7 @@ $!----------------------
   List 'waiting for' messages counts, desc per hour, from the stall logfile(s)
   for a specific database, node, and period.<br>
 
-  Send mail and CockpitMgr message if a counts per hour alarm is exceeded.
+  Send mail and CockpitMgr event if a counts per hour alarm is exceeded.
 </p>
   
 <pre>
@@ -7573,7 +7665,7 @@ W writing
 </pre>
 
 <p>
-  Send mail and CockpitMgr message if a counts per hour alarm is exceeded.
+  Send mail and CockpitMgr event if a counts per hour alarm is exceeded.
 </p>
   
 <pre>
@@ -7825,7 +7917,7 @@ $!----------------------
   List 'waiting for' messages counts, desc per hour, from the deadlock 
   logfile(s) for a specific database, node, and period.
   
-  Send mail and CockpitMgr message if a deadlock counts per hour alarm is exceeded.
+  Send mail and CockpitMgr event if a deadlock counts per hour alarm is exceeded.
 </p>
   
 <pre>
@@ -8039,7 +8131,7 @@ $!----------------------
   List 'waiting for' messages stall times from the stall logfile(s)
   for a specific database, node, and period.
 
-  Send mail and CockpitMgr message if a stall times alarm is exceeded.
+  Send mail and CockpitMgr event if a stall times alarm is exceeded.
 </p>
   
 <pre>
@@ -8286,7 +8378,7 @@ W writing
 </pre>
 
 <p>
-  Send mail and CockpitMgr message if a number of seconds times alarm is exceeded.
+  Send mail and CockpitMgr event if a number of seconds times alarm is exceeded.
 </p>
   
 <pre>
@@ -16276,7 +16368,7 @@ Number of JDBC processes: 5
   in the configuration file CPTRDB_CONFIGURATION.REF, identified by the
   keywords CPT$RDB_NODE|CPTRDB_SHOW_JDBC_PROCESS.
 
-  Send CockpitMgr message and mail if difference found with reference file
+  Send CockpitMgr event and mail if difference found with reference file
   CPTRDB_SHOW_JDBC_PROCESS.REF .
 
   The reschedule node, time and exception mail address are retrieved from
@@ -16533,7 +16625,7 @@ Total of 4 files, 198/384 blocks.
   in the configuration file, identified by the keywords
   CPT$RDB_NODE|CPTRDB_SHOW_JDBC_LOGS.
 
-  Send CockpitMgr message and mail if difference found with reference file
+  Send CockpitMgr event and mail if difference found with reference file
   CPTRDB_SHOW_JDBC_LOGS.REF.
 
   An additional jdbc restart on the previous day will create an extra
@@ -16663,7 +16755,7 @@ CPT$RDB_JOB|CPTRDB_SRVTRC_CLIENTS_ALL|L15S29|TOMORROW + 04:00|
   Parse one daily Rdb JDBC thin server/node trace file level 0x40000400
   for ip address and client info.<br>
 
-  Send a CockpitMgr message and mail if no trace file or no clients are found.<br>
+  Send a CockpitMgr event and mail if no trace file or no clients are found.<br>
 
   The input and output directories are listed in the configuration file
   identified by the keywords CPT$RDB_PARAM|CPTRDB_SRVTRC_CLIENTS_73402
@@ -17418,7 +17510,9 @@ Hello World / DSA25:[CLIO_DB]CLIO_DB.RDB;1
 <b>JCCLML_JCC_RUN_CTL_ALL.COM</b><br><br>
 
 <b>JCCLML_CPTRDB_CONFIGURATION.REF</b><br>
-<b>JCCLML_CPTRDB_DAILY.COM</b><br>
+<b>JCCLML_CPTRDB_DAILY.COM</b><br><br>
+
+<b>JCCLML_LML_CLEANUP_LOGS_DAILY.COM</b><br>
 
 <p>
 This template source files allow to create and run a single tutorial 
@@ -17766,6 +17860,34 @@ Parameters: [P1], {vms_date}
   This procedure is a subset of the general CPTRDB_DAILY.COM
 </p>
 
+<p>
+<b>JCCLML_LML_CLEANUP_LOGS_DAILY.COM</b><br>
+  Catchall cleanup log and output files in a JCC Logminer Loader
+  ONLY environment.
+</p>
+
+<p>
+  Usage:
+</p>
+
+<pre>
+$ @JCCLML_SUBMIT {node} JCCLML_LML_CLEANUP_LOGS_DAILY
+</pre>
+
+<p>
+  The reschedule node and time are retrieved from the configuration file
+  CPTRDB_CONFIGURATION.REF identified by the keywords
+  CPT$RDB_JOB|JCCLML_LML_CLEANUP_LOGS_DAILY
+</p>
+
+<pre>
+CPT$RDB_JOB|JCCLML_LML_CLEANUP_LOGS_DAILY|L15S29|TOMORROW + 08:28|
+! 0 CPT$RDB_JOB
+! 1 JCCLML_LML_CLEANUP_LOGS_DAILY
+! 2 Reschedule node
+! 3 Reschedule time
+</pre>
+
 <a href="#Chapter 1">To Top</a><br>
 
 <a name="Chapter 52"></a>
@@ -17829,6 +17951,11 @@ Parameters: [P1], {vms_date}
 -- Dump target checkpoints --<br>
 <b>JCCLML_LML_DUMP_CHECKPOINT_RDB.COM</b><br>
 <b>JCCLML_LML_DUMP_CHECKPOINT_OCI.COM</b><br><br>
+
+<b>JCCLML_DUMP_CHECKPOINT_BATCH.COM</b> (Called from)<br>
+<b>JCCLML_DUMP_CHECKPOINT.COM</b><br>
+<b>JCCLML_LML_DUMP_CHECKPOINT_CON.COM</b><br>
+<b>JCCLML_DUMP_CHECKPOINT.REF</b> (Reference file)<br><br>
 
 -- How to exclude deletes from replication --<br>
 
@@ -18400,7 +18527,7 @@ JCCLML_SHOW_PROCESS.REF
   cluster nodes, identified in the configuration file CPTRDB_CONFIGURATION.REF
   by the keywords CPT$RDB_NODE|JCCLML_SHOW_PROCESS.
 
-  Send a CockpitMgr message and mail if a difference is found with the reference 
+  Send a CockpitMgr event and mail if a difference is found with the reference 
   file JCCLML_SHOW_PROCESS.REF.
 
   The reschedule node, time and exception mail address are retrieved from the 
@@ -18538,7 +18665,7 @@ Total of 8 files, 9158/11232 blocks.
   series of cluster nodes, identified in the configuration file 
   CPTRDB_CONFIGURATION.REF by the keywords CPT$RDB_NODE|JCCLML_SHOW_STATS.
 
-  Send a CockpitMgr message and mail if a difference is found with the reference 
+  Send a CockpitMgr event and mail if a difference is found with the reference 
   file JCCLML_SHOW_STATS.REF.
 
   The reschedule node, time and exception mail address are retrieved from the 
@@ -18678,7 +18805,7 @@ Total number of loader sessions 8
   CPTRDB_CONFIGURATION.REF identified by the keywords 
   CPT$RDB_NODE|JCCLML_SHOW_HEARTBEAT.<br>
 
-  Send CockpitMgr message and mail if difference found with reference file
+  Send CockpitMgr event and mail if difference found with reference file
   CPT$RDB:JCCLML_SHOW_HEARTBEAT.REF.<br>
 
   The purpose of this procedure is to track the presence and normal progress
@@ -18913,7 +19040,7 @@ PTNSLS1303A|7-MAR-2018 15:05:56.23|   0 00:02:28.98|OK    |1-28-18194-18-5690292
   Default, the output files *.log / *.lis / *.diff are cleaned after 4 hours,
   *.mime files after 7 days.<br>
 
-  Send CockpitMgr message and mail if difference found with reference file
+  Send CockpitMgr event and mail if difference found with reference file
   CPT$RDB:JCCLML_SHOW_AERCP.REF<br>
 
   The reschedule node, time and exception mail address are retrieved from
@@ -19046,9 +19173,28 @@ $ @JCCLML_CVT_ODBKEY 18295873505984512
 <p>
 <b>JCCLML_LML_DUMP_CHECKPOINT_RDB.COM</b><br>
   Dump the JCC Logminer Loader checkpoint information
-  for one hardcoded Rdb target loader session.
+  for one hardcoded Rdb target loader session.<br>
   To be submitted in batch.
 </p>
+
+<p>
+  *This procedure is deprecated*<br>
+  *The use of JCCLML_DUMP_CHECKPOINT.COM is recommended*
+</p>
+
+<p>
+  Parameters: Adapt the parameter block and loader version.
+</p>
+
+<pre>
+$!--------------------------
+$ loaderid   = "CPTRDB_LML"
+$ dbid       = "CPTRDB_DB_2"
+$ chkpt_type = "RDB"
+$!--------------------------
+...
+$ @jcc_tool_com:jcc_lml_user s
+</pre>
 
   Usage:<br>
 
@@ -19078,9 +19224,35 @@ Last Transaction:
 <p>
 <b>JCCLML_LML_DUMP_CHECKPOINT_OCI.COM</b><br>
   Dump the JCC Logminer Loader checkpoint information
-  for one OCI target loader session.
+  for one OCI target loader session.<br>
   To be submitted in batch.
 </p>
+
+<p>
+  *This procedure is deprecated*<br>
+  *The use of JCCLML_DUMP_CHECKPOINT.COM is recommended*
+</p>
+
+<p>
+  Parameters: Adapt the parameter block, loader/client versions and
+              username/password.
+</p>
+
+<pre>
+$!--------------------------
+$ loaderid   = "PTNOVASBNP"
+$ dbid       = "O663D00P"
+$ chkpt_type = "OCI"
+$!--------------------------
+...
+$ @jcc_tool_com:jcc_lml_user s
+$ @jcc_tool_com:JCC_LML_oracle_USER 10.2 DISK$DATA_38:[ORACLE10202]orauser.com
+...
+$ jcc_lml_dump_checkpoint 'loaderid' 'dbid' 'chkpt_type'
+{username}
+{password}
+$!
+</pre>
 
   Usage:<br>
 
@@ -19109,6 +19281,287 @@ Last Transaction:
         LSN:         8910158
         AERCP:       1-28-27024-17387-697533486-697533486
         RM TID:
+</pre>
+
+<p>
+<b>JCCLML_DUMP_CHECKPOINT_BATCH.COM</b><br>
+  Called from<br> 
+  JCCLML_DUMP_CHECKPOINT.COM<br>
+  JCCLML_LML_DUMP_CHECKPOINT_CON.COM
+</p>
+
+<p>
+  Dump the JCC Logminer Loader checkpoint information for one loader session,
+  from the target database LOGMINER_HIGHWATER table.<br>
+  Compute and list the realtime delay of the "Write Timestamp:".
+</p>
+  
+<pre>
+[Internal
+Parameters: P1, loaderid,    char(11)
+            P2, dbid,        varchar(255)
+            P3, chkpt_type,  char(3), [OCI|RDB]
+            P4, username,    varchar(255)
+            P5, password,    varchar(255)
+            P6, output file, <tmpdir>lml_dump_checkpoint.tmp_<filecnt>]
+</pre>
+
+<p>
+  The runtime parameters are retrieved from the configuration file 
+  CPTRDB_CONFIGURATION.REF, identified by the keywords
+  CPT$RDB_PARAM|JCCLML_DUMP_CHECKPOINT_BATCH 
+</p>
+
+<pre>
+CPT$RDB_PARAM|JCCLML_DUMP_CHECKPOINT_BATCH|0-00:05:00.00|-2:00:00|
+!
+! 0 CPT$RDB_PARAM
+! 1 JCCLML_DUMP_CHECKPOINT_BATCH
+! 2 Warning delta time
+! 3 Continuous dump checkpoint 'clean before' delay
+</pre>
+
+<p>
+  Adapt the parameter block for the loader and client versions.
+</p>
+
+<pre>
+$! -- Set loader and Oracle Database client versions
+$!---------------------------------------------------------------------------------------------
+$ @disk$data_24:[jcclml351.com]jcc_lml_user s
+$!$ @disk$data_24:[jcclml351.com]JCC_LML_oracle_USER 10.2 DISK$DATA_24:[ORACLE10202]orauser.com
+$!---------------------------------------------------------------------------------------------
+</pre>
+
+<p>
+<b>JCCLML_DUMP_CHECKPOINT.COM</b><br>
+  Calls JCCLML_DUMP_CHECKPOINT_BATCH.COM
+</p>
+
+<p>
+  Interactive dump the checkpoints from the target LOGMINER_HIGHWATER table,
+  for a series of JCC Logminer Loader sessions listed in the configuration
+  file CPTRDB_CONFIGURATION.REF, identified by the keywords
+  CPT$RDB_DATABASE|JCCLML_DUMP_CHECKPOINT.<br>
+  Compute and list the realtime delays of the "Write Timestamp:"'s.
+</p>
+
+<pre>
+!! CPT$RDB_DATABASE|JCCLML_DUMP_CHECKPOINT|PTNOVASBNP|O663D00P|OCI|A663|SECRET|L15S59|
+CPT$RDB_DATABASE|JCCLML_DUMP_CHECKPOINT|CPTRDB_LML|CPTRDB_DB_2|RDB|DUMMY|DUMMY|L15S29|
+!
+! 0 CPT$RDB_DATABASE
+! 1 JCCLML_DUMP_CHECKPOINT
+! 2 Loader name
+! 3 Database
+! 4 Checkpoint type
+! 5 Username
+! 6 Password
+! 7 Execution node
+</pre>
+
+<p>
+   Usage:
+</p>
+
+<pre>
+$ @JCCLML_DUMP_CHECKPOINT
+</pre>
+
+<p>
+   Output sample:
+</p>
+
+<pre>
+$ @jcclml_dump_checkpoint
+--  8-JAN-2019 15:17:06.15 Handle Loader ACC_L90S05A --
+...
+Delay Warning: 0-00:05:00.00
+Delay|ACC_L90S05A|8-JAN-2019 15:16:25.59|   0 00:00:41.03|OK
+Delay|ACC_L95S02A|8-JAN-2019 15:16:29.09|   0 00:00:38.02|OK
+Delay|ACC_L95S04A|8-JAN-2019 15:13:44.59|   0 00:03:23.02|OK
+Delay|ACC_L95S05A|8-JAN-2019 15:16:39.07|   0 00:00:29.03|OK
+Delay|AGGREGSBNA |8-JAN-2019 15:16:49.55|   0 00:00:19.03|OK
+Delay|PTNOVASBNA |8-JAN-2019 15:16:49.02|   0 00:00:20.04|OK
+Delay|PTNSLS1302A|8-JAN-2019 15:14:36.47|   0 00:02:33.03|OK
+Delay|PTNSLS1303A|8-JAN-2019 15:15:09.92|   0 00:02:00.03|OK
+At                 8-JAN-2019 15:17:10.02
+Output LML_DUMP_CHECKPOINT_L95S08_20190108.LIS_08JAN151706
+$
+
+CPTRDB - JCC Logminer Loader Checkpoint Dumps
+From Node L95S08
+At  8-JAN-2019 15:17:06.14
+ 
+Delay Warning: 0-00:05:00.00
+ 
+-- 1 --
+--------------------------
+On Node L95S08
+At  8-JAN-2019 15:17:06.34
+Loader: ACC_L90S05A
+--------------------------
+
+JCC LML Dump Checkpoint V03.05.01 (built  6-FEB-2018 16:00:57.71)
+
+username: 
+password: Connected to ORACLE(NOICTR1A) as user A304.
+
+ -- Checkpoint restart information --
+
+Write Timestamp:      8-JAN-2019 15:16:25.59
+LoaderName:          ACC_L90S05A
+Completion Flag:     N
+Checkpoint Interval: 1
+Input Data Source:   LML_CONT_ACC_L90S05A
+Last Transaction:
+        Start Time:   8-JAN-2019 15:16:25.40
+        Commit Time:  8-JAN-2019 15:16:25.40
+        TSN:         11086369
+        LSN:         22755
+        AERCP:       1-28-35069-22-11086369-11086369
+        RM TID:      
+
+Delay|ACC_L90S05A|8-JAN-2019 15:16:25.59|   0 00:00:41.03|OK
+At|               8-JAN-2019 15:17:06.62
+ 
+-- 2 --
+--------------------------
+On Node L95S08
+At  8-JAN-2019 15:17:06.86
+Loader: ACC_L95S02A
+--------------------------
+
+JCC LML Dump Checkpoint V03.05.01 (built  6-FEB-2018 16:00:57.71)
+
+username: 
+password: Connected to ORACLE(NOICTR1A) as user A304.
+
+ -- Checkpoint restart information --
+
+Write Timestamp:      8-JAN-2019 15:16:29.09
+LoaderName:          ACC_L95S02A
+Completion Flag:     N
+Checkpoint Interval: 1
+Input Data Source:   LML_CONT_ACC_L95S02A
+Last Transaction:
+        Start Time:   8-JAN-2019 15:16:29.55
+        Commit Time:  8-JAN-2019 15:16:29.55
+        TSN:         10926347
+        LSN:         37595
+        AERCP:       1-28-34777-19-10926347-10926347
+        RM TID:      
+
+Delay|ACC_L95S02A|8-JAN-2019 15:16:29.09|   0 00:00:38.02|OK
+At|               8-JAN-2019 15:17:07.11
+ 
+-- 3 --
+--------------------------
+On Node L95S08
+At  8-JAN-2019 15:17:07.31
+Loader: ACC_L95S04A
+--------------------------
+
+JCC LML Dump Checkpoint V03.05.01 (built  6-FEB-2018 16:00:57.71)
+
+username: 
+password: Connected to ORACLE(NOICTR1A) as user A304.
+
+ -- Checkpoint restart information --
+
+Write Timestamp:      8-JAN-2019 15:13:44.59
+LoaderName:          ACC_L95S04A
+Completion Flag:     N
+Checkpoint Interval: 1
+Input Data Source:   LML_CONT_ACC_L95S04A
+Last Transaction:
+        Start Time:   8-JAN-2019 15:13:44.21
+        Commit Time:  8-JAN-2019 15:13:44.21
+        TSN:         26179103
+        LSN:         0
+        AERCP:       1-28-36457-16-26179103-26179103
+        RM TID:      
+
+Delay|ACC_L95S04A|8-JAN-2019 15:13:44.59|   0 00:03:23.02|OK
+At|               8-JAN-2019 15:17:07.61
+... 
+</pre> 
+
+<p>
+<b>JCCLML_LML_DUMP_CHECKPOINT_CON.COM</b><br>
+  Calls<br> 
+  JCCLML_DUMP_CHECKPOINT_BATCH.COM<br>
+  JCCLML_DUMP_CHECKPOINT.REF (Reference file)
+</p>
+
+<p>
+  Dump the checkpoints from the target database LOGMINER_HIGHWATER table,
+  for a series of JCC Logminer Loader sessions listed in the configuration
+  file CPTRDB_CONFIGURATION.REF, identified by the keywords
+  CPT$RDB_DATABASE|JCCLML_DUMP_CHECKPOINT, in a continuous way every n minutes.
+</p>
+  
+<p>
+  Send a CockpitMgr event and mail if a "Write Timestamp:" realtime delay
+  limit is exceeded for one or more loader sessions or if a difference is
+  found with the reference file JCCLML_DUMP_CHECKPOINT.REF
+</p>
+
+<p>
+  Toolset CockpitMgr event:
+</p>
+
+<pre>
+CPTRDB_JCCLML_CheckpointDiff
+"CPTRDB - JCCLML Checkpoint Diff {node} - ddmmmhhmmss"
+</pre>
+
+<p>
+  Mail subject:
+</p>
+
+<pre>
+"CPTRDB - JCCLML Checkpoint Diff {node} yyyymmdd"
+</pre>
+
+<p>
+  The reschedule node, time and exception mail address are retrieved from the
+  configuration file CPTRDB_CONFIGURATION.REF, identified by the keywords
+  CPT$RDB_JOB|JCCLML_LML_DUMP_CHECKPOINT_CON
+</p>
+
+<pre>
+CPT$RDB_JOB|JCCLML_LML_DUMP_CHECKPOINT_CON|L15S29|+00:30|L15S36::ALLEMEERSCH|
+!
+! 0 CPT$RDB_JOB
+! 1 JCCLML_LML_DUMP_CHECKPOINT_CON
+! 2 Reschedule node
+! 3 Reschedule time
+! 4 Exception mail address
+</pre>
+
+<p>
+  The loader names in the [OK|*DELAYED*] lines in the reference file
+  JCCLML_DUMP_CHECKPOINT.REF and temporary reference file
+  LML_DUMP_CHECKPOINT_CON.TMP_REF are aligned as char(11).
+</p>
+
+<pre>
+On Node L15S29
+Loader: CPTRDB_LML
+CPTRDB_LML |OK
+----
+12345678901
+----
+On Node L15S59
+Loader: DOLICLIOD
+DOLICLIOD  |OK
+On Node L15S59
+Loader: DOLISSPD
+DOLISSPD   |OK
+On Node L15S59
+Loader: PTNOVASBNP
+PTNOVASBNP |OK
 </pre>
 
 <a href="#Chapter 1">To Top</a><br>
@@ -20199,7 +20652,7 @@ CPT$RDB_NODE|CPTRDB_SHOW_SQLSRV_DAILY|L15S29|73|
   The output file is identical to the results of the procedure
   CPTRDB_SHOW_SQLSRV_SUMMARY.COM.
 
-  Send a CockpitMgr message and mail if a difference is found with reference file
+  Send a CockpitMgr event and mail if a difference is found with reference file
   CPTRDB_SHOW_SQLSRV.REF.
 
   The reschedule node/time and the exception mail address are retrieved
@@ -22628,6 +23081,48 @@ set cr_wait/width=10
 $ @CPTRDB_SHOW_CLUSTER_CR_WAIT
 </pre>
 
+Output sample:<br>
+
+<pre>
+View of Cluster from system ID 12934  node: L15S50          10-JAN-2019 11:39:54
++-----------------------+---------+------------------+----------+
+|        SYSTEMS        | MEMBERS |    CONNECTIONS   | COUNTERS |
++--------+--------------+---------+------------------+----------+
+|  NODE  |   SOFTWARE   |  STATUS |   LOC_PROC_NAME  | CR_WAITS |
++--------+--------------+---------+------------------+----------+
+| L15S50 | VMS V8.4     | MEMBER  | SCS$DIRECTORY    |          |
+|        |              |         | MSCP$TAPE        |          |
+|        |              |         | MSCP$DISK        |          |
+|        |              |         | VMS$SDA_AXP      |          |
+|        |              |         | VMS$VAXcluster   |          |
+|        |              |         | SCA$TRANSPORT    |          |
+| L15S53 | VMS V8.4     | MEMBER  | VMS$DISK_CL_DRVR |        0 |
+|        |              |         | MSCP$DISK        |        0 |
+|        |              |         | VMS$VAXcluster   |    11029 |
+|        |              |         | SCA$TRANSPORT    |        7 |
+| L15S52 | VMS V8.4     | MEMBER  | MSCP$DISK        |        0 |
+|        |              |         | VMS$DISK_CL_DRVR |        0 |
+|        |              |         | SCA$TRANSPORT    |        5 |
+|        |              |         | VMS$VAXcluster   |     1262 |
+| L15S59 | VMS V8.4     | MEMBER  | SCA$TRANSPORT    |     4753 |
+|        |              |         | VMS$DISK_CL_DRVR |        0 |
+|        |              |         | MSCP$DISK        |       36 |
+|        |              |         | VMS$VAXcluster   |    63184 |
+| L15S58 | VMS V8.4     | MEMBER  | SCA$TRANSPORT    |       57 |
+|        |              |         | VMS$DISK_CL_DRVR |        0 |
+|        |              |         | MSCP$DISK        |        0 |
+|        |              |         | VMS$VAXcluster   |    20178 |
+| L15S51 | VMS V8.4     | MEMBER  | SCA$TRANSPORT    |       85 |
+|        |              |         | VMS$DISK_CL_DRVR |        0 |
+|        |              |         | MSCP$DISK        |        0 |
+|        |              |         | VMS$VAXcluster   |    60779 |
+| L15S54 | VMS V8.4     | MEMBER  | SCA$TRANSPORT    |        0 |
+|        |              |         | VMS$DISK_CL_DRVR |        0 |
+|        |              |         | MSCP$DISK        |        0 |
+|        |              |         | VMS$VAXcluster   |        0 |
++--------+--------------+---------+------------------+----------+
+</pre>
+
 <p>
 <b>CPTRDB_X11_KEEP_ALIVE_BATCH.COM</b><br>
   Called from CPTRDB_X11_KEEP_ALIVE[_ALL].COM
@@ -23050,8 +23545,8 @@ SHOW_SQLSRV_DAILY_L15S29_20150407.LOG_07APR080000
 
 SHOW_STATS_DAILY_L15S29_20150407.LOG_07APR080000
 
-SHOW_STAT_DATA_CPTRDB_1_L15S29_20150407.LOG_07APR
-SHOW_STAT_LOGS_CPTRDB_1_L15S29_20150407.LOG_07APR
+SHOW_STAT_DATA_CPTRDB_1_L15S29_20190115.LOG_15JAN000200;1
+SHOW_STAT_LOGS_CPTRDB_1_L15S29_20190115.LOG_15JAN000200;1
 
 SRVTRC_CLIENTS_ALL_L15S29_20160922.LOG_22SEP040000
 SRVTRC_CLIENTS_TS1702_L15S28_20160921.LOG_22SEP040000
@@ -23080,6 +23575,12 @@ STALL_TIMES_CPTRDB_DB_1_L15S29_20150406.LOG_07APR050000
 
 <pre>
 BATCH_ENTRIES_DAILY_L15S29_20150407.LIS_07APR081501
+
+LML_DUMP_CHECKPOINT_CON.DIFF;2261
+LML_DUMP_CHECKPOINT_CON.TMP_REF;2261
+LML_DUMP_CHECKPOINT_CON_L15S29_20190115.LIS_15JAN132542;1
+LML_DUMP_CHECKPOINT_CON_L15S29_20190115.LIS_15JAN135543;1
+...
 
 LML_SHOW_AERCP_CONT.DIFF
 LML_SHOW_AERCP_CONT.TMP_REF
@@ -23191,7 +23692,7 @@ STALL_TIMES_CPTRDB_DB_1_L15S29_20150406.LIS_07APR050000
 
 <pre>
 CPTRDB_DB_1.SIZE
-CPTRDB_DB_1_20150407.DIFF_07APR080003
+CPTRDB_DB_1_L15S29_20190115.DIFF_15JAN080002
 </pre>
 
 -- In DISK$USERS:[ORACLE.RDB$PROCS] Daily --
@@ -23270,6 +23771,10 @@ JCC_RUN_LML-CPTRDB_LML_L15S29_20150406.LOG_06APR000202
 -- In CPT$RDB_JCCLML_MGR Daily --
 
 <pre>
+LML_DUMP_CHECKPOINT_CON_L15S29_20190115.LOG_15JAN132542;1
+LML_DUMP_CHECKPOINT_CON_L15S29_20190115.LOG_15JAN135543;1
+...
+
 LML_REOPEN_CPTRDB_LML_L15S29_20150407.LOG_07APR000201
 LML_REOPEN_LOGS_ALL_L15S29_20150407.LOG_07APR000200
 
